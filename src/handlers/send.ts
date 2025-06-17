@@ -28,18 +28,14 @@ export const handleSendMessage: MessageHandler = (message: Message) => {
   };
 
   const balanceChanges: Partial<BalanceChanges> = {
-    ft: {
-      [from_address]: produce<FTChange>({}, (draft) => {
-        amount.forEach((coin) => {
-          draft[coin.denom] = `-${coin.amount}`;
-        });
-      }),
-      [to_address]: produce<FTChange>({}, (draft) => {
-        amount.forEach((coin) => {
-          draft[coin.denom] = coin.amount;
-        });
-      }),
-    },
+    ft: produce<BalanceChanges["ft"]>({}, (draft) => {
+      amount.forEach(({ amount: amt, denom }) => {
+        draft[from_address] ??= {};
+        draft[to_address] ??= {};
+        draft[from_address][denom] = `-${amt}`;
+        draft[to_address][denom] = amt;
+      });
+    }),
   };
 
   return { balanceChanges, decodedMessage };
