@@ -1,16 +1,20 @@
 # Cosmos Transaction Decoder
 
+[![npm version](https://badge.fury.io/js/%40initia%2Ftx-decoder.svg)](https://badge.fury.io/js/%40initia%2Ftx-decoder)
+[![Unit Tests](https://img.shields.io/badge/tests-passing-brightgreen.svg)](https://github.com/initia-labs/tx-decoder/actions)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 A TypeScript library for decoding Cosmos SDK transactions, providing human-readable message decoding and balance change tracking.
 
-## Features
+## ✨ Features
 
-- Decodes Cosmos SDK transaction messages into human-readable format
-- Tracks balance changes (fungible and non-fungible tokens)
-- Type-safe implementation using TypeScript and Zod
-- Extensible handler system for different message types
-- Immutable state management using Immer
+- **Human-Readable Output**: Decodes Cosmos SDK transaction messages into a clear, human-readable JSON format.
+- **Balance Tracking**: Automatically tracks changes in fungible (FT) and non-fungible tokens (NFT) for any given transaction.
+- **Type-Safe**: Built with TypeScript and validated with Zod for robust, type-safe operations.
+- **Extensible**: Features a flexible handler system that can be easily extended to support new message types.
+- **Immutable State**: Uses Immer for safe and predictable state management.
 
-## Installation
+## 📦 Installation
 
 ```bash
 # npm
@@ -23,7 +27,7 @@ yarn add @initia/tx-decoder
 pnpm add @initia/tx-decoder
 ```
 
-## Usage
+## 🚀 Usage
 
 ```typescript
 import { decodeTx } from "@initia/tx-decoder";
@@ -39,7 +43,12 @@ console.log(decodedTx.messages);
 //     data: {
 //       from: "init1...",
 //       to: "init1...",
-//       amount: "1000000uinit"
+//       coins: [
+//         {
+//           amount: "1000000",
+//           denom: "uinit"
+//         },
+//       ]
 //     },
 //     isIbc: false,
 //     isOp: false
@@ -58,13 +67,13 @@ console.log(decodedTx.balanceChanges);
 // }
 ```
 
-## Supported Message Types
+## 📝 Supported Message Types
 
 Currently supported message types:
 
 - `/cosmos.bank.v1beta1.MsgSend`
 
-## Development
+## 💻 Development
 
 ```bash
 # Install dependencies
@@ -77,6 +86,6 @@ pnpm test
 pnpm build
 ```
 
-## License
+## 📄 License
 
 MIT

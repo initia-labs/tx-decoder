@@ -1,4 +1,9 @@
-import { BalanceChanges, DecodedMessage, MessageHandler } from "../interfaces";
+import {
+  BalanceChanges,
+  DecodedMessage,
+  FTChange,
+  MessageHandler,
+} from "../interfaces";
 import { Message, zMsgSend } from "../schema";
 
 export const handleSendMessage: MessageHandler = (message: Message) => {
@@ -8,13 +13,11 @@ export const handleSendMessage: MessageHandler = (message: Message) => {
   }
 
   const { amount, from_address, to_address } = parsed.data;
-  const sentAmount = amount[0];
 
   const decodedMessage: DecodedMessage = {
     action: "send",
     data: {
-      amount: sentAmount.amount,
-      denom: sentAmount.denom,
+      coins: amount,
       from: from_address,
       to: to_address,
     },
@@ -24,8 +27,14 @@ export const handleSendMessage: MessageHandler = (message: Message) => {
 
   const balanceChanges: Partial<BalanceChanges> = {
     ft: {
-      [from_address]: { [sentAmount.denom]: `-${sentAmount.amount}` },
-      [to_address]: { [sentAmount.denom]: sentAmount.amount },
+      [from_address]: amount.reduce<FTChange>((acc, coin) => {
+        acc[coin.denom] = `-${coin.amount}`;
+        return acc;
+      }, {}),
+      [to_address]: amount.reduce<FTChange>((acc, coin) => {
+        acc[coin.denom] = coin.amount;
+        return acc;
+      }, {}),
     },
   };
 
