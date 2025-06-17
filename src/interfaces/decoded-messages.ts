@@ -11,8 +11,10 @@ export type DecodedMessage =
 interface DecodedSendMessage extends DecodedMessageBase {
   action: "send";
   data: {
-    amount: string;
-    denom: string;
+    coins: {
+      amount: string;
+      denom: string;
+    }[];
     from: string;
     to: string;
   };
