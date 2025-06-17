@@ -1,3 +1,5 @@
+import { produce } from "immer";
+
 import {
   BalanceChanges,
   DecodedMessage,
@@ -27,14 +29,16 @@ export const handleSendMessage: MessageHandler = (message: Message) => {
 
   const balanceChanges: Partial<BalanceChanges> = {
     ft: {
-      [from_address]: amount.reduce<FTChange>((acc, coin) => {
-        acc[coin.denom] = `-${coin.amount}`;
-        return acc;
-      }, {}),
-      [to_address]: amount.reduce<FTChange>((acc, coin) => {
-        acc[coin.denom] = coin.amount;
-        return acc;
-      }, {}),
+      [from_address]: produce<FTChange>({}, (draft) => {
+        amount.forEach((coin) => {
+          draft[coin.denom] = `-${coin.amount}`;
+        });
+      }),
+      [to_address]: produce<FTChange>({}, (draft) => {
+        amount.forEach((coin) => {
+          draft[coin.denom] = coin.amount;
+        });
+      }),
     },
   };
 
