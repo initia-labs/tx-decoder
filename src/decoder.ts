@@ -2,9 +2,9 @@ import { produce } from "immer";
 
 import * as Handlers from "./handlers";
 import { DecodedTx, MessageHandler } from "./interfaces";
-import { SUPPORTED_MESSAGE_TYPES } from "./messageTypes";
+import { SUPPORTED_MESSAGE_TYPES } from "./message-types";
 import { TxResponse } from "./schema";
-import { mergeBalanceChanges } from "./utils/mergeBalances";
+import { mergeBalanceChanges } from "./utils";
 
 const KNOWN_HANDLERS: Record<string, MessageHandler> = {
   [SUPPORTED_MESSAGE_TYPES.MsgSend]: Handlers.handleSendMessage,

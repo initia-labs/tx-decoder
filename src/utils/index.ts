@@ -1,1 +1,1 @@
-export * from "./mergeBalances";
+export * from "./merge-balances";

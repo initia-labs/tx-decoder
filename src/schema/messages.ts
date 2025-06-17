@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { SUPPORTED_MESSAGE_TYPES } from "../messageTypes";
+import { SUPPORTED_MESSAGE_TYPES } from "../message-types";
 import { zCoin } from "./common";
 
 export const zMessage = z
