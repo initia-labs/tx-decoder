@@ -22,7 +22,7 @@ describe("Initiate Token Deposit Message", () => {
     expect(decoded.balanceChanges).toEqual({
       ft: {
         init1s3qauqxfmtqhmvpwpfgrka9944me2s0jn52qfe: {
-          uinit: "360000000",
+          uinit: "-360000000",
         },
       },
       nft: {},

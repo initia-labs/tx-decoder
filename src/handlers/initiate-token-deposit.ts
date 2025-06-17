@@ -29,9 +29,6 @@ export const handleInitiateTokenDepositMessage: MessageHandler = (
       [sender]: {
         [amount.denom]: `-${amount.amount}`,
       },
-      [to]: {
-        [amount.denom]: amount.amount,
-      },
     },
   };
 

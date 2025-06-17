@@ -4,6 +4,7 @@ interface DecodedMessageBase {
 }
 
 export type DecodedMessage =
+  | DecodedFinalizeTokenWithdrawalMessage
   | DecodedInitiateTokenDepositMessage
   | DecodedNotSupportedMessage
   | DecodedSendMessage
@@ -33,6 +34,17 @@ interface DecodedSwapMessage extends DecodedMessageBase {
 
 interface DecodedInitiateTokenDepositMessage extends DecodedMessageBase {
   action: "op_deposit";
+  data: {
+    amount: string;
+    bridge_id: string;
+    denom: string;
+    from: string;
+    to: string;
+  };
+}
+
+interface DecodedFinalizeTokenWithdrawalMessage extends DecodedMessageBase {
+  action: "op_finalize_withdraw";
   data: {
     amount: string;
     bridge_id: string;

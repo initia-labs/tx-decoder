@@ -25,3 +25,18 @@ export const zMsgInitiateTokenDeposit = z.object({
   sender: z.string(),
   to: z.string(),
 });
+
+export const zMsgFinalizeTokenWithdrawal = z.object({
+  "@type": z.literal(SUPPORTED_MESSAGE_TYPES.MsgFinalizeTokenWithdrawal),
+  amount: zCoin,
+  bridge_id: z.string(),
+  from: z.string(),
+  last_block_hash: z.string(),
+  output_index: z.string(),
+  sender: z.string(),
+  sequence: z.string(),
+  storage_root: z.string(),
+  to: z.string(),
+  version: z.string(),
+  withdrawal_proofs: z.array(z.string()),
+});
