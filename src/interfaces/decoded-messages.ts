@@ -4,6 +4,7 @@ interface DecodedMessageBase {
 }
 
 export type DecodedMessage =
+  | DecodedInitiateTokenDepositMessage
   | DecodedNotSupportedMessage
   | DecodedSendMessage
   | DecodedSwapMessage;
@@ -27,6 +28,17 @@ interface DecodedSwapMessage extends DecodedMessageBase {
     amount_out: string;
     denom_in: string;
     denom_out: string;
+  };
+}
+
+interface DecodedInitiateTokenDepositMessage extends DecodedMessageBase {
+  action: "op_deposit";
+  data: {
+    amount: string;
+    bridge_id: string;
+    denom: string;
+    from: string;
+    to: string;
   };
 }
 
