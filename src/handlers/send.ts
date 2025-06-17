@@ -1,11 +1,6 @@
 import { produce } from "immer";
 
-import {
-  BalanceChanges,
-  DecodedMessage,
-  FTChange,
-  MessageHandler,
-} from "../interfaces";
+import { BalanceChanges, DecodedMessage, MessageHandler } from "../interfaces";
 import { Message, zMsgSend } from "../schema";
 
 export const handleSendMessage: MessageHandler = (message: Message) => {
