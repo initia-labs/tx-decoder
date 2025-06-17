@@ -72,6 +72,8 @@ console.log(decodedTx.balanceChanges);
 Currently supported message types:
 
 - `/cosmos.bank.v1beta1.MsgSend`
+- `/opinit.ophost.v1.MsgInitiateTokenDeposit`
+- `/opinit.ophost.v1.MsgFinalizeTokenWithdrawal`
 
 ## 💻 Development
 
