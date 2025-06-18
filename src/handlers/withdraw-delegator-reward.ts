@@ -1,8 +1,8 @@
 import { produce } from "immer";
 
-import { BalanceChanges, DecodedMessage, MessageHandler } from "../interfaces";
-import { Log, Message, zMsgWithdrawDelegatorReward } from "../schema";
-import { findAttribute, parseCoins } from "../utils";
+import { BalanceChanges, DecodedMessage, MessageHandler } from "@/interfaces";
+import { Log, Message, zMsgWithdrawDelegatorReward } from "@/schema";
+import { findAttribute, parseCoins } from "@/utils";
 
 export const handleWithdrawDelegatorReward: MessageHandler = (
   message: Message,

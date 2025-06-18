@@ -1,4 +1,4 @@
-import { Coin } from "../schema";
+import { Coin } from "@/schema";
 
 interface DecodedMessageBase {
   isIbc: boolean;

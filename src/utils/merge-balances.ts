@@ -1,7 +1,7 @@
 import big from "big.js";
 import { produce } from "immer";
 
-import { BalanceChanges } from "../interfaces";
+import { BalanceChanges } from "@/interfaces";
 
 export const mergeBalanceChanges = (
   target: BalanceChanges,

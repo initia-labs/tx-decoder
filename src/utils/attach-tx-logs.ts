@@ -1,6 +1,6 @@
 import { produce } from "immer";
 
-import { Event, Log, TxResponse } from "../schema";
+import { Event, Log, TxResponse } from "@/schema";
 
 const extractTxLogs = (txData: TxResponse): Log[] => {
   // Failed Tx - no logs

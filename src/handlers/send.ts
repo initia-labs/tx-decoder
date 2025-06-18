@@ -1,7 +1,7 @@
 import { produce } from "immer";
 
-import { BalanceChanges, DecodedMessage, MessageHandler } from "../interfaces";
-import { Message, zMsgSend } from "../schema";
+import { BalanceChanges, DecodedMessage, MessageHandler } from "@/interfaces";
+import { Message, zMsgSend } from "@/schema";
 
 export const handleSendMessage: MessageHandler = (message: Message) => {
   const parsed = zMsgSend.safeParse(message);
