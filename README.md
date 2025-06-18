@@ -74,6 +74,7 @@ Currently supported message types:
 - `/cosmos.bank.v1beta1.MsgSend`
 - `/cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward`
 - `/initia.move.v1.MsgExecute`
+  - `0x1::dex::swap_script`
 - `/opinit.ophost.v1.MsgInitiateTokenDeposit`
 - `/opinit.ophost.v1.MsgFinalizeTokenWithdrawal`
 
