@@ -7,6 +7,7 @@ export const SUPPORTED_MESSAGE_TYPES = {
 
   // initia move messages
   MsgExecute: "/initia.move.v1.MsgExecute",
+  MsgExecuteJson: "/initia.move.v1.MsgExecuteJSON",
 
   // opinit messages
   MsgInitiateTokenDeposit: "/opinit.ophost.v1.MsgInitiateTokenDeposit",

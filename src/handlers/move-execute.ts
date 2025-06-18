@@ -2,6 +2,7 @@ import { MessageHandler, MoveFunctionHandler } from "@/interfaces";
 import { zMsgMoveExecute } from "@/schema";
 
 import { handleDexSwap } from "./move/swap";
+import { handleMint } from "./move/nft";
 
 const moveFunctionRegistry = new Map<string, MoveFunctionHandler>();
 
