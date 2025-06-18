@@ -1,20 +1,12 @@
-import { Log, Message, MsgMoveExecute } from "@/schema";
+import type { Log, Message } from "@/schema";
 
 import { BalanceChanges } from "./common";
 import { DecodedMessage } from "./decoded-messages";
 
-export type MessageHandler = (
-  message: Message,
-  log: Log
-) => {
-  balanceChanges: Partial<BalanceChanges>;
-  decodedMessage: DecodedMessage;
-};
-
-export type MoveFunctionHandler = (
-  message: MsgMoveExecute,
-  log: Log
-) => {
-  balanceChanges: Partial<BalanceChanges>;
-  decodedMessage: DecodedMessage;
+export type MessageDecoder<M = Message, L = Log> = {
+  check: (message: M, log: L) => boolean;
+  decode: (message: M, log: L) => {
+    balanceChanges: Partial<BalanceChanges>;
+    decodedMessage: DecodedMessage;
+  };
 };

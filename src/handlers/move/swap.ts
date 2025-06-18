@@ -1,41 +1,54 @@
 import {
   BalanceChanges,
   DecodedMessage,
-  MoveFunctionHandler,
+  MessageDecoder,
 } from "@/interfaces";
 import { DexSwapEvent, Event, zDexSwapEvent } from "@/schema";
 
-export const handleDexSwap: MoveFunctionHandler = (message, log) => {
-  const swapEvent = findSwapEventData(log.events);
-  if (!swapEvent) {
-    throw new Error("Dex Swap event not found");
-  }
+import { isMoveMessage } from "./index";
 
-  const decodedMessage: DecodedMessage = {
-    action: "swap",
-    data: {
-      amountIn: swapEvent.offer_amount,
-      amountOut: swapEvent.return_amount,
-      denomIn: swapEvent.offer_coin,
-      denomOut: swapEvent.return_coin,
-    },
-    isIbc: false,
-    isOp: false,
-  };
+export const swapDecoder: MessageDecoder = {
+  check: (message, _log) => {
+    // Check if this is a swap function
+    return (
+      isMoveMessage(message) &&
+      message.module_address === "0x1" &&
+      message.module_name === "dex" &&
+      message.function_name === "swap_script"
+    );
+  },
+  decode: (message, log): { balanceChanges: Partial<BalanceChanges>; decodedMessage: DecodedMessage } => {
+    const swapEvent = findSwapEventData(log.events);
+    if (!swapEvent) {
+      throw new Error("Dex Swap event not found");
+    }
 
-  const balanceChanges: Partial<BalanceChanges> = {
-    ft: {
-      [message.sender]: {
-        [swapEvent.offer_coin]: `-${swapEvent.offer_amount}`,
-        [swapEvent.return_coin]: swapEvent.return_amount,
+    const decodedMessage: DecodedMessage = {
+      action: "swap",
+      data: {
+        amountIn: swapEvent.offer_amount,
+        amountOut: swapEvent.return_amount,
+        denomIn: swapEvent.offer_coin,
+        denomOut: swapEvent.return_coin,
       },
-    },
-  };
+      isIbc: false,
+      isOp: false,
+    };
 
-  return {
-    balanceChanges,
-    decodedMessage,
-  };
+    const balanceChanges: Partial<BalanceChanges> = {
+      ft: {
+        [message.sender as string]: {
+          [swapEvent.offer_coin]: `-${swapEvent.offer_amount}`,
+          [swapEvent.return_coin]: swapEvent.return_amount,
+        },
+      },
+    };
+
+    return {
+      balanceChanges,
+      decodedMessage,
+    };
+  },
 };
 
 // internal parser

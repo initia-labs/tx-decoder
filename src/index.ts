@@ -1,4 +1,4 @@
-import { createHandlerRegistry, decodeTransaction } from "./decoder";
+import { decodeTransaction } from "./decoder";
 import { DecodedTx } from "./interfaces";
 import { zTxResponse } from "./schema";
 import { attachTxLogs } from "./utils";
@@ -12,9 +12,7 @@ export function decodeTx(input: unknown): DecodedTx {
 
   const txResponse = attachTxLogs(parsed.data);
 
-  const registry = createHandlerRegistry();
-
-  const decodedTx = decodeTransaction(txResponse, registry);
+  const decodedTx = decodeTransaction(txResponse);
   if (!decodedTx) {
     throw new Error("Failed to decode transaction");
   }

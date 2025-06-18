@@ -1,39 +1,43 @@
-import { BalanceChanges, DecodedMessage, MessageHandler } from "@/interfaces";
-import { Message, zMsgFinalizeTokenWithdrawal } from "@/schema";
+import type { BalanceChanges, DecodedMessage, MessageDecoder } from "@/interfaces";
+import type { Log, Message } from "@/schema";
 
-export const handleFinalizeTokenWithdrawalMessage: MessageHandler = (
-  message: Message
-) => {
-  const parsed = zMsgFinalizeTokenWithdrawal.safeParse(message);
-  if (!parsed.success) {
-    throw new Error("Invalid finalize token withdrawal message");
-  }
+import { SUPPORTED_MESSAGE_TYPES } from "@/message-types";
+import { zMsgFinalizeTokenWithdrawal } from "@/schema";
 
-  const { amount, bridge_id, from, to } = parsed.data;
+export const finalizeTokenWithdrawalDecoder: MessageDecoder = {
+  check: (message: Message, _log: Log) => message["@type"] === SUPPORTED_MESSAGE_TYPES.MsgFinalizeTokenWithdrawal,
+  decode: (message: Message, _log: Log) => {
+    const parsed = zMsgFinalizeTokenWithdrawal.safeParse(message);
+    if (!parsed.success) {
+      throw new Error("Invalid finalize token withdrawal message");
+    }
 
-  const decodedMessage: DecodedMessage = {
-    action: "op_finalize_withdraw",
-    data: {
-      amount: amount.amount,
-      bridgeId: bridge_id,
-      denom: amount.denom,
-      from,
-      to,
-    },
-    isIbc: false,
-    isOp: true,
-  };
+    const { amount, bridge_id, from, to } = parsed.data;
 
-  const balanceChanges: Partial<BalanceChanges> = {
-    ft: {
-      [to]: {
-        [amount.denom]: amount.amount,
+    const decodedMessage: DecodedMessage = {
+      action: "op_finalize_withdraw",
+      data: {
+        amount: amount.amount,
+        bridgeId: bridge_id,
+        denom: amount.denom,
+        from,
+        to,
       },
-    },
-  };
+      isIbc: false,
+      isOp: true,
+    };
 
-  return {
-    balanceChanges,
-    decodedMessage,
-  };
+    const balanceChanges: Partial<BalanceChanges> = {
+      ft: {
+        [to]: {
+          [amount.denom]: amount.amount,
+        },
+      },
+    };
+
+    return {
+      balanceChanges,
+      decodedMessage,
+    };
+  },
 };

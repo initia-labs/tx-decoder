@@ -12,7 +12,7 @@ export type DexSwapEvent = z.infer<typeof zDexSwapEvent>;
 
 export const zMintNFTEvent = z.object({
   collection: z.string(),
-  token_id: z.string(),
   nft: z.string(),
+  token_id: z.string(),
 });
 export type MintNFTEvent = z.infer<typeof zMintNFTEvent>;

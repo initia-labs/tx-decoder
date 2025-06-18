@@ -1,36 +1,23 @@
 import { produce } from "immer";
 
 import * as Handlers from "./handlers";
-import { DecodedTx, MessageHandler } from "./interfaces";
-import { SUPPORTED_MESSAGE_TYPES } from "./message-types";
+import { DecodedTx, MessageDecoder } from "./interfaces";
 import { TxResponse } from "./schema";
 import { mergeBalanceChanges } from "./utils";
 
-const KNOWN_HANDLERS: Record<string, MessageHandler> = {
-  [SUPPORTED_MESSAGE_TYPES.MsgExecute]: Handlers.handleMsgExecute,
-  [SUPPORTED_MESSAGE_TYPES.MsgFinalizeTokenWithdrawal]:
-    Handlers.handleFinalizeTokenWithdrawalMessage,
-  [SUPPORTED_MESSAGE_TYPES.MsgInitiateTokenDeposit]:
-    Handlers.handleInitiateTokenDepositMessage,
-  [SUPPORTED_MESSAGE_TYPES.MsgSend]: Handlers.handleSendMessage,
-  [SUPPORTED_MESSAGE_TYPES.MsgWithdrawDelegatorReward]:
-    Handlers.handleWithdrawDelegatorReward,
-};
-
-export function createHandlerRegistry() {
-  const handlers = new Map<string, MessageHandler>(
-    Object.entries(KNOWN_HANDLERS)
-  );
-  return {
-    get: (typeUrl: string) => handlers.get(typeUrl),
-  };
-}
-
-export type HandlerRegistry = ReturnType<typeof createHandlerRegistry>;
+// Array of decoders ordered by priority
+const messageDecoders: MessageDecoder[] = [
+  Handlers.sendDecoder,
+  Handlers.initiateTokenDepositDecoder,
+  Handlers.finalizeTokenWithdrawalDecoder,
+  Handlers.withdrawDelegatorRewardDecoder,
+  Handlers.swapDecoder,
+  Handlers.nftMintDecoder,
+  // Add more decoders here in order of priority
+];
 
 export function decodeTransaction(
   txResponse: TxResponse,
-  registry: HandlerRegistry
 ): DecodedTx {
   const initialState: DecodedTx = {
     balanceChanges: { ft: {}, nft: {} },
@@ -49,17 +36,20 @@ export function decodeTransaction(
 
   const decodedTx = produce(initialState, (draft) => {
     for (const [index, message] of txResponse.tx.body.messages.entries()) {
-      const handler = registry.get(message["@type"]);
-
-      if (handler) {
-        const result = handler(message, txResponse.logs[index]);
-
-        draft.messages.push(result.decodedMessage);
-        draft.balanceChanges = mergeBalanceChanges(
-          draft.balanceChanges,
-          result.balanceChanges
-        );
-      } else {
+      // Try each decoder in order of priority
+      for (const decoder of messageDecoders) {
+        if (decoder.check(message, txResponse.logs[index])) {
+          const result = decoder.decode(message, txResponse.logs[index]);
+          draft.messages.push(result.decodedMessage);
+          draft.balanceChanges = mergeBalanceChanges(
+            draft.balanceChanges,
+            result.balanceChanges
+          );
+          break; // Stop after the first matching decoder
+        }
+      }
+      // If no decoder matches, add a not_supported message
+      if (!draft.messages[index]) {
         draft.messages.push({
           action: "not_supported",
           data: {
@@ -68,7 +58,6 @@ export function decodeTransaction(
           isIbc: false,
           isOp: false,
         });
-        // TODO: add balance changes from known events
       }
     }
   });

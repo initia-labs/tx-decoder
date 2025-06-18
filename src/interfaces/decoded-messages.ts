@@ -8,6 +8,7 @@ interface DecodedMessageBase {
 export type DecodedMessage =
   | DecodedFinalizeTokenWithdrawalMessage
   | DecodedInitiateTokenDepositMessage
+  | DecodedNFTMintMessage
   | DecodedNotSupportedMessage
   | DecodedSendMessage
   | DecodedSwapMessage
@@ -70,5 +71,15 @@ interface DecodedNotSupportedMessage extends DecodedMessageBase {
   action: "not_supported";
   data: {
     msgType: string;
+  };
+}
+
+interface DecodedNFTMintMessage extends DecodedMessageBase {
+  action: "nft_mint";
+  data: {
+    collection_address: string;
+    token_address: string;
+    token_id: string;
+    token_uri: null;
   };
 }
