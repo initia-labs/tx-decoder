@@ -2,6 +2,7 @@ import { MessageHandler, MoveFunctionHandler } from "@/interfaces";
 import { zMsgMoveExecute } from "@/schema";
 
 import { handleDexSwap } from "./move/swap";
+import { createNotSupportedMessage } from "@/utils";
 
 const moveFunctionRegistry = new Map<string, MoveFunctionHandler>();
 
@@ -37,11 +38,6 @@ export const handleMsgExecute: MessageHandler = (message, log) => {
   // fallback to not supported case
   return {
     balanceChanges: {},
-    decodedMessage: {
-      action: "not_supported",
-      data: { msgType: message["@type"] },
-      isIbc: false,
-      isOp: false,
-    },
+    decodedMessage: createNotSupportedMessage(message["@type"]),
   };
 };

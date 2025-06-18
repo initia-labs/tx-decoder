@@ -5,6 +5,7 @@ import { DecodedTx, MessageHandler } from "./interfaces";
 import { SUPPORTED_MESSAGE_TYPES } from "./message-types";
 import { TxResponse } from "./schema";
 import { mergeBalanceChanges } from "./utils";
+import { createNotSupportedMessage } from "./utils";
 
 const KNOWN_HANDLERS: Record<string, MessageHandler> = {
   [SUPPORTED_MESSAGE_TYPES.MsgExecute]: Handlers.handleMsgExecute,
@@ -48,29 +49,24 @@ export function decodeTransaction(
   }
 
   const decodedTx = produce(initialState, (draft) => {
-    for (const [index, message] of txResponse.tx.body.messages.entries()) {
+    txResponse.tx.body.messages.forEach((message, index) => {
+      const notSupportedMessage = createNotSupportedMessage(message["@type"]);
       const handler = registry.get(message["@type"]);
-
       if (handler) {
-        const result = handler(message, txResponse.logs[index]);
-
-        draft.messages.push(result.decodedMessage);
-        draft.balanceChanges = mergeBalanceChanges(
-          draft.balanceChanges,
-          result.balanceChanges
-        );
+        try {
+          const result = handler(message, txResponse.logs[index]);
+          draft.messages.push(result.decodedMessage);
+          draft.balanceChanges = mergeBalanceChanges(
+            draft.balanceChanges,
+            result.balanceChanges
+          );
+        } catch {
+          draft.messages.push(notSupportedMessage);
+        }
       } else {
-        draft.messages.push({
-          action: "not_supported",
-          data: {
-            msgType: message["@type"],
-          },
-          isIbc: false,
-          isOp: false,
-        });
-        // TODO: add balance changes from known events
+        draft.messages.push(notSupportedMessage);
       }
-    }
+    });
   });
 
   return decodedTx;
