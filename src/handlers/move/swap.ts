@@ -59,7 +59,7 @@ function findSwapEventData(events: Event[]): DexSwapEvent | null {
     return null;
   }
 
-  const parsed = zDexSwapEvent.safeParse(dataAttribute.value);
+  const parsed = zDexSwapEvent.safeParse(JSON.parse(dataAttribute.value));
   if (!parsed.success) {
     return null;
   }
