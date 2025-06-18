@@ -41,6 +41,7 @@ interface DecodedSwapMessage extends DecodedMessageBase {
     amountOut: string;
     denomIn: string;
     denomOut: string;
+    from: string;
   };
 }
 

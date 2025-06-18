@@ -15,6 +15,7 @@ describe("Dex Swap Message", () => {
           "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
         denomOut:
           "0xe0e9394b24e53775d6af87934ac02d73536ad58b7894f6ccff3f5e7c0d548e55",
+        from: "init13fuh9r5qea5wh6n0pv6807y62srtmlv246mqgv",
       },
       isIbc: false,
       isOp: false,

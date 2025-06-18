@@ -18,6 +18,7 @@ export const handleDexSwap: MoveFunctionHandler = (message, log) => {
       amountOut: swapEvent.return_amount,
       denomIn: swapEvent.offer_coin,
       denomOut: swapEvent.return_coin,
+      from: message.sender,
     },
     isIbc: false,
     isOp: false,
