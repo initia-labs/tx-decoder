@@ -1,33 +1,30 @@
 import { produce } from "immer";
 
 import { BalanceChanges, DecodedMessage, MessageHandler } from "../interfaces";
-import { Message, zMsgWithdrawDelegatorReward } from "../schema";
+import { Log, Message, zMsgWithdrawDelegatorReward } from "../schema";
+import { findAttribute, parseCoins } from "../utils";
 
 export const handleWithdrawDelegatorReward: MessageHandler = (
-  message: Message
+  message: Message,
+  log: Log
 ) => {
   const parsed = zMsgWithdrawDelegatorReward.safeParse(message);
   if (!parsed.success) {
     throw new Error("Invalid withdraw delegator reward message");
   }
 
+  const amount = findAttribute(log, "coin_received", "amount").value;
+
   const { delegator_address, validator_address } = parsed.data;
+
+  const coins = parseCoins(amount);
 
   const decodedMessage: DecodedMessage = {
     action: "withdraw_delegator_reward",
     data: {
+      coins,
       from: delegator_address,
-      reward: "0",
-      validator: {
-        description: {
-          details: "",
-          identity: "",
-          moniker: "",
-          security_contact: "",
-          website: "",
-        },
-        operator_address: validator_address,
-      },
+      validatorAddress: validator_address,
     },
     isIbc: false,
     isOp: false,
@@ -35,10 +32,10 @@ export const handleWithdrawDelegatorReward: MessageHandler = (
 
   const balanceChanges: Partial<BalanceChanges> = {
     ft: produce<BalanceChanges["ft"]>({}, (draft) => {
-      draft[validator_address] = {
-        amount: "0",
-        denom: "uinit",
-      };
+      coins.forEach((coin) => {
+        draft[delegator_address] ??= {};
+        draft[delegator_address][coin.denom] = coin.amount;
+      });
     }),
   };
 

@@ -10,7 +10,7 @@ describe("Finalize Token Withdrawal Message", () => {
       action: "op_finalize_withdraw",
       data: {
         amount: "716000000",
-        bridge_id: "12",
+        bridgeId: "12",
         denom: "uinit",
         from: "init1r9th529cekjd0v3kryamks7yf6z832pqsapys7",
         to: "init1r9th529cekjd0v3kryamks7yf6z832pqsapys7",

@@ -80,6 +80,7 @@ const zEventAttribute = z.object({
   key: z.string(),
   value: z.union([z.string(), z.null().transform(() => "")]),
 });
+export type EventAttribute = z.infer<typeof zEventAttribute>;
 
 const zEvent = z.object({
   attributes: z.array(zEventAttribute),

@@ -40,8 +40,14 @@ export function decodeTransaction(
     return initialState;
   }
 
+  if (txResponse.logs.length !== txResponse.tx.body.messages.length) {
+    throw new Error(
+      `Invalid tx response: ${txResponse.logs.length} logs found for ${txResponse.tx.body.messages.length} messages`
+    );
+  }
+
   const decodedTx = produce(initialState, (draft) => {
-    for (const message of txResponse.tx.body.messages) {
+    for (const [index, message] of txResponse.tx.body.messages.entries()) {
       const handler = registry.get(message["@type"]);
 
       if (!handler) {
@@ -56,7 +62,7 @@ export function decodeTransaction(
         continue;
       }
 
-      const result = handler(message);
+      const result = handler(message, txResponse.logs[index]);
 
       draft.messages.push(result.decodedMessage);
 

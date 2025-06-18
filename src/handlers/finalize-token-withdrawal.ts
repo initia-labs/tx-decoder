@@ -13,7 +13,13 @@ export const handleFinalizeTokenWithdrawalMessage: MessageHandler = (
 
   const decodedMessage: DecodedMessage = {
     action: "op_finalize_withdraw",
-    data: { amount: amount.amount, bridge_id, denom: amount.denom, from, to },
+    data: {
+      amount: amount.amount,
+      bridgeId: bridge_id,
+      denom: amount.denom,
+      from,
+      to,
+    },
     isIbc: false,
     isOp: true,
   };
