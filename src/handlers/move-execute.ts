@@ -1,8 +1,8 @@
 import { MessageHandler, MoveFunctionHandler } from "@/interfaces";
 import { zMsgMoveExecute } from "@/schema";
+import { createNotSupportedMessage } from "@/utils";
 
 import { handleDexSwap } from "./move/swap";
-import { createNotSupportedMessage } from "@/utils";
 
 const moveFunctionRegistry = new Map<string, MoveFunctionHandler>();
 
