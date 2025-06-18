@@ -1,5 +1,5 @@
-import { BalanceChanges, DecodedMessage, MessageHandler } from "../interfaces";
-import { Message, zMsgFinalizeTokenWithdrawal } from "../schema";
+import { BalanceChanges, DecodedMessage, MessageHandler } from "@/interfaces";
+import { Message, zMsgFinalizeTokenWithdrawal } from "@/schema";
 
 export const handleFinalizeTokenWithdrawalMessage: MessageHandler = (
   message: Message

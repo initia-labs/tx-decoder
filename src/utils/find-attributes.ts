@@ -1,4 +1,4 @@
-import { EventAttribute, Log } from "../schema";
+import { EventAttribute, Log } from "@/schema";
 
 /**
  * Finds an attribute in a log event by event type and attribute key.

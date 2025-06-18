@@ -7,6 +7,7 @@ import { TxResponse } from "./schema";
 import { mergeBalanceChanges } from "./utils";
 
 const KNOWN_HANDLERS: Record<string, MessageHandler> = {
+  [SUPPORTED_MESSAGE_TYPES.MsgExecute]: Handlers.handleMsgExecute,
   [SUPPORTED_MESSAGE_TYPES.MsgFinalizeTokenWithdrawal]:
     Handlers.handleFinalizeTokenWithdrawalMessage,
   [SUPPORTED_MESSAGE_TYPES.MsgInitiateTokenDeposit]:
@@ -50,7 +51,15 @@ export function decodeTransaction(
     for (const [index, message] of txResponse.tx.body.messages.entries()) {
       const handler = registry.get(message["@type"]);
 
-      if (!handler) {
+      if (handler) {
+        const result = handler(message, txResponse.logs[index]);
+
+        draft.messages.push(result.decodedMessage);
+        draft.balanceChanges = mergeBalanceChanges(
+          draft.balanceChanges,
+          result.balanceChanges
+        );
+      } else {
         draft.messages.push({
           action: "not_supported",
           data: {
@@ -59,17 +68,8 @@ export function decodeTransaction(
           isIbc: false,
           isOp: false,
         });
-        continue;
+        // TODO: add balance changes from known events
       }
-
-      const result = handler(message, txResponse.logs[index]);
-
-      draft.messages.push(result.decodedMessage);
-
-      draft.balanceChanges = mergeBalanceChanges(
-        draft.balanceChanges,
-        result.balanceChanges
-      );
     }
   });
 

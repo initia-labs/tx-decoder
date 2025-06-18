@@ -5,6 +5,9 @@ export const SUPPORTED_MESSAGE_TYPES = {
   MsgWithdrawDelegatorReward:
     "/cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward",
 
+  // initia move messages
+  MsgExecute: "/initia.move.v1.MsgExecute",
+
   // opinit messages
   MsgInitiateTokenDeposit: "/opinit.ophost.v1.MsgInitiateTokenDeposit",
   MsgFinalizeTokenWithdrawal: "/opinit.ophost.v1.MsgFinalizeTokenWithdrawal",

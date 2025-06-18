@@ -1,4 +1,4 @@
-import { Coin } from "../schema";
+import { Coin } from "@/schema";
 
 /**
  * Takes a coins string like "100uatom,200uinit" and parses it into an array of Coin objects.

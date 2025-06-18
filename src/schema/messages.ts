@@ -17,6 +17,17 @@ export const zMsgSend = z.object({
   to_address: z.string(),
 });
 
+export const zMsgMoveExecute = z.object({
+  "@type": z.literal(SUPPORTED_MESSAGE_TYPES.MsgExecute),
+  args: z.array(z.string()),
+  function_name: z.string(),
+  module_address: z.string(),
+  module_name: z.string(),
+  sender: z.string(),
+  type_args: z.array(z.string()),
+});
+export type MsgMoveExecute = z.infer<typeof zMsgMoveExecute>;
+
 export const zMsgInitiateTokenDeposit = z.object({
   "@type": z.literal(SUPPORTED_MESSAGE_TYPES.MsgInitiateTokenDeposit),
   amount: zCoin,
@@ -40,7 +51,6 @@ export const zMsgFinalizeTokenWithdrawal = z.object({
   version: z.string(),
   withdrawal_proofs: z.array(z.string()),
 });
-
 
 export const zMsgWithdrawDelegatorReward = z.object({
   "@type": z.literal(SUPPORTED_MESSAGE_TYPES.MsgWithdrawDelegatorReward),
