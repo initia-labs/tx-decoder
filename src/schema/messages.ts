@@ -40,3 +40,10 @@ export const zMsgFinalizeTokenWithdrawal = z.object({
   version: z.string(),
   withdrawal_proofs: z.array(z.string()),
 });
+
+
+export const zMsgWithdrawDelegatorReward = z.object({
+  "@type": z.literal(SUPPORTED_MESSAGE_TYPES.MsgWithdrawDelegatorReward),
+  delegator_address: z.string(),
+  validator_address: z.string(),
+});

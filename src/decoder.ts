@@ -12,6 +12,8 @@ const KNOWN_HANDLERS: Record<string, MessageHandler> = {
   [SUPPORTED_MESSAGE_TYPES.MsgInitiateTokenDeposit]:
     Handlers.handleInitiateTokenDepositMessage,
   [SUPPORTED_MESSAGE_TYPES.MsgSend]: Handlers.handleSendMessage,
+  [SUPPORTED_MESSAGE_TYPES.MsgWithdrawDelegatorReward]:
+    Handlers.handleWithdrawDelegatorReward,
 };
 
 export function createHandlerRegistry() {

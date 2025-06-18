@@ -85,12 +85,14 @@ const zEvent = z.object({
   attributes: z.array(zEventAttribute),
   type: z.string(),
 });
+export type Event = z.infer<typeof zEvent>;
 
 const zLog = z.object({
   events: z.array(zEvent),
   log: z.string(),
   msg_index: z.number(),
 });
+export type Log = z.infer<typeof zLog>;
 
 export const zTxResponse = z.object({
   code: z.number(),
@@ -107,5 +109,4 @@ export const zTxResponse = z.object({
   tx: zTx,
   txhash: z.string(),
 });
-
 export type TxResponse = z.infer<typeof zTxResponse>;

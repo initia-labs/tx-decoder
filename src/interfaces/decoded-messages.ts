@@ -8,7 +8,8 @@ export type DecodedMessage =
   | DecodedInitiateTokenDepositMessage
   | DecodedNotSupportedMessage
   | DecodedSendMessage
-  | DecodedSwapMessage;
+  | DecodedSwapMessage
+  | DecodedWithdrawDelegatorRewardMessage;
 
 interface DecodedSendMessage extends DecodedMessageBase {
   action: "send";
@@ -19,6 +20,24 @@ interface DecodedSendMessage extends DecodedMessageBase {
     }[];
     from: string;
     to: string;
+  };
+}
+
+interface DecodedWithdrawDelegatorRewardMessage extends DecodedMessageBase {
+  action: "withdraw_delegator_reward";
+  data: {
+    from: string;
+    reward: string;
+    validator: {
+      description: {
+        details: string;
+        identity: string;
+        moniker: string;
+        security_contact: string;
+        website: string;
+      };
+      operator_address: string;
+    };
   };
 }
 
