@@ -10,7 +10,7 @@ describe("Initiate Token Deposit Message", () => {
       action: "op_deposit",
       data: {
         amount: "360000000",
-        bridge_id: "30",
+        bridgeId: "30",
         denom: "uinit",
         from: "init1s3qauqxfmtqhmvpwpfgrka9944me2s0jn52qfe",
         to: "init1s3qauqxfmtqhmvpwpfgrka9944me2s0jn52qfe",

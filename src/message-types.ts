@@ -1,5 +1,11 @@
+/* eslint-disable perfectionist/sort-objects */
 export const SUPPORTED_MESSAGE_TYPES = {
-  MsgFinalizeTokenWithdrawal: "/opinit.ophost.v1.MsgFinalizeTokenWithdrawal",
-  MsgInitiateTokenDeposit: "/opinit.ophost.v1.MsgInitiateTokenDeposit",
+  // cosmos messages
   MsgSend: "/cosmos.bank.v1beta1.MsgSend",
+  MsgWithdrawDelegatorReward:
+    "/cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward",
+
+  // opinit messages
+  MsgInitiateTokenDeposit: "/opinit.ophost.v1.MsgInitiateTokenDeposit",
+  MsgFinalizeTokenWithdrawal: "/opinit.ophost.v1.MsgFinalizeTokenWithdrawal",
 } as const;

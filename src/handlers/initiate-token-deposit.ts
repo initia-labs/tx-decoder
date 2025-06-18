@@ -15,7 +15,7 @@ export const handleInitiateTokenDepositMessage: MessageHandler = (
     action: "op_deposit",
     data: {
       amount: amount.amount,
-      bridge_id,
+      bridgeId: bridge_id,
       denom: amount.denom,
       from: sender,
       to,

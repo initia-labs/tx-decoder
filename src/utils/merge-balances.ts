@@ -3,10 +3,10 @@ import { produce } from "immer";
 
 import { BalanceChanges } from "../interfaces";
 
-export function mergeBalanceChanges(
+export const mergeBalanceChanges = (
   target: BalanceChanges,
   source: Partial<BalanceChanges>
-): BalanceChanges {
+): BalanceChanges => {
   // TODO: handle nft balance changes
   return produce(target, (draft) => {
     if (!source.ft) {
@@ -14,9 +14,7 @@ export function mergeBalanceChanges(
     }
 
     for (const address in source.ft) {
-      if (!draft.ft[address]) {
-        draft.ft[address] = {};
-      }
+      draft.ft[address] ??= {};
 
       for (const denom in source.ft[address]) {
         const existingAmount = big(draft.ft[address][denom] || "0");
@@ -30,4 +28,4 @@ export function mergeBalanceChanges(
       draft.nft = source.nft;
     }
   });
-}
+};

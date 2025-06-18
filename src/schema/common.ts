@@ -15,3 +15,4 @@ export const zCoin = z.object({
   amount: z.string(),
   denom: z.string(),
 });
+export type Coin = z.infer<typeof zCoin>;

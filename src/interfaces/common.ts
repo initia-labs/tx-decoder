@@ -1,4 +1,4 @@
-import { Message } from "../schema";
+import { Log, Message } from "../schema";
 import { DecodedMessage } from "./decoded-messages";
 
 export interface DecodedTx {
@@ -20,7 +20,10 @@ export interface NftChange {
   tokenUri: string;
 }
 
-export type MessageHandler = (message: Message) => {
+export type MessageHandler = (
+  message: Message,
+  log: Log
+) => {
   balanceChanges: Partial<BalanceChanges>;
   decodedMessage: DecodedMessage;
 };
