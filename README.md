@@ -72,8 +72,32 @@ console.log(decodedTx.balanceChanges);
 Currently supported message types:
 
 - `/cosmos.bank.v1beta1.MsgSend`
+- `/cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward`
+- `/initia.move.v1.MsgExecute`
 - `/opinit.ophost.v1.MsgInitiateTokenDeposit`
 - `/opinit.ophost.v1.MsgFinalizeTokenWithdrawal`
+
+## 📁 Folder Structure
+
+```
+tx-decoder/
+├── src/
+│   ├── decoder.ts                # Main transaction decoding logic
+│   ├── index.ts                  # Entry point for exports
+│   ├── handlers/                 # Message and event handler modules
+│   │   ├── move/                 # Handlers for Move-based messages (e.g., swap)
+│   │   └── ...                   # Other message handlers
+│   ├── interfaces/               # TypeScript interfaces and types
+│   ├── schema/                   # Zod schemas for validation
+│   ├── utils/                    # Utility functions
+│   ├── fixtures/                 # Mock data for tests
+│   │   ├── move/                 # Move-specific fixtures
+│   │   └── ...                   # Other fixtures
+│   └── tests/                    # Unit tests
+├── package.json                  # Project metadata and dependencies
+├── README.md                     # Project documentation
+└── ...                           # Config and other files
+```
 
 ## 💻 Development
 
