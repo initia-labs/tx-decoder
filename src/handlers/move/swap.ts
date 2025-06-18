@@ -3,7 +3,7 @@ import {
   DecodedMessage,
   MoveFunctionHandler,
 } from "@/interfaces";
-import { DexSwapEvent, Event } from "@/schema";
+import { DexSwapEvent, Event, zDexSwapEvent } from "@/schema";
 
 export const handleDexSwap: MoveFunctionHandler = (message, log) => {
   const swapEvent = findSwapEventData(log.events);
@@ -38,7 +38,7 @@ export const handleDexSwap: MoveFunctionHandler = (message, log) => {
   };
 };
 
-// parser helper
+// internal parser
 function findSwapEventData(events: Event[]): DexSwapEvent | null {
   const swapEvent = events.find(
     (event) =>
@@ -59,10 +59,10 @@ function findSwapEventData(events: Event[]): DexSwapEvent | null {
     return null;
   }
 
-  try {
-    const parsedData: DexSwapEvent = JSON.parse(dataAttribute.value);
-    return parsedData;
-  } catch {
+  const parsed = zDexSwapEvent.safeParse(dataAttribute.value);
+  if (!parsed.success) {
     return null;
   }
+
+  return parsed.data;
 }
