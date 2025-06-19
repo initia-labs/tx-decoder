@@ -75,6 +75,8 @@ Currently supported message types:
 - `/cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward`
 - `/initia.move.v1.MsgExecute`
   - `0x1::dex::swap_script`
+  - `0x1::simple_nft::mint`
+  - `<module_address>::usernames::register_domain`
 - `/opinit.ophost.v1.MsgInitiateTokenDeposit`
 - `/opinit.ophost.v1.MsgFinalizeTokenWithdrawal`
 
@@ -83,18 +85,27 @@ Currently supported message types:
 ```
 tx-decoder/
 ├── src/
+│   ├── constants.ts              # Application constants and configuration
 │   ├── decoder.ts                # Main transaction decoding logic
 │   ├── index.ts                  # Entry point for exports
 │   ├── handlers/                 # Message and event handler modules
-│   │   ├── move/                 # Handlers for Move-based messages (e.g., swap)
-│   │   └── ...                   # Other message handlers
+│   │   ├── index.ts              # Handler exports
+│   │   ├── move/                 # Handlers for Move-based messages (e.g., swap, nft)
+│   │   │   ├── nft.ts            # NFT mint handler
+│   │   │   └── swap.ts           # Swap handler
+│   │   ├── op-init/              # OP-Init bridge handlers
+│   │   │   ├── finalize-token-withdrawal.ts
+│   │   │   └── initiate-token-deposit.ts
+│   │   ├── send.ts               # Bank send handler
+│   │   └── withdraw-delegator-reward.ts
 │   ├── interfaces/               # TypeScript interfaces and types
 │   ├── schema/                   # Zod schemas for validation
 │   ├── utils/                    # Utility functions
 │   ├── fixtures/                 # Mock data for tests
 │   │   ├── move/                 # Move-specific fixtures
-│   │   └── ...                   # Other fixtures
+│   │   └── withdraw-delegator-reward.fixture.ts
 │   └── tests/                    # Unit tests
+│       └── withdraw-delegator-reward.test.ts
 ├── package.json                  # Project metadata and dependencies
 ├── README.md                     # Project documentation
 └── ...                           # Config and other files
