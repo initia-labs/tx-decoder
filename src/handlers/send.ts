@@ -1,37 +1,43 @@
 import { produce } from "immer";
 
-import { BalanceChanges, DecodedMessage, MessageHandler } from "@/interfaces";
-import { Message, zMsgSend } from "@/schema";
+import type { BalanceChanges, DecodedMessage, MessageDecoder } from "@/interfaces";
+import type { Log, Message } from "@/schema";
 
-export const handleSendMessage: MessageHandler = (message: Message) => {
-  const parsed = zMsgSend.safeParse(message);
-  if (!parsed.success) {
-    throw new Error("Invalid send message");
-  }
+import { SUPPORTED_MESSAGE_TYPES } from "@/message-types";
+import { zMsgSend } from "@/schema";
 
-  const { amount, from_address, to_address } = parsed.data;
+export const sendDecoder: MessageDecoder = {
+  check: (message: Message, _log: Log) => message["@type"] === SUPPORTED_MESSAGE_TYPES.MsgSend,
+  decode: (message: Message, _log: Log) => {
+    const parsed = zMsgSend.safeParse(message);
+    if (!parsed.success) {
+      throw new Error("Invalid send message");
+    }
 
-  const decodedMessage: DecodedMessage = {
-    action: "send",
-    data: {
-      coins: amount,
-      from: from_address,
-      to: to_address,
-    },
-    isIbc: false,
-    isOp: false,
-  };
+    const { amount, from_address, to_address } = parsed.data;
 
-  const balanceChanges: Partial<BalanceChanges> = {
-    ft: produce<BalanceChanges["ft"]>({}, (draft) => {
-      amount.forEach(({ amount: amt, denom }) => {
-        draft[from_address] ??= {};
-        draft[to_address] ??= {};
-        draft[from_address][denom] = `-${amt}`;
-        draft[to_address][denom] = amt;
-      });
-    }),
-  };
+    const decodedMessage: DecodedMessage = {
+      action: "send",
+      data: {
+        coins: amount,
+        from: from_address,
+        to: to_address,
+      },
+      isIbc: false,
+      isOp: false,
+    };
 
-  return { balanceChanges, decodedMessage };
+    const balanceChanges: Partial<BalanceChanges> = {
+      ft: produce<BalanceChanges["ft"]>({}, (draft) => {
+        amount.forEach(({ amount: amt, denom }) => {
+          draft[from_address] ??= {};
+          draft[to_address] ??= {};
+          draft[from_address][denom] = `-${amt}`;
+          draft[to_address][denom] = amt;
+        });
+      }),
+    };
+
+    return { balanceChanges, decodedMessage };
+  },
 };

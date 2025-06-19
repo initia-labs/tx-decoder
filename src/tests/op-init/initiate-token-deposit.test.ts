@@ -1,9 +1,9 @@
-import { mockMsgInitiateTokenDeposit } from "../fixtures/initiate-token-deposit.fixture";
-import { decodeTx } from "../index";
+import { mockMsgInitiateTokenDeposit } from "@/fixtures/op-init/initiate-token-deposit.fixture";
+import { decodeTransaction } from "@/index";
 
 describe("Initiate Token Deposit Message", () => {
   it("should decode an initiate token deposit message correctly", () => {
-    const decoded = decodeTx(mockMsgInitiateTokenDeposit);
+    const decoded = decodeTransaction(mockMsgInitiateTokenDeposit);
 
     expect(decoded.messages).toHaveLength(1);
     expect(decoded.messages[0]).toEqual({

@@ -1,9 +1,9 @@
-import { mockMsgFinalizeTokenWithdrawal } from "../fixtures/finalize-token-withdrawal.fixture";
-import { decodeTx } from "../index";
+import { mockMsgFinalizeTokenWithdrawal } from "@/fixtures/op-init/finalize-token-withdrawal.fixture";
+import { decodeTransaction } from "@/index";
 
 describe("Finalize Token Withdrawal Message", () => {
   it("should decode a finalize token withdrawal message correctly", () => {
-    const decoded = decodeTx(mockMsgFinalizeTokenWithdrawal);
+    const decoded = decodeTransaction(mockMsgFinalizeTokenWithdrawal);
 
     expect(decoded.messages).toHaveLength(1);
     expect(decoded.messages[0]).toEqual({

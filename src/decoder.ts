@@ -1,38 +1,41 @@
 import { produce } from "immer";
 
 import * as Handlers from "./handlers";
-import { DecodedTx, MessageHandler } from "./interfaces";
-import { SUPPORTED_MESSAGE_TYPES } from "./message-types";
-import { TxResponse } from "./schema";
-import { mergeBalanceChanges } from "./utils";
+import { DecodedTx, MessageDecoder } from "./interfaces";
+import { Log, Message, TxResponse, zTxResponse } from "./schema";
+import { attachTxLogs, mergeBalanceChanges } from "./utils";
 import { createNotSupportedMessage } from "./utils";
 
-const KNOWN_HANDLERS: Record<string, MessageHandler> = {
-  [SUPPORTED_MESSAGE_TYPES.MsgExecute]: Handlers.handleMsgExecute,
-  [SUPPORTED_MESSAGE_TYPES.MsgFinalizeTokenWithdrawal]:
-    Handlers.handleFinalizeTokenWithdrawalMessage,
-  [SUPPORTED_MESSAGE_TYPES.MsgInitiateTokenDeposit]:
-    Handlers.handleInitiateTokenDepositMessage,
-  [SUPPORTED_MESSAGE_TYPES.MsgSend]: Handlers.handleSendMessage,
-  [SUPPORTED_MESSAGE_TYPES.MsgWithdrawDelegatorReward]:
-    Handlers.handleWithdrawDelegatorReward,
+// Array of decoders ordered by priority
+const messageDecoders: MessageDecoder[] = [
+  Handlers.sendDecoder,
+  Handlers.initiateTokenDepositDecoder,
+  Handlers.finalizeTokenWithdrawalDecoder,
+  Handlers.withdrawDelegatorRewardDecoder,
+  Handlers.swapDecoder,
+  Handlers.nftMintDecoder,
+  // Add more decoders here in order of priority
+];
+
+const findDecoderForMessage = (message: Message, log: Log): MessageDecoder | undefined => {
+  return messageDecoders.find((decoder) => decoder.check(message, log));
 };
 
-export function createHandlerRegistry() {
-  const handlers = new Map<string, MessageHandler>(
-    Object.entries(KNOWN_HANDLERS)
-  );
-  return {
-    get: (typeUrl: string) => handlers.get(typeUrl),
-  };
-}
+const decodeMessage = (message: Message, log: Log): ReturnType<MessageDecoder["decode"]> | null => {
+  const decoder = findDecoderForMessage(message, log);
 
-export type HandlerRegistry = ReturnType<typeof createHandlerRegistry>;
+  if (!decoder) {
+    return null;
+  }
 
-export function decodeTransaction(
-  txResponse: TxResponse,
-  registry: HandlerRegistry
-): DecodedTx {
+  try {
+    return decoder.decode(message, log);
+  } catch {
+    return null;
+  }
+};
+
+const decodeFromValidatedTxResponse = (txResponse: TxResponse): DecodedTx => {
   const initialState: DecodedTx = {
     balanceChanges: { ft: {}, nft: {} },
     messages: [],
@@ -48,26 +51,31 @@ export function decodeTransaction(
     );
   }
 
-  const decodedTx = produce(initialState, (draft) => {
+  return produce(initialState, (draft) => {
     txResponse.tx.body.messages.forEach((message, index) => {
-      const notSupportedMessage = createNotSupportedMessage(message["@type"]);
-      const handler = registry.get(message["@type"]);
-      if (handler) {
-        try {
-          const result = handler(message, txResponse.logs[index]);
-          draft.messages.push(result.decodedMessage);
-          draft.balanceChanges = mergeBalanceChanges(
-            draft.balanceChanges,
-            result.balanceChanges
-          );
-        } catch {
-          draft.messages.push(notSupportedMessage);
-        }
+      const log = txResponse.logs[index];
+      const decodedResult = decodeMessage(message, log);
+
+      if (decodedResult) {
+        const { balanceChanges, decodedMessage } = decodedResult;
+        draft.messages.push(decodedMessage);
+        draft.balanceChanges = mergeBalanceChanges(draft.balanceChanges, balanceChanges);
       } else {
-        draft.messages.push(notSupportedMessage);
+        draft.messages.push(createNotSupportedMessage(message["@type"]));
       }
     });
   });
+};
+
+export const decodeTransaction = (tx: unknown): DecodedTx => {
+  const parsed = zTxResponse.safeParse(tx);
+  if (!parsed.success) {
+    throw new Error(`Invalid txResponse: ${parsed.error.message}`);
+  }
+
+  const txResponseWithLogs = attachTxLogs(parsed.data);
+
+  const decodedTx = decodeFromValidatedTxResponse(txResponseWithLogs);
 
   return decodedTx;
-}
+};
