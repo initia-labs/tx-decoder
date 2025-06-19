@@ -1,8 +1,4 @@
-import {
-  BalanceChanges,
-  DecodedMessage,
-  MessageDecoder,
-} from "@/interfaces";
+import { BalanceChanges, DecodedMessage, MessageDecoder } from "@/interfaces";
 import { DexSwapEvent, Event, zDexSwapEvent } from "@/schema";
 
 import { isMoveMessage } from "./index";
@@ -17,7 +13,13 @@ export const swapDecoder: MessageDecoder = {
       message.function_name === "swap_script"
     );
   },
-  decode: (message, log): { balanceChanges: Partial<BalanceChanges>; decodedMessage: DecodedMessage } => {
+  decode: (
+    message,
+    log
+  ): {
+    balanceChanges: Partial<BalanceChanges>;
+    decodedMessage: DecodedMessage;
+  } => {
     const swapEvent = findSwapEventData(log.events);
     if (!swapEvent) {
       throw new Error("Dex Swap event not found");

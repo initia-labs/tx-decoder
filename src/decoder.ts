@@ -4,6 +4,7 @@ import * as Handlers from "./handlers";
 import { DecodedTx, MessageDecoder } from "./interfaces";
 import { TxResponse } from "./schema";
 import { mergeBalanceChanges } from "./utils";
+import { createNotSupportedMessage } from "./utils";
 
 // Array of decoders ordered by priority
 const messageDecoders: MessageDecoder[] = [
@@ -16,9 +17,7 @@ const messageDecoders: MessageDecoder[] = [
   // Add more decoders here in order of priority
 ];
 
-export function decodeTransaction(
-  txResponse: TxResponse,
-): DecodedTx {
+export function decodeTransaction(txResponse: TxResponse): DecodedTx {
   const initialState: DecodedTx = {
     balanceChanges: { ft: {}, nft: {} },
     messages: [],
@@ -36,6 +35,8 @@ export function decodeTransaction(
 
   const decodedTx = produce(initialState, (draft) => {
     for (const [index, message] of txResponse.tx.body.messages.entries()) {
+      let decoderMatched = false;
+
       // Try each decoder in order of priority
       for (const decoder of messageDecoders) {
         if (decoder.check(message, txResponse.logs[index])) {
@@ -45,19 +46,14 @@ export function decodeTransaction(
             draft.balanceChanges,
             result.balanceChanges
           );
+          decoderMatched = true;
           break; // Stop after the first matching decoder
         }
       }
+
       // If no decoder matches, add a not_supported message
-      if (!draft.messages[index]) {
-        draft.messages.push({
-          action: "not_supported",
-          data: {
-            msgType: message["@type"],
-          },
-          isIbc: false,
-          isOp: false,
-        });
+      if (!decoderMatched) {
+        draft.messages.push(createNotSupportedMessage(message["@type"]));
       }
     }
   });
