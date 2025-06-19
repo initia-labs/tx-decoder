@@ -2,8 +2,8 @@ import { produce } from "immer";
 
 import * as Handlers from "./handlers";
 import { DecodedTx, MessageDecoder } from "./interfaces";
-import { TxResponse } from "./schema";
-import { mergeBalanceChanges } from "./utils";
+import { Log, Message, TxResponse, zTxResponse } from "./schema";
+import { attachTxLogs, mergeBalanceChanges } from "./utils";
 import { createNotSupportedMessage } from "./utils";
 
 // Array of decoders ordered by priority
@@ -17,7 +17,31 @@ const messageDecoders: MessageDecoder[] = [
   // Add more decoders here in order of priority
 ];
 
-export function decodeTransaction(txResponse: TxResponse): DecodedTx {
+const findDecoderForMessage = (
+  message: Message,
+  log: Log
+): MessageDecoder | undefined => {
+  return messageDecoders.find((decoder) => decoder.check(message, log));
+};
+
+const decodeMessage = (
+  message: Message,
+  log: Log
+): ReturnType<MessageDecoder["decode"]> | null => {
+  const decoder = findDecoderForMessage(message, log);
+
+  if (!decoder) {
+    return null;
+  }
+
+  try {
+    return decoder.decode(message, log);
+  } catch {
+    return null;
+  }
+};
+
+const decodeFromValidatedTxResponse = (txResponse: TxResponse): DecodedTx => {
   const initialState: DecodedTx = {
     balanceChanges: { ft: {}, nft: {} },
     messages: [],
@@ -33,30 +57,34 @@ export function decodeTransaction(txResponse: TxResponse): DecodedTx {
     );
   }
 
-  const decodedTx = produce(initialState, (draft) => {
-    for (const [index, message] of txResponse.tx.body.messages.entries()) {
-      let decoderMatched = false;
+  return produce(initialState, (draft) => {
+    txResponse.tx.body.messages.forEach((message, index) => {
+      const log = txResponse.logs[index];
+      const decodedResult = decodeMessage(message, log);
 
-      // Try each decoder in order of priority
-      for (const decoder of messageDecoders) {
-        if (decoder.check(message, txResponse.logs[index])) {
-          const result = decoder.decode(message, txResponse.logs[index]);
-          draft.messages.push(result.decodedMessage);
-          draft.balanceChanges = mergeBalanceChanges(
-            draft.balanceChanges,
-            result.balanceChanges
-          );
-          decoderMatched = true;
-          break; // Stop after the first matching decoder
-        }
-      }
-
-      // If no decoder matches, add a not_supported message
-      if (!decoderMatched) {
+      if (decodedResult) {
+        const { balanceChanges, decodedMessage } = decodedResult;
+        draft.messages.push(decodedMessage);
+        draft.balanceChanges = mergeBalanceChanges(
+          draft.balanceChanges,
+          balanceChanges
+        );
+      } else {
         draft.messages.push(createNotSupportedMessage(message["@type"]));
       }
-    }
+    });
   });
+};
+
+export const decodeTransaction = (tx: unknown): DecodedTx => {
+  const parsed = zTxResponse.safeParse(tx);
+  if (!parsed.success) {
+    throw new Error(`Invalid txResponse: ${parsed.error.message}`);
+  }
+
+  const txResponseWithLogs = attachTxLogs(parsed.data);
+
+  const decodedTx = decodeFromValidatedTxResponse(txResponseWithLogs);
 
   return decodedTx;
-}
+};

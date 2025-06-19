@@ -17,7 +17,11 @@ export const zMsgSend = z.object({
   to_address: z.string(),
 });
 
-const zMoveExecuteBase = z.object({
+export const zMsgMoveExecute = z.object({
+  "@type": z.union([
+    z.literal(SUPPORTED_MESSAGE_TYPES.MsgExecute),
+    z.literal(SUPPORTED_MESSAGE_TYPES.MsgExecuteJson),
+  ]),
   args: z.array(z.string()),
   function_name: z.string(),
   module_address: z.string(),
@@ -25,16 +29,7 @@ const zMoveExecuteBase = z.object({
   sender: z.string(),
   type_args: z.array(z.string()),
 });
-
-export const zMsgMoveExecute = zMoveExecuteBase.extend({
-  "@type": z.literal(SUPPORTED_MESSAGE_TYPES.MsgExecute),
-});
 export type MsgMoveExecute = z.infer<typeof zMsgMoveExecute>;
-
-export const zMsgMoveExecuteJson = zMoveExecuteBase.extend({
-  "@type": z.literal(SUPPORTED_MESSAGE_TYPES.MsgExecuteJson),
-});
-export type MsgMoveExecuteJson = z.infer<typeof zMsgMoveExecuteJson>;
 
 export const zMsgInitiateTokenDeposit = z.object({
   "@type": z.literal(SUPPORTED_MESSAGE_TYPES.MsgInitiateTokenDeposit),

@@ -1,5 +1,5 @@
 import { BalanceChanges, DecodedMessage, MessageDecoder } from "@/interfaces";
-import { DexSwapEvent, Event, zDexSwapEvent } from "@/schema";
+import { DexSwapEvent, Event, zDexSwapEvent, zMsgMoveExecute } from "@/schema";
 
 import { isMoveMessage } from "./index";
 
@@ -14,6 +14,12 @@ export const swapDecoder: MessageDecoder = {
     );
   },
   decode: (message, log) => {
+    const parsed = zMsgMoveExecute.safeParse(message);
+    if (!parsed.success) {
+      throw new Error("Invalid move execute message");
+    }
+    const { sender } = parsed.data;
+
     const swapEvent = findSwapEventData(log.events);
     if (!swapEvent) {
       throw new Error("Dex Swap event not found");
@@ -26,7 +32,7 @@ export const swapDecoder: MessageDecoder = {
         amountOut: swapEvent.return_amount,
         denomIn: swapEvent.offer_coin,
         denomOut: swapEvent.return_coin,
-        from: message.sender as string,
+        from: sender,
       },
       isIbc: false,
       isOp: false,
@@ -34,7 +40,7 @@ export const swapDecoder: MessageDecoder = {
 
     const balanceChanges: Partial<BalanceChanges> = {
       ft: {
-        [message.sender as string]: {
+        [sender]: {
           [swapEvent.offer_coin]: `-${swapEvent.offer_amount}`,
           [swapEvent.return_coin]: swapEvent.return_amount,
         },
@@ -49,7 +55,7 @@ export const swapDecoder: MessageDecoder = {
 };
 
 // internal parser
-function findSwapEventData(events: Event[]): DexSwapEvent | null {
+const findSwapEventData = (events: Event[]): DexSwapEvent | null => {
   const swapEvent = events.find(
     (event) =>
       event.type === "move" &&
@@ -75,4 +81,4 @@ function findSwapEventData(events: Event[]): DexSwapEvent | null {
   }
 
   return parsed.data;
-}
+};

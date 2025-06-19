@@ -53,7 +53,7 @@ export const nftMintDecoder: MessageDecoder = {
 };
 
 // internal parser
-function findMintEvent(events: Event[]): MintNFTEvent | null {
+const findMintEvent = (events: Event[]): MintNFTEvent | null => {
   const mintEvent = events.find(
     (event) =>
       event.type === "move" &&
@@ -79,4 +79,4 @@ function findMintEvent(events: Event[]): MintNFTEvent | null {
   }
 
   return parsed.data;
-}
+};

@@ -3,11 +3,11 @@ import {
   mockMsgSendWithMultipleMessages,
   mockMsgSendWithSingleCoin,
 } from "../fixtures/send-tx.fixture";
-import { decodeTx } from "../index";
+import { decodeTransaction } from "../index";
 
 describe("Send Message", () => {
   it("should decode a simple send message with one coin correctly", () => {
-    const decoded = decodeTx(mockMsgSendWithSingleCoin);
+    const decoded = decodeTransaction(mockMsgSendWithSingleCoin);
 
     expect(decoded.messages).toHaveLength(1);
     expect(decoded.messages[0]).toEqual({
@@ -35,7 +35,7 @@ describe("Send Message", () => {
   });
 
   it("should decode a simple send message with multiple coins correctly", () => {
-    const decoded = decodeTx(mockMsgSendWithMultipleCoins);
+    const decoded = decodeTransaction(mockMsgSendWithMultipleCoins);
 
     expect(decoded.messages).toHaveLength(1);
     expect(decoded.messages[0]).toEqual({
@@ -68,7 +68,7 @@ describe("Send Message", () => {
   });
 
   it("should decode a multiple send messages with multiple coins correctly", () => {
-    const decoded = decodeTx(mockMsgSendWithMultipleMessages);
+    const decoded = decodeTransaction(mockMsgSendWithMultipleMessages);
 
     expect(decoded.messages).toHaveLength(2);
     expect(decoded.messages[0]).toEqual({

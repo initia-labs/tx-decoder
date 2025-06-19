@@ -1,9 +1,9 @@
 import { mockMsgDexSwap } from "../fixtures/move/swap.fixture";
-import { decodeTx } from "../index";
+import { decodeTransaction } from "../index";
 
 describe("Dex Swap Message", () => {
   it("should decode a dex swap move message correctly", () => {
-    const decoded = decodeTx(mockMsgDexSwap);
+    const decoded = decodeTransaction(mockMsgDexSwap);
 
     expect(decoded.messages).toHaveLength(1);
     expect(decoded.messages[0]).toEqual({
