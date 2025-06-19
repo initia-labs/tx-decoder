@@ -2,11 +2,11 @@ import {
   mockMsgWithdrawDelegatorReward,
   mockMsgWithdrawDelegatorRewardWithMultipleCoins,
 } from "../fixtures/withdraw-delegator-reward.fixture";
-import { decodeTx } from "../index";
+import { decodeTransaction } from "../index";
 
 describe("Withdraw Delegator Reward Message", () => {
   it("should decode a withdraw delegator reward message correctly", () => {
-    const decoded = decodeTx(mockMsgWithdrawDelegatorReward);
+    const decoded = decodeTransaction(mockMsgWithdrawDelegatorReward);
 
     expect(decoded.messages).toHaveLength(1);
     expect(decoded.messages[0]).toEqual({
@@ -31,7 +31,9 @@ describe("Withdraw Delegator Reward Message", () => {
   });
 
   it("should decode a withdraw delegator reward message with multiple coins correctly", () => {
-    const decoded = decodeTx(mockMsgWithdrawDelegatorRewardWithMultipleCoins);
+    const decoded = decodeTransaction(
+      mockMsgWithdrawDelegatorRewardWithMultipleCoins
+    );
 
     expect(decoded.messages).toHaveLength(1);
     expect(decoded.messages[0]).toEqual({
