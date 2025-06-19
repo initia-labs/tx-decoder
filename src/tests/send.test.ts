@@ -2,7 +2,7 @@ import {
   mockMsgSendWithMultipleCoins,
   mockMsgSendWithMultipleMessages,
   mockMsgSendWithSingleCoin,
-} from "../fixtures/send-tx.fixture";
+} from "../fixtures/send.fixture";
 import { decodeTransaction } from "../index";
 
 describe("Send Message", () => {
