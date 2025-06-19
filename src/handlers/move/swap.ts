@@ -13,13 +13,7 @@ export const swapDecoder: MessageDecoder = {
       message.function_name === "swap_script"
     );
   },
-  decode: (
-    message,
-    log
-  ): {
-    balanceChanges: Partial<BalanceChanges>;
-    decodedMessage: DecodedMessage;
-  } => {
+  decode: (message, log) => {
     const swapEvent = findSwapEventData(log.events);
     if (!swapEvent) {
       throw new Error("Dex Swap event not found");
@@ -32,6 +26,7 @@ export const swapDecoder: MessageDecoder = {
         amountOut: swapEvent.return_amount,
         denomIn: swapEvent.offer_coin,
         denomOut: swapEvent.return_coin,
+        from: message.sender as string,
       },
       isIbc: false,
       isOp: false,
