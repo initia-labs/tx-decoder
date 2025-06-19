@@ -1,5 +1,5 @@
-import { mockMsgFinalizeTokenWithdrawal } from "../fixtures/finalize-token-withdrawal.fixture";
-import { decodeTransaction } from "../index";
+import { mockMsgFinalizeTokenWithdrawal } from "@/fixtures/op-init/finalize-token-withdrawal.fixture";
+import { decodeTransaction } from "@/index";
 
 describe("Finalize Token Withdrawal Message", () => {
   it("should decode a finalize token withdrawal message correctly", () => {

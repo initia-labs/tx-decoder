@@ -1,22 +1,12 @@
 import { BalanceChanges, DecodedMessage, MessageDecoder } from "@/interfaces";
-import { DexSwapEvent, Event, zDexSwapEvent, zMsgMoveExecute } from "@/schema";
-
-import { isMoveMessage } from "./index";
+import { DexSwapEvent, Event, zDexSwapEvent, zMsgMoveSwap } from "@/schema";
 
 export const swapDecoder: MessageDecoder = {
-  check: (message, _log) => {
-    // Check if this is a swap function
-    return (
-      isMoveMessage(message) &&
-      message.module_address === "0x1" &&
-      message.module_name === "dex" &&
-      message.function_name === "swap_script"
-    );
-  },
+  check: (message, _log) => zMsgMoveSwap.safeParse(message).success,
   decode: (message, log) => {
-    const parsed = zMsgMoveExecute.safeParse(message);
+    const parsed = zMsgMoveSwap.safeParse(message);
     if (!parsed.success) {
-      throw new Error("Invalid move execute message");
+      throw new Error("Invalid move swap message");
     }
     const { sender } = parsed.data;
 
@@ -60,16 +50,13 @@ const findSwapEventData = (events: Event[]): DexSwapEvent | null => {
     (event) =>
       event.type === "move" &&
       event.attributes.some(
-        (attr) =>
-          attr.key === "type_tag" && attr.value === "0x1::dex::SwapEvent"
+        (attr) => attr.key === "type_tag" && attr.value === "0x1::dex::SwapEvent"
       )
   );
 
   if (!swapEvent) return null;
 
-  const dataAttribute = swapEvent.attributes.find(
-    (attr) => attr.key === "data"
-  );
+  const dataAttribute = swapEvent.attributes.find((attr) => attr.key === "data");
 
   if (!dataAttribute) {
     return null;

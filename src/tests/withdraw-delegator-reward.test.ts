@@ -31,9 +31,7 @@ describe("Withdraw Delegator Reward Message", () => {
   });
 
   it("should decode a withdraw delegator reward message with multiple coins correctly", () => {
-    const decoded = decodeTransaction(
-      mockMsgWithdrawDelegatorRewardWithMultipleCoins
-    );
+    const decoded = decodeTransaction(mockMsgWithdrawDelegatorRewardWithMultipleCoins);
 
     expect(decoded.messages).toHaveLength(1);
     expect(decoded.messages[0]).toEqual({
