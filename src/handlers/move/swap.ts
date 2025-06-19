@@ -4,11 +4,8 @@ import { DexSwapEvent, Event, zDexSwapEvent, zMsgMoveSwap } from "@/schema";
 export const swapDecoder: MessageDecoder = {
   check: (message, _log) => zMsgMoveSwap.safeParse(message).success,
   decode: (message, log) => {
-    const parsed = zMsgMoveSwap.safeParse(message);
-    if (!parsed.success) {
-      throw new Error("Invalid move swap message");
-    }
-    const { sender } = parsed.data;
+    const parsed = zMsgMoveSwap.parse(message);
+    const { sender } = parsed;
 
     const swapEvent = findSwapEventData(log.events);
     if (!swapEvent) {
