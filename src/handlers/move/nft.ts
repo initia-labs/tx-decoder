@@ -20,7 +20,7 @@ export const nftMintDecoder: MessageDecoder = {
 
     const objectCreateEvent = findMoveEvent<MoveObjectCreateEvent>(log.events, "0x1::object::CreateEvent", zMsgMoveObjectCreateEvent);
     if (!objectCreateEvent) {
-      throw new Error("NFT Transfer event not found");
+      throw new Error("Object Create event not found");
     }
 
     return {
@@ -63,7 +63,7 @@ export const objectTransferDecoder: MessageDecoder = {
   decode: (_message, log) => {
     const transferEvent = findMoveEvent<MoveObjectTransferEvent>(log.events, "0x1::object::TransferEvent", zMsgMoveObjectTransferEvent);
     if (!transferEvent) {
-      throw new Error("NFT Transfer event not found");
+      throw new Error("Object Transfer event not found");
     }
 
     return {
