@@ -14,6 +14,8 @@ const messageDecoders: MessageDecoder[] = [
   Handlers.withdrawDelegatorRewardDecoder,
   Handlers.swapDecoder,
   Handlers.nftMintDecoder,
+  Handlers.objectTransferDecoder,
+  Handlers.nftBurnDecoder,
   // Add more decoders here in order of priority
 ];
 
@@ -37,7 +39,7 @@ const decodeMessage = (message: Message, log: Log): ReturnType<MessageDecoder["d
 
 const decodeFromValidatedTxResponse = (txResponse: TxResponse): DecodedTx => {
   const initialState: DecodedTx = {
-    balanceChanges: { ft: {}, nft: {} },
+    balanceChanges: { ft: {}, object: {} },
     messages: [],
   };
 

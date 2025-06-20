@@ -16,3 +16,24 @@ export const zMintNFTEvent = z.object({
   token_id: z.string(),
 });
 export type MintNFTEvent = z.infer<typeof zMintNFTEvent>;
+
+export const zMsgMoveObjectCreateEvent = z.object({
+  object: z.string(),
+  owner: z.string(),
+  version: z.string()
+});
+export type MoveObjectCreateEvent = z.infer<typeof zMsgMoveObjectCreateEvent>;
+
+export const zMsgMoveObjectTransferEvent  = z.object({
+  from: z.string(),
+  object: z.string(),
+  to: z.string(),
+});
+export type MoveObjectTransferEvent = z.infer<typeof zMsgMoveObjectTransferEvent>;
+
+export const zMsgMoveNFTBurnEvent = z.object({
+  collection: z.string(),
+  nft: z.string(),
+  token_id: z.string(),
+});
+export type MoveNFTBurnEvent = z.infer<typeof zMsgMoveNFTBurnEvent>;

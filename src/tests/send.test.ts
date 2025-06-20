@@ -30,7 +30,7 @@ describe("Send Message", () => {
           uinit: "-1000000",
         },
       },
-      nft: {},
+      object: {},
     });
   });
 
@@ -63,7 +63,7 @@ describe("Send Message", () => {
           uinit: "-1000000",
         },
       },
-      nft: {},
+      object: {},
     });
   });
 
@@ -113,7 +113,7 @@ describe("Send Message", () => {
           uinit: "-2000000",
         },
       },
-      nft: {},
+      object: {},
     });
   });
 });

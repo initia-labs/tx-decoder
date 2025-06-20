@@ -26,7 +26,7 @@ describe("Dex Swap Message", () => {
           "0xe0e9394b24e53775d6af87934ac02d73536ad58b7894f6ccff3f5e7c0d548e55": "3563468757",
         },
       },
-      nft: {},
+      object: {},
     });
   });
 });

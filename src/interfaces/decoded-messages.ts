@@ -8,8 +8,10 @@ interface DecodedMessageBase {
 export type DecodedMessage =
   | DecodedFinalizeTokenWithdrawalMessage
   | DecodedInitiateTokenDepositMessage
+  | DecodedNFTBurnMessage
   | DecodedNFTMintMessage
   | DecodedNotSupportedMessage
+  | DecodedObjectTransferMessage
   | DecodedSendMessage
   | DecodedSwapMessage
   | DecodedWithdrawDelegatorRewardMessage;
@@ -81,6 +83,24 @@ interface DecodedNFTMintMessage extends DecodedMessageBase {
     collection_address: string;
     token_address: string;
     token_id: string;
-    token_uri: null;
+    token_uri?: string;
+  };
+}
+
+interface DecodedObjectTransferMessage extends DecodedMessageBase {
+  action: "object_transfer";
+  data: {
+    from: string;
+    object: string;
+    to: string;
+  };
+}
+
+interface DecodedNFTBurnMessage extends DecodedMessageBase {
+  action: "nft_burn";
+  data: {
+    collection_address: string;
+    token_address: string;
+    token_id: string;
   };
 }
