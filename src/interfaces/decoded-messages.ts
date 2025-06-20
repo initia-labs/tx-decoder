@@ -7,6 +7,8 @@ interface DecodedMessageBase {
 
 export type DecodedMessage =
   | DecodedFinalizeTokenWithdrawalMessage
+  | DecodedIBCNFTReceiveMessage
+  | DecodedIBCNFTSendMessage
   | DecodedInitiateTokenDepositMessage
   | DecodedNFTBurnMessage
   | DecodedNFTMintMessage
@@ -102,5 +104,33 @@ interface DecodedNFTBurnMessage extends DecodedMessageBase {
     collection_address: string;
     token_address: string;
     token_id: string;
+  };
+}
+
+interface DecodedIBCNFTSendMessage extends DecodedMessageBase {
+  action: "ibc_nft_send";
+  data: {
+    collection_id: string;
+    collection_uri: string | null;
+    receiver: string;
+    sender: string;
+    source_channel: string;
+    source_port: string;
+    token_ids: string[];
+    token_uris: string[];
+  };
+}
+
+interface DecodedIBCNFTReceiveMessage extends DecodedMessageBase {
+  action: "ibc_nft_receive";
+  data: {
+    collection_id: string;
+    collection_uri: string | null;
+    destination_channel: string;
+    destination_port: string;
+    receiver: string;
+    sender: string;
+    token_ids: string[];
+    token_uris: string[];
   };
 }

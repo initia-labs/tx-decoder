@@ -1,3 +1,4 @@
+export * from "./ibc";
 export * from "./move/nft";
 export * from "./move/swap";
 export * from "./op-init/finalize-token-withdrawal";

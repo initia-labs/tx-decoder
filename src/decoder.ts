@@ -8,6 +8,8 @@ import { createNotSupportedMessage } from "./utils";
 
 // Array of decoders ordered by priority
 const messageDecoders: MessageDecoder[] = [
+  Handlers.ibcSendNFTDecoder,
+  Handlers.ibcReceiveNFTDecoder,
   Handlers.sendDecoder,
   Handlers.initiateTokenDepositDecoder,
   Handlers.finalizeTokenWithdrawalDecoder,

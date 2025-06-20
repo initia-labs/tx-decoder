@@ -37,3 +37,19 @@ export const zMsgMoveNFTBurnEvent = z.object({
   token_id: z.string(),
 });
 export type MoveNFTBurnEvent = z.infer<typeof zMsgMoveNFTBurnEvent>;
+
+export const zMsgIBCNFTTransferSendPacketEventData = z.object({
+  classId: z.string(),
+  classUri: z.string().nullable(),
+  receiver: z.string(),
+  sender: z.string(),
+  tokenIds: z.array(z.string()),
+  tokenUris: z.array(z.string()),
+});
+
+export const zMsgMoveCreateCollectionEvent = z.object({
+  collection: z.string(),
+  creator: z.string(),
+  name: z.string(),
+});
+export type MoveCreateCollectionEvent = z.infer<typeof zMsgMoveCreateCollectionEvent>;
