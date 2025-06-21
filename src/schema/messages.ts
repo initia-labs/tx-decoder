@@ -19,6 +19,13 @@ export const zMsgSend = z.object({
   to_address: z.string(),
 });
 
+export const zMsgUndelegate = z.object({
+  "@type": z.literal(SUPPORTED_MESSAGE_TYPES.MsgUndelegate),
+  amount: z.array(zCoin),
+  delegator_address: z.string(),
+  validator_address: z.string(),
+});
+
 export const zMsgInitiateTokenDeposit = z.object({
   "@type": z.literal(SUPPORTED_MESSAGE_TYPES.MsgInitiateTokenDeposit),
   amount: zCoin,
@@ -82,13 +89,8 @@ const zMsgMoveSimpleMint = zMsgMoveExecute.extend({
 
 const zMsgMoveUsernameMint = zMsgMoveExecute.extend({
   function_name: z.literal("register_domain"),
-  module_address: z
-    .string()
-    .refine((address) => USERNAME_MODULE_ADDRESSES.includes(address)),
+  module_address: z.string().refine((address) => USERNAME_MODULE_ADDRESSES.includes(address)),
   module_name: z.literal("usernames"),
 });
 
-export const zMsgMoveNftMint = z.union([
-  zMsgMoveSimpleMint,
-  zMsgMoveUsernameMint,
-]);
+export const zMsgMoveNftMint = z.union([zMsgMoveSimpleMint, zMsgMoveUsernameMint]);

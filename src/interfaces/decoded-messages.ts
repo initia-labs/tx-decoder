@@ -12,6 +12,7 @@ export type DecodedMessage =
   | DecodedNotSupportedMessage
   | DecodedSendMessage
   | DecodedSwapMessage
+  | DecodedUndelegateMessage
   | DecodedWithdrawDelegatorRewardMessage;
 
 interface DecodedSendMessage extends DecodedMessageBase {
@@ -43,6 +44,14 @@ interface DecodedSwapMessage extends DecodedMessageBase {
     denomIn: string;
     denomOut: string;
     from: string;
+  };
+}
+interface DecodedUndelegateMessage extends DecodedMessageBase {
+  action: "undelegate";
+  data: {
+    coins: Coin[];
+    delegatorAddress: string;
+    validatorAddress: string;
   };
 }
 
