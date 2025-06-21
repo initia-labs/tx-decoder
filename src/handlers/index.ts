@@ -5,4 +5,5 @@ export * from "./op-init/finalize-token-withdrawal";
 export * from "./op-init/initiate-token-deposit";
 export * from "./send";
 export * from "./undelegate";
+export * from "./undelegate-locked";
 export * from "./withdraw-delegator-reward";

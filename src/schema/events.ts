@@ -16,3 +16,12 @@ export const zMintNFTEvent = z.object({
   token_id: z.string(),
 });
 export type MintNFTEvent = z.infer<typeof zMintNFTEvent>;
+
+export const zUndelegateLockedEvent = z.object({
+  locked_share: z.string(),
+  metadata: z.string(),
+  release_time: z.string(),
+  staking_account: z.string(),
+  validator: z.string(),
+});
+export type UndelegateLockedEvent = z.infer<typeof zUndelegateLockedEvent>;

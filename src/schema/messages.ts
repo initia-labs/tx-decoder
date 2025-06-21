@@ -94,3 +94,10 @@ const zMsgMoveUsernameMint = zMsgMoveExecute.extend({
 });
 
 export const zMsgMoveNftMint = z.union([zMsgMoveSimpleMint, zMsgMoveUsernameMint]);
+
+export const zMsgUndelegateLocked = zMsgMoveExecute.extend({
+  function_name: z.literal("undelegate"),
+  // Do we need to add more module addresses or just make this a string?
+  module_address: z.literal("0x3a886b32a802582f2e446e74d4a24d1d7ed01adf46d2a8f65c5723887e708789"),
+  module_name: z.literal("lock_staking"),
+});
