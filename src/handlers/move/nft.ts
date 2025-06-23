@@ -1,24 +1,28 @@
-import { findMoveEvent } from "@/handlers/move";
 import { MessageDecoder } from "@/interfaces";
-import { MintNFTEvent, MoveNFTBurnEvent, MoveObjectCreateEvent, MoveObjectTransferEvent, zMintNFTEvent, zMsgMoveExecute, zMsgMoveNFTBurnEvent, zMsgMoveObjectCreateEvent, zMsgMoveObjectTransfer, zMsgMoveObjectTransferEvent } from "@/schema";
-import { toBech32 } from "@/utils/address-converter";
+import {
+  zMintNFTEvent,
+  zMsgMoveExecute,
+  zMsgMoveNFTBurnEvent,
+  zMsgMoveObjectCreateEvent,
+  zMsgMoveObjectTransfer,
+  zMsgMoveObjectTransferEvent,
+} from "@/schema";
+import { findMoveEvent, toBech32 } from "@/utils";
 
 export const nftMintDecoder: MessageDecoder = {
-  check: (_message, log) => {
-    const mintEvent = findMoveEvent<MintNFTEvent>(log.events, "0x1::collection::MintEvent", zMintNFTEvent);
-    if (!mintEvent) {
-      return false;
-    }
-
-    return true;
-  },
+  check: (_message, log) =>
+    !!findMoveEvent(log.events, "0x1::collection::MintEvent", zMintNFTEvent),
   decode: (_message, log) => {
-    const mintEvent = findMoveEvent<MintNFTEvent>(log.events, "0x1::collection::MintEvent", zMintNFTEvent);
+    const mintEvent = findMoveEvent(log.events, "0x1::collection::MintEvent", zMintNFTEvent);
     if (!mintEvent) {
       throw new Error("NFT Mint event not found");
     }
 
-    const objectCreateEvent = findMoveEvent<MoveObjectCreateEvent>(log.events, "0x1::object::CreateEvent", zMsgMoveObjectCreateEvent);
+    const objectCreateEvent = findMoveEvent(
+      log.events,
+      "0x1::object::CreateEvent",
+      zMsgMoveObjectCreateEvent
+    );
     if (!objectCreateEvent) {
       throw new Error("Object Create event not found");
     }
@@ -53,7 +57,11 @@ export const objectTransferDecoder: MessageDecoder = {
       return false;
     }
 
-    const transferEvent = findMoveEvent<MoveObjectTransferEvent>(log.events, "0x1::object::TransferEvent", zMsgMoveObjectTransferEvent);
+    const transferEvent = findMoveEvent(
+      log.events,
+      "0x1::object::TransferEvent",
+      zMsgMoveObjectTransferEvent
+    );
     if (!transferEvent) {
       return false;
     }
@@ -61,7 +69,11 @@ export const objectTransferDecoder: MessageDecoder = {
     return true;
   },
   decode: (_message, log) => {
-    const transferEvent = findMoveEvent<MoveObjectTransferEvent>(log.events, "0x1::object::TransferEvent", zMsgMoveObjectTransferEvent);
+    const transferEvent = findMoveEvent(
+      log.events,
+      "0x1::object::TransferEvent",
+      zMsgMoveObjectTransferEvent
+    );
     if (!transferEvent) {
       throw new Error("Object Transfer event not found");
     }
@@ -93,12 +105,13 @@ export const objectTransferDecoder: MessageDecoder = {
 };
 
 export const nftBurnDecoder: MessageDecoder = {
-  check: (_message, log) => !!findMoveEvent<MoveNFTBurnEvent>(log.events, "0x1::collection::BurnEvent", zMsgMoveNFTBurnEvent),
+  check: (_message, log) =>
+    !!findMoveEvent(log.events, "0x1::collection::BurnEvent", zMsgMoveNFTBurnEvent),
   decode: (_message, log) => {
     const parsed = zMsgMoveExecute.parse(_message);
     const { sender } = parsed;
 
-    const burnEvent = findMoveEvent<MoveNFTBurnEvent>(log.events, "0x1::collection::BurnEvent", zMsgMoveNFTBurnEvent);
+    const burnEvent = findMoveEvent(log.events, "0x1::collection::BurnEvent", zMsgMoveNFTBurnEvent);
     if (!burnEvent) {
       throw new Error("NFT Burn event not found");
     }
