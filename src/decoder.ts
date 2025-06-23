@@ -14,18 +14,25 @@ const messageDecoders: MessageDecoder[] = [
   Handlers.initiateTokenDepositDecoder,
   Handlers.finalizeTokenWithdrawalDecoder,
   Handlers.withdrawDelegatorRewardDecoder,
-  Handlers.swapDecoder,
+  Handlers.dexSwapDecoder,
+  Handlers.stableSwapDecoder,
   Handlers.nftMintDecoder,
   Handlers.objectTransferDecoder,
   Handlers.nftBurnDecoder,
   // Add more decoders here in order of priority
 ];
 
-const findDecoderForMessage = (message: Message, log: Log): MessageDecoder | undefined => {
+const findDecoderForMessage = (
+  message: Message,
+  log: Log
+): MessageDecoder | undefined => {
   return messageDecoders.find((decoder) => decoder.check(message, log));
 };
 
-const decodeMessage = (message: Message, log: Log): ReturnType<MessageDecoder["decode"]> | null => {
+const decodeMessage = (
+  message: Message,
+  log: Log
+): ReturnType<MessageDecoder["decode"]> | null => {
   const decoder = findDecoderForMessage(message, log);
 
   if (!decoder) {
@@ -63,7 +70,10 @@ const decodeFromValidatedTxResponse = (txResponse: TxResponse): DecodedTx => {
       if (decodedResult) {
         const { balanceChanges, decodedMessage } = decodedResult;
         draft.messages.push(decodedMessage);
-        draft.balanceChanges = mergeBalanceChanges(draft.balanceChanges, balanceChanges);
+        draft.balanceChanges = mergeBalanceChanges(
+          draft.balanceChanges,
+          balanceChanges
+        );
       } else {
         draft.messages.push(createNotSupportedMessage(message["@type"]));
       }

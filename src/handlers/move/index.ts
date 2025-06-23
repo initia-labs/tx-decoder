@@ -1,2 +1,3 @@
+export * from "./dex-swap";
 export * from "./nft";
-export * from "./swap";
+export * from "./stable-swap";

@@ -1,5 +1,7 @@
 import { z } from "zod";
 
+import { USERNAME_MODULE_ADDRESSES } from "@/constants";
+
 import { SUPPORTED_MESSAGE_TYPES } from "../message-types";
 import { zCoin } from "./common";
 
@@ -60,11 +62,31 @@ export const zMsgMoveExecute = z.object({
   type_args: z.array(z.string()),
 });
 
-export const zMsgMoveSwap = zMsgMoveExecute.extend({
+export const zMsgMoveDexSwap = zMsgMoveExecute.extend({
   function_name: z.literal("swap_script"),
   module_address: z.literal("0x1"),
   module_name: z.literal("dex"),
 });
+
+export const zMsgMoveStableSwap = zMsgMoveExecute.extend({
+  function_name: z.literal("swap_script"),
+  module_address: z.literal("0x1"),
+  module_name: z.literal("stableswap"),
+});
+
+const zMsgMoveSimpleMint = zMsgMoveExecute.extend({
+  function_name: z.literal("mint"),
+  module_address: z.literal("0x1"),
+  module_name: z.literal("simple_nft"),
+});
+
+const zMsgMoveUsernameMint = zMsgMoveExecute.extend({
+  function_name: z.literal("register_domain"),
+  module_address: z.string().refine((address) => USERNAME_MODULE_ADDRESSES.includes(address)),
+  module_name: z.literal("usernames"),
+});
+
+export const zMsgMoveNftMint = z.union([zMsgMoveSimpleMint, zMsgMoveUsernameMint]);
 
 export const zMsgMoveObjectTransfer = zMsgMoveExecute.extend({
   function_name: z.literal("transfer_call"),

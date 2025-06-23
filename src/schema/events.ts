@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const zDexSwapEvent = z.object({
+export const zSwapEvent = z.object({
   fee_amount: z.string(),
   liquidity_token: z.string(),
   offer_amount: z.string(),
@@ -8,7 +8,7 @@ export const zDexSwapEvent = z.object({
   return_amount: z.string(),
   return_coin: z.string(),
 });
-export type DexSwapEvent = z.infer<typeof zDexSwapEvent>;
+export type SwapEvent = z.infer<typeof zSwapEvent>;
 
 export const zMintNFTEvent = z.object({
   collection: z.string(),
