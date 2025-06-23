@@ -1,4 +1,4 @@
-import { mockMsgUndelegateLocked } from "@/fixtures/undelegate-locked.fixture";
+import { mockMsgUndelegateLocked } from "@/fixtures/undelegate.fixture";
 
 import {
   mockMsgUndelegate,

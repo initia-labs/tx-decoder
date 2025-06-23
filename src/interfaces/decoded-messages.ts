@@ -6,19 +6,19 @@ interface DecodedMessageBase {
 }
 
 export type DecodedMessage =
+  | DecodedDelegateMessage
   | DecodedFinalizeTokenWithdrawalMessage
-  | DecodedIBCNFTReceiveMessage
-  | DecodedIBCNFTSendMessage
+  | DecodedIbcNftReceiveMessage
+  | DecodedIbcNftSendMessage
   | DecodedInitiateTokenDepositMessage
-  | DecodedNFTBurnMessage
-  | DecodedNFTMintMessage
+  | DecodedNftBurnMessage
+  | DecodedNftMintMessage
   | DecodedNotSupportedMessage
   | DecodedObjectTransferMessage
+  | DecodedRedelegateMessage
   | DecodedSendMessage
   | DecodedSwapMessage
-  | DecodedDelegateMessage
   | DecodedUndelegateMessage
-  | DecodedRedelegateMessage
   | DecodedWithdrawDelegatorRewardMessage;
 
 interface DecodedSendMessage extends DecodedMessageBase {
@@ -110,7 +110,7 @@ interface DecodedNotSupportedMessage extends DecodedMessageBase {
   };
 }
 
-interface DecodedNFTMintMessage extends DecodedMessageBase {
+interface DecodedNftMintMessage extends DecodedMessageBase {
   action: "nft_mint";
   data: {
     collection_address: string;
@@ -129,7 +129,7 @@ interface DecodedObjectTransferMessage extends DecodedMessageBase {
   };
 }
 
-interface DecodedNFTBurnMessage extends DecodedMessageBase {
+interface DecodedNftBurnMessage extends DecodedMessageBase {
   action: "nft_burn";
   data: {
     collection_address: string;
@@ -138,7 +138,7 @@ interface DecodedNFTBurnMessage extends DecodedMessageBase {
   };
 }
 
-interface DecodedIBCNFTSendMessage extends DecodedMessageBase {
+interface DecodedIbcNftSendMessage extends DecodedMessageBase {
   action: "ibc_nft_send";
   data: {
     collection_id: string;
@@ -152,7 +152,7 @@ interface DecodedIBCNFTSendMessage extends DecodedMessageBase {
   };
 }
 
-interface DecodedIBCNFTReceiveMessage extends DecodedMessageBase {
+interface DecodedIbcNftReceiveMessage extends DecodedMessageBase {
   action: "ibc_nft_receive";
   data: {
     collection_id: string;

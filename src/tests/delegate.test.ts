@@ -1,4 +1,4 @@
-import { mockMsgDelegateLocked } from "@/fixtures/delegate-locked.fixture";
+import { mockMsgDelegateLocked } from "@/fixtures/delegate.fixture";
 
 import { mockMsgDelegate, mockMsgDelegateWithMultipleCoins } from "../fixtures/delegate.fixture";
 import { decodeTransaction } from "../index";
