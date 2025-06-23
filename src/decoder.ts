@@ -15,6 +15,7 @@ const messageDecoders: MessageDecoder[] = [
   Handlers.delegateLockedDecoder,
   Handlers.undelegateDecoder,
   Handlers.undelegateLockedDecoder,
+  Handlers.redelegateDecoder,
   Handlers.withdrawDelegatorRewardDecoder,
   Handlers.dexSwapDecoder,
   Handlers.stableSwapDecoder,

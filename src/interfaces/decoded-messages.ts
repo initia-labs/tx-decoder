@@ -14,6 +14,7 @@ export type DecodedMessage =
   | DecodedSwapMessage
   | DecodedDelegateMessage
   | DecodedUndelegateMessage
+  | DecodedRedelegateMessage
   | DecodedWithdrawDelegatorRewardMessage;
 
 interface DecodedSendMessage extends DecodedMessageBase {
@@ -63,6 +64,16 @@ interface DecodedUndelegateMessage extends DecodedMessageBase {
     coins: Coin[];
     delegatorAddress: string;
     validatorAddress: string;
+  };
+}
+
+interface DecodedRedelegateMessage extends DecodedMessageBase {
+  action: "redelegate";
+  data: {
+    coins: Coin[];
+    delegatorAddress: string;
+    validatorDstAddress: string;
+    validatorSrcAddress: string;
   };
 }
 

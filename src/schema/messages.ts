@@ -33,6 +33,14 @@ export const zMsgUndelegate = z.object({
   validator_address: z.string(),
 });
 
+export const zMsgRedelegate = z.object({
+  "@type": z.literal(SUPPORTED_MESSAGE_TYPES.MsgRedelegate),
+  amount: z.array(zCoin),
+  delegator_address: z.string(),
+  validator_dst_address: z.string(),
+  validator_src_address: z.string(),
+});
+
 export const zMsgInitiateTokenDeposit = z.object({
   "@type": z.literal(SUPPORTED_MESSAGE_TYPES.MsgInitiateTokenDeposit),
   amount: zCoin,

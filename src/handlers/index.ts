@@ -5,6 +5,7 @@ export * from "./move/nft";
 export * from "./move/stable-swap";
 export * from "./op-init/finalize-token-withdrawal";
 export * from "./op-init/initiate-token-deposit";
+export * from "./redelegate";
 export * from "./send";
 export * from "./undelegate";
 export * from "./undelegate-locked";
