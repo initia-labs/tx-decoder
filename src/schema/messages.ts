@@ -19,6 +19,13 @@ export const zMsgSend = z.object({
   to_address: z.string(),
 });
 
+export const zMsgDelegate = z.object({
+  "@type": z.literal(SUPPORTED_MESSAGE_TYPES.MsgDelegate),
+  amount: z.array(zCoin),
+  delegator_address: z.string(),
+  validator_address: z.string(),
+});
+
 export const zMsgUndelegate = z.object({
   "@type": z.literal(SUPPORTED_MESSAGE_TYPES.MsgUndelegate),
   amount: z.array(zCoin),
