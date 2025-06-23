@@ -16,6 +16,9 @@ export type DecodedMessage =
   | DecodedObjectTransferMessage
   | DecodedSendMessage
   | DecodedSwapMessage
+  | DecodedDelegateMessage
+  | DecodedUndelegateMessage
+  | DecodedRedelegateMessage
   | DecodedWithdrawDelegatorRewardMessage;
 
 interface DecodedSendMessage extends DecodedMessageBase {
@@ -47,6 +50,34 @@ interface DecodedSwapMessage extends DecodedMessageBase {
     denomIn: string;
     denomOut: string;
     from: string;
+  };
+}
+
+interface DecodedDelegateMessage extends DecodedMessageBase {
+  action: "delegate";
+  data: {
+    coins: Coin[];
+    delegatorAddress: string;
+    validatorAddress: string;
+  };
+}
+
+interface DecodedUndelegateMessage extends DecodedMessageBase {
+  action: "undelegate";
+  data: {
+    coins: Coin[];
+    delegatorAddress: string;
+    validatorAddress: string;
+  };
+}
+
+interface DecodedRedelegateMessage extends DecodedMessageBase {
+  action: "redelegate";
+  data: {
+    coins: Coin[];
+    delegatorAddress: string;
+    validatorDstAddress: string;
+    validatorSrcAddress: string;
   };
 }
 

@@ -19,6 +19,28 @@ export const zMsgSend = z.object({
   to_address: z.string(),
 });
 
+export const zMsgDelegate = z.object({
+  "@type": z.literal(SUPPORTED_MESSAGE_TYPES.MsgDelegate),
+  amount: z.array(zCoin),
+  delegator_address: z.string(),
+  validator_address: z.string(),
+});
+
+export const zMsgUndelegate = z.object({
+  "@type": z.literal(SUPPORTED_MESSAGE_TYPES.MsgUndelegate),
+  amount: z.array(zCoin),
+  delegator_address: z.string(),
+  validator_address: z.string(),
+});
+
+export const zMsgRedelegate = z.object({
+  "@type": z.literal(SUPPORTED_MESSAGE_TYPES.MsgRedelegate),
+  amount: z.array(zCoin),
+  delegator_address: z.string(),
+  validator_dst_address: z.string(),
+  validator_src_address: z.string(),
+});
+
 export const zMsgInitiateTokenDeposit = z.object({
   "@type": z.literal(SUPPORTED_MESSAGE_TYPES.MsgInitiateTokenDeposit),
   amount: zCoin,
@@ -60,6 +82,18 @@ export const zMsgMoveExecute = z.object({
   module_name: z.string(),
   sender: z.string(),
   type_args: z.array(z.string()),
+});
+
+export const zMsgDelegateLocked = zMsgMoveExecute.extend({
+  function_name: z.literal("delegate"),
+  module_address: z.literal("0x3a886b32a802582f2e446e74d4a24d1d7ed01adf46d2a8f65c5723887e708789"),
+  module_name: z.literal("lock_staking"),
+});
+
+export const zMsgUndelegateLocked = zMsgMoveExecute.extend({
+  function_name: z.literal("undelegate"),
+  module_address: z.literal("0x3a886b32a802582f2e446e74d4a24d1d7ed01adf46d2a8f65c5723887e708789"),
+  module_name: z.literal("lock_staking"),
 });
 
 export const zMsgMoveDexSwap = zMsgMoveExecute.extend({

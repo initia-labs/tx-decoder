@@ -2,8 +2,12 @@
 export const SUPPORTED_MESSAGE_TYPES = {
   // cosmos messages
   MsgSend: "/cosmos.bank.v1beta1.MsgSend",
-  MsgWithdrawDelegatorReward:
-    "/cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward",
+  MsgWithdrawDelegatorReward: "/cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward",
+
+  // initia staking messages
+  MsgDelegate: "/initia.mstaking.v1.MsgDelegate",
+  MsgUndelegate: "/initia.mstaking.v1.MsgUndelegate",
+  MsgRedelegate: "/initia.mstaking.v1.MsgBeginRedelegate",
 
   // initia move messages
   MsgExecute: "/initia.move.v1.MsgExecute",
