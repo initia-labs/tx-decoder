@@ -82,13 +82,53 @@ const zMsgMoveSimpleMint = zMsgMoveExecute.extend({
 
 const zMsgMoveUsernameMint = zMsgMoveExecute.extend({
   function_name: z.literal("register_domain"),
-  module_address: z
-    .string()
-    .refine((address) => USERNAME_MODULE_ADDRESSES.includes(address)),
+  module_address: z.string().refine((address) => USERNAME_MODULE_ADDRESSES.includes(address)),
   module_name: z.literal("usernames"),
 });
 
-export const zMsgMoveNftMint = z.union([
-  zMsgMoveSimpleMint,
-  zMsgMoveUsernameMint,
-]);
+export const zMsgMoveNftMint = z.union([zMsgMoveSimpleMint, zMsgMoveUsernameMint]);
+
+export const zMsgMoveObjectTransfer = zMsgMoveExecute.extend({
+  function_name: z.literal("transfer_call"),
+  module_address: z.literal("0x1"),
+  module_name: z.literal("object"),
+});
+
+export const zMsgIBCSendNFT = z.object({
+  "@type": z.literal(SUPPORTED_MESSAGE_TYPES.MsgIBCNFTTransfer),
+  class_id: z.string(),
+  memo: z.string(),
+  receiver: z.string(),
+  sender: z.string(),
+  source_channel: z.string(),
+  source_port: z.string(),
+  timeout_height: z.object({
+    revision_height: z.string(),
+    revision_number: z.string(),
+  }),
+  timeout_timestamp: z.string(),
+  token_ids: z.array(z.string()),
+});
+
+export const zMsgIBCReceiveNFT = z.object({
+  "@type": z.literal(SUPPORTED_MESSAGE_TYPES.MsgIBCRecvPacket),
+  packet: z.object({
+    data: z.string(),
+    destination_channel: z.string(),
+    destination_port: z.string(),
+    sequence: z.string(),
+    source_channel: z.string(),
+    source_port: z.string(),
+    timeout_height: z.object({
+      revision_height: z.string(),
+      revision_number: z.string(),
+    }),
+    timeout_timestamp: z.string(),
+  }),
+  proof_commitment: z.string(),
+  proof_height: z.object({
+    revision_height: z.string(),
+    revision_number: z.string(),
+  }),
+  signer: z.string(),
+});

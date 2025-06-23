@@ -1,4 +1,4 @@
-import { SignMode } from "cosmjs-types/cosmos/tx/signing/v1beta1/signing";
+import { SignMode } from "cosmjs-types/cosmos/tx/signing/v1beta1/signing.js";
 import z from "zod";
 
 import { zAny, zCoin, zUtcDate } from "./common";

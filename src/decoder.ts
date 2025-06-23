@@ -8,6 +8,8 @@ import { createNotSupportedMessage } from "./utils";
 
 // Array of decoders ordered by priority
 const messageDecoders: MessageDecoder[] = [
+  Handlers.ibcSendNFTDecoder,
+  Handlers.ibcReceiveNFTDecoder,
   Handlers.sendDecoder,
   Handlers.initiateTokenDepositDecoder,
   Handlers.finalizeTokenWithdrawalDecoder,
@@ -15,6 +17,8 @@ const messageDecoders: MessageDecoder[] = [
   Handlers.dexSwapDecoder,
   Handlers.stableSwapDecoder,
   Handlers.nftMintDecoder,
+  Handlers.objectTransferDecoder,
+  Handlers.nftBurnDecoder,
   // Add more decoders here in order of priority
 ];
 
@@ -44,7 +48,7 @@ const decodeMessage = (
 
 const decodeFromValidatedTxResponse = (txResponse: TxResponse): DecodedTx => {
   const initialState: DecodedTx = {
-    balanceChanges: { ft: {}, nft: {} },
+    balanceChanges: { ft: {}, object: {} },
     messages: [],
   };
 

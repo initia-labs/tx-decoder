@@ -25,7 +25,7 @@ describe("Finalize Token Withdrawal Message", () => {
           uinit: "716000000",
         },
       },
-      nft: {},
+      object: {},
     });
   });
 });
