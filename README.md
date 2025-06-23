@@ -63,7 +63,7 @@ console.log(decodedTx.balanceChanges);
 //       "uinit": "1000000"
 //     }
 //   },
-//   nft: {}
+//   object: {}
 // }
 ```
 
@@ -89,16 +89,7 @@ tx-decoder/
 │   ├── constants.ts              # Application constants and configuration
 │   ├── decoder.ts                # Main transaction decoding logic
 │   ├── index.ts                  # Entry point for exports
-│   ├── handlers/                 # Message and event handler modules
-│   │   ├── index.ts              # Handler exports
-│   │   ├── move/                 # Handlers for Move-based messages (e.g., swap, nft)
-│   │   │   ├── nft.ts            # NFT mint handler
-│   │   │   └── swap.ts           # Swap handler
-│   │   ├── op-init/              # OP-Init bridge handlers
-│   │   │   ├── finalize-token-withdrawal.ts
-│   │   │   └── initiate-token-deposit.ts
-│   │   ├── send.ts               # Bank send handler
-│   │   └── withdraw-delegator-reward.ts
+│   ├── handlers/                 # Message and event handler 
 │   ├── interfaces/               # TypeScript interfaces and types
 │   ├── schema/                   # Zod schemas for validation
 │   ├── utils/                    # Utility functions

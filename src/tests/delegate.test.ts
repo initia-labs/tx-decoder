@@ -30,7 +30,7 @@ describe("Delegate Message", () => {
           uinit: "-100000",
         },
       },
-      nft: {},
+      object: {},
     });
   });
 
@@ -65,7 +65,7 @@ describe("Delegate Message", () => {
           ustake: "-400000",
         },
       },
-      nft: {},
+      object: {},
     });
   });
 
@@ -95,7 +95,7 @@ describe("Delegate Message", () => {
           uinit: "-400000",
         },
       },
-      nft: {},
+      object: {},
     });
   });
 });

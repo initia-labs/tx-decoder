@@ -33,7 +33,7 @@ describe("Undelegate Message", () => {
           "move/543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1": "7618096",
         },
       },
-      nft: {},
+      object: {},
     });
   });
 
@@ -68,7 +68,7 @@ describe("Undelegate Message", () => {
           "move/9876543210abcdef1234567890abcdef1234567890abcdef1234567890abcdef": "1234567",
         },
       },
-      nft: {},
+      object: {},
     });
   });
 
@@ -98,7 +98,7 @@ describe("Undelegate Message", () => {
           "move/543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1": "3508258915",
         },
       },
-      nft: {},
+      object: {},
     });
   });
 });

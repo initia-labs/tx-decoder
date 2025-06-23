@@ -26,7 +26,7 @@ describe("Withdraw Delegator Reward Message", () => {
           uinit: "33490255",
         },
       },
-      nft: {},
+      object: {},
     });
   });
 
@@ -57,7 +57,7 @@ describe("Withdraw Delegator Reward Message", () => {
           utoken: "1000000",
         },
       },
-      nft: {},
+      object: {},
     });
   });
 });

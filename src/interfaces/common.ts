@@ -7,14 +7,8 @@ export interface DecodedTx {
 
 export interface BalanceChanges {
   ft: { [address: string]: FTChange };
-  nft: { [address: string]: NftChange };
+  object: { [address: string]: ObjectChange };
 }
 
 export type FTChange = { [denom: string]: string };
-export interface NftChange {
-  action: "burn" | "mint" | "receive" | "send";
-  collectionAddress: string;
-  collectionName: string;
-  tokenId: string;
-  tokenUri: string;
-}
+export type ObjectChange = { [address: string]: string};

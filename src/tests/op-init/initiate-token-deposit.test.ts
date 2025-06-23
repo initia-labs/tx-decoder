@@ -25,7 +25,7 @@ describe("Initiate Token Deposit Message", () => {
           uinit: "-360000000",
         },
       },
-      nft: {},
+      object: {},
     });
   });
 });

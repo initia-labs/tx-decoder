@@ -33,7 +33,7 @@ describe("Redelegate Message", () => {
           uinit: "49340",
         },
       },
-      nft: {},
+      object: {},
     });
   });
 });

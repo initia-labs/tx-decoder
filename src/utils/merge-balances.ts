@@ -3,29 +3,33 @@ import { produce } from "immer";
 
 import { BalanceChanges } from "@/interfaces";
 
+const mergeNestedBalances = (
+  target: Record<string, Record<string, string>>,
+  source: Record<string, Record<string, string>>
+) => {
+  for (const address in source) {
+    target[address] ??= {};
+
+    for (const key in source[address]) {
+      const existingAmount = big(target[address][key] || "0");
+      const newAmount = big(source[address][key]);
+
+      target[address][key] = existingAmount.plus(newAmount).toString();
+    }
+  }
+};
+
 export const mergeBalanceChanges = (
   target: BalanceChanges,
   source: Partial<BalanceChanges>
 ): BalanceChanges => {
-  // TODO: handle nft balance changes
   return produce(target, (draft) => {
-    if (!source.ft) {
-      return;
+    if (source.ft) {
+      mergeNestedBalances(draft.ft, source.ft);
     }
 
-    for (const address in source.ft) {
-      draft.ft[address] ??= {};
-
-      for (const denom in source.ft[address]) {
-        const existingAmount = big(draft.ft[address][denom] || "0");
-        const newAmount = big(source.ft[address][denom]);
-
-        draft.ft[address][denom] = existingAmount.plus(newAmount).toString();
-      }
-    }
-
-    if (source.nft) {
-      draft.nft = source.nft;
+    if (source.object) {
+      mergeNestedBalances(draft.object, source.object);
     }
   });
 };
