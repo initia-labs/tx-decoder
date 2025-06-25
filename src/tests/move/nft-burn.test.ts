@@ -1,4 +1,4 @@
-import { mockMsgNFTBurn } from "@/fixtures/move/nft-burn.fixture";
+import { mockMsgNFTBurn } from "@/tests/fixtures/move/nft-burn.fixture";
 import { decodeTransaction } from "@/index";
 
 describe("NFT Burn Message", () => {

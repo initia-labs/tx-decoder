@@ -1,6 +1,6 @@
-import { mockMsgDelegateLocked } from "@/fixtures/delegate.fixture";
+import { mockMsgDelegateLocked } from "@/tests/fixtures/delegate.fixture";
 
-import { mockMsgDelegate, mockMsgDelegateWithMultipleCoins } from "../fixtures/delegate.fixture";
+import { mockMsgDelegate, mockMsgDelegateWithMultipleCoins } from "./fixtures/delegate.fixture";
 import { decodeTransaction } from "../index";
 
 describe("Delegate Message", () => {

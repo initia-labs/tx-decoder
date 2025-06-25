@@ -1,7 +1,7 @@
 import {
   mockMsgWithdrawDelegatorReward,
   mockMsgWithdrawDelegatorRewardWithMultipleCoins,
-} from "../fixtures/withdraw-delegator-reward.fixture";
+} from "./fixtures/withdraw-delegator-reward.fixture";
 import { decodeTransaction } from "../index";
 
 describe("Withdraw Delegator Reward Message", () => {

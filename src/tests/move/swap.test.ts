@@ -1,4 +1,4 @@
-import { mockMsgDexSwap, mockMsgStableSwap } from "@/fixtures/move/swap.fixture";
+import { mockMsgDexSwap, mockMsgStableSwap } from "@/tests/fixtures/move/swap.fixture";
 import { decodeTransaction } from "@/index";
 
 describe("Swap Message", () => {

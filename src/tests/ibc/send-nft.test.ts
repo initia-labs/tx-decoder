@@ -1,4 +1,4 @@
-import { mockMsgIBCSendNFT } from "../../fixtures/ibc/send-nft.fixture";
+import { mockMsgIBCSendNFT } from "../fixtures/ibc/send-nft.fixture";
 import { decodeTransaction } from "../../index";
 
 describe("IBC Send NFT Message", () => {
@@ -31,7 +31,7 @@ describe("IBC Send NFT Message", () => {
 
   it("should handle the correct message type", () => {
     const decoded = decodeTransaction(mockMsgIBCSendNFT);
-    
+
     expect(decoded.messages[0].action).toBe("ibc_nft_send");
     expect(decoded.messages[0].isIbc).toBe(true);
     expect(decoded.messages[0].isOp).toBe(false);
@@ -40,11 +40,13 @@ describe("IBC Send NFT Message", () => {
   it("should extract correct NFT metadata from packet data", () => {
     const decoded = decodeTransaction(mockMsgIBCSendNFT);
     const message = decoded.messages[0];
-    
+
     // Type guard to ensure we have the correct message type
     expect(message.action).toBe("ibc_nft_send");
     if (message.action === "ibc_nft_send") {
-      expect(message.data.collection_id).toBe("0x4b224b3b82140614fbe0706b421d887f4532ea91d4ad0cf2b99a1251c06dfa9a");
+      expect(message.data.collection_id).toBe(
+        "0x4b224b3b82140614fbe0706b421d887f4532ea91d4ad0cf2b99a1251c06dfa9a"
+      );
       expect(message.data.collection_uri).toBe("https://jennie.initia.xyz/data/collection.json");
       expect(message.data.token_ids).toEqual(["1"]);
       expect(message.data.token_uris).toEqual(["https://jennie.initia.xyz/data/9_4.json"]);
@@ -54,7 +56,7 @@ describe("IBC Send NFT Message", () => {
   it("should include correct IBC channel information", () => {
     const decoded = decodeTransaction(mockMsgIBCSendNFT);
     const message = decoded.messages[0];
-    
+
     // Type guard to ensure we have the correct message type
     expect(message.action).toBe("ibc_nft_send");
     if (message.action === "ibc_nft_send") {
@@ -66,7 +68,7 @@ describe("IBC Send NFT Message", () => {
   it("should include correct sender and receiver addresses", () => {
     const decoded = decodeTransaction(mockMsgIBCSendNFT);
     const message = decoded.messages[0];
-    
+
     // Type guard to ensure we have the correct message type
     expect(message.action).toBe("ibc_nft_send");
     if (message.action === "ibc_nft_send") {

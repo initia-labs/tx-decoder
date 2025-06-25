@@ -1,7 +1,7 @@
 import {
   mockMsgIBCReceiveNFTRemoteToken,
   mockMsgIBCReceiveNFTSourceToken,
-} from "../../fixtures/ibc/receive-nft.fixture";
+} from "../fixtures/ibc/receive-nft.fixture";
 import { decodeTransaction } from "../../index";
 
 describe("IBC Receive NFT Message", () => {

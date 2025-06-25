@@ -1,91 +1,112 @@
-import { produce } from "immer";
-
-import * as Handlers from "./handlers";
-import { DecodedTx, MessageDecoder } from "./interfaces";
+import { ApiClient } from "./api";
+import { processLogForBalanceChanges } from "./balance-changes";
+import { DEFAULT_BALANCE_CHANGES } from "./constants";
+import * as Decoders from "./decoders";
+import { DecodedTx, DecoderConfig, MessageDecoder, ProcessedMessage } from "./interfaces";
 import { Log, Message, TxResponse, zTxResponse } from "./schema";
 import { attachTxLogs, mergeBalanceChanges } from "./utils";
 import { createNotSupportedMessage } from "./utils";
 
 // Array of decoders ordered by priority
 const messageDecoders: MessageDecoder[] = [
-  Handlers.ibcSendNFTDecoder,
-  Handlers.ibcReceiveNFTDecoder,
-  Handlers.sendDecoder,
-  Handlers.initiateTokenDepositDecoder,
-  Handlers.finalizeTokenWithdrawalDecoder,
-  Handlers.delegateDecoder,
-  Handlers.delegateLockedDecoder,
-  Handlers.undelegateDecoder,
-  Handlers.undelegateLockedDecoder,
-  Handlers.redelegateDecoder,
-  Handlers.withdrawDelegatorRewardDecoder,
-  Handlers.dexSwapDecoder,
-  Handlers.stableSwapDecoder,
-  Handlers.nftMintDecoder,
-  Handlers.objectTransferDecoder,
-  Handlers.nftBurnDecoder,
+  // Decoders.ibcSendNFTDecoder,
+  // Decoders.ibcReceiveNFTDecoder,
+  Decoders.sendDecoder,
+  // Decoders.initiateTokenDepositDecoder,
+  // Decoders.finalizeTokenWithdrawalDecoder,
+  // Decoders.delegateDecoder,
+  // Decoders.delegateLockedDecoder,
+  // Decoders.undelegateDecoder,
+  // Decoders.undelegateLockedDecoder,
+  // Decoders.redelegateDecoder,
+  // Decoders.withdrawDelegatorRewardDecoder,
+  // Decoders.dexSwapDecoder,
+  // Decoders.stableSwapDecoder,
+  // Decoders.nftMintDecoder,
+  // Decoders.objectTransferDecoder,
+  // Decoders.nftBurnDecoder,
   // Add more decoders here in order of priority
 ];
 
-const findDecoderForMessage = (message: Message, log: Log): MessageDecoder | undefined => {
-  return messageDecoders.find((decoder) => decoder.check(message, log));
+const INITIAL_STATE: DecodedTx = {
+  messages: [],
+  metadata: {},
+  totalBalanceChanges: DEFAULT_BALANCE_CHANGES,
 };
 
-const decodeMessage = (message: Message, log: Log): ReturnType<MessageDecoder["decode"]> | null => {
-  const decoder = findDecoderForMessage(message, log);
+export class TxDecoder {
+  private readonly apiClient: ApiClient;
 
-  if (!decoder) {
-    return null;
+  constructor(config: DecoderConfig) {
+    if (!config.restUrl) {
+      throw new Error("restUrl is required");
+    }
+
+    this.apiClient = new ApiClient(config);
   }
 
-  try {
-    return decoder.decode(message, log);
-  } catch {
-    return null;
-  }
-};
+  public async decodeTransaction(tx: unknown): Promise<DecodedTx> {
+    const txResponse = this._validateAndPrepareTx(tx);
 
-const decodeFromValidatedTxResponse = (txResponse: TxResponse): DecodedTx => {
-  const initialState: DecodedTx = {
-    balanceChanges: { ft: {}, object: {} },
-    messages: [],
-  };
+    if (txResponse.tx.body.messages.length === 0) {
+      return INITIAL_STATE;
+    }
 
-  if (txResponse.tx.body.messages.length === 0) {
-    return initialState;
-  }
+    if (txResponse.logs.length !== txResponse.tx.body.messages.length) {
+      throw new Error(
+        `Invalid tx response: ${txResponse.logs.length} logs found for ${txResponse.tx.body.messages.length} messages`
+      );
+    }
 
-  if (txResponse.logs.length !== txResponse.tx.body.messages.length) {
-    throw new Error(
-      `Invalid tx response: ${txResponse.logs.length} logs found for ${txResponse.tx.body.messages.length} messages`
+    const processedMessages = await this._processMessage(txResponse);
+
+    const totalBalanceChanges = processedMessages.reduce(
+      (acc, message) => mergeBalanceChanges(acc, message.balanceChanges),
+      DEFAULT_BALANCE_CHANGES
     );
+
+    return {
+      messages: processedMessages,
+      metadata: {},
+      totalBalanceChanges,
+    };
   }
 
-  return produce(initialState, (draft) => {
-    txResponse.tx.body.messages.forEach((message, index) => {
+  private async _decodeMessage(message: Message, log: Log): ReturnType<MessageDecoder["decode"]> {
+    const notSupportedMessage = createNotSupportedMessage(message["@type"]);
+
+    const decoder = this._findDecoderForMessage(message, log);
+    if (!decoder) return notSupportedMessage;
+    try {
+      return await decoder.decode(message, log, this.apiClient);
+    } catch {
+      return notSupportedMessage;
+    }
+  }
+
+  private _findDecoderForMessage(message: Message, log: Log): MessageDecoder | undefined {
+    return messageDecoders.find((decoder) => decoder.check(message, log));
+  }
+
+  private async _processMessage(txResponse: TxResponse): Promise<ProcessedMessage[]> {
+    const promises = txResponse.tx.body.messages.map(async (message, index) => {
       const log = txResponse.logs[index];
-      const decodedResult = decodeMessage(message, log);
 
-      if (decodedResult) {
-        const { balanceChanges, decodedMessage } = decodedResult;
-        draft.messages.push(decodedMessage);
-        draft.balanceChanges = mergeBalanceChanges(draft.balanceChanges, balanceChanges);
-      } else {
-        draft.messages.push(createNotSupportedMessage(message["@type"]));
-      }
+      const decodedMessage = await this._decodeMessage(message, log);
+      const balanceChanges = await processLogForBalanceChanges(log, this.apiClient);
+
+      return { balanceChanges, decodedMessage };
     });
-  });
-};
 
-export const decodeTransaction = (tx: unknown): DecodedTx => {
-  const parsed = zTxResponse.safeParse(tx);
-  if (!parsed.success) {
-    throw new Error(`Invalid txResponse: ${parsed.error.message}`);
+    return Promise.all(promises);
   }
 
-  const txResponseWithLogs = attachTxLogs(parsed.data);
+  private _validateAndPrepareTx(tx: unknown): TxResponse {
+    const parsed = zTxResponse.safeParse(tx);
+    if (!parsed.success) {
+      throw new Error(`Invalid txResponse: ${parsed.error.message}`);
+    }
 
-  const decodedTx = decodeFromValidatedTxResponse(txResponseWithLogs);
-
-  return decodedTx;
-};
+    return attachTxLogs(parsed.data);
+  }
+}

@@ -33,37 +33,48 @@ pnpm add @initia/tx-decoder
 import { decodeTx } from "@initia/tx-decoder";
 
 // Decode a transaction
-const decodedTx = decodeTx(txResponse);
+const decoder = TxDecoder({
+  restUrl: "https://rest.initia.xyz"
+})
+const decodedTx = decoder.decodeTransaction(txResponse);
 
 // Access decoded messages
-console.log(decodedTx.messages);
-// [
-//   {
-//     action: "send",
-//     data: {
-//       from: "init1...",
-//       to: "init1...",
-//       coins: [
-//         {
-//           amount: "1000000",
-//           denom: "uinit"
-//         },
-//       ]
-//     },
-//     isIbc: false,
-//     isOp: false
-//   }
-// ]
-
-// Access balance changes
-console.log(decodedTx.balanceChanges);
+console.log(decodedTx);
 // {
-//   ft: {
-//     "init1...": {
-//       "uinit": "1000000"
+//   messages: [
+//     {
+//       balanceChanges: {
+//         ft: {
+//           "init1...": { "uinit": "-1000000" },
+//           "init1...": { "uinit": "1000000" }
+//         },
+//         object: {}
+//       },
+//       decodedMessage: {
+//         action: "send",
+//         data: {
+//           from: "init1...",
+//           to: "init1...",
+//           coins: [
+//             {
+//               amount: "1000000",
+//               denom: "uinit"
+//             },
+//           ]
+//         },
+//         isIbc: false,
+//         isOp: false
+//       }
 //     }
-//   },
-//   object: {}
+//   ],
+//   metadata: {},
+//   totalBalanceChanges: {
+//     ft: {
+//       "init1...": { "uinit": "-1000000" },
+//       "init1...": { "uinit": "1000000" }
+//     },
+//     object: {}
+//   }
 // }
 ```
 

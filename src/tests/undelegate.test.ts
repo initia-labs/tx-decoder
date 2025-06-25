@@ -1,9 +1,9 @@
-import { mockMsgUndelegateLocked } from "@/fixtures/undelegate.fixture";
+import { mockMsgUndelegateLocked } from "@/tests/fixtures/undelegate.fixture";
 
 import {
   mockMsgUndelegate,
   mockMsgUndelegateWithMultipleCoins,
-} from "../fixtures/undelegate.fixture";
+} from "./fixtures/undelegate.fixture";
 import { decodeTransaction } from "../index";
 
 describe("Undelegate Message", () => {

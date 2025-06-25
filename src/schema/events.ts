@@ -1,5 +1,7 @@
 import { z } from "zod";
 
+import { zJsonString } from "./common";
+
 export const zSwapEvent = z.object({
   fee_amount: z.string(),
   liquidity_token: z.string(),
@@ -72,3 +74,12 @@ export const zUndelegateLockedEvent = z.object({
   validator: z.string(),
 });
 export type UndelegateLockedEvent = z.infer<typeof zUndelegateLockedEvent>;
+
+export const zFungibleAssetEvent = zJsonString.pipe(
+  z.object({
+    amount: z.string(),
+    metadata_addr: z.string(),
+    store_addr: z.string(),
+  })
+);
+export type FungibleAssetEvent = z.infer<typeof zFungibleAssetEvent>;

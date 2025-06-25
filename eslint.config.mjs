@@ -20,7 +20,6 @@ export default defineConfig([
     files: ["**/*.{js,mjs,cjs,ts}"],
     rules: {
       ...js.configs.recommended.rules,
-      "consistent-return": "error",
       eqeqeq: "error",
       "no-console": ["warn", { allow: ["warn", "error"] }],
       "no-else-return": "error",

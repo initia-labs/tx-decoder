@@ -16,3 +16,5 @@ export const zCoin = z.object({
   denom: z.string(),
 });
 export type Coin = z.infer<typeof zCoin>;
+
+export const zJsonString = z.string().transform((val) => JSON.parse(val));

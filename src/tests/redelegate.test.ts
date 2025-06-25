@@ -1,4 +1,4 @@
-import { mockMsgRedelegate } from "@/fixtures/redelegate.fixture";
+import { mockMsgRedelegate } from "@/tests/fixtures/redelegate.fixture";
 
 import { decodeTransaction } from "../index";
 
