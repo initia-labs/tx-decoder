@@ -17,4 +17,14 @@ export const zCoin = z.object({
 });
 export type Coin = z.infer<typeof zCoin>;
 
-export const zJsonString = z.string().transform((val) => JSON.parse(val));
+export const zJsonString = z.string().transform((val, ctx) => {
+  try {
+    return JSON.parse(val);
+  } catch {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Invalid JSON string",
+    });
+    return z.NEVER;
+  }
+});

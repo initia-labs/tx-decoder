@@ -1,4 +1,5 @@
 import { ApiClient } from "./api";
+import { DEFAULT_BALANCE_CHANGES } from "./constants";
 import { BalanceChanges, BalanceEventProcessor } from "./interfaces";
 import * as Processors from "./processors";
 import { Event, Log } from "./schema";
@@ -13,8 +14,6 @@ const allBalanceEventProcessors: BalanceEventProcessor[] = [
 const eventProcessors = new Map<string, BalanceEventProcessor>(
   allBalanceEventProcessors.map((p) => [p.type_tag, p])
 );
-
-const defaultBalanceChanges: BalanceChanges = { ft: {}, object: {} };
 
 /**
  * Processes a single transaction log to calculate aggregate balance changes from its events.
@@ -39,7 +38,7 @@ export async function processLogForBalanceChanges(
   }
 
   if (balanceChangePromises.length === 0) {
-    return defaultBalanceChanges;
+    return DEFAULT_BALANCE_CHANGES;
   }
 
   const results = await Promise.allSettled(balanceChangePromises);
@@ -53,7 +52,7 @@ export async function processLogForBalanceChanges(
     return acc;
   }, []);
 
-  return fulfilledChanges.reduce(mergeBalanceChanges, defaultBalanceChanges);
+  return fulfilledChanges.reduce(mergeBalanceChanges, DEFAULT_BALANCE_CHANGES);
 }
 
 const findProcessorForEvent = (event: Event): BalanceEventProcessor | null => {
