@@ -1,14 +1,14 @@
-import { produce } from "immer";
+import type { DecodedMessage, MessageDecoder } from "@/interfaces";
 
-import type { BalanceChanges, DecodedMessage, MessageDecoder } from "@/interfaces";
-
+import { ApiClient } from "@/api";
 import { SUPPORTED_MESSAGE_TYPES } from "@/message-types";
 import { type Log, type Message, zMsgWithdrawDelegatorReward } from "@/schema";
 import { findAttribute, parseCoins } from "@/utils";
 
 export const withdrawDelegatorRewardDecoder: MessageDecoder = {
-  check: (message: Message, _log: Log) => message["@type"] === SUPPORTED_MESSAGE_TYPES.MsgWithdrawDelegatorReward,
-  decode: (message: Message, log: Log) => {
+  check: (message: Message, _log: Log) =>
+    message["@type"] === SUPPORTED_MESSAGE_TYPES.MsgWithdrawDelegatorReward,
+  decode: async (message: Message, log: Log, _apiClient: ApiClient) => {
     const parsed = zMsgWithdrawDelegatorReward.safeParse(message);
     if (!parsed.success) {
       throw new Error("Invalid withdraw delegator reward message");
@@ -31,18 +31,6 @@ export const withdrawDelegatorRewardDecoder: MessageDecoder = {
       isOp: false,
     };
 
-    const balanceChanges: Partial<BalanceChanges> = {
-      ft: produce<BalanceChanges["ft"]>({}, (draft) => {
-        coins.forEach((coin) => {
-          draft[delegator_address] ??= {};
-          draft[delegator_address][coin.denom] = coin.amount;
-        });
-      }),
-    };
-
-    return {
-      balanceChanges,
-      decodedMessage,
-    };
+    return decodedMessage;
   },
 };

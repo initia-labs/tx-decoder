@@ -1,11 +1,13 @@
 import type { DecodedMessage, MessageDecoder } from "@/interfaces";
 
+import { ApiClient } from "@/api";
 import { SUPPORTED_MESSAGE_TYPES } from "@/message-types";
-import { zMsgDelegate } from "@/schema";
+import { Log, Message, zMsgDelegate } from "@/schema";
 
 export const delegateDecoder: MessageDecoder = {
-  check: (message, _log) => message["@type"] === SUPPORTED_MESSAGE_TYPES.MsgDelegate,
-  decode: async (message, _log, _apiClient) => {
+  check: (message, _log) =>
+    message["@type"] === SUPPORTED_MESSAGE_TYPES.MsgDelegate,
+  decode: async (message: Message, _log: Log, _apiClient: ApiClient) => {
     const parsed = zMsgDelegate.safeParse(message);
     if (!parsed.success) {
       throw new Error("Invalid delegate message");
@@ -23,15 +25,6 @@ export const delegateDecoder: MessageDecoder = {
       isIbc: false,
       isOp: false,
     };
-
-    // const balanceChanges: Partial<BalanceChanges> = {
-    //   ft: produce<BalanceChanges["ft"]>({}, (draft) => {
-    //     amount.forEach(({ amount: amt, denom }) => {
-    //       draft[delegator_address] ??= {};
-    //       draft[delegator_address][denom] = `-${amt}`;
-    //     });
-    //   }),
-    // };
 
     return decodedMessage;
   },

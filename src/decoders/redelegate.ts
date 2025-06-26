@@ -1,21 +1,25 @@
-import { produce } from "immer";
-
-import type { BalanceChanges, DecodedMessage, MessageDecoder } from "@/interfaces";
+import type { DecodedMessage, MessageDecoder } from "@/interfaces";
 import type { Log, Message } from "@/schema";
 
+import { ApiClient } from "@/api";
 import { SUPPORTED_MESSAGE_TYPES } from "@/message-types";
 import { zMsgRedelegate } from "@/schema";
 
 export const redelegateDecoder: MessageDecoder = {
   check: (message: Message, _log: Log) =>
     message["@type"] === SUPPORTED_MESSAGE_TYPES.MsgRedelegate,
-  decode: (message: Message, _log: Log) => {
+  decode: async (message: Message, _log: Log, _apiClient: ApiClient) => {
     const parsed = zMsgRedelegate.safeParse(message);
     if (!parsed.success) {
       throw new Error("Invalid redelegate message");
     }
 
-    const { amount, delegator_address, validator_dst_address, validator_src_address } = parsed.data;
+    const {
+      amount,
+      delegator_address,
+      validator_dst_address,
+      validator_src_address,
+    } = parsed.data;
 
     const decodedMessage: DecodedMessage = {
       action: "redelegate",
@@ -29,17 +33,6 @@ export const redelegateDecoder: MessageDecoder = {
       isOp: false,
     };
 
-    const balanceChanges: Partial<BalanceChanges> = {
-      ft: produce<BalanceChanges["ft"]>({}, (draft) => {
-        amount.forEach(({ amount: amt, denom }) => {
-          draft[validator_src_address] ??= {};
-          draft[validator_src_address][denom] = `-${amt}`;
-          draft[validator_dst_address] ??= {};
-          draft[validator_dst_address][denom] = `${amt}`;
-        });
-      }),
-    };
-
-    return { balanceChanges, decodedMessage };
+    return decodedMessage;
   },
 };

@@ -127,7 +127,9 @@ describe("Send Message", () => {
   it("should decode multiple send messages correctly", async () => {
     const mockApiHandler = createMockApiHandler(mockApiResponsesMultipleCoins);
     mockedAxios.get.mockImplementation(mockApiHandler);
-    const decoded = await decoder.decodeTransaction(mockMsgSendWithMultipleMessages);
+    const decoded = await decoder.decodeTransaction(
+      mockMsgSendWithMultipleMessages
+    );
 
     const expectedMessage = {
       balanceChanges: {

@@ -1,11 +1,19 @@
+import { ApiClient } from "@/api";
 import { DecodedMessage } from "@/index";
-import { BalanceChanges } from "@/interfaces";
 import { MessageDecoder } from "@/interfaces";
-import { Event, SwapEvent, zMsgMoveStableSwap, zSwapEvent } from "@/schema";
+import {
+  Event,
+  Log,
+  Message,
+  SwapEvent,
+  zMsgMoveStableSwap,
+  zSwapEvent,
+} from "@/schema";
 
 export const stableSwapDecoder: MessageDecoder = {
-  check: (message, _log) => zMsgMoveStableSwap.safeParse(message).success,
-  decode: (message, log) => {
+  check: (message: Message, _log: Log) =>
+    zMsgMoveStableSwap.safeParse(message).success,
+  decode: async (message: Message, log: Log, _apiClient: ApiClient) => {
     const parsed = zMsgMoveStableSwap.parse(message);
     const { sender } = parsed;
 
@@ -27,19 +35,7 @@ export const stableSwapDecoder: MessageDecoder = {
       isOp: false,
     };
 
-    const balanceChanges: Partial<BalanceChanges> = {
-      ft: {
-        [sender]: {
-          [swapEvent.offer_coin]: `-${swapEvent.offer_amount}`,
-          [swapEvent.return_coin]: swapEvent.return_amount,
-        },
-      },
-    };
-
-    return {
-      balanceChanges,
-      decodedMessage,
-    };
+    return decodedMessage;
   },
 };
 

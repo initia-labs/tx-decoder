@@ -1,13 +1,13 @@
-import { produce } from "immer";
-
-import type { BalanceChanges, DecodedMessage, MessageDecoder } from "@/interfaces";
+import type { DecodedMessage, MessageDecoder } from "@/interfaces";
 import type { Event, Log, Message, UndelegateLockedEvent } from "@/schema";
 
+import { ApiClient } from "@/api";
 import { zMsgUndelegateLocked, zUndelegateLockedEvent } from "@/schema";
 
 export const undelegateLockedDecoder: MessageDecoder = {
-  check: (message: Message, _log: Log) => zMsgUndelegateLocked.safeParse(message).success,
-  decode: (message: Message, log: Log) => {
+  check: (message: Message, _log: Log) =>
+    zMsgUndelegateLocked.safeParse(message).success,
+  decode: async (message: Message, log: Log, _apiClient: ApiClient) => {
     const parsed = zMsgUndelegateLocked.safeParse(message);
     if (!parsed.success) {
       throw new Error("Invalid undelegate locked message");
@@ -34,19 +34,13 @@ export const undelegateLockedDecoder: MessageDecoder = {
       isOp: false,
     };
 
-    const balanceChanges: Partial<BalanceChanges> = {
-      ft: produce<BalanceChanges["ft"]>({}, (draft) => {
-        draft[sender] = {
-          [undelegateLockedCoin.denom]: undelegateLockedCoin.amount,
-        };
-      }),
-    };
-
-    return { balanceChanges, decodedMessage };
+    return decodedMessage;
   },
 };
 
-const findUndelegateLockedEvent = (events: Event[]): UndelegateLockedEvent | null => {
+const findUndelegateLockedEvent = (
+  events: Event[]
+): UndelegateLockedEvent | null => {
   const undelegateLockedEvent = events.find(
     (event) =>
       event.type === "move" &&
@@ -60,10 +54,14 @@ const findUndelegateLockedEvent = (events: Event[]): UndelegateLockedEvent | nul
 
   if (!undelegateLockedEvent) return null;
 
-  const dataAttribute = undelegateLockedEvent.attributes.find((attr) => attr.key === "data");
+  const dataAttribute = undelegateLockedEvent.attributes.find(
+    (attr) => attr.key === "data"
+  );
   if (!dataAttribute) return null;
 
-  const parsed = zUndelegateLockedEvent.safeParse(JSON.parse(dataAttribute.value));
+  const parsed = zUndelegateLockedEvent.safeParse(
+    JSON.parse(dataAttribute.value)
+  );
   if (!parsed.success) return null;
 
   return parsed.data;
