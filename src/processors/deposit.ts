@@ -30,7 +30,7 @@ export const depositEventProcessor: BalanceEventProcessor = {
         object: {},
       };
     } catch (error) {
-      console.error(`Failed to process ${this.type_tag}:`, error);
+      console.error(`Failed to process ${depositEventProcessor.type_tag}:`, error);
     }
 
     return DEFAULT_BALANCE_CHANGES;

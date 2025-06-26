@@ -30,7 +30,7 @@ export const withdrawEventProcessor: BalanceEventProcessor = {
         object: {},
       };
     } catch (error) {
-      console.error(`Failed to process ${this.type_tag}:`, error);
+      console.error(`Failed to process ${withdrawEventProcessor.type_tag}:`, error);
     }
 
     return DEFAULT_BALANCE_CHANGES;

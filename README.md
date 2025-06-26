@@ -30,13 +30,13 @@ pnpm add @initia/tx-decoder
 ## 🚀 Usage
 
 ```typescript
-import { decodeTx } from "@initia/tx-decoder";
+import { TxDecoder } from "@initia/tx-decoder";
 
 // Decode a transaction
-const decoder = TxDecoder({
+const decoder = new TxDecoder({
   restUrl: "https://rest.initia.xyz"
 })
-const decodedTx = decoder.decodeTransaction(txResponse);
+const decodedTx = await decoder.decodeTransaction(txResponse);
 
 // Access decoded messages
 console.log(decodedTx);
