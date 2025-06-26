@@ -1,6 +1,6 @@
 import { DEFAULT_BALANCE_CHANGES } from "@/constants";
 import { BalanceEventProcessor } from "@/interfaces";
-import { zFungibleAssetEvent } from "@/schema";
+import { zDepositEvent } from "@/schema";
 
 export const depositEventProcessor: BalanceEventProcessor = {
   async process(event, apiClient) {
@@ -10,7 +10,7 @@ export const depositEventProcessor: BalanceEventProcessor = {
         throw new Error("Deposit event data attribute not found");
       }
 
-      const data = zFungibleAssetEvent.parse(dataAttribute.value);
+      const data = zDepositEvent.parse(dataAttribute.value);
       const [owner, denom] = await Promise.all([
         apiClient.findOwnerFromStoreAddr(data.store_addr),
         apiClient.findDenomFromMetadataAddr(data.metadata_addr),

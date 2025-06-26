@@ -36,3 +36,16 @@ export const zFungibleAssetMetadataResource = zJsonString.pipe(
     type: z.literal("0x1::fungible_asset::Metadata"),
   })
 );
+
+export const zNftResource = zJsonString.pipe(
+  z.object({
+    data: z.object({
+      collection: z.object({ inner: z.string() }),
+      description: z.string(),
+      token_id: z.string(),
+      uri: z.string(),
+    }),
+    type: z.literal("0x1::nft::Nft"),
+  })
+);
+export type NftResource = z.infer<typeof zNftResource>;

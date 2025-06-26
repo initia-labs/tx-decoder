@@ -3,8 +3,8 @@ import { MessageDecoder } from "@/interfaces";
 import {
   Log,
   Message,
-  zMintNFTEvent,
-  zMsgMoveNFTBurnEvent,
+  zMintNftEvent,
+  zMsgMoveNftBurnEvent,
   zMsgMoveObjectCreateEvent,
   zMsgMoveObjectTransfer,
   zMsgMoveObjectTransferEvent,
@@ -13,13 +13,9 @@ import { findMoveEvent, toBech32 } from "@/utils";
 
 export const nftMintDecoder: MessageDecoder = {
   check: (_message: Message, log: Log) =>
-    !!findMoveEvent(log.events, "0x1::collection::MintEvent", zMintNFTEvent),
+    !!findMoveEvent(log.events, "0x1::collection::MintEvent", zMintNftEvent),
   decode: async (_message: Message, log: Log, _apiClient: ApiClient) => {
-    const mintEvent = findMoveEvent(
-      log.events,
-      "0x1::collection::MintEvent",
-      zMintNFTEvent
-    );
+    const mintEvent = findMoveEvent(log.events, "0x1::collection::MintEvent", zMintNftEvent);
     if (!mintEvent) {
       throw new Error("NFT Mint event not found");
     }
@@ -89,17 +85,9 @@ export const objectTransferDecoder: MessageDecoder = {
 
 export const nftBurnDecoder: MessageDecoder = {
   check: (_message: Message, log: Log) =>
-    !!findMoveEvent(
-      log.events,
-      "0x1::collection::BurnEvent",
-      zMsgMoveNFTBurnEvent
-    ),
+    !!findMoveEvent(log.events, "0x1::collection::BurnEvent", zMsgMoveNftBurnEvent),
   decode: async (_message: Message, log: Log, _apiClient: ApiClient) => {
-    const burnEvent = findMoveEvent(
-      log.events,
-      "0x1::collection::BurnEvent",
-      zMsgMoveNFTBurnEvent
-    );
+    const burnEvent = findMoveEvent(log.events, "0x1::collection::BurnEvent", zMsgMoveNftBurnEvent);
     if (!burnEvent) {
       throw new Error("NFT Burn event not found");
     }

@@ -1,18 +1,10 @@
 import { ApiClient } from "@/api";
 import { DecodedMessage } from "@/index";
 import { MessageDecoder } from "@/interfaces";
-import {
-  Event,
-  Log,
-  Message,
-  SwapEvent,
-  zMsgMoveStableSwap,
-  zSwapEvent,
-} from "@/schema";
+import { Event, Log, Message, SwapEvent, zMsgMoveStableSwap, zSwapEvent } from "@/schema";
 
 export const stableSwapDecoder: MessageDecoder = {
-  check: (message: Message, _log: Log) =>
-    zMsgMoveStableSwap.safeParse(message).success,
+  check: (message: Message, _log: Log) => zMsgMoveStableSwap.safeParse(message).success,
   decode: async (message: Message, log: Log, _apiClient: ApiClient) => {
     const parsed = zMsgMoveStableSwap.parse(message);
     const { sender } = parsed;
@@ -44,22 +36,19 @@ const findSwapEventData = (events: Event[]): SwapEvent | null => {
     (event) =>
       event.type === "move" &&
       event.attributes.some(
-        (attr) =>
-          attr.key === "type_tag" && attr.value === "0x1::stableswap::SwapEvent"
+        (attr) => attr.key === "type_tag" && attr.value === "0x1::stableswap::SwapEvent"
       )
   );
 
   if (!swapEvent) return null;
 
-  const dataAttribute = swapEvent.attributes.find(
-    (attr) => attr.key === "data"
-  );
+  const dataAttribute = swapEvent.attributes.find((attr) => attr.key === "data");
 
   if (!dataAttribute) {
     return null;
   }
 
-  const parsed = zSwapEvent.safeParse(JSON.parse(dataAttribute.value));
+  const parsed = zSwapEvent.safeParse(dataAttribute.value);
   if (!parsed.success) {
     return null;
   }

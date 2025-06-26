@@ -128,8 +128,8 @@ export const zMsgMoveObjectTransfer = zMsgMoveExecute.extend({
   module_name: z.literal("object"),
 });
 
-export const zMsgIBCSendNFT = z.object({
-  "@type": z.literal(SUPPORTED_MESSAGE_TYPES.MsgIBCNFTTransfer),
+export const zMsgIbcSendNft = z.object({
+  "@type": z.literal(SUPPORTED_MESSAGE_TYPES.MsgIbcNftTransfer),
   class_id: z.string(),
   memo: z.string(),
   receiver: z.string(),
@@ -144,8 +144,8 @@ export const zMsgIBCSendNFT = z.object({
   token_ids: z.array(z.string()),
 });
 
-export const zMsgIBCReceiveNFT = z.object({
-  "@type": z.literal(SUPPORTED_MESSAGE_TYPES.MsgIBCRecvPacket),
+export const zMsgIbcReceiveNft = z.object({
+  "@type": z.literal(SUPPORTED_MESSAGE_TYPES.MsgIbcRecvPacket),
   packet: z.object({
     data: z.string(),
     destination_channel: z.string(),
