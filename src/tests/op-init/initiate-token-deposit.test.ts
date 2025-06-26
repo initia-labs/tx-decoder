@@ -1,5 +1,5 @@
-import { mockMsgInitiateTokenDeposit } from "@/tests/fixtures/op-init/initiate-token-deposit.fixture";
 import { decodeTransaction } from "@/index";
+import { mockMsgInitiateTokenDeposit } from "@/tests/fixtures/op-init/initiate-token-deposit.fixture";
 
 describe("Initiate Token Deposit Message", () => {
   it("should decode an initiate token deposit message correctly", () => {

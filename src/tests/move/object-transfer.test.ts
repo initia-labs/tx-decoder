@@ -1,5 +1,5 @@
-import { mockMsgObjectTransfer } from "@/tests/fixtures/move/object-transfer.fixture";
 import { decodeTransaction } from "@/index";
+import { mockMsgObjectTransfer } from "@/tests/fixtures/move/object-transfer.fixture";
 
 describe("Object Transfer Message", () => {
   it("should decode an object transfer message correctly", () => {

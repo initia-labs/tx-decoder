@@ -1,5 +1,5 @@
-import { mockMsgNFTMint } from "@/tests/fixtures/move/nft-mint.fixture";
 import { decodeTransaction } from "@/index";
+import { mockMsgNFTMint } from "@/tests/fixtures/move/nft-mint.fixture";
 
 describe("NFT Mint Message", () => {
   it("should decode an NFT mint message correctly", () => {

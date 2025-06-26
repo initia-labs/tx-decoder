@@ -1,7 +1,7 @@
 import { mockMsgDelegateLocked } from "@/tests/fixtures/delegate.fixture";
 
-import { mockMsgDelegate, mockMsgDelegateWithMultipleCoins } from "./fixtures/delegate.fixture";
 import { decodeTransaction } from "../index";
+import { mockMsgDelegate, mockMsgDelegateWithMultipleCoins } from "./fixtures/delegate.fixture";
 
 describe("Delegate Message", () => {
   it("should decode a delegate message correctly", () => {

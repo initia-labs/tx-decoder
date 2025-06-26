@@ -1,8 +1,8 @@
+import { decodeTransaction } from "../index";
 import {
   mockMsgWithdrawDelegatorReward,
   mockMsgWithdrawDelegatorRewardWithMultipleCoins,
 } from "./fixtures/withdraw-delegator-reward.fixture";
-import { decodeTransaction } from "../index";
 
 describe("Withdraw Delegator Reward Message", () => {
   it("should decode a withdraw delegator reward message correctly", () => {

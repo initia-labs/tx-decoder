@@ -1,5 +1,5 @@
-import { mockMsgIBCSendNFT } from "../fixtures/ibc/send-nft.fixture";
 import { decodeTransaction } from "../../index";
+import { mockMsgIBCSendNFT } from "../fixtures/ibc/send-nft.fixture";
 
 describe("IBC Send NFT Message", () => {
   it("should decode an IBC NFT send message correctly", () => {

@@ -1,5 +1,5 @@
-import { mockMsgDexSwap, mockMsgStableSwap } from "@/tests/fixtures/move/swap.fixture";
 import { decodeTransaction } from "@/index";
+import { mockMsgDexSwap, mockMsgStableSwap } from "@/tests/fixtures/move/swap.fixture";
 
 describe("Swap Message", () => {
   it("should decode a dex swap move message correctly", () => {
