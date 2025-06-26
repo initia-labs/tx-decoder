@@ -1,13 +1,13 @@
-import { produce } from "immer";
-
-import type { BalanceChanges, DecodedMessage, MessageDecoder } from "@/interfaces";
+import type { DecodedMessage, MessageDecoder } from "@/interfaces";
 import type { DelegateLockedEvent, Event, Log, Message } from "@/schema";
 
+import { ApiClient } from "@/api";
 import { zDelegateLockedEvent, zMsgDelegateLocked } from "@/schema";
 
 export const delegateLockedDecoder: MessageDecoder = {
-  check: (message: Message, _log: Log) => zMsgDelegateLocked.safeParse(message).success,
-  decode: (message: Message, log: Log) => {
+  check: (message: Message, _log: Log) =>
+    zMsgDelegateLocked.safeParse(message).success,
+  decode: async (message: Message, log: Log, _apiClient: ApiClient) => {
     const parsed = zMsgDelegateLocked.safeParse(message);
     if (!parsed.success) {
       throw new Error("Invalid delegate locked message");
@@ -34,19 +34,13 @@ export const delegateLockedDecoder: MessageDecoder = {
       isOp: false,
     };
 
-    const balanceChanges: Partial<BalanceChanges> = {
-      ft: produce<BalanceChanges["ft"]>({}, (draft) => {
-        draft[sender] = {
-          [delegateLockedCoin.denom]: `-${delegateLockedCoin.amount}`,
-        };
-      }),
-    };
-
-    return { balanceChanges, decodedMessage };
+    return decodedMessage;
   },
 };
 
-const findDelegateLockedEvent = (events: Event[]): DelegateLockedEvent | null => {
+const findDelegateLockedEvent = (
+  events: Event[]
+): DelegateLockedEvent | null => {
   const delegateLockedEvent = events.find(
     (event) =>
       event.type === "move" &&
@@ -60,10 +54,14 @@ const findDelegateLockedEvent = (events: Event[]): DelegateLockedEvent | null =>
 
   if (!delegateLockedEvent) return null;
 
-  const dataAttribute = delegateLockedEvent.attributes.find((attr) => attr.key === "data");
+  const dataAttribute = delegateLockedEvent.attributes.find(
+    (attr) => attr.key === "data"
+  );
   if (!dataAttribute) return null;
 
-  const parsed = zDelegateLockedEvent.safeParse(JSON.parse(dataAttribute.value));
+  const parsed = zDelegateLockedEvent.safeParse(
+    JSON.parse(dataAttribute.value)
+  );
   if (!parsed.success) return null;
 
   return parsed.data;

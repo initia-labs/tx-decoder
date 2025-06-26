@@ -1,12 +1,14 @@
-import type { BalanceChanges, DecodedMessage, MessageDecoder } from "@/interfaces";
+import type { DecodedMessage, MessageDecoder } from "@/interfaces";
 import type { Log, Message } from "@/schema";
 
+import { ApiClient } from "@/api";
 import { SUPPORTED_MESSAGE_TYPES } from "@/message-types";
 import { zMsgInitiateTokenDeposit } from "@/schema";
 
 export const initiateTokenDepositDecoder: MessageDecoder = {
-  check: (message: Message, _log: Log) => message["@type"] === SUPPORTED_MESSAGE_TYPES.MsgInitiateTokenDeposit,
-  decode: (message: Message, _log: Log) => {
+  check: (message: Message, _log: Log) =>
+    message["@type"] === SUPPORTED_MESSAGE_TYPES.MsgInitiateTokenDeposit,
+  decode: async (message: Message, _log: Log, _apiClient: ApiClient) => {
     const parsed = zMsgInitiateTokenDeposit.safeParse(message);
     if (!parsed.success) {
       throw new Error("Invalid initiate token deposit message");
@@ -27,17 +29,6 @@ export const initiateTokenDepositDecoder: MessageDecoder = {
       isOp: true,
     };
 
-    const balanceChanges: Partial<BalanceChanges> = {
-      ft: {
-        [sender]: {
-          [amount.denom]: `-${amount.amount}`,
-        },
-      },
-    };
-
-    return {
-      balanceChanges,
-      decodedMessage,
-    };
+    return decodedMessage;
   },
 };
