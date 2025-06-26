@@ -21,11 +21,11 @@ export interface ProcessedMessage {
 }
 
 export interface BalanceChanges {
-  ft: { [address: string]: FTChange };
+  ft: { [address: string]: FtChange };
   object: { [address: string]: ObjectChange };
 }
 
-export type FTChange = { [denom: string]: string };
+export type FtChange = { [denom: string]: string };
 export type ObjectChange = { [address: string]: string };
 
 export interface DecoderConfig {
