@@ -9,22 +9,22 @@ import { createNotSupportedMessage } from "./utils";
 
 // Array of decoders ordered by priority
 const messageDecoders: MessageDecoder[] = [
-  // Decoders.ibcSendNFTDecoder,
-  // Decoders.ibcReceiveNFTDecoder,
+  Decoders.ibcSendNFTDecoder,
+  Decoders.ibcReceiveNFTDecoder,
   Decoders.sendDecoder,
-  // Decoders.initiateTokenDepositDecoder,
-  // Decoders.finalizeTokenWithdrawalDecoder,
+  Decoders.initiateTokenDepositDecoder,
+  Decoders.finalizeTokenWithdrawalDecoder,
   Decoders.delegateDecoder,
-  // Decoders.delegateLockedDecoder,
-  // Decoders.undelegateDecoder,
-  // Decoders.undelegateLockedDecoder,
-  // Decoders.redelegateDecoder,
-  // Decoders.withdrawDelegatorRewardDecoder,
-  // Decoders.dexSwapDecoder,
-  // Decoders.stableSwapDecoder,
-  // Decoders.nftMintDecoder,
-  // Decoders.objectTransferDecoder,
-  // Decoders.nftBurnDecoder,
+  Decoders.delegateLockedDecoder,
+  Decoders.undelegateDecoder,
+  Decoders.undelegateLockedDecoder,
+  Decoders.redelegateDecoder,
+  Decoders.withdrawDelegatorRewardDecoder,
+  Decoders.dexSwapDecoder,
+  Decoders.stableSwapDecoder,
+  Decoders.nftMintDecoder,
+  Decoders.objectTransferDecoder,
+  Decoders.nftBurnDecoder,
   // Add more decoders here in order of priority
 ];
 
