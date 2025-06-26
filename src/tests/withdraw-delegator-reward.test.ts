@@ -1,20 +1,35 @@
+import axios from "axios";
+
 import {
+  mockApiResponsesWithdrawDelegatorReward,
+  mockApiResponsesWithdrawDelegatorRewardWithMultipleCoins,
   mockMsgWithdrawDelegatorReward,
   mockMsgWithdrawDelegatorRewardWithMultipleCoins,
 } from "./fixtures/withdraw-delegator-reward.fixture";
-import { initialize } from "./helpers";
+import { createMockApiHandler, initialize } from "./helpers";
 
 jest.mock("axios");
+
 const decoder = initialize();
+const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 describe("Withdraw Delegator Reward Message", () => {
   it("should decode a withdraw delegator reward message correctly", async () => {
+    const mockApiHandler = createMockApiHandler(
+      mockApiResponsesWithdrawDelegatorReward
+    );
+    mockedAxios.get.mockImplementation(mockApiHandler);
+
     const decoded = await decoder.decodeTransaction(
       mockMsgWithdrawDelegatorReward
     );
 
-    expect(decoded.messages).toHaveLength(1);
-    expect(decoded.messages[0].decodedMessage).toEqual({
+    const { messages, totalBalanceChanges } = decoded;
+    const { balanceChanges, decodedMessage } = messages[0];
+
+    expect(messages).toHaveLength(1);
+
+    expect(decodedMessage).toEqual({
       action: "withdraw_delegator_reward",
       data: {
         coins: [{ amount: "33490255", denom: "uinit" }],
@@ -25,23 +40,42 @@ describe("Withdraw Delegator Reward Message", () => {
       isOp: false,
     });
 
-    // expect(decoded.balanceChanges).toEqual({
-    //   ft: {
-    //     init13thkj7pxgr3l6hzymklfeprh0fka8n6mzckr78: {
-    //       uinit: "33490255",
-    //     },
-    //   },
-    //   object: {},
-    // });
+    expect(balanceChanges).toEqual({
+      ft: {
+        init1jv65s3grqf6v6jl3dp4t6c9t9rk99cd8ffy0za: { uinit: "-33490255" },
+        init13thkj7pxgr3l6hzymklfeprh0fka8n6mzckr78: { uinit: "33490255" },
+      },
+      object: {},
+    });
+
+    expect(totalBalanceChanges).toEqual({
+      ft: {
+        init1jv65s3grqf6v6jl3dp4t6c9t9rk99cd8ffy0za: {
+          uinit: "-33490255",
+        },
+        init13thkj7pxgr3l6hzymklfeprh0fka8n6mzckr78: {
+          uinit: "33490255",
+        },
+      },
+      object: {},
+    });
   });
 
   it("should decode a withdraw delegator reward message with multiple coins correctly", async () => {
+    const mockApiHandler = createMockApiHandler(
+      mockApiResponsesWithdrawDelegatorRewardWithMultipleCoins
+    );
+    mockedAxios.get.mockImplementation(mockApiHandler);
+
     const decoded = await decoder.decodeTransaction(
       mockMsgWithdrawDelegatorRewardWithMultipleCoins
     );
 
-    expect(decoded.messages).toHaveLength(1);
-    expect(decoded.messages[0].decodedMessage).toEqual({
+    const { messages, totalBalanceChanges } = decoded;
+    const { balanceChanges, decodedMessage } = messages[0];
+
+    expect(messages).toHaveLength(1);
+    expect(decodedMessage).toEqual({
       action: "withdraw_delegator_reward",
       data: {
         coins: [
@@ -56,15 +90,20 @@ describe("Withdraw Delegator Reward Message", () => {
       isOp: false,
     });
 
-    // expect(decoded.balanceChanges).toEqual({
-    //   ft: {
-    //     init13thkj7pxgr3l6hzymklfeprh0fka8n6mzckr78: {
-    //       uinit: "33490255",
-    //       ustake: "99999",
-    //       utoken: "1000000",
-    //     },
-    //   },
-    //   object: {},
-    // });
+    expect(balanceChanges).toEqual({
+      ft: {
+        init1jv65s3grqf6v6jl3dp4t6c9t9rk99cd8ffy0za: { uinit: "-33490255" },
+        init13thkj7pxgr3l6hzymklfeprh0fka8n6mzckr78: { uinit: "33490255" },
+      },
+      object: {},
+    });
+
+    expect(totalBalanceChanges).toEqual({
+      ft: {
+        init1jv65s3grqf6v6jl3dp4t6c9t9rk99cd8ffy0za: { uinit: "-33490255" },
+        init13thkj7pxgr3l6hzymklfeprh0fka8n6mzckr78: { uinit: "33490255" },
+      },
+      object: {},
+    });
   });
 });
