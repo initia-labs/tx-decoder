@@ -14,7 +14,7 @@ const messageDecoders: MessageDecoder[] = [
   Decoders.sendDecoder,
   // Decoders.initiateTokenDepositDecoder,
   // Decoders.finalizeTokenWithdrawalDecoder,
-  // Decoders.delegateDecoder,
+  Decoders.delegateDecoder,
   // Decoders.delegateLockedDecoder,
   // Decoders.undelegateDecoder,
   // Decoders.undelegateLockedDecoder,

@@ -14,12 +14,7 @@ export const redelegateDecoder: MessageDecoder = {
       throw new Error("Invalid redelegate message");
     }
 
-    const {
-      amount,
-      delegator_address,
-      validator_dst_address,
-      validator_src_address,
-    } = parsed.data;
+    const { amount, delegator_address, validator_dst_address, validator_src_address } = parsed.data;
 
     const decodedMessage: DecodedMessage = {
       action: "redelegate",
