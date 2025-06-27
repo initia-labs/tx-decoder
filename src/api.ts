@@ -1,4 +1,6 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
+import { promises as fs } from "fs";
+import path from "path";
 
 import { DecoderConfig } from "./interfaces";
 import {
@@ -15,7 +17,9 @@ export class ApiClient {
     this.restUrl = config.restUrl;
   }
 
-  public async findDenomFromMetadataAddr(metadataAddr: string): Promise<string | null> {
+  public async findDenomFromMetadataAddr(
+    metadataAddr: string
+  ): Promise<string | null> {
     const resources = await this._getAccountResources(metadataAddr);
     if (!resources) {
       return null;
@@ -26,11 +30,15 @@ export class ApiClient {
     if (!fungibleMetadataResource) {
       return null;
     }
-    const metadata = zFungibleAssetMetadataResource.parse(fungibleMetadataResource.move_resource);
+    const metadata = zFungibleAssetMetadataResource.parse(
+      fungibleMetadataResource.move_resource
+    );
     return metadata.data.symbol;
   }
 
-  public async findOwnerFromStoreAddr(storeAddr: string): Promise<string | null> {
+  public async findOwnerFromStoreAddr(
+    storeAddr: string
+  ): Promise<string | null> {
     const resources = await this._getAccountResources(storeAddr);
     if (!resources) {
       return null;
@@ -42,7 +50,32 @@ export class ApiClient {
       return null;
     }
 
-    return toBech32(zObjectCoreResource.parse(objectCoreResource.move_resource).data.owner);
+    return toBech32(
+      zObjectCoreResource.parse(objectCoreResource.move_resource).data.owner
+    );
+  }
+
+  private async _debugApiCall(address: string, response: AxiosResponse) {
+    const key = `/initia/move/v1/accounts/${address}/resources`;
+    const filePath = path.join(__dirname, "tests/_output/resources.json");
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let existingData: any = {};
+    try {
+      const fileContent = await fs.readFile(filePath, "utf-8");
+      existingData = JSON.parse(fileContent);
+    } catch {
+      // File does not exist or is invalid — start fresh
+      existingData = {};
+    }
+
+    existingData[key] = response.data;
+
+    await fs.writeFile(
+      filePath,
+      JSON.stringify(existingData, null, 2),
+      "utf-8"
+    );
   }
 
   private async _getAccountResources(address: string) {
@@ -50,6 +83,10 @@ export class ApiClient {
       const response = await axios.get(
         `${this.restUrl}/initia/move/v1/accounts/${address}/resources`
       );
+
+      // Uncomment the line below to enable debugging output
+      // await this._debugApiCall(address, response);
+
       return zAccountResources.parse(response.data).resources;
     } catch {
       return null;

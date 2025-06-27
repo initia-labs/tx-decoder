@@ -20,11 +20,10 @@ describe("Withdraw Delegator Reward Message", () => {
     );
     mockedAxios.get.mockImplementation(mockApiHandler);
 
-    const decoded = await decoder.decodeTransaction(
+    const { messages, totalBalanceChanges } = await decoder.decodeTransaction(
       mockMsgWithdrawDelegatorReward
     );
 
-    const { messages, totalBalanceChanges } = decoded;
     const { balanceChanges, decodedMessage } = messages[0];
 
     expect(messages).toHaveLength(1);
@@ -67,11 +66,10 @@ describe("Withdraw Delegator Reward Message", () => {
     );
     mockedAxios.get.mockImplementation(mockApiHandler);
 
-    const decoded = await decoder.decodeTransaction(
+    const { messages, totalBalanceChanges } = await decoder.decodeTransaction(
       mockMsgWithdrawDelegatorRewardWithMultipleCoins
     );
 
-    const { messages, totalBalanceChanges } = decoded;
     const { balanceChanges, decodedMessage } = messages[0];
 
     expect(messages).toHaveLength(1);

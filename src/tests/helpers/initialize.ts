@@ -2,8 +2,8 @@ import { TxDecoder } from "@/decoder";
 
 export const mockRestUrl = "https://mock.initia.xyz";
 
-export const initialize = () => {
+export const initialize = (endpoint?: string) => {
   return new TxDecoder({
-    restUrl: mockRestUrl,
+    restUrl: endpoint ?? mockRestUrl,
   });
 };

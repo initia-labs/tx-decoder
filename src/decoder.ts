@@ -2,7 +2,12 @@ import { ApiClient } from "./api";
 import { processLogForBalanceChanges } from "./balance-changes";
 import { DEFAULT_BALANCE_CHANGES } from "./constants";
 import * as Decoders from "./decoders";
-import { DecodedTx, DecoderConfig, MessageDecoder, ProcessedMessage } from "./interfaces";
+import {
+  DecodedTx,
+  DecoderConfig,
+  MessageDecoder,
+  ProcessedMessage,
+} from "./interfaces";
 import { Log, Message, TxResponse, zTxResponse } from "./schema";
 import { attachTxLogs, mergeBalanceChanges } from "./utils";
 import { createNotSupportedMessage } from "./utils";
@@ -72,7 +77,10 @@ export class TxDecoder {
     };
   }
 
-  private async _decodeMessage(message: Message, log: Log): ReturnType<MessageDecoder["decode"]> {
+  private async _decodeMessage(
+    message: Message,
+    log: Log
+  ): ReturnType<MessageDecoder["decode"]> {
     const notSupportedMessage = createNotSupportedMessage(message["@type"]);
 
     const decoder = this._findDecoderForMessage(message, log);
@@ -84,16 +92,24 @@ export class TxDecoder {
     }
   }
 
-  private _findDecoderForMessage(message: Message, log: Log): MessageDecoder | undefined {
+  private _findDecoderForMessage(
+    message: Message,
+    log: Log
+  ): MessageDecoder | undefined {
     return messageDecoders.find((decoder) => decoder.check(message, log));
   }
 
-  private async _processMessage(txResponse: TxResponse): Promise<ProcessedMessage[]> {
+  private async _processMessage(
+    txResponse: TxResponse
+  ): Promise<ProcessedMessage[]> {
     const promises = txResponse.tx.body.messages.map(async (message, index) => {
       const log = txResponse.logs[index];
 
       const decodedMessage = await this._decodeMessage(message, log);
-      const balanceChanges = await processLogForBalanceChanges(log, this.apiClient);
+      const balanceChanges = await processLogForBalanceChanges(
+        log,
+        this.apiClient
+      );
 
       return { balanceChanges, decodedMessage };
     });
