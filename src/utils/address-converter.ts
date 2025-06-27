@@ -29,23 +29,38 @@ const isHexAddress = (address: string, length: number): boolean => {
   return true;
 };
 
-const isHexWalletAddress = (address: string) => isHexAddress(address, HEX_WALLET_ADDRESS_LENGTH);
+const isHexWalletAddress = (address: string) =>
+  isHexAddress(address, HEX_WALLET_ADDRESS_LENGTH);
 
-const isHexModuleAddress = (address: string) => isHexAddress(address, HEX_MODULE_ADDRESS_LENGTH);
+const isHexModuleAddress = (address: string) =>
+  isHexAddress(address, HEX_MODULE_ADDRESS_LENGTH);
 
-const hexToBech32AddressByLength = (prefix: string, hexAddr: string, length: number): string => {
+const hexToBech32AddressByLength = (
+  prefix: string,
+  hexAddr: string,
+  length: number
+): string => {
   const strip = padHexAddress(hexAddr, length).slice(2);
   return toBech32Addr(prefix, fromHex(strip));
 };
 
-export const toHex = (addr: string): string => "0x".concat(toHexAddr(fromBech32(addr).data));
+export const toHex = (addr: string): string =>
+  "0x".concat(toHexAddr(fromBech32(addr).data));
 
 export const toBech32 = (hexAddr: string): string => {
   if (isHexWalletAddress(hexAddr)) {
-    return hexToBech32AddressByLength(BECH32_PREFIX, hexAddr, HEX_WALLET_ADDRESS_LENGTH);
+    return hexToBech32AddressByLength(
+      BECH32_PREFIX,
+      hexAddr,
+      HEX_WALLET_ADDRESS_LENGTH
+    );
   }
   if (isHexModuleAddress(hexAddr)) {
-    return hexToBech32AddressByLength(BECH32_PREFIX, hexAddr, HEX_MODULE_ADDRESS_LENGTH);
+    return hexToBech32AddressByLength(
+      BECH32_PREFIX,
+      hexAddr,
+      HEX_MODULE_ADDRESS_LENGTH
+    );
   }
   throw new Error("Invalid hex address");
 };

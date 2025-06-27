@@ -15,7 +15,11 @@ export const nftMintDecoder: MessageDecoder = {
   check: (_message: Message, log: Log) =>
     !!findMoveEvent(log.events, "0x1::collection::MintEvent", zMintNftEvent),
   decode: async (_message: Message, log: Log, _apiClient: ApiClient) => {
-    const mintEvent = findMoveEvent(log.events, "0x1::collection::MintEvent", zMintNftEvent);
+    const mintEvent = findMoveEvent(
+      log.events,
+      "0x1::collection::MintEvent",
+      zMintNftEvent
+    );
     if (!mintEvent) {
       throw new Error("NFT Mint event not found");
     }
@@ -85,9 +89,17 @@ export const objectTransferDecoder: MessageDecoder = {
 
 export const nftBurnDecoder: MessageDecoder = {
   check: (_message: Message, log: Log) =>
-    !!findMoveEvent(log.events, "0x1::collection::BurnEvent", zMsgMoveNftBurnEvent),
+    !!findMoveEvent(
+      log.events,
+      "0x1::collection::BurnEvent",
+      zMsgMoveNftBurnEvent
+    ),
   decode: async (_message: Message, log: Log, _apiClient: ApiClient) => {
-    const burnEvent = findMoveEvent(log.events, "0x1::collection::BurnEvent", zMsgMoveNftBurnEvent);
+    const burnEvent = findMoveEvent(
+      log.events,
+      "0x1::collection::BurnEvent",
+      zMsgMoveNftBurnEvent
+    );
     if (!burnEvent) {
       throw new Error("NFT Burn event not found");
     }

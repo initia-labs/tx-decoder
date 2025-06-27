@@ -23,13 +23,17 @@ export const ibcSendNftDecoder: MessageDecoder = {
 
     if (!event) throw new Error("IBC NFT Send packet event not found");
 
-    const dataAttribute = event.attributes.find((attr) => attr.key === "packet_data");
+    const dataAttribute = event.attributes.find(
+      (attr) => attr.key === "packet_data"
+    );
 
     if (!dataAttribute) {
       throw new Error("IBC NFT Send packet data attribute not found");
     }
 
-    const parsedData = zMsgIbcNftTransferSendPacketEvent.safeParse(JSON.parse(dataAttribute.value));
+    const parsedData = zMsgIbcNftTransferSendPacketEvent.safeParse(
+      dataAttribute.value
+    );
     if (!parsedData.success) {
       throw new Error("IBC NFT Send packet data attribute not found");
     }
@@ -55,7 +59,9 @@ export const ibcSendNftDecoder: MessageDecoder = {
 export const ibcReceiveNftDecoder: MessageDecoder = {
   check: (message: Message, _log: Log) => {
     const parsed = zMsgIbcReceiveNft.safeParse(message);
-    return parsed.success && parsed.data.packet.destination_port === "nft-transfer";
+    return (
+      parsed.success && parsed.data.packet.destination_port === "nft-transfer"
+    );
   },
   decode: async (message: Message, log: Log, _apiClient: ApiClient) => {
     const parsed = zMsgIbcReceiveNft.parse(message);
@@ -65,13 +71,17 @@ export const ibcReceiveNftDecoder: MessageDecoder = {
 
     if (!event) throw new Error("IBC NFT Receive packet event not found");
 
-    const dataAttribute = event.attributes.find((attr) => attr.key === "packet_data");
+    const dataAttribute = event.attributes.find(
+      (attr) => attr.key === "packet_data"
+    );
 
     if (!dataAttribute) {
       throw new Error("IBC NFT Receive packet data attribute not found");
     }
 
-    const parsedData = zMsgIbcNftTransferSendPacketEvent.safeParse(JSON.parse(dataAttribute.value));
+    const parsedData = zMsgIbcNftTransferSendPacketEvent.safeParse(
+      dataAttribute.value
+    );
     if (!parsedData.success) {
       throw new Error("IBC NFT Receive packet data attribute not found");
     }

@@ -6,7 +6,9 @@ import { toBech32 } from "@/utils";
 export const mintEventProcessor: BalanceEventProcessor = {
   async process(event, apiClient) {
     try {
-      const dataAttribute = event.attributes.find((attr) => attr.key === "data");
+      const dataAttribute = event.attributes.find(
+        (attr) => attr.key === "data"
+      );
       if (!dataAttribute) {
         throw new Error("Mint event data attribute not found");
       }

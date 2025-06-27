@@ -295,4 +295,4 @@ export const mockMsgObjectTransfer = {
     ],
   },
   txhash: "E8A6497B081C9CEF0BF88371857D5BFA465CF6C1F7C070E4C8C803AA3AF397A0",
-}
+};

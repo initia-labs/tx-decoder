@@ -14,7 +14,8 @@ describe("Object Transfer Message", () => {
       action: "object_transfer",
       data: {
         from: "init1ulw753hxh4mrc9ss7p2y7h8emjxxyw6uce0hk9",
-        object: "0x481b5e2a539721bfa9f9b35e702adb667c059d0a8e1a030be483178abd928235",
+        object:
+          "0x481b5e2a539721bfa9f9b35e702adb667c059d0a8e1a030be483178abd928235",
         to: "init1t9k78msywte6jx4zrxkp94pa9u9laa9pqfpytk",
       },
       isIbc: false,

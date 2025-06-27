@@ -10,7 +10,9 @@ export const findMoveEvent = <T>(
   const event = events.find(
     (event) =>
       event.type === "move" &&
-      event.attributes.some((attr) => attr.key === "type_tag" && attr.value === typeTag)
+      event.attributes.some(
+        (attr) => attr.key === "type_tag" && attr.value === typeTag
+      )
   );
 
   if (!event) return null;
