@@ -9,6 +9,7 @@ const allBalanceEventProcessors: BalanceEventProcessor[] = [
   Processors.withdrawEventProcessor,
   Processors.depositEventProcessor,
   Processors.mintEventProcessor,
+  Processors.objectTransferEventProcessor,
   // Add other event processors here...
 ];
 
