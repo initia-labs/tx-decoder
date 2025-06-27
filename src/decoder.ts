@@ -28,12 +28,6 @@ const messageDecoders: MessageDecoder[] = [
   // Add more decoders here in order of priority
 ];
 
-const INITIAL_STATE: DecodedTx = {
-  messages: [],
-  metadata: {},
-  totalBalanceChanges: DEFAULT_BALANCE_CHANGES,
-};
-
 export class TxDecoder {
   private readonly apiClient: ApiClient;
 
@@ -49,7 +43,11 @@ export class TxDecoder {
     const txResponse = this._validateAndPrepareTx(tx);
 
     if (txResponse.tx.body.messages.length === 0) {
-      return INITIAL_STATE;
+      return {
+        messages: [],
+        metadata: {},
+        totalBalanceChanges: DEFAULT_BALANCE_CHANGES,
+      };
     }
 
     if (txResponse.logs.length !== txResponse.tx.body.messages.length) {
