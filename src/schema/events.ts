@@ -52,14 +52,16 @@ export const zMsgMoveNftBurnEvent = zJsonString.pipe(
 );
 export type MoveNftBurnEvent = z.infer<typeof zMsgMoveNftBurnEvent>;
 
-export const zMsgIbcNftTransferSendPacketEvent = z.object({
-  classId: z.string(),
-  classUri: z.string().nullable(),
-  receiver: z.string(),
-  sender: z.string(),
-  tokenIds: z.array(z.string()),
-  tokenUris: z.array(z.string()),
-});
+export const zMsgIbcNftTransferSendPacketEvent = zJsonString.pipe(
+  z.object({
+    classId: z.string(),
+    classUri: z.string().nullable(),
+    receiver: z.string(),
+    sender: z.string(),
+    tokenIds: z.array(z.string()),
+    tokenUris: z.array(z.string()),
+  })
+);
 export type IbcNftTransferSendPacketEvent = z.infer<
   typeof zMsgIbcNftTransferSendPacketEvent
 >;

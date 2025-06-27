@@ -32,7 +32,7 @@ export const ibcSendNftDecoder: MessageDecoder = {
     }
 
     const parsedData = zMsgIbcNftTransferSendPacketEvent.safeParse(
-      JSON.parse(dataAttribute.value)
+      dataAttribute.value
     );
     if (!parsedData.success) {
       throw new Error("IBC NFT Send packet data attribute not found");
@@ -80,7 +80,7 @@ export const ibcReceiveNftDecoder: MessageDecoder = {
     }
 
     const parsedData = zMsgIbcNftTransferSendPacketEvent.safeParse(
-      JSON.parse(dataAttribute.value)
+      dataAttribute.value
     );
     if (!parsedData.success) {
       throw new Error("IBC NFT Receive packet data attribute not found");
