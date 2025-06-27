@@ -52,20 +52,19 @@ describe("IBC Receive NFT Message", () => {
         });
       }
 
-      // BUG: We should use new balance changes logic
-      // expect(decoded.totalBalanceChanges).toEqual({
-      //   ft: {},
-      //   object: {
-      //     init1j0kfut4t788gs9e6l4aqyh7s3pgwtwegnqn6qr: {
-      //       init1rf9acg4cee5welf4jqqhrwx3pv4f695ae0jtaze2tksxywsg76msp3qj9a:
-      //         "-1",
-      //     },
-      //     init1t9k78msywte6jx4zrxkp94pa9u9laa9pqfpytk: {
-      //       init1rf9acg4cee5welf4jqqhrwx3pv4f695ae0jtaze2tksxywsg76msp3qj9a:
-      //         "1",
-      //     },
-      //   },
-      // });
+      expect(decoded.totalBalanceChanges).toEqual({
+        ft: {},
+        object: {
+          init1j0kfut4t788gs9e6l4aqyh7s3pgwtwegnqn6qr: {
+            init1rf9acg4cee5welf4jqqhrwx3pv4f695ae0jtaze2tksxywsg76msp3qj9a:
+              "-1",
+          },
+          init1t9k78msywte6jx4zrxkp94pa9u9laa9pqfpytk: {
+            init1rf9acg4cee5welf4jqqhrwx3pv4f695ae0jtaze2tksxywsg76msp3qj9a:
+              "1",
+          },
+        },
+      });
     });
 
     it("should handle the correct message type for source token", async () => {

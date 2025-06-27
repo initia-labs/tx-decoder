@@ -33,7 +33,7 @@ describe("Redelegate Message", () => {
           },
         ],
         delegatorAddress: "init1kw2unuhgfa6mz6r0ehrzlr9k9ftjk7pql8u5fm",
-        validatorDstAddress: {
+        validatorDst: {
           details:
             "Cosmostation is an institutional-grade cryptocurrency infrastructure provider, managing billions of dollars across 70 protocols. Since 2018, we have served more than 500k users globally, providing products that enable protocols to scale.",
           identity: "AE4C403A6E7AA1AC",
@@ -41,7 +41,7 @@ describe("Redelegate Message", () => {
           security_contact: "node@stamper.network",
           website: "https://www.cosmostation.io",
         },
-        validatorSrcAddress: {
+        validatorSrc: {
           details: "Provides secure validation services for dPoS networks",
           identity: "8957C5091FBF4192",
           moniker: "B-Harvest",
