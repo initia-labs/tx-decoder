@@ -38,7 +38,6 @@ describe("IBC Receive NFT Message", () => {
         });
       }
 
-      // IBC NFT receives don't affect local balance changes since the NFT is being received from another chain
       expect(decoded.totalBalanceChanges).toEqual({
         ft: {},
         object: {
@@ -137,7 +136,6 @@ describe("IBC Receive NFT Message", () => {
         });
       }
 
-      // IBC NFT receives don't affect local balance changes since the NFT is being received from another chain
       expect(decoded.totalBalanceChanges).toEqual({
         ft: {},
         object: {

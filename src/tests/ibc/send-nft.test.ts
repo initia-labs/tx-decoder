@@ -24,12 +24,29 @@ describe("IBC Send NFT Message", () => {
       isIbc: true,
       isOp: false,
     });
+    expect(decoded.messages[0].balanceChanges).toEqual({
+      ft: {},
+      object: {
+        init1dw49mn7s2r5mskjdmus5hth80zz8wwaywycq06: {
+          init1v2xnnl08y508ec6q4q4hxqr2avdeyu3cew5rxghwnn5t3y4jhd2smmah7n: "-1",
+        },
+        init1j0kfut4t788gs9e6l4aqyh7s3pgwtwegnqn6qr: {
+          init1v2xnnl08y508ec6q4q4hxqr2avdeyu3cew5rxghwnn5t3y4jhd2smmah7n: "1",
+        },
+      },
+    });
 
-    // // IBC NFT transfers don't affect local balance changes since the NFT is being sent to another chain
-    // expect(decoded.balanceChanges).toEqual({
-    //   ft: {},
-    //   object: {},
-    // });
+    expect(decoded.totalBalanceChanges).toEqual({
+      ft: {},
+      object: {
+        init1dw49mn7s2r5mskjdmus5hth80zz8wwaywycq06: {
+          init1v2xnnl08y508ec6q4q4hxqr2avdeyu3cew5rxghwnn5t3y4jhd2smmah7n: "-1",
+        },
+        init1j0kfut4t788gs9e6l4aqyh7s3pgwtwegnqn6qr: {
+          init1v2xnnl08y508ec6q4q4hxqr2avdeyu3cew5rxghwnn5t3y4jhd2smmah7n: "1",
+        },
+      },
+    });
   });
 
   it("should handle the correct message type", async () => {
