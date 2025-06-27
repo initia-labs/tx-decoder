@@ -2,7 +2,8 @@
 export const SUPPORTED_MESSAGE_TYPES = {
   // cosmos messages
   MsgSend: "/cosmos.bank.v1beta1.MsgSend",
-  MsgWithdrawDelegatorReward: "/cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward",
+  MsgWithdrawDelegatorReward:
+    "/cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward",
 
   // initia staking messages
   MsgDelegate: "/initia.mstaking.v1.MsgDelegate",
@@ -18,6 +19,6 @@ export const SUPPORTED_MESSAGE_TYPES = {
   MsgFinalizeTokenWithdrawal: "/opinit.ophost.v1.MsgFinalizeTokenWithdrawal",
 
   // ibc messages
-  MsgIBCNFTTransfer: "/ibc.applications.nft_transfer.v1.MsgTransfer",
-  MsgIBCRecvPacket: "/ibc.core.channel.v1.MsgRecvPacket",
+  MsgIbcNftTransfer: "/ibc.applications.nft_transfer.v1.MsgTransfer",
+  MsgIbcRecvPacket: "/ibc.core.channel.v1.MsgRecvPacket",
 } as const;

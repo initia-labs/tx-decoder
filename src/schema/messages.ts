@@ -86,13 +86,17 @@ export const zMsgMoveExecute = z.object({
 
 export const zMsgDelegateLocked = zMsgMoveExecute.extend({
   function_name: z.literal("delegate"),
-  module_address: z.literal("0x3a886b32a802582f2e446e74d4a24d1d7ed01adf46d2a8f65c5723887e708789"),
+  module_address: z.literal(
+    "0x3a886b32a802582f2e446e74d4a24d1d7ed01adf46d2a8f65c5723887e708789"
+  ),
   module_name: z.literal("lock_staking"),
 });
 
 export const zMsgUndelegateLocked = zMsgMoveExecute.extend({
   function_name: z.literal("undelegate"),
-  module_address: z.literal("0x3a886b32a802582f2e446e74d4a24d1d7ed01adf46d2a8f65c5723887e708789"),
+  module_address: z.literal(
+    "0x3a886b32a802582f2e446e74d4a24d1d7ed01adf46d2a8f65c5723887e708789"
+  ),
   module_name: z.literal("lock_staking"),
 });
 
@@ -116,11 +120,16 @@ const zMsgMoveSimpleMint = zMsgMoveExecute.extend({
 
 const zMsgMoveUsernameMint = zMsgMoveExecute.extend({
   function_name: z.literal("register_domain"),
-  module_address: z.string().refine((address) => USERNAME_MODULE_ADDRESSES.includes(address)),
+  module_address: z
+    .string()
+    .refine((address) => USERNAME_MODULE_ADDRESSES.includes(address)),
   module_name: z.literal("usernames"),
 });
 
-export const zMsgMoveNftMint = z.union([zMsgMoveSimpleMint, zMsgMoveUsernameMint]);
+export const zMsgMoveNftMint = z.union([
+  zMsgMoveSimpleMint,
+  zMsgMoveUsernameMint,
+]);
 
 export const zMsgMoveObjectTransfer = zMsgMoveExecute.extend({
   function_name: z.literal("transfer_call"),
@@ -128,8 +137,8 @@ export const zMsgMoveObjectTransfer = zMsgMoveExecute.extend({
   module_name: z.literal("object"),
 });
 
-export const zMsgIBCSendNFT = z.object({
-  "@type": z.literal(SUPPORTED_MESSAGE_TYPES.MsgIBCNFTTransfer),
+export const zMsgIbcSendNft = z.object({
+  "@type": z.literal(SUPPORTED_MESSAGE_TYPES.MsgIbcNftTransfer),
   class_id: z.string(),
   memo: z.string(),
   receiver: z.string(),
@@ -144,8 +153,8 @@ export const zMsgIBCSendNFT = z.object({
   token_ids: z.array(z.string()),
 });
 
-export const zMsgIBCReceiveNFT = z.object({
-  "@type": z.literal(SUPPORTED_MESSAGE_TYPES.MsgIBCRecvPacket),
+export const zMsgIbcReceiveNft = z.object({
+  "@type": z.literal(SUPPORTED_MESSAGE_TYPES.MsgIbcRecvPacket),
   packet: z.object({
     data: z.string(),
     destination_channel: z.string(),

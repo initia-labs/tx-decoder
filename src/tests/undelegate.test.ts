@@ -1,23 +1,38 @@
-import { mockMsgUndelegateLocked } from "@/fixtures/undelegate.fixture";
+import axios from "axios";
 
 import {
+  mockApiResponseUndelegate,
+  mockApiResponseUndelegateLocked,
   mockMsgUndelegate,
-  mockMsgUndelegateWithMultipleCoins,
-} from "../fixtures/undelegate.fixture";
-import { decodeTransaction } from "../index";
+  mockMsgUndelegateLocked,
+} from "./fixtures/undelegate.fixture";
+import { createMockApiHandler, initialize } from "./helpers";
+
+jest.mock("axios");
+const decoder = initialize();
+const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 describe("Undelegate Message", () => {
-  it("should decode an undelegate message correctly", () => {
-    const decoded = decodeTransaction(mockMsgUndelegate);
+  it("should decode an undelegate message correctly", async () => {
+    const mockApiHandler = createMockApiHandler(mockApiResponseUndelegate);
+    mockedAxios.get.mockImplementation(mockApiHandler);
 
-    expect(decoded.messages).toHaveLength(1);
-    expect(decoded.messages[0]).toEqual({
+    const { messages, totalBalanceChanges } = await decoder.decodeTransaction(
+      mockMsgUndelegate
+    );
+
+    const { balanceChanges, decodedMessage } = messages[0];
+
+    expect(messages).toHaveLength(1);
+
+    expect(decodedMessage).toEqual({
       action: "undelegate",
       data: {
         coins: [
           {
             amount: "7618096",
-            denom: "move/543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1",
+            denom:
+              "move/543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1",
           },
         ],
         delegatorAddress: "init15elwv4zlwas7zz8mw7lhlcfc3j64uea0dzkew0",
@@ -27,62 +42,53 @@ describe("Undelegate Message", () => {
       isOp: false,
     });
 
-    expect(decoded.balanceChanges).toEqual({
+    expect(balanceChanges).toEqual({
       ft: {
-        init15elwv4zlwas7zz8mw7lhlcfc3j64uea0dzkew0: {
-          "move/543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1": "7618096",
+        init1fl48vsnmsdzcv85q5d2q4z5ajdha8yu3mdfuj4: {
+          "USDC-INIT": "-7618096",
         },
+        init1jv65s3grqf6v6jl3dp4t6c9t9rk99cd8ffy0za: { uinit: "-776583" },
+        init1tygms3xhhs3yv487phx3dw4a95jn7t7l0d4dyp: { "USDC-INIT": "7618096" },
+        init15elwv4zlwas7zz8mw7lhlcfc3j64uea0dzkew0: { uinit: "776583" },
+      },
+      object: {},
+    });
+
+    expect(totalBalanceChanges).toEqual({
+      ft: {
+        init1fl48vsnmsdzcv85q5d2q4z5ajdha8yu3mdfuj4: {
+          "USDC-INIT": "-7618096",
+        },
+        init1jv65s3grqf6v6jl3dp4t6c9t9rk99cd8ffy0za: { uinit: "-776583" },
+        init1tygms3xhhs3yv487phx3dw4a95jn7t7l0d4dyp: { "USDC-INIT": "7618096" },
+        init15elwv4zlwas7zz8mw7lhlcfc3j64uea0dzkew0: { uinit: "776583" },
       },
       object: {},
     });
   });
 
-  it("should decode an undelegate message with multiple coins correctly", () => {
-    const decoded = decodeTransaction(mockMsgUndelegateWithMultipleCoins);
+  it("should decode an undelegate locked message correctly", async () => {
+    const mockApiHandler = createMockApiHandler(
+      mockApiResponseUndelegateLocked
+    );
+    mockedAxios.get.mockImplementation(mockApiHandler);
 
-    expect(decoded.messages).toHaveLength(1);
-    expect(decoded.messages[0]).toEqual({
-      action: "undelegate",
-      data: {
-        coins: [
-          {
-            amount: "7618096",
-            denom: "move/543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1",
-          },
-          {
-            amount: "1234567",
-            denom: "move/9876543210abcdef1234567890abcdef1234567890abcdef1234567890abcdef",
-          },
-        ],
-        delegatorAddress: "init15elwv4zlwas7zz8mw7lhlcfc3j64uea0dzkew0",
-        validatorAddress: "initvaloper1r20z6zmlnqrea5p9cendrgeke35nxzfueqwaz6",
-      },
-      isIbc: false,
-      isOp: false,
-    });
+    const { messages, totalBalanceChanges } = await decoder.decodeTransaction(
+      mockMsgUndelegateLocked
+    );
 
-    expect(decoded.balanceChanges).toEqual({
-      ft: {
-        init15elwv4zlwas7zz8mw7lhlcfc3j64uea0dzkew0: {
-          "move/543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1": "7618096",
-          "move/9876543210abcdef1234567890abcdef1234567890abcdef1234567890abcdef": "1234567",
-        },
-      },
-      object: {},
-    });
-  });
+    const { balanceChanges, decodedMessage } = messages[0];
 
-  it("should decode an undelegate locked message correctly", () => {
-    const decoded = decodeTransaction(mockMsgUndelegateLocked);
+    expect(messages).toHaveLength(1);
 
-    expect(decoded.messages).toHaveLength(1);
-    expect(decoded.messages[0]).toEqual({
+    expect(decodedMessage).toEqual({
       action: "undelegate",
       data: {
         coins: [
           {
             amount: "3508258915",
-            denom: "move/543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1",
+            denom:
+              "move/543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1",
           },
         ],
         delegatorAddress: "init1xqrvfuga56m4alc7lz0rhnkwy5z8d5pefg8vz9",
@@ -92,11 +98,36 @@ describe("Undelegate Message", () => {
       isOp: false,
     });
 
-    expect(decoded.balanceChanges).toEqual({
+    expect(balanceChanges).toEqual({
       ft: {
-        init1xqrvfuga56m4alc7lz0rhnkwy5z8d5pefg8vz9: {
-          "move/543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1": "3508258915",
+        init1e3x65lxn3wjdvsk0vyhf579kk7x27rtfjg2c9vyucmdemnqka06sc4h35h: {
+          uinit: "0",
         },
+        init1fl48vsnmsdzcv85q5d2q4z5ajdha8yu3mdfuj4: {
+          "USDC-INIT": "-3508258915",
+        },
+        init1jv65s3grqf6v6jl3dp4t6c9t9rk99cd8ffy0za: { uinit: "-10169" },
+        init1tygms3xhhs3yv487phx3dw4a95jn7t7l0d4dyp: {
+          "USDC-INIT": "3508258915",
+        },
+        init1xqrvfuga56m4alc7lz0rhnkwy5z8d5pefg8vz9: { uinit: "10169" },
+      },
+      object: {},
+    });
+
+    expect(totalBalanceChanges).toEqual({
+      ft: {
+        init1e3x65lxn3wjdvsk0vyhf579kk7x27rtfjg2c9vyucmdemnqka06sc4h35h: {
+          uinit: "0",
+        },
+        init1fl48vsnmsdzcv85q5d2q4z5ajdha8yu3mdfuj4: {
+          "USDC-INIT": "-3508258915",
+        },
+        init1jv65s3grqf6v6jl3dp4t6c9t9rk99cd8ffy0za: { uinit: "-10169" },
+        init1tygms3xhhs3yv487phx3dw4a95jn7t7l0d4dyp: {
+          "USDC-INIT": "3508258915",
+        },
+        init1xqrvfuga56m4alc7lz0rhnkwy5z8d5pefg8vz9: { uinit: "10169" },
       },
       object: {},
     });

@@ -10,7 +10,9 @@ export const findMoveEvent = <T>(
   const event = events.find(
     (event) =>
       event.type === "move" &&
-      event.attributes.some((attr) => attr.key === "type_tag" && attr.value === typeTag)
+      event.attributes.some(
+        (attr) => attr.key === "type_tag" && attr.value === typeTag
+      )
   );
 
   if (!event) return null;
@@ -21,7 +23,7 @@ export const findMoveEvent = <T>(
     return null;
   }
 
-  const parsed = schema.safeParse(JSON.parse(dataAttribute.value));
+  const parsed = schema.safeParse(dataAttribute.value);
   if (!parsed.success) {
     return null;
   }
