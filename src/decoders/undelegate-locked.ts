@@ -59,9 +59,7 @@ const findUndelegateLockedEvent = (
   );
   if (!dataAttribute) return null;
 
-  const parsed = zUndelegateLockedEvent.safeParse(
-    JSON.parse(dataAttribute.value)
-  );
+  const parsed = zUndelegateLockedEvent.safeParse(dataAttribute.value);
   if (!parsed.success) return null;
 
   return parsed.data;

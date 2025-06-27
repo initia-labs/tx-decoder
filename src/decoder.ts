@@ -85,7 +85,8 @@ export class TxDecoder {
     if (!decoder) return notSupportedMessage;
     try {
       return await decoder.decode(message, log, this.apiClient);
-    } catch {
+    } catch (e) {
+      console.error(e);
       return notSupportedMessage;
     }
   }

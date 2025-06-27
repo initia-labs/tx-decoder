@@ -59,9 +59,7 @@ const findDelegateLockedEvent = (
   );
   if (!dataAttribute) return null;
 
-  const parsed = zDelegateLockedEvent.safeParse(
-    JSON.parse(dataAttribute.value)
-  );
+  const parsed = zDelegateLockedEvent.safeParse(dataAttribute.value);
   if (!parsed.success) return null;
 
   return parsed.data;
