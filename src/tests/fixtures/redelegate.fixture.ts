@@ -1211,6 +1211,7 @@ export const mockApiResponsesRedelegate = {
           security_contact: "contact@bharvest.io",
           website: "https://bharvest.io",
         },
+        operator_address: "initvaloper1cmlx2pqfgt2kpshe2fmc40epzvg699eqv3ax66",
       },
     },
   "/initia/mstaking/v1/validators/initvaloper19uzc087w778p0l333w52ju0dgsajcj6ydep4rm":
@@ -1224,6 +1225,7 @@ export const mockApiResponsesRedelegate = {
           security_contact: "node@stamper.network",
           website: "https://www.cosmostation.io",
         },
+        operator_address: "initvaloper19uzc087w778p0l333w52ju0dgsajcj6ydep4rm",
       },
     },
 };

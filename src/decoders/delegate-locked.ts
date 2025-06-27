@@ -26,14 +26,13 @@ export const delegateLockedDecoder: MessageDecoder = {
     const validator = await apiClient.findValidator(
       delegateLockedEvent.validator
     );
-    const validatorDescription = validator?.validator.description ?? null;
 
     const decodedMessage: DecodedMessage = {
       action: "delegate",
       data: {
         coins: [delegateLockedCoin],
         delegatorAddress: sender,
-        validator: validatorDescription,
+        validator,
       },
       isIbc: false,
       isOp: false,

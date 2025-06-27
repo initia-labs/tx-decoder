@@ -36,11 +36,15 @@ describe("Withdraw Delegator Reward Message", () => {
         coins: [{ amount: "33490255", denom: "uinit" }],
         from: "init13thkj7pxgr3l6hzymklfeprh0fka8n6mzckr78",
         validator: {
-          details: "",
-          identity: "1F41B95A84CFA4B6",
-          moniker: "Inertia Foundation | 🎁 Delegation Drop 🎁",
-          security_contact: "",
-          website: "https://inrt.fi",
+          description: {
+            details: "",
+            identity: "1F41B95A84CFA4B6",
+            moniker: "Inertia Foundation | 🎁 Delegation Drop 🎁",
+            security_contact: "",
+            website: "https://inrt.fi",
+          },
+          operator_address:
+            "initvaloper1gs7kwd5jm8ghnvx4z973aqcenfcej6ykpuydc4",
         },
       },
       isIbc: false,

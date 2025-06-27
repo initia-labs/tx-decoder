@@ -17,14 +17,13 @@ export const undelegateDecoder: MessageDecoder = {
     const { amount, delegator_address, validator_address } = parsed.data;
 
     const validator = await apiClient.findValidator(validator_address);
-    const validatorDescription = validator?.validator.description ?? null;
 
     const decodedMessage: DecodedMessage = {
       action: "undelegate",
       data: {
         coins: amount,
         delegatorAddress: delegator_address,
-        validator: validatorDescription,
+        validator,
       },
       isIbc: false,
       isOp: false,

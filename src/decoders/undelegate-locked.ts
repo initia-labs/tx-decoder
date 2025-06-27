@@ -26,14 +26,13 @@ export const undelegateLockedDecoder: MessageDecoder = {
     const validator = await apiClient.findValidator(
       undelegateLockedEvent.validator
     );
-    const validatorDescription = validator?.validator.description ?? null;
 
     const decodedMessage: DecodedMessage = {
       action: "undelegate",
       data: {
         coins: [undelegateLockedCoin],
         delegatorAddress: sender,
-        validator: validatorDescription,
+        validator,
       },
       isIbc: false,
       isOp: false,

@@ -1115,6 +1115,7 @@ export const mockApiResponsesDelegate = {
           security_contact: "contact@bharvest.io",
           website: "https://bharvest.io",
         },
+        operator_address: "initvaloper1cmlx2pqfgt2kpshe2fmc40epzvg699eqv3ax66",
       },
     },
 };
@@ -1253,6 +1254,7 @@ export const mockApiResponsesDelegateLocked = {
           security_contact: "",
           website: "https://orbitalcommand.io",
         },
+        operator_address: "initvaloper1qx6ghyv83caecuxgl77lvlnha9d9y6fntryc8a",
       },
     },
 };

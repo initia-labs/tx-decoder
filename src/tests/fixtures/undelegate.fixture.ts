@@ -863,6 +863,7 @@ export const mockApiResponseUndelegate = {
           security_contact: "security@zellic.io",
           website: "https://zellic.io/",
         },
+        operator_address: "initvaloper1r20z6zmlnqrea5p9cendrgeke35nxzfueqwaz6",
       },
     },
 };
@@ -1889,6 +1890,7 @@ export const mockApiResponseUndelegateLocked = {
           security_contact: "ops@delphiconsulting.io",
           website: "https://delphidigital.io/consulting",
         },
+        operator_address: "initvaloper1qgje6dgazcruzsashpqektp2yaf47x2wyysjqx",
       },
     },
 };

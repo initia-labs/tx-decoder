@@ -26,16 +26,13 @@ export const redelegateDecoder: MessageDecoder = {
       apiClient.findValidator(validator_src_address),
     ]);
 
-    const validatorDstDetails = validatorDst?.validator.description ?? null;
-    const validatorSrcDetails = validatorSrc?.validator.description ?? null;
-
     const decodedMessage: DecodedMessage = {
       action: "redelegate",
       data: {
         coins: amount,
         delegatorAddress: delegator_address,
-        validatorDst: validatorDstDetails,
-        validatorSrc: validatorSrcDetails,
+        validatorDst,
+        validatorSrc,
       },
       isIbc: false,
       isOp: false,

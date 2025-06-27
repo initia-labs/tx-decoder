@@ -538,6 +538,7 @@ export const mockApiResponsesWithdrawDelegatorReward = {
           security_contact: "",
           website: "https://inrt.fi",
         },
+        operator_address: "initvaloper1gs7kwd5jm8ghnvx4z973aqcenfcej6ykpuydc4",
       },
     },
 };

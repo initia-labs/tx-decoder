@@ -37,12 +37,16 @@ describe("Undelegate Message", () => {
         ],
         delegatorAddress: "init15elwv4zlwas7zz8mw7lhlcfc3j64uea0dzkew0",
         validator: {
-          details:
-            "The go-to blockchain security firm for top teams, specializing in Cosmos, EVM, ZK, Move (Aptos and Sui). We solve your hardest security problems.\\nTwitter: https://twitter.com/zellic_io\\nTelegram: t.me/zellic_io",
-          identity: "609C091636D1330B",
-          moniker: "Zellic",
-          security_contact: "security@zellic.io",
-          website: "https://zellic.io/",
+          description: {
+            details:
+              "The go-to blockchain security firm for top teams, specializing in Cosmos, EVM, ZK, Move (Aptos and Sui). We solve your hardest security problems.\\nTwitter: https://twitter.com/zellic_io\\nTelegram: t.me/zellic_io",
+            identity: "609C091636D1330B",
+            moniker: "Zellic",
+            security_contact: "security@zellic.io",
+            website: "https://zellic.io/",
+          },
+          operator_address:
+            "initvaloper1r20z6zmlnqrea5p9cendrgeke35nxzfueqwaz6",
         },
       },
       isIbc: false,
@@ -100,12 +104,16 @@ describe("Undelegate Message", () => {
         ],
         delegatorAddress: "init1xqrvfuga56m4alc7lz0rhnkwy5z8d5pefg8vz9",
         validator: {
-          details:
-            "Delphi Consulting delivers expert crypto consulting across technology assessment, token advisory, asset intelligence, education, and design services.",
-          identity: "2F47665C54DB2742",
-          moniker: "Delphi Consulting",
-          security_contact: "ops@delphiconsulting.io",
-          website: "https://delphidigital.io/consulting",
+          description: {
+            details:
+              "Delphi Consulting delivers expert crypto consulting across technology assessment, token advisory, asset intelligence, education, and design services.",
+            identity: "2F47665C54DB2742",
+            moniker: "Delphi Consulting",
+            security_contact: "ops@delphiconsulting.io",
+            website: "https://delphidigital.io/consulting",
+          },
+          operator_address:
+            "initvaloper1qgje6dgazcruzsashpqektp2yaf47x2wyysjqx",
         },
       },
       isIbc: false,

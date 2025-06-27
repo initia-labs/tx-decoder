@@ -51,11 +51,15 @@ describe("Delegate Message", () => {
           ],
           delegatorAddress: "init1kw2unuhgfa6mz6r0ehrzlr9k9ftjk7pql8u5fm",
           validator: {
-            details: "Provides secure validation services for dPoS networks",
-            identity: "8957C5091FBF4192",
-            moniker: "B-Harvest",
-            security_contact: "contact@bharvest.io",
-            website: "https://bharvest.io",
+            description: {
+              details: "Provides secure validation services for dPoS networks",
+              identity: "8957C5091FBF4192",
+              moniker: "B-Harvest",
+              security_contact: "contact@bharvest.io",
+              website: "https://bharvest.io",
+            },
+            operator_address:
+              "initvaloper1cmlx2pqfgt2kpshe2fmc40epzvg699eqv3ax66",
           },
         },
         isIbc: false,
@@ -95,12 +99,16 @@ describe("Delegate Message", () => {
         ],
         delegatorAddress: "init1kw2unuhgfa6mz6r0ehrzlr9k9ftjk7pql8u5fm",
         validator: {
-          details:
-            "Secure, enterprise-grade validator committed to investing heavily in educating, promoting, and expanding the Initia community and ecosystem.",
-          identity: "A2879F08F59FB0AF",
-          moniker: "Orbital Command",
-          security_contact: "",
-          website: "https://orbitalcommand.io",
+          description: {
+            details:
+              "Secure, enterprise-grade validator committed to investing heavily in educating, promoting, and expanding the Initia community and ecosystem.",
+            identity: "A2879F08F59FB0AF",
+            moniker: "Orbital Command",
+            security_contact: "",
+            website: "https://orbitalcommand.io",
+          },
+          operator_address:
+            "initvaloper1qx6ghyv83caecuxgl77lvlnha9d9y6fntryc8a",
         },
       },
       isIbc: false,

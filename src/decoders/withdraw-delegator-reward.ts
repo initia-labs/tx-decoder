@@ -21,14 +21,13 @@ export const withdrawDelegatorRewardDecoder: MessageDecoder = {
     const coins = parseCoins(amount);
 
     const validator = await apiClient.findValidator(validator_address);
-    const validatorDescription = validator?.validator.description ?? null;
 
     const decodedMessage: DecodedMessage = {
       action: "withdraw_delegator_reward",
       data: {
         coins,
         from: delegator_address,
-        validator: validatorDescription,
+        validator,
       },
       isIbc: false,
       isOp: false,
