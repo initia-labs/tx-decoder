@@ -329,7 +329,8 @@ export const mockMsgIbcSendNft = {
         {
           index: true,
           key: "class_id",
-          value: "move/4b224b3b82140614fbe0706b421d887f4532ea91d4ad0cf2b99a1251c06dfa9a",
+          value:
+            "move/4b224b3b82140614fbe0706b421d887f4532ea91d4ad0cf2b99a1251c06dfa9a",
         },
         {
           index: true,
@@ -403,7 +404,8 @@ export const mockMsgIbcSendNft = {
       messages: [
         {
           "@type": "/ibc.applications.nft_transfer.v1.MsgTransfer",
-          class_id: "move/4b224b3b82140614fbe0706b421d887f4532ea91d4ad0cf2b99a1251c06dfa9a",
+          class_id:
+            "move/4b224b3b82140614fbe0706b421d887f4532ea91d4ad0cf2b99a1251c06dfa9a",
           memo: "",
           receiver: "init1ulw753hxh4mrc9ss7p2y7h8emjxxyw6uce0hk9",
           sender: "init1dw49mn7s2r5mskjdmus5hth80zz8wwaywycq06",

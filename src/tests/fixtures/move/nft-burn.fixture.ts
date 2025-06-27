@@ -70,7 +70,8 @@ export const mockMsgNftBurn = {
         {
           index: true,
           key: "amount",
-          value: "1438ibc/6490A7EAB61059BFC1CDDEB05917DD70BDF3A611654162A1A47DB930D40D8AF4",
+          value:
+            "1438ibc/6490A7EAB61059BFC1CDDEB05917DD70BDF3A611654162A1A47DB930D40D8AF4",
         },
       ],
       type: "coin_spent",
@@ -85,7 +86,8 @@ export const mockMsgNftBurn = {
         {
           index: true,
           key: "amount",
-          value: "1438ibc/6490A7EAB61059BFC1CDDEB05917DD70BDF3A611654162A1A47DB930D40D8AF4",
+          value:
+            "1438ibc/6490A7EAB61059BFC1CDDEB05917DD70BDF3A611654162A1A47DB930D40D8AF4",
         },
       ],
       type: "coin_received",
@@ -105,7 +107,8 @@ export const mockMsgNftBurn = {
         {
           index: true,
           key: "amount",
-          value: "1438ibc/6490A7EAB61059BFC1CDDEB05917DD70BDF3A611654162A1A47DB930D40D8AF4",
+          value:
+            "1438ibc/6490A7EAB61059BFC1CDDEB05917DD70BDF3A611654162A1A47DB930D40D8AF4",
         },
       ],
       type: "transfer",
@@ -125,7 +128,8 @@ export const mockMsgNftBurn = {
         {
           index: true,
           key: "fee",
-          value: "1438ibc/6490A7EAB61059BFC1CDDEB05917DD70BDF3A611654162A1A47DB930D40D8AF4",
+          value:
+            "1438ibc/6490A7EAB61059BFC1CDDEB05917DD70BDF3A611654162A1A47DB930D40D8AF4",
         },
         {
           index: true,
@@ -247,7 +251,8 @@ export const mockMsgNftBurn = {
         amount: [
           {
             amount: "1438",
-            denom: "ibc/6490A7EAB61059BFC1CDDEB05917DD70BDF3A611654162A1A47DB930D40D8AF4",
+            denom:
+              "ibc/6490A7EAB61059BFC1CDDEB05917DD70BDF3A611654162A1A47DB930D40D8AF4",
           },
         ],
         gas_limit: "185939",
@@ -276,7 +281,9 @@ export const mockMsgNftBurn = {
       messages: [
         {
           "@type": "/initia.move.v1.MsgExecuteJSON",
-          args: ['"0x3d879bacd0cb90899bacfa30385498cdd522b06a6e7b8352e9e62aaa1036f814"'],
+          args: [
+            '"0x3d879bacd0cb90899bacfa30385498cdd522b06a6e7b8352e9e62aaa1036f814"',
+          ],
           function_name: "burn",
           module_address: "0x1",
           module_name: "simple_nft",

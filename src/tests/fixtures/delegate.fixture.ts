@@ -374,7 +374,8 @@ export const mockMsgDelegate = {
             },
           ],
           delegator_address: "init1kw2unuhgfa6mz6r0ehrzlr9k9ftjk7pql8u5fm",
-          validator_address: "initvaloper1cmlx2pqfgt2kpshe2fmc40epzvg699eqv3ax66",
+          validator_address:
+            "initvaloper1cmlx2pqfgt2kpshe2fmc40epzvg699eqv3ax66",
         },
       ],
       non_critical_extension_options: [],
@@ -580,7 +581,8 @@ export const mockMsgDelegateLocked = {
         {
           index: true,
           key: "module_addr",
-          value: "0x3a886b32a802582f2e446e74d4a24d1d7ed01adf46d2a8f65c5723887e708789",
+          value:
+            "0x3a886b32a802582f2e446e74d4a24d1d7ed01adf46d2a8f65c5723887e708789",
         },
         {
           index: true,
@@ -710,7 +712,8 @@ export const mockMsgDelegateLocked = {
         {
           index: true,
           key: "sender",
-          value: "0x1,0x554038dbae948427b9b7d818a9808e36675c8267644b28da5e37a4c630daac9",
+          value:
+            "0x1,0x554038dbae948427b9b7d818a9808e36675c8267644b28da5e37a4c630daac9",
         },
         {
           index: true,
@@ -782,7 +785,8 @@ export const mockMsgDelegateLocked = {
         {
           index: true,
           key: "spender",
-          value: "init1q42q8rd6a9yyy7um0kqc4xqgudn8tjpxwezt9rd9udaycccd4tys30hvzx",
+          value:
+            "init1q42q8rd6a9yyy7um0kqc4xqgudn8tjpxwezt9rd9udaycccd4tys30hvzx",
         },
         {
           index: true,
@@ -827,7 +831,8 @@ export const mockMsgDelegateLocked = {
         {
           index: true,
           key: "delegator",
-          value: "init1q42q8rd6a9yyy7um0kqc4xqgudn8tjpxwezt9rd9udaycccd4tys30hvzx",
+          value:
+            "init1q42q8rd6a9yyy7um0kqc4xqgudn8tjpxwezt9rd9udaycccd4tys30hvzx",
         },
         {
           index: true,
@@ -867,12 +872,14 @@ export const mockMsgDelegateLocked = {
         {
           index: true,
           key: "sender",
-          value: "0x554038dbae948427b9b7d818a9808e36675c8267644b28da5e37a4c630daac9",
+          value:
+            "0x554038dbae948427b9b7d818a9808e36675c8267644b28da5e37a4c630daac9",
         },
         {
           index: true,
           key: "module_addr",
-          value: "0x3a886b32a802582f2e446e74d4a24d1d7ed01adf46d2a8f65c5723887e708789",
+          value:
+            "0x3a886b32a802582f2e446e74d4a24d1d7ed01adf46d2a8f65c5723887e708789",
         },
         {
           index: true,
@@ -980,7 +987,8 @@ export const mockMsgDelegateLocked = {
             "MmluaXR2YWxvcGVyMXF4NmdoeXY4M2NhZWN1eGdsNzdsdmxuaGE5ZDl5NmZudHJ5Yzhh",
           ],
           function_name: "delegate",
-          module_address: "0x3a886b32a802582f2e446e74d4a24d1d7ed01adf46d2a8f65c5723887e708789",
+          module_address:
+            "0x3a886b32a802582f2e446e74d4a24d1d7ed01adf46d2a8f65c5723887e708789",
           module_name: "lock_staking",
           sender: "init1kw2unuhgfa6mz6r0ehrzlr9k9ftjk7pql8u5fm",
           type_args: [],
@@ -1002,14 +1010,16 @@ export const mockApiResponsesDelegate = {
       pagination: { next_key: null, total: "0" },
       resources: [
         {
-          address: "0x2bb7235591022997f63404a8dbfd94175806ff5644ea7ccc61a15eaac9c8674d",
+          address:
+            "0x2bb7235591022997f63404a8dbfd94175806ff5644ea7ccc61a15eaac9c8674d",
           move_resource:
             '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0x4fea76427b8345861e80a3540a8a9d936fd39391","version":"1"}}',
           raw_bytes: "AAAAAAAAAAAAAAAAT+p2QnuDRYYegKNUCoqdk2/Tk5EAAQAAAAAAAAA=",
           struct_tag: "0x1::object::ObjectCore",
         },
         {
-          address: "0x2bb7235591022997f63404a8dbfd94175806ff5644ea7ccc61a15eaac9c8674d",
+          address:
+            "0x2bb7235591022997f63404a8dbfd94175806ff5644ea7ccc61a15eaac9c8674d",
           move_resource:
             '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"109114105974592","frozen":false,"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}',
           raw_bytes: "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdlAz4YbPWMAAAA=",
@@ -1022,7 +1032,8 @@ export const mockApiResponsesDelegate = {
       pagination: { next_key: null, total: "0" },
       resources: [
         {
-          address: "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
+          address:
+            "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
           move_resource:
             '{"type":"0x1::coin::ManagingRefs","data":{"burn_ref":{"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}},"mint_ref":{"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}},"transfer_ref":{"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}}',
           raw_bytes:
@@ -1030,14 +1041,16 @@ export const mockApiResponsesDelegate = {
           struct_tag: "0x1::coin::ManagingRefs",
         },
         {
-          address: "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
+          address:
+            "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
           move_resource:
             '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":true,"owner":"0x1","version":"1"}}',
           raw_bytes: "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEBAQAAAAAAAAA=",
           struct_tag: "0x1::object::ObjectCore",
         },
         {
-          address: "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
+          address:
+            "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
           move_resource:
             '{"type":"0x1::managed_coin::Capabilities","data":{"burn_cap":{"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}},"freeze_cap":{"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}},"mint_cap":{"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}}',
           raw_bytes:
@@ -1045,21 +1058,24 @@ export const mockApiResponsesDelegate = {
           struct_tag: "0x1::managed_coin::Capabilities",
         },
         {
-          address: "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
+          address:
+            "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
           move_resource:
             '{"type":"0x1::fungible_asset::Supply","data":{"current":"1000007461173507","maximum":null}}',
           raw_bytes: "A/l+YYCNAwAAAAAAAAAAAAA=",
           struct_tag: "0x1::fungible_asset::Supply",
         },
         {
-          address: "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
+          address:
+            "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
           move_resource:
             '{"type":"0x1::fungible_asset::Metadata","data":{"decimals":0,"icon_uri":"","name":"uinit Coin","project_uri":"","symbol":"uinit"}}',
           raw_bytes: "CnVpbml0IENvaW4FdWluaXQAAAA=",
           struct_tag: "0x1::fungible_asset::Metadata",
         },
         {
-          address: "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
+          address:
+            "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
           move_resource:
             '{"type":"0x1::primary_fungible_store::DeriveRefPod","data":{"metadata_derive_ref":{"self":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9","version":"1"}}}',
           raw_bytes: "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdkBAAAAAAAAAA==",
@@ -1072,14 +1088,16 @@ export const mockApiResponsesDelegate = {
       pagination: { next_key: null, total: "0" },
       resources: [
         {
-          address: "0xe2d99fcea59da8da2d4095cc11cb83e6ff80cf2e41522c678b8f152233d1b65e",
+          address:
+            "0xe2d99fcea59da8da2d4095cc11cb83e6ff80cf2e41522c678b8f152233d1b65e",
           move_resource:
             '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0xb395c9f2e84f75b1686fcdc62f8cb62a572b7820","version":"1"}}',
           raw_bytes: "AAAAAAAAAAAAAAAAs5XJ8uhPdbFob83GL4y2KlcreCAAAQAAAAAAAAA=",
           struct_tag: "0x1::object::ObjectCore",
         },
         {
-          address: "0xe2d99fcea59da8da2d4095cc11cb83e6ff80cf2e41522c678b8f152233d1b65e",
+          address:
+            "0xe2d99fcea59da8da2d4095cc11cb83e6ff80cf2e41522c678b8f152233d1b65e",
           move_resource:
             '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"4727161","frozen":false,"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}',
           raw_bytes: "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdl5IUgAAAAAAAA=",
@@ -1095,14 +1113,16 @@ export const mockApiResponsesDelegateLocked = {
       pagination: { next_key: null, total: "0" },
       resources: [
         {
-          address: "0x2bb7235591022997f63404a8dbfd94175806ff5644ea7ccc61a15eaac9c8674d",
+          address:
+            "0x2bb7235591022997f63404a8dbfd94175806ff5644ea7ccc61a15eaac9c8674d",
           move_resource:
             '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0x4fea76427b8345861e80a3540a8a9d936fd39391","version":"1"}}',
           raw_bytes: "AAAAAAAAAAAAAAAAT+p2QnuDRYYegKNUCoqdk2/Tk5EAAQAAAAAAAAA=",
           struct_tag: "0x1::object::ObjectCore",
         },
         {
-          address: "0x2bb7235591022997f63404a8dbfd94175806ff5644ea7ccc61a15eaac9c8674d",
+          address:
+            "0x2bb7235591022997f63404a8dbfd94175806ff5644ea7ccc61a15eaac9c8674d",
           move_resource:
             '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"109114080715522","frozen":false,"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}',
           raw_bytes: "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdkCYwUaPWMAAAA=",
@@ -1115,7 +1135,8 @@ export const mockApiResponsesDelegateLocked = {
       pagination: { next_key: null, total: "0" },
       resources: [
         {
-          address: "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
+          address:
+            "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
           move_resource:
             '{"type":"0x1::coin::ManagingRefs","data":{"burn_ref":{"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}},"mint_ref":{"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}},"transfer_ref":{"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}}',
           raw_bytes:
@@ -1123,14 +1144,16 @@ export const mockApiResponsesDelegateLocked = {
           struct_tag: "0x1::coin::ManagingRefs",
         },
         {
-          address: "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
+          address:
+            "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
           move_resource:
             '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":true,"owner":"0x1","version":"1"}}',
           raw_bytes: "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEBAQAAAAAAAAA=",
           struct_tag: "0x1::object::ObjectCore",
         },
         {
-          address: "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
+          address:
+            "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
           move_resource:
             '{"type":"0x1::managed_coin::Capabilities","data":{"burn_cap":{"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}},"freeze_cap":{"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}},"mint_cap":{"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}}',
           raw_bytes:
@@ -1138,21 +1161,24 @@ export const mockApiResponsesDelegateLocked = {
           struct_tag: "0x1::managed_coin::Capabilities",
         },
         {
-          address: "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
+          address:
+            "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
           move_resource:
             '{"type":"0x1::fungible_asset::Supply","data":{"current":"1000000000000000","maximum":null}}',
           raw_bytes: "AIDGpH6NAwAAAAAAAAAAAAA=",
           struct_tag: "0x1::fungible_asset::Supply",
         },
         {
-          address: "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
+          address:
+            "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
           move_resource:
             '{"type":"0x1::fungible_asset::Metadata","data":{"decimals":0,"icon_uri":"","name":"uinit Coin","project_uri":"","symbol":"uinit"}}',
           raw_bytes: "CnVpbml0IENvaW4FdWluaXQAAAA=",
           struct_tag: "0x1::fungible_asset::Metadata",
         },
         {
-          address: "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
+          address:
+            "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
           move_resource:
             '{"type":"0x1::primary_fungible_store::DeriveRefPod","data":{"metadata_derive_ref":{"self":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9","version":"1"}}}',
           raw_bytes: "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdkBAAAAAAAAAA==",
@@ -1165,14 +1191,16 @@ export const mockApiResponsesDelegateLocked = {
       pagination: { next_key: null, total: "0" },
       resources: [
         {
-          address: "0xb772c2923fb732fd75a2a263ef56910da3ec7e235ef83c536db5c6f1c2ab7b5b",
+          address:
+            "0xb772c2923fb732fd75a2a263ef56910da3ec7e235ef83c536db5c6f1c2ab7b5b",
           move_resource:
             '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0x554038dbae948427b9b7d818a9808e36675c8267644b28da5e37a4c630daac9","version":"1"}}',
           raw_bytes: "BVQDjbrpSEJ7m32BipgI42Z1yCZ2RLKNpeN6TGMNqskAAQAAAAAAAAA=",
           struct_tag: "0x1::object::ObjectCore",
         },
         {
-          address: "0xb772c2923fb732fd75a2a263ef56910da3ec7e235ef83c536db5c6f1c2ab7b5b",
+          address:
+            "0xb772c2923fb732fd75a2a263ef56910da3ec7e235ef83c536db5c6f1c2ab7b5b",
           move_resource:
             '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"0","frozen":false,"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}',
           raw_bytes: "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdkAAAAAAAAAAAA=",
@@ -1185,14 +1213,16 @@ export const mockApiResponsesDelegateLocked = {
       pagination: { next_key: null, total: "0" },
       resources: [
         {
-          address: "0xe2d99fcea59da8da2d4095cc11cb83e6ff80cf2e41522c678b8f152233d1b65e",
+          address:
+            "0xe2d99fcea59da8da2d4095cc11cb83e6ff80cf2e41522c678b8f152233d1b65e",
           move_resource:
             '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0xb395c9f2e84f75b1686fcdc62f8cb62a572b7820","version":"1"}}',
           raw_bytes: "AAAAAAAAAAAAAAAAs5XJ8uhPdbFob83GL4y2KlcreCAAAQAAAAAAAAA=",
           struct_tag: "0x1::object::ObjectCore",
         },
         {
-          address: "0xe2d99fcea59da8da2d4095cc11cb83e6ff80cf2e41522c678b8f152233d1b65e",
+          address:
+            "0xe2d99fcea59da8da2d4095cc11cb83e6ff80cf2e41522c678b8f152233d1b65e",
           move_resource:
             '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"4727161","frozen":false,"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}',
           raw_bytes: "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdl5IUgAAAAAAAA=",

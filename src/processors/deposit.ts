@@ -5,7 +5,9 @@ import { zDepositEvent } from "@/schema";
 export const depositEventProcessor: BalanceEventProcessor = {
   async process(event, apiClient) {
     try {
-      const dataAttribute = event.attributes.find((attr) => attr.key === "data");
+      const dataAttribute = event.attributes.find(
+        (attr) => attr.key === "data"
+      );
       if (!dataAttribute) {
         throw new Error("Deposit event data attribute not found");
       }
@@ -17,10 +19,14 @@ export const depositEventProcessor: BalanceEventProcessor = {
       ]);
 
       if (!owner) {
-        throw new Error(`Owner not found for store address: ${data.store_addr}`);
+        throw new Error(
+          `Owner not found for store address: ${data.store_addr}`
+        );
       }
       if (!denom) {
-        throw new Error(`Denom not found for metadata address: ${data.metadata_addr}`);
+        throw new Error(
+          `Denom not found for metadata address: ${data.metadata_addr}`
+        );
       }
 
       return {
@@ -30,7 +36,10 @@ export const depositEventProcessor: BalanceEventProcessor = {
         object: {},
       };
     } catch (error) {
-      console.error(`Failed to process ${depositEventProcessor.type_tag}:`, error);
+      console.error(
+        `Failed to process ${depositEventProcessor.type_tag}:`,
+        error
+      );
     }
 
     return DEFAULT_BALANCE_CHANGES;

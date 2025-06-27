@@ -86,13 +86,17 @@ export const zMsgMoveExecute = z.object({
 
 export const zMsgDelegateLocked = zMsgMoveExecute.extend({
   function_name: z.literal("delegate"),
-  module_address: z.literal("0x3a886b32a802582f2e446e74d4a24d1d7ed01adf46d2a8f65c5723887e708789"),
+  module_address: z.literal(
+    "0x3a886b32a802582f2e446e74d4a24d1d7ed01adf46d2a8f65c5723887e708789"
+  ),
   module_name: z.literal("lock_staking"),
 });
 
 export const zMsgUndelegateLocked = zMsgMoveExecute.extend({
   function_name: z.literal("undelegate"),
-  module_address: z.literal("0x3a886b32a802582f2e446e74d4a24d1d7ed01adf46d2a8f65c5723887e708789"),
+  module_address: z.literal(
+    "0x3a886b32a802582f2e446e74d4a24d1d7ed01adf46d2a8f65c5723887e708789"
+  ),
   module_name: z.literal("lock_staking"),
 });
 
@@ -116,11 +120,16 @@ const zMsgMoveSimpleMint = zMsgMoveExecute.extend({
 
 const zMsgMoveUsernameMint = zMsgMoveExecute.extend({
   function_name: z.literal("register_domain"),
-  module_address: z.string().refine((address) => USERNAME_MODULE_ADDRESSES.includes(address)),
+  module_address: z
+    .string()
+    .refine((address) => USERNAME_MODULE_ADDRESSES.includes(address)),
   module_name: z.literal("usernames"),
 });
 
-export const zMsgMoveNftMint = z.union([zMsgMoveSimpleMint, zMsgMoveUsernameMint]);
+export const zMsgMoveNftMint = z.union([
+  zMsgMoveSimpleMint,
+  zMsgMoveUsernameMint,
+]);
 
 export const zMsgMoveObjectTransfer = zMsgMoveExecute.extend({
   function_name: z.literal("transfer_call"),

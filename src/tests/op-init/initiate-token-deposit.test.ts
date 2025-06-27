@@ -17,9 +17,13 @@ describe("Initiate Token Deposit Message", () => {
   });
 
   it("should decode an initiate token deposit message correctly", async () => {
-    mockedAxios.get.mockImplementation(createMockApiHandler(mockApiResponsesInitiateTokenDeposit));
+    mockedAxios.get.mockImplementation(
+      createMockApiHandler(mockApiResponsesInitiateTokenDeposit)
+    );
 
-    const decoded = await decoder.decodeTransaction(mockMsgInitiateTokenDeposit);
+    const decoded = await decoder.decodeTransaction(
+      mockMsgInitiateTokenDeposit
+    );
 
     expect(decoded.messages).toHaveLength(1);
     expect(decoded.messages[0].decodedMessage).toEqual({

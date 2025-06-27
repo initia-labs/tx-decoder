@@ -419,8 +419,10 @@ export const mockMsgRedelegate = {
             },
           ],
           delegator_address: "init1kw2unuhgfa6mz6r0ehrzlr9k9ftjk7pql8u5fm",
-          validator_dst_address: "initvaloper19uzc087w778p0l333w52ju0dgsajcj6ydep4rm",
-          validator_src_address: "initvaloper1cmlx2pqfgt2kpshe2fmc40epzvg699eqv3ax66",
+          validator_dst_address:
+            "initvaloper19uzc087w778p0l333w52ju0dgsajcj6ydep4rm",
+          validator_src_address:
+            "initvaloper1cmlx2pqfgt2kpshe2fmc40epzvg699eqv3ax66",
         },
       ],
       non_critical_extension_options: [],
@@ -626,7 +628,8 @@ export const mockMsgRedelegateLocked = {
         {
           index: true,
           key: "module_addr",
-          value: "0x3a886b32a802582f2e446e74d4a24d1d7ed01adf46d2a8f65c5723887e708789",
+          value:
+            "0x3a886b32a802582f2e446e74d4a24d1d7ed01adf46d2a8f65c5723887e708789",
         },
         {
           index: true,
@@ -785,7 +788,8 @@ export const mockMsgRedelegateLocked = {
         {
           index: true,
           key: "receiver",
-          value: "init1ed6zkyv8g87m9ymtc736mewx9gvvp0mtqyt2rfcnv9xucejmhnkqe22kyd",
+          value:
+            "init1ed6zkyv8g87m9ymtc736mewx9gvvp0mtqyt2rfcnv9xucejmhnkqe22kyd",
         },
         {
           index: true,
@@ -805,7 +809,8 @@ export const mockMsgRedelegateLocked = {
         {
           index: true,
           key: "recipient",
-          value: "init1ed6zkyv8g87m9ymtc736mewx9gvvp0mtqyt2rfcnv9xucejmhnkqe22kyd",
+          value:
+            "init1ed6zkyv8g87m9ymtc736mewx9gvvp0mtqyt2rfcnv9xucejmhnkqe22kyd",
         },
         {
           index: true,
@@ -845,7 +850,8 @@ export const mockMsgRedelegateLocked = {
         {
           index: true,
           key: "delegator",
-          value: "init1ed6zkyv8g87m9ymtc736mewx9gvvp0mtqyt2rfcnv9xucejmhnkqe22kyd",
+          value:
+            "init1ed6zkyv8g87m9ymtc736mewx9gvvp0mtqyt2rfcnv9xucejmhnkqe22kyd",
         },
         {
           index: true,
@@ -860,7 +866,8 @@ export const mockMsgRedelegateLocked = {
         {
           index: true,
           key: "amount",
-          value: "1083469move/543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1",
+          value:
+            "1083469move/543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1",
         },
         {
           index: true,
@@ -895,12 +902,14 @@ export const mockMsgRedelegateLocked = {
         {
           index: true,
           key: "sender",
-          value: "0xcb742b118741fdb2936bc7a3ade5c62a18c0bf6b0116a1a713614dcc665bbcec",
+          value:
+            "0xcb742b118741fdb2936bc7a3ade5c62a18c0bf6b0116a1a713614dcc665bbcec",
         },
         {
           index: true,
           key: "module_addr",
-          value: "0x3a886b32a802582f2e446e74d4a24d1d7ed01adf46d2a8f65c5723887e708789",
+          value:
+            "0x3a886b32a802582f2e446e74d4a24d1d7ed01adf46d2a8f65c5723887e708789",
         },
         {
           index: true,
@@ -1074,7 +1083,8 @@ export const mockMsgRedelegateLocked = {
             "MmluaXR2YWxvcGVyMTN6ZTByeWM3dmZqMm44NnNmeGZ1Z3d3NHF5Z2pmOG1ueHh5OXVr",
           ],
           function_name: "redelegate",
-          module_address: "0x3a886b32a802582f2e446e74d4a24d1d7ed01adf46d2a8f65c5723887e708789",
+          module_address:
+            "0x3a886b32a802582f2e446e74d4a24d1d7ed01adf46d2a8f65c5723887e708789",
           module_name: "lock_staking",
           sender: "init1tacytfqagzjv73v5ke2s4qj8l68c2w0q4v0q0n",
           type_args: [],
@@ -1096,7 +1106,8 @@ export const mockApiResponsesRedelegate = {
       pagination: { next_key: null, total: "0" },
       resources: [
         {
-          address: "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
+          address:
+            "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
           move_resource:
             '{"type":"0x1::coin::ManagingRefs","data":{"burn_ref":{"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}},"mint_ref":{"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}},"transfer_ref":{"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}}',
           raw_bytes:
@@ -1104,14 +1115,16 @@ export const mockApiResponsesRedelegate = {
           struct_tag: "0x1::coin::ManagingRefs",
         },
         {
-          address: "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
+          address:
+            "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
           move_resource:
             '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":true,"owner":"0x1","version":"1"}}',
           raw_bytes: "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEBAQAAAAAAAAA=",
           struct_tag: "0x1::object::ObjectCore",
         },
         {
-          address: "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
+          address:
+            "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
           move_resource:
             '{"type":"0x1::managed_coin::Capabilities","data":{"burn_cap":{"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}},"freeze_cap":{"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}},"mint_cap":{"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}}',
           raw_bytes:
@@ -1119,21 +1132,24 @@ export const mockApiResponsesRedelegate = {
           struct_tag: "0x1::managed_coin::Capabilities",
         },
         {
-          address: "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
+          address:
+            "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
           move_resource:
             '{"type":"0x1::fungible_asset::Supply","data":{"current":"1000007461173507","maximum":null}}',
           raw_bytes: "A/l+YYCNAwAAAAAAAAAAAAA=",
           struct_tag: "0x1::fungible_asset::Supply",
         },
         {
-          address: "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
+          address:
+            "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
           move_resource:
             '{"type":"0x1::fungible_asset::Metadata","data":{"decimals":0,"icon_uri":"","name":"uinit Coin","project_uri":"","symbol":"uinit"}}',
           raw_bytes: "CnVpbml0IENvaW4FdWluaXQAAAA=",
           struct_tag: "0x1::fungible_asset::Metadata",
         },
         {
-          address: "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
+          address:
+            "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
           move_resource:
             '{"type":"0x1::primary_fungible_store::DeriveRefPod","data":{"metadata_derive_ref":{"self":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9","version":"1"}}}',
           raw_bytes: "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdkBAAAAAAAAAA==",
@@ -1146,14 +1162,16 @@ export const mockApiResponsesRedelegate = {
       pagination: { next_key: null, total: "0" },
       resources: [
         {
-          address: "0xba2a23251eb06923fadb03ea9856c66510fefc4dfa9abe92cfb2961c9145cfb3",
+          address:
+            "0xba2a23251eb06923fadb03ea9856c66510fefc4dfa9abe92cfb2961c9145cfb3",
           move_resource:
             '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0x93354845030274cd4bf1686abd60ab28ec52e1a7","version":"1"}}',
           raw_bytes: "AAAAAAAAAAAAAAAAkzVIRQMCdM1L8WhqvWCrKOxS4acAAQAAAAAAAAA=",
           struct_tag: "0x1::object::ObjectCore",
         },
         {
-          address: "0xba2a23251eb06923fadb03ea9856c66510fefc4dfa9abe92cfb2961c9145cfb3",
+          address:
+            "0xba2a23251eb06923fadb03ea9856c66510fefc4dfa9abe92cfb2961c9145cfb3",
           move_resource:
             '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"1550326500987","frozen":false,"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}',
           raw_bytes: "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdl7Dqn2aAEAAAA=",
@@ -1166,14 +1184,16 @@ export const mockApiResponsesRedelegate = {
       pagination: { next_key: null, total: "0" },
       resources: [
         {
-          address: "0xe2d99fcea59da8da2d4095cc11cb83e6ff80cf2e41522c678b8f152233d1b65e",
+          address:
+            "0xe2d99fcea59da8da2d4095cc11cb83e6ff80cf2e41522c678b8f152233d1b65e",
           move_resource:
             '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0xb395c9f2e84f75b1686fcdc62f8cb62a572b7820","version":"1"}}',
           raw_bytes: "AAAAAAAAAAAAAAAAs5XJ8uhPdbFob83GL4y2KlcreCAAAQAAAAAAAAA=",
           struct_tag: "0x1::object::ObjectCore",
         },
         {
-          address: "0xe2d99fcea59da8da2d4095cc11cb83e6ff80cf2e41522c678b8f152233d1b65e",
+          address:
+            "0xe2d99fcea59da8da2d4095cc11cb83e6ff80cf2e41522c678b8f152233d1b65e",
           move_resource:
             '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"4727161","frozen":false,"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}',
           raw_bytes: "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdl5IUgAAAAAAAA=",

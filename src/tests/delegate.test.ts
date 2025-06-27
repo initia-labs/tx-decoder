@@ -19,7 +19,9 @@ describe("Delegate Message", () => {
   });
 
   it("should decode a delegate message correctly", async () => {
-    mockedAxios.get.mockImplementation(createMockApiHandler(mockApiResponsesDelegate));
+    mockedAxios.get.mockImplementation(
+      createMockApiHandler(mockApiResponsesDelegate)
+    );
 
     const decoded = await decoder.decodeTransaction(mockMsgDelegate);
 
@@ -46,7 +48,8 @@ describe("Delegate Message", () => {
             },
           ],
           delegatorAddress: "init1kw2unuhgfa6mz6r0ehrzlr9k9ftjk7pql8u5fm",
-          validatorAddress: "initvaloper1cmlx2pqfgt2kpshe2fmc40epzvg699eqv3ax66",
+          validatorAddress:
+            "initvaloper1cmlx2pqfgt2kpshe2fmc40epzvg699eqv3ax66",
         },
         isIbc: false,
         isOp: false,
@@ -67,7 +70,9 @@ describe("Delegate Message", () => {
   });
 
   it("should decode a delegate locked message correctly", async () => {
-    mockedAxios.get.mockImplementation(createMockApiHandler(mockApiResponsesDelegateLocked));
+    mockedAxios.get.mockImplementation(
+      createMockApiHandler(mockApiResponsesDelegateLocked)
+    );
 
     const decoded = await decoder.decodeTransaction(mockMsgDelegateLocked);
 
