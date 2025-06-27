@@ -12,6 +12,10 @@ const decoder = initialize();
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 describe("Withdraw Delegator Reward Message", () => {
+  beforeEach(() => {
+    mockedAxios.get.mockReset();
+  });
+
   it("should decode a withdraw delegator reward message correctly", async () => {
     const mockApiHandler = createMockApiHandler(
       mockApiResponsesWithdrawDelegatorReward

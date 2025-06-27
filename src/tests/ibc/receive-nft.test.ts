@@ -52,7 +52,7 @@ describe("IBC Receive NFT Message", () => {
         });
       }
 
-      // TODO: Fix this
+      // BUG: We should use new balance changes logic
       // expect(decoded.totalBalanceChanges).toEqual({
       //   ft: {},
       //   object: {
@@ -174,7 +174,7 @@ describe("IBC Receive NFT Message", () => {
         });
       }
 
-      // TODO: Fix this
+      // BUG: We should use new balance changes logic
       // expect(decoded.totalBalanceChanges).toEqual({
       //   ft: {},
       //   object: {
