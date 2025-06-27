@@ -3,8 +3,7 @@ import axios from "axios";
 import {
   mockApiResponsesInitiateTokenDeposit,
   mockMsgInitiateTokenDeposit,
-} from "@/tests/fixtures/op-init/initiate-token-deposit.fixture";
-
+} from "../fixtures/op-init/initiate-token-deposit.fixture";
 import { createMockApiHandler, initialize } from "../helpers";
 
 jest.mock("axios");
