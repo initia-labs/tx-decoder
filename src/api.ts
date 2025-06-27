@@ -9,6 +9,7 @@ import {
   zFungibleAssetMetadataResource,
   zNftResource,
   zObjectCoreResource,
+  zValidator,
 } from "./schema";
 import { toBech32 } from "./utils";
 
@@ -71,6 +72,18 @@ export class ApiClient {
     return toBech32(
       zObjectCoreResource.parse(objectCoreResource.move_resource).data.owner
     );
+  }
+
+  public async findValidator(validatorAddress: string) {
+    try {
+      const response = await axios.get(
+        `${this.restUrl}/initia/mstaking/v1/validators/${validatorAddress}`
+      );
+
+      return zValidator.parse(response.data);
+    } catch {
+      return null;
+    }
   }
 
   private async _debugApiCall(address: string, response: AxiosResponse) {

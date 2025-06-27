@@ -19,12 +19,16 @@ describe("Delegate Message", () => {
   });
 
   it("should decode a delegate message correctly", async () => {
-    mockedAxios.get.mockImplementation(createMockApiHandler(mockApiResponsesDelegate));
+    mockedAxios.get.mockImplementation(
+      createMockApiHandler(mockApiResponsesDelegate)
+    );
 
-    const decoded = await decoder.decodeTransaction(mockMsgDelegate);
+    const { messages, totalBalanceChanges } = await decoder.decodeTransaction(
+      mockMsgDelegate
+    );
 
-    expect(decoded.messages).toHaveLength(1);
-    expect(decoded.messages[0]).toEqual({
+    expect(messages).toHaveLength(1);
+    expect(messages[0]).toEqual({
       balanceChanges: {
         ft: {
           init1fl48vsnmsdzcv85q5d2q4z5ajdha8yu3mdfuj4: {
@@ -46,14 +50,20 @@ describe("Delegate Message", () => {
             },
           ],
           delegatorAddress: "init1kw2unuhgfa6mz6r0ehrzlr9k9ftjk7pql8u5fm",
-          validatorAddress: "initvaloper1cmlx2pqfgt2kpshe2fmc40epzvg699eqv3ax66",
+          validator: {
+            details: "Provides secure validation services for dPoS networks",
+            identity: "8957C5091FBF4192",
+            moniker: "B-Harvest",
+            security_contact: "contact@bharvest.io",
+            website: "https://bharvest.io",
+          },
         },
         isIbc: false,
         isOp: false,
       },
     });
 
-    expect(decoded.totalBalanceChanges).toEqual({
+    expect(totalBalanceChanges).toEqual({
       ft: {
         init1fl48vsnmsdzcv85q5d2q4z5ajdha8yu3mdfuj4: {
           uinit: "100000",
@@ -67,7 +77,9 @@ describe("Delegate Message", () => {
   });
 
   it("should decode a delegate locked message correctly", async () => {
-    mockedAxios.get.mockImplementation(createMockApiHandler(mockApiResponsesDelegateLocked));
+    mockedAxios.get.mockImplementation(
+      createMockApiHandler(mockApiResponsesDelegateLocked)
+    );
 
     const decoded = await decoder.decodeTransaction(mockMsgDelegateLocked);
 
@@ -82,7 +94,14 @@ describe("Delegate Message", () => {
           },
         ],
         delegatorAddress: "init1kw2unuhgfa6mz6r0ehrzlr9k9ftjk7pql8u5fm",
-        validatorAddress: "initvaloper1qx6ghyv83caecuxgl77lvlnha9d9y6fntryc8a",
+        validator: {
+          details:
+            "Secure, enterprise-grade validator committed to investing heavily in educating, promoting, and expanding the Initia community and ecosystem.",
+          identity: "A2879F08F59FB0AF",
+          moniker: "Orbital Command",
+          security_contact: "",
+          website: "https://orbitalcommand.io",
+        },
       },
       isIbc: false,
       isOp: false,

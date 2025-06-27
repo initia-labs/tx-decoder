@@ -7,7 +7,7 @@ import { zMsgUndelegateLocked, zUndelegateLockedEvent } from "@/schema";
 export const undelegateLockedDecoder: MessageDecoder = {
   check: (message: Message, _log: Log) =>
     zMsgUndelegateLocked.safeParse(message).success,
-  decode: async (message: Message, log: Log, _apiClient: ApiClient) => {
+  decode: async (message: Message, log: Log, apiClient: ApiClient) => {
     const parsed = zMsgUndelegateLocked.safeParse(message);
     if (!parsed.success) {
       throw new Error("Invalid undelegate locked message");
@@ -23,12 +23,17 @@ export const undelegateLockedDecoder: MessageDecoder = {
       denom: `move/${undelegateLockedEvent.metadata.slice(2)}`,
     };
 
+    const validator = await apiClient.findValidator(
+      undelegateLockedEvent.validator
+    );
+    const validatorDescription = validator?.validator.description ?? null;
+
     const decodedMessage: DecodedMessage = {
       action: "undelegate",
       data: {
         coins: [undelegateLockedCoin],
         delegatorAddress: sender,
-        validatorAddress: undelegateLockedEvent.validator,
+        validator: validatorDescription,
       },
       isIbc: false,
       isOp: false,

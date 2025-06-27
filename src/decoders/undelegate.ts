@@ -8,7 +8,7 @@ import { zMsgUndelegate } from "@/schema";
 export const undelegateDecoder: MessageDecoder = {
   check: (message: Message, _log: Log) =>
     message["@type"] === SUPPORTED_MESSAGE_TYPES.MsgUndelegate,
-  decode: async (message: Message, _log: Log, _apiClient: ApiClient) => {
+  decode: async (message: Message, _log: Log, apiClient: ApiClient) => {
     const parsed = zMsgUndelegate.safeParse(message);
     if (!parsed.success) {
       throw new Error("Invalid undelegate message");
@@ -16,12 +16,15 @@ export const undelegateDecoder: MessageDecoder = {
 
     const { amount, delegator_address, validator_address } = parsed.data;
 
+    const validator = await apiClient.findValidator(validator_address);
+    const validatorDescription = validator?.validator.description ?? null;
+
     const decodedMessage: DecodedMessage = {
       action: "undelegate",
       data: {
         coins: amount,
         delegatorAddress: delegator_address,
-        validatorAddress: validator_address,
+        validator: validatorDescription,
       },
       isIbc: false,
       isOp: false,
