@@ -38,11 +38,18 @@ describe("IBC Receive NFT Message", () => {
         });
       }
 
-      // // IBC NFT receives don't affect local balance changes since the NFT is being received from another chain
-      // expect(decoded.balanceChanges).toEqual({
-      //   ft: {},
-      //   object: {},
-      // });
+      // IBC NFT receives don't affect local balance changes since the NFT is being received from another chain
+      expect(decoded.totalBalanceChanges).toEqual({
+        ft: {},
+        object: {
+          init1j0kfut4t788gs9e6l4aqyh7s3pgwtwegnqn6qr: {
+            init1rf9acg4cee5welf4jqqhrwx3pv4f695ae0jtaze2tksxywsg76msp3qj9a: "-1",
+          },
+          init1t9k78msywte6jx4zrxkp94pa9u9laa9pqfpytk: {
+            init1rf9acg4cee5welf4jqqhrwx3pv4f695ae0jtaze2tksxywsg76msp3qj9a: "1",
+          },
+        },
+      });
     });
 
     it("should handle the correct message type for source token", async () => {
@@ -130,11 +137,18 @@ describe("IBC Receive NFT Message", () => {
         });
       }
 
-      // // IBC NFT receives don't affect local balance changes since the NFT is being received from another chain
-      // expect(decoded.balanceChanges).toEqual({
-      //   ft: {},
-      //   object: {},
-      // });
+      // IBC NFT receives don't affect local balance changes since the NFT is being received from another chain
+      expect(decoded.totalBalanceChanges).toEqual({
+        ft: {},
+        object: {
+          init1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqpqr5e3d: {
+            init1t64cqru8efqzzrmfqkkrzdqn2ft453pyvvpvtvnlgw8f0qr3haeslr0899: "-1",
+          },
+          init18cd6ufdufm4crr4tjr23uwhn26qz6ndea57aya: {
+            init1t64cqru8efqzzrmfqkkrzdqn2ft453pyvvpvtvnlgw8f0qr3haeslr0899: "1",
+          },
+        },
+      });
     });
 
     it("should handle the correct message type for remote token", async () => {
