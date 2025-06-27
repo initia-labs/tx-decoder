@@ -1201,4 +1201,31 @@ export const mockApiResponsesRedelegate = {
         },
       ],
     },
+  "/initia/mstaking/v1/validators/initvaloper1cmlx2pqfgt2kpshe2fmc40epzvg699eqv3ax66":
+    {
+      validator: {
+        description: {
+          details: "Provides secure validation services for dPoS networks",
+          identity: "8957C5091FBF4192",
+          moniker: "B-Harvest",
+          security_contact: "contact@bharvest.io",
+          website: "https://bharvest.io",
+        },
+        operator_address: "initvaloper1cmlx2pqfgt2kpshe2fmc40epzvg699eqv3ax66",
+      },
+    },
+  "/initia/mstaking/v1/validators/initvaloper19uzc087w778p0l333w52ju0dgsajcj6ydep4rm":
+    {
+      validator: {
+        description: {
+          details:
+            "Cosmostation is an institutional-grade cryptocurrency infrastructure provider, managing billions of dollars across 70 protocols. Since 2018, we have served more than 500k users globally, providing products that enable protocols to scale.",
+          identity: "AE4C403A6E7AA1AC",
+          moniker: "Cosmostation",
+          security_contact: "node@stamper.network",
+          website: "https://www.cosmostation.io",
+        },
+        operator_address: "initvaloper19uzc087w778p0l333w52ju0dgsajcj6ydep4rm",
+      },
+    },
 };

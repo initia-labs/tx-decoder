@@ -8,7 +8,7 @@ import { findAttribute, parseCoins } from "@/utils";
 export const withdrawDelegatorRewardDecoder: MessageDecoder = {
   check: (message: Message, _log: Log) =>
     message["@type"] === SUPPORTED_MESSAGE_TYPES.MsgWithdrawDelegatorReward,
-  decode: async (message: Message, log: Log, _apiClient: ApiClient) => {
+  decode: async (message: Message, log: Log, apiClient: ApiClient) => {
     const parsed = zMsgWithdrawDelegatorReward.safeParse(message);
     if (!parsed.success) {
       throw new Error("Invalid withdraw delegator reward message");
@@ -20,12 +20,14 @@ export const withdrawDelegatorRewardDecoder: MessageDecoder = {
 
     const coins = parseCoins(amount);
 
+    const validator = await apiClient.findValidator(validator_address);
+
     const decodedMessage: DecodedMessage = {
       action: "withdraw_delegator_reward",
       data: {
         coins,
         from: delegator_address,
-        validatorAddress: validator_address,
+        validator,
       },
       isIbc: false,
       isOp: false,

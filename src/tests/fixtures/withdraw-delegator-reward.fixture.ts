@@ -528,4 +528,17 @@ export const mockApiResponsesWithdrawDelegatorReward = {
         },
       ],
     },
+  "/initia/mstaking/v1/validators/initvaloper1gs7kwd5jm8ghnvx4z973aqcenfcej6ykpuydc4":
+    {
+      validator: {
+        description: {
+          details: "",
+          identity: "1F41B95A84CFA4B6",
+          moniker: "Inertia Foundation | 🎁 Delegation Drop 🎁",
+          security_contact: "",
+          website: "https://inrt.fi",
+        },
+        operator_address: "initvaloper1gs7kwd5jm8ghnvx4z973aqcenfcej6ykpuydc4",
+      },
+    },
 };

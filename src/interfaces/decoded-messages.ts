@@ -1,4 +1,4 @@
-import { Coin } from "@/schema";
+import { Coin, Validator } from "@/schema";
 
 interface DecodedMessageBase {
   isIbc: boolean;
@@ -38,7 +38,7 @@ interface DecodedWithdrawDelegatorRewardMessage extends DecodedMessageBase {
   data: {
     coins: Coin[];
     from: string;
-    validatorAddress: string;
+    validator: Validator | null;
   };
 }
 
@@ -58,7 +58,7 @@ interface DecodedDelegateMessage extends DecodedMessageBase {
   data: {
     coins: Coin[];
     delegatorAddress: string;
-    validatorAddress: string;
+    validator: Validator | null;
   };
 }
 
@@ -67,7 +67,7 @@ interface DecodedUndelegateMessage extends DecodedMessageBase {
   data: {
     coins: Coin[];
     delegatorAddress: string;
-    validatorAddress: string;
+    validator: Validator | null;
   };
 }
 
@@ -76,8 +76,8 @@ interface DecodedRedelegateMessage extends DecodedMessageBase {
   data: {
     coins: Coin[];
     delegatorAddress: string;
-    validatorDstAddress: string;
-    validatorSrcAddress: string;
+    validatorDst: Validator | null;
+    validatorSrc: Validator | null;
   };
 }
 

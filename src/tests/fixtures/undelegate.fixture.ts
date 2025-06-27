@@ -852,6 +852,20 @@ export const mockApiResponseUndelegate = {
         },
       ],
     },
+  "/initia/mstaking/v1/validators/initvaloper1r20z6zmlnqrea5p9cendrgeke35nxzfueqwaz6":
+    {
+      validator: {
+        description: {
+          details:
+            "The go-to blockchain security firm for top teams, specializing in Cosmos, EVM, ZK, Move (Aptos and Sui). We solve your hardest security problems.\\nTwitter: https://twitter.com/zellic_io\\nTelegram: t.me/zellic_io",
+          identity: "609C091636D1330B",
+          moniker: "Zellic",
+          security_contact: "security@zellic.io",
+          website: "https://zellic.io/",
+        },
+        operator_address: "initvaloper1r20z6zmlnqrea5p9cendrgeke35nxzfueqwaz6",
+      },
+    },
 };
 
 export const mockMsgUndelegateLocked = {
@@ -1864,5 +1878,19 @@ export const mockApiResponseUndelegateLocked = {
           struct_tag: "0x1::fungible_asset::FungibleStore",
         },
       ],
+    },
+  "/initia/mstaking/v1/validators/initvaloper1qgje6dgazcruzsashpqektp2yaf47x2wyysjqx":
+    {
+      validator: {
+        description: {
+          details:
+            "Delphi Consulting delivers expert crypto consulting across technology assessment, token advisory, asset intelligence, education, and design services.",
+          identity: "2F47665C54DB2742",
+          moniker: "Delphi Consulting",
+          security_contact: "ops@delphiconsulting.io",
+          website: "https://delphidigital.io/consulting",
+        },
+        operator_address: "initvaloper1qgje6dgazcruzsashpqektp2yaf47x2wyysjqx",
+      },
     },
 };

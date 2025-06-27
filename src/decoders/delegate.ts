@@ -7,7 +7,7 @@ import { Log, Message, zMsgDelegate } from "@/schema";
 export const delegateDecoder: MessageDecoder = {
   check: (message, _log) =>
     message["@type"] === SUPPORTED_MESSAGE_TYPES.MsgDelegate,
-  decode: async (message: Message, _log: Log, _apiClient: ApiClient) => {
+  decode: async (message: Message, _log: Log, apiClient: ApiClient) => {
     const parsed = zMsgDelegate.safeParse(message);
     if (!parsed.success) {
       throw new Error("Invalid delegate message");
@@ -15,12 +15,14 @@ export const delegateDecoder: MessageDecoder = {
 
     const { amount, delegator_address, validator_address } = parsed.data;
 
+    const validator = await apiClient.findValidator(validator_address);
+
     const decodedMessage: DecodedMessage = {
       action: "delegate",
       data: {
         coins: amount,
         delegatorAddress: delegator_address,
-        validatorAddress: validator_address,
+        validator,
       },
       isIbc: false,
       isOp: false,
