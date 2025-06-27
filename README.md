@@ -34,8 +34,8 @@ import { TxDecoder } from "@initia/tx-decoder";
 
 // Decode a transaction
 const decoder = new TxDecoder({
-  restUrl: "https://rest.initia.xyz"
-})
+  restUrl: "https://rest.initia.xyz",
+});
 const decodedTx = await decoder.decodeTransaction(txResponse);
 
 // Access decoded messages
@@ -84,13 +84,18 @@ Currently supported message types:
 
 - `/cosmos.bank.v1beta1.MsgSend`
 - `/cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward`
-- `/initia.move.v1.MsgExecute`
+- `/initia.mstaking.v1.MsgDelegate`
+- `/initia.mstaking.v1.MsgUndelegate`
+- `/initia.mstaking.v1.MsgBeginRedelegate`
+- `/initia.move.v1.MsgExecute` or `/initia.move.v1.MsgExecuteJSON`
   - `0x1::dex::swap_script`
   - `0x1::simple_nft::mint`
   - `<module_address>::usernames::register_domain`
   - `0x1::stableswap::swap_script`
 - `/opinit.ophost.v1.MsgInitiateTokenDeposit`
 - `/opinit.ophost.v1.MsgFinalizeTokenWithdrawal`
+- `/ibc.applications.nft_transfer.v1.MsgTransfer`
+- `/ibc.core.channel.v1.MsgRecvPacket`
 
 ## 📁 Folder Structure
 
@@ -100,8 +105,9 @@ tx-decoder/
 │   ├── constants.ts              # Application constants and configuration
 │   ├── decoder.ts                # Main transaction decoding logic
 │   ├── index.ts                  # Entry point for exports
-│   ├── handlers/                 # Message and event handler 
+│   ├── decoders/                 # Message decoder
 │   ├── interfaces/               # TypeScript interfaces and types
+│   ├── processors/               # Event processor
 │   ├── schema/                   # Zod schemas for validation
 │   ├── utils/                    # Utility functions
 │   ├── fixtures/                 # Mock data for tests
