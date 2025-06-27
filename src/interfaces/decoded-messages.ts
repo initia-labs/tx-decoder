@@ -76,8 +76,8 @@ interface DecodedRedelegateMessage extends DecodedMessageBase {
   data: {
     coins: Coin[];
     delegatorAddress: string;
-    validatorDstAddress: string;
-    validatorSrcAddress: string;
+    validatorDstAddress: ValidatorInfo | null;
+    validatorSrcAddress: ValidatorInfo | null;
   };
 }
 
