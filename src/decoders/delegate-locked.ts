@@ -1,8 +1,9 @@
 import type { DecodedMessage, MessageDecoder } from "@/interfaces";
-import type { DelegateLockedEvent, Event, Log, Message } from "@/schema";
+import type { Log, Message } from "@/schema";
 
 import { ApiClient } from "@/api";
 import { zDelegateLockedEvent, zMsgDelegateLocked } from "@/schema";
+import { findMoveEvent } from "@/utils";
 
 export const delegateLockedDecoder: MessageDecoder = {
   check: (message: Message, _log: Log) =>
@@ -13,7 +14,11 @@ export const delegateLockedDecoder: MessageDecoder = {
       throw new Error("Invalid delegate locked message");
     }
     const { sender } = parsed.data;
-    const delegateLockedEvent = findDelegateLockedEvent(log.events);
+    const delegateLockedEvent = findMoveEvent(
+      log.events,
+      "0x3a886b32a802582f2e446e74d4a24d1d7ed01adf46d2a8f65c5723887e708789::lock_staking::DepositDelegationEvent",
+      zDelegateLockedEvent
+    );
     if (!delegateLockedEvent) {
       throw new Error("Delegate locked event not found");
     }
@@ -40,31 +45,4 @@ export const delegateLockedDecoder: MessageDecoder = {
 
     return decodedMessage;
   },
-};
-
-const findDelegateLockedEvent = (
-  events: Event[]
-): DelegateLockedEvent | null => {
-  const delegateLockedEvent = events.find(
-    (event) =>
-      event.type === "move" &&
-      event.attributes.some(
-        (attr) =>
-          attr.key === "type_tag" &&
-          attr.value ===
-            "0x3a886b32a802582f2e446e74d4a24d1d7ed01adf46d2a8f65c5723887e708789::lock_staking::DepositDelegationEvent"
-      )
-  );
-
-  if (!delegateLockedEvent) return null;
-
-  const dataAttribute = delegateLockedEvent.attributes.find(
-    (attr) => attr.key === "data"
-  );
-  if (!dataAttribute) return null;
-
-  const parsed = zDelegateLockedEvent.safeParse(dataAttribute.value);
-  if (!parsed.success) return null;
-
-  return parsed.data;
 };

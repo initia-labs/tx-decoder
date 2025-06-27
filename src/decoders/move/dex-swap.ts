@@ -1,13 +1,7 @@
 import { ApiClient } from "@/api";
 import { DecodedMessage, MessageDecoder } from "@/interfaces";
-import {
-  Event,
-  Log,
-  Message,
-  SwapEvent,
-  zMsgMoveDexSwap,
-  zSwapEvent,
-} from "@/schema";
+import { Log, Message, zMsgMoveDexSwap, zSwapEvent } from "@/schema";
+import { findMoveEvent } from "@/utils";
 
 export const dexSwapDecoder: MessageDecoder = {
   check: (message: Message, _log: Log) =>
@@ -16,7 +10,11 @@ export const dexSwapDecoder: MessageDecoder = {
     const parsed = zMsgMoveDexSwap.parse(message);
     const { sender } = parsed;
 
-    const swapEvent = findSwapEventData(log.events);
+    const swapEvent = findMoveEvent(
+      log.events,
+      "0x1::dex::SwapEvent",
+      zSwapEvent
+    );
     if (!swapEvent) {
       throw new Error("Dex Swap event not found");
     }
@@ -36,33 +34,4 @@ export const dexSwapDecoder: MessageDecoder = {
 
     return decodedMessage;
   },
-};
-
-// internal parser
-const findSwapEventData = (events: Event[]): SwapEvent | null => {
-  const swapEvent = events.find(
-    (event) =>
-      event.type === "move" &&
-      event.attributes.some(
-        (attr) =>
-          attr.key === "type_tag" && attr.value === "0x1::dex::SwapEvent"
-      )
-  );
-
-  if (!swapEvent) return null;
-
-  const dataAttribute = swapEvent.attributes.find(
-    (attr) => attr.key === "data"
-  );
-
-  if (!dataAttribute) {
-    return null;
-  }
-
-  const parsed = zSwapEvent.safeParse(dataAttribute.value);
-  if (!parsed.success) {
-    return null;
-  }
-
-  return parsed.data;
 };
