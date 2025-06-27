@@ -1,4 +1,4 @@
-export const mockMsgIBCSendNFT = {
+export const mockMsgIbcSendNft = {
   code: 0,
   codespace: "",
   data: "123B0A352F6962632E6170706C69636174696F6E732E6E66745F7472616E736665722E76312E4D73675472616E73666572526573706F6E73651202080D",
@@ -329,8 +329,7 @@ export const mockMsgIBCSendNFT = {
         {
           index: true,
           key: "class_id",
-          value:
-            "move/4b224b3b82140614fbe0706b421d887f4532ea91d4ad0cf2b99a1251c06dfa9a",
+          value: "move/4b224b3b82140614fbe0706b421d887f4532ea91d4ad0cf2b99a1251c06dfa9a",
         },
         {
           index: true,
@@ -404,8 +403,7 @@ export const mockMsgIBCSendNFT = {
       messages: [
         {
           "@type": "/ibc.applications.nft_transfer.v1.MsgTransfer",
-          class_id:
-            "move/4b224b3b82140614fbe0706b421d887f4532ea91d4ad0cf2b99a1251c06dfa9a",
+          class_id: "move/4b224b3b82140614fbe0706b421d887f4532ea91d4ad0cf2b99a1251c06dfa9a",
           memo: "",
           receiver: "init1ulw753hxh4mrc9ss7p2y7h8emjxxyw6uce0hk9",
           sender: "init1dw49mn7s2r5mskjdmus5hth80zz8wwaywycq06",
@@ -427,4 +425,4 @@ export const mockMsgIBCSendNFT = {
     ],
   },
   txhash: "799FE662461D38A08D617C4E60025ED373177B9912B6C3468FDDE2B1825CD4AC",
-}
+};

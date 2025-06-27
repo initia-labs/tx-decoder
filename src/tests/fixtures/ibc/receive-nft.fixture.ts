@@ -1,4 +1,4 @@
-export const mockMsgIBCReceiveNFTSourceToken = {
+export const mockMsgIbcReceiveNftSourceToken = {
   code: 0,
   codespace: "",
   data: "122D0A2B2F6962632E636F72652E636C69656E742E76312E4D7367557064617465436C69656E74526573706F6E736512300A2A2F6962632E636F72652E6368616E6E656C2E76312E4D7367526563765061636B6574526573706F6E736512020802",
@@ -612,12 +612,9 @@ export const mockMsgIBCReceiveNFTSourceToken = {
                     total: 1,
                   },
                 },
-                last_commit_hash:
-                  "wNRNc7OOKawfRvA8RNZDRGkc1BUGCwZzFyWowHL/+/c=",
-                last_results_hash:
-                  "6WiSZTNfB3EvzpX7IA1iS3JOhO2l9T++j1jYfhvDadw=",
-                next_validators_hash:
-                  "JtnADNJHJSdpGPp+T/1bFMInqOVZ5Rf5bklAleTFlNw=",
+                last_commit_hash: "wNRNc7OOKawfRvA8RNZDRGkc1BUGCwZzFyWowHL/+/c=",
+                last_results_hash: "6WiSZTNfB3EvzpX7IA1iS3JOhO2l9T++j1jYfhvDadw=",
+                next_validators_hash: "JtnADNJHJSdpGPp+T/1bFMInqOVZ5Rf5bklAleTFlNw=",
                 proposer_address: "jWEmZ8/9esVrLm7s0m1cGUj32ok=",
                 time: "2025-06-20T11:12:56.801592136Z",
                 validators_hash: "JtnADNJHJSdpGPp+T/1bFMInqOVZ5Rf5bklAleTFlNw=",
@@ -708,9 +705,9 @@ export const mockMsgIBCReceiveNFTSourceToken = {
     ],
   },
   txhash: "6D393A7B4C97631996E411DAC52A423471CC855593F3748CEEC90BE29177C66A",
-}
+};
 
-export const mockMsgIBCReceiveNFTRemoteToken = {
+export const mockMsgIbcReceiveNftRemoteToken = {
   code: 0,
   codespace: "",
   data: "122D0A2B2F6962632E636F72652E636C69656E742E76312E4D7367557064617465436C69656E74526573706F6E736512300A2A2F6962632E636F72652E6368616E6E656C2E76312E4D7367526563765061636B6574526573706F6E736512020802",
@@ -991,8 +988,7 @@ export const mockMsgIBCReceiveNFTRemoteToken = {
         {
           index: true,
           key: "packet_src_port",
-          value:
-            "wasm.init1wug8sewp6cedgkmrmvhl3lf3tulagm9hnvy8p0rppz9yjw0g4wtq7947m6",
+          value: "wasm.init1wug8sewp6cedgkmrmvhl3lf3tulagm9hnvy8p0rppz9yjw0g4wtq7947m6",
         },
         {
           index: true,
@@ -1052,14 +1048,12 @@ export const mockMsgIBCReceiveNFTRemoteToken = {
         {
           index: true,
           key: "trace_hash",
-          value:
-            "0A1FFECF8C217E1630E58ABF7BF857FD7CC762D165DF018D94DACBC8881209E2",
+          value: "0A1FFECF8C217E1630E58ABF7BF857FD7CC762D165DF018D94DACBC8881209E2",
         },
         {
           index: true,
           key: "class_id",
-          value:
-            "ibc/0A1FFECF8C217E1630E58ABF7BF857FD7CC762D165DF018D94DACBC8881209E2",
+          value: "ibc/0A1FFECF8C217E1630E58ABF7BF857FD7CC762D165DF018D94DACBC8881209E2",
         },
         {
           index: true,
@@ -1254,8 +1248,7 @@ export const mockMsgIBCReceiveNFTRemoteToken = {
         {
           index: true,
           key: "class_id",
-          value:
-            "init1k6ra07c0eu4x48d7dw0c2hv76mczsvg49xc7aj9mv4u2zjus7skqaguerl",
+          value: "init1k6ra07c0eu4x48d7dw0c2hv76mczsvg49xc7aj9mv4u2zjus7skqaguerl",
         },
         {
           index: true,
@@ -1312,8 +1305,7 @@ export const mockMsgIBCReceiveNFTRemoteToken = {
         {
           index: true,
           key: "packet_src_port",
-          value:
-            "wasm.init1wug8sewp6cedgkmrmvhl3lf3tulagm9hnvy8p0rppz9yjw0g4wtq7947m6",
+          value: "wasm.init1wug8sewp6cedgkmrmvhl3lf3tulagm9hnvy8p0rppz9yjw0g4wtq7947m6",
         },
         {
           index: true,
@@ -1462,12 +1454,9 @@ export const mockMsgIBCReceiveNFTRemoteToken = {
                     total: 1,
                   },
                 },
-                last_commit_hash:
-                  "9N6myvcTTMyOgYaEA/AG/PL+p78ZH7latYwLrLZJMeY=",
-                last_results_hash:
-                  "vUly01a0NqLjlM8b2yccCnt3yfvUv0hLCjRShEJM304=",
-                next_validators_hash:
-                  "s6a6k2SbdroKHgi3GAU1Eqr/4ggDyL/hTMyYXsI2SqM=",
+                last_commit_hash: "9N6myvcTTMyOgYaEA/AG/PL+p78ZH7latYwLrLZJMeY=",
+                last_results_hash: "vUly01a0NqLjlM8b2yccCnt3yfvUv0hLCjRShEJM304=",
+                next_validators_hash: "s6a6k2SbdroKHgi3GAU1Eqr/4ggDyL/hTMyYXsI2SqM=",
                 proposer_address: "/0dGQAi6jmIULk0eLoolohnOy/k=",
                 time: "2025-04-30T19:24:52.974733892Z",
                 validators_hash: "s6a6k2SbdroKHgi3GAU1Eqr/4ggDyL/hTMyYXsI2SqM=",
@@ -1534,8 +1523,7 @@ export const mockMsgIBCReceiveNFTRemoteToken = {
             destination_port: "nft-transfer",
             sequence: "1",
             source_channel: "channel-1",
-            source_port:
-              "wasm.init1wug8sewp6cedgkmrmvhl3lf3tulagm9hnvy8p0rppz9yjw0g4wtq7947m6",
+            source_port: "wasm.init1wug8sewp6cedgkmrmvhl3lf3tulagm9hnvy8p0rppz9yjw0g4wtq7947m6",
             timeout_height: {
               revision_height: "0",
               revision_number: "0",
@@ -1559,4 +1547,4 @@ export const mockMsgIBCReceiveNFTRemoteToken = {
     ],
   },
   txhash: "718AFCF8FC3A9940295F8A2CC3FBB035A03D128CC190764946A539D0AE3DDFC1",
-}
+};

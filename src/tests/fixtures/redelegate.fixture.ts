@@ -1089,3 +1089,96 @@ export const mockMsgRedelegateLocked = {
   },
   txhash: "605F7D5A02600A5E8C5F829DBD1D4FEDAE714D39FA1DD269FCC8CBD57CDEDB56",
 };
+
+export const mockApiResponsesRedelegate = {
+  "/initia/move/v1/accounts/0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9/resources":
+    {
+      pagination: { next_key: null, total: "0" },
+      resources: [
+        {
+          address: "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
+          move_resource:
+            '{"type":"0x1::coin::ManagingRefs","data":{"burn_ref":{"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}},"mint_ref":{"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}},"transfer_ref":{"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}}',
+          raw_bytes:
+            "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdmORzO9q899Svw9FPDdRsm/UvsPzp5LmWyTnhlbi8iR2Y5HM72rz31K/D0U8N1Gyb9S+w/OnkuZbJOeGVuLyJHZ",
+          struct_tag: "0x1::coin::ManagingRefs",
+        },
+        {
+          address: "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
+          move_resource:
+            '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":true,"owner":"0x1","version":"1"}}',
+          raw_bytes: "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEBAQAAAAAAAAA=",
+          struct_tag: "0x1::object::ObjectCore",
+        },
+        {
+          address: "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
+          move_resource:
+            '{"type":"0x1::managed_coin::Capabilities","data":{"burn_cap":{"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}},"freeze_cap":{"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}},"mint_cap":{"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}}',
+          raw_bytes:
+            "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdmORzO9q899Svw9FPDdRsm/UvsPzp5LmWyTnhlbi8iR2Y5HM72rz31K/D0U8N1Gyb9S+w/OnkuZbJOeGVuLyJHZ",
+          struct_tag: "0x1::managed_coin::Capabilities",
+        },
+        {
+          address: "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
+          move_resource:
+            '{"type":"0x1::fungible_asset::Supply","data":{"current":"1000007461173507","maximum":null}}',
+          raw_bytes: "A/l+YYCNAwAAAAAAAAAAAAA=",
+          struct_tag: "0x1::fungible_asset::Supply",
+        },
+        {
+          address: "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
+          move_resource:
+            '{"type":"0x1::fungible_asset::Metadata","data":{"decimals":0,"icon_uri":"","name":"uinit Coin","project_uri":"","symbol":"uinit"}}',
+          raw_bytes: "CnVpbml0IENvaW4FdWluaXQAAAA=",
+          struct_tag: "0x1::fungible_asset::Metadata",
+        },
+        {
+          address: "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
+          move_resource:
+            '{"type":"0x1::primary_fungible_store::DeriveRefPod","data":{"metadata_derive_ref":{"self":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9","version":"1"}}}',
+          raw_bytes: "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdkBAAAAAAAAAA==",
+          struct_tag: "0x1::primary_fungible_store::DeriveRefPod",
+        },
+      ],
+    },
+  "/initia/move/v1/accounts/0xba2a23251eb06923fadb03ea9856c66510fefc4dfa9abe92cfb2961c9145cfb3/resources":
+    {
+      pagination: { next_key: null, total: "0" },
+      resources: [
+        {
+          address: "0xba2a23251eb06923fadb03ea9856c66510fefc4dfa9abe92cfb2961c9145cfb3",
+          move_resource:
+            '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0x93354845030274cd4bf1686abd60ab28ec52e1a7","version":"1"}}',
+          raw_bytes: "AAAAAAAAAAAAAAAAkzVIRQMCdM1L8WhqvWCrKOxS4acAAQAAAAAAAAA=",
+          struct_tag: "0x1::object::ObjectCore",
+        },
+        {
+          address: "0xba2a23251eb06923fadb03ea9856c66510fefc4dfa9abe92cfb2961c9145cfb3",
+          move_resource:
+            '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"1550326500987","frozen":false,"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}',
+          raw_bytes: "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdl7Dqn2aAEAAAA=",
+          struct_tag: "0x1::fungible_asset::FungibleStore",
+        },
+      ],
+    },
+  "/initia/move/v1/accounts/0xe2d99fcea59da8da2d4095cc11cb83e6ff80cf2e41522c678b8f152233d1b65e/resources":
+    {
+      pagination: { next_key: null, total: "0" },
+      resources: [
+        {
+          address: "0xe2d99fcea59da8da2d4095cc11cb83e6ff80cf2e41522c678b8f152233d1b65e",
+          move_resource:
+            '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0xb395c9f2e84f75b1686fcdc62f8cb62a572b7820","version":"1"}}',
+          raw_bytes: "AAAAAAAAAAAAAAAAs5XJ8uhPdbFob83GL4y2KlcreCAAAQAAAAAAAAA=",
+          struct_tag: "0x1::object::ObjectCore",
+        },
+        {
+          address: "0xe2d99fcea59da8da2d4095cc11cb83e6ff80cf2e41522c678b8f152233d1b65e",
+          move_resource:
+            '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"4727161","frozen":false,"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}',
+          raw_bytes: "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdl5IUgAAAAAAAA=",
+          struct_tag: "0x1::fungible_asset::FungibleStore",
+        },
+      ],
+    },
+};

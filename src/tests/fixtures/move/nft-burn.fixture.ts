@@ -1,4 +1,4 @@
-export const mockMsgNFTBurn = {
+export const mockMsgNftBurn = {
   code: 0,
   codespace: "",
   data: "12280A262F696E697469612E6D6F76652E76312E4D7367457865637574654A534F4E526573706F6E7365",
@@ -70,8 +70,7 @@ export const mockMsgNFTBurn = {
         {
           index: true,
           key: "amount",
-          value:
-            "1438ibc/6490A7EAB61059BFC1CDDEB05917DD70BDF3A611654162A1A47DB930D40D8AF4",
+          value: "1438ibc/6490A7EAB61059BFC1CDDEB05917DD70BDF3A611654162A1A47DB930D40D8AF4",
         },
       ],
       type: "coin_spent",
@@ -86,8 +85,7 @@ export const mockMsgNFTBurn = {
         {
           index: true,
           key: "amount",
-          value:
-            "1438ibc/6490A7EAB61059BFC1CDDEB05917DD70BDF3A611654162A1A47DB930D40D8AF4",
+          value: "1438ibc/6490A7EAB61059BFC1CDDEB05917DD70BDF3A611654162A1A47DB930D40D8AF4",
         },
       ],
       type: "coin_received",
@@ -107,8 +105,7 @@ export const mockMsgNFTBurn = {
         {
           index: true,
           key: "amount",
-          value:
-            "1438ibc/6490A7EAB61059BFC1CDDEB05917DD70BDF3A611654162A1A47DB930D40D8AF4",
+          value: "1438ibc/6490A7EAB61059BFC1CDDEB05917DD70BDF3A611654162A1A47DB930D40D8AF4",
         },
       ],
       type: "transfer",
@@ -128,8 +125,7 @@ export const mockMsgNFTBurn = {
         {
           index: true,
           key: "fee",
-          value:
-            "1438ibc/6490A7EAB61059BFC1CDDEB05917DD70BDF3A611654162A1A47DB930D40D8AF4",
+          value: "1438ibc/6490A7EAB61059BFC1CDDEB05917DD70BDF3A611654162A1A47DB930D40D8AF4",
         },
         {
           index: true,
@@ -251,8 +247,7 @@ export const mockMsgNFTBurn = {
         amount: [
           {
             amount: "1438",
-            denom:
-              "ibc/6490A7EAB61059BFC1CDDEB05917DD70BDF3A611654162A1A47DB930D40D8AF4",
+            denom: "ibc/6490A7EAB61059BFC1CDDEB05917DD70BDF3A611654162A1A47DB930D40D8AF4",
           },
         ],
         gas_limit: "185939",
@@ -281,9 +276,7 @@ export const mockMsgNFTBurn = {
       messages: [
         {
           "@type": "/initia.move.v1.MsgExecuteJSON",
-          args: [
-            '"0x3d879bacd0cb90899bacfa30385498cdd522b06a6e7b8352e9e62aaa1036f814"',
-          ],
+          args: ['"0x3d879bacd0cb90899bacfa30385498cdd522b06a6e7b8352e9e62aaa1036f814"'],
           function_name: "burn",
           module_address: "0x1",
           module_name: "simple_nft",
@@ -299,4 +292,4 @@ export const mockMsgNFTBurn = {
     ],
   },
   txhash: "2CD6B210462AC8A86E8F545E5F691096290406C9AEC81478F1B89A22C5F97C02",
-}
+};

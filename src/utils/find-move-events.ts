@@ -21,7 +21,7 @@ export const findMoveEvent = <T>(
     return null;
   }
 
-  const parsed = schema.safeParse(JSON.parse(dataAttribute.value));
+  const parsed = schema.safeParse(dataAttribute.value);
   if (!parsed.success) {
     return null;
   }

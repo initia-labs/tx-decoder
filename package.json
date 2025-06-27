@@ -53,8 +53,8 @@
     "typescript-eslint": "^8.34.0"
   },
   "dependencies": {
+    "@cosmjs/encoding": "^0.33.1",
     "axios": "^1.10.0",
-    "bech32-converting": "^1.0.9",
     "big.js": "^7.0.1",
     "cosmjs-types": "^0.9.0",
     "immer": "^10.1.1",

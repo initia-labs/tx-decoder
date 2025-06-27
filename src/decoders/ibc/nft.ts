@@ -4,36 +4,32 @@ import {
   Log,
   Message,
   zMsgIbcNftTransferSendPacketEvent,
-  zMsgIBCReceiveNFT,
-  zMsgIBCSendNFT,
+  zMsgIbcReceiveNft,
+  zMsgIbcSendNft,
   zMsgMoveCreateCollectionEvent,
 } from "@/schema";
 import { denomToHex, findMoveEvent, toHex } from "@/utils";
 
-export const ibcSendNFTDecoder: MessageDecoder = {
+export const ibcSendNftDecoder: MessageDecoder = {
   check: (message: Message, _log: Log) => {
-    const parsed = zMsgIBCSendNFT.safeParse(message);
+    const parsed = zMsgIbcSendNft.safeParse(message);
     return parsed.success && parsed.data.source_port === "nft-transfer";
   },
   decode: async (message: Message, log: Log, _apiClient: ApiClient) => {
-    const parsed = zMsgIBCSendNFT.parse(message);
+    const parsed = zMsgIbcSendNft.parse(message);
     const { class_id, receiver, sender, source_channel, source_port } = parsed;
 
     const event = log.events.find((event) => event.type === "send_packet");
 
     if (!event) throw new Error("IBC NFT Send packet event not found");
 
-    const dataAttribute = event.attributes.find(
-      (attr) => attr.key === "packet_data"
-    );
+    const dataAttribute = event.attributes.find((attr) => attr.key === "packet_data");
 
     if (!dataAttribute) {
       throw new Error("IBC NFT Send packet data attribute not found");
     }
 
-    const parsedData = zMsgIbcNftTransferSendPacketEvent.safeParse(
-      JSON.parse(dataAttribute.value)
-    );
+    const parsedData = zMsgIbcNftTransferSendPacketEvent.safeParse(JSON.parse(dataAttribute.value));
     if (!parsedData.success) {
       throw new Error("IBC NFT Send packet data attribute not found");
     }
@@ -56,32 +52,26 @@ export const ibcSendNFTDecoder: MessageDecoder = {
   },
 };
 
-export const ibcReceiveNFTDecoder: MessageDecoder = {
+export const ibcReceiveNftDecoder: MessageDecoder = {
   check: (message: Message, _log: Log) => {
-    const parsed = zMsgIBCReceiveNFT.safeParse(message);
-    return (
-      parsed.success && parsed.data.packet.destination_port === "nft-transfer"
-    );
+    const parsed = zMsgIbcReceiveNft.safeParse(message);
+    return parsed.success && parsed.data.packet.destination_port === "nft-transfer";
   },
   decode: async (message: Message, log: Log, _apiClient: ApiClient) => {
-    const parsed = zMsgIBCReceiveNFT.parse(message);
+    const parsed = zMsgIbcReceiveNft.parse(message);
     const { destination_channel, destination_port } = parsed.packet;
 
     const event = log.events.find((event) => event.type === "recv_packet");
 
     if (!event) throw new Error("IBC NFT Receive packet event not found");
 
-    const dataAttribute = event.attributes.find(
-      (attr) => attr.key === "packet_data"
-    );
+    const dataAttribute = event.attributes.find((attr) => attr.key === "packet_data");
 
     if (!dataAttribute) {
       throw new Error("IBC NFT Receive packet data attribute not found");
     }
 
-    const parsedData = zMsgIbcNftTransferSendPacketEvent.safeParse(
-      JSON.parse(dataAttribute.value)
-    );
+    const parsedData = zMsgIbcNftTransferSendPacketEvent.safeParse(JSON.parse(dataAttribute.value));
     if (!parsedData.success) {
       throw new Error("IBC NFT Receive packet data attribute not found");
     }

@@ -1,6 +1,11 @@
 import axios from "axios";
 
-import { mockApiResponsesDelegate, mockMsgDelegate } from "./fixtures/delegate.fixture";
+import {
+  mockApiResponsesDelegate,
+  mockApiResponsesDelegateLocked,
+  mockMsgDelegate,
+  mockMsgDelegateLocked,
+} from "./fixtures/delegate.fixture";
 import { createMockApiHandler, initialize } from "./helpers";
 
 jest.mock("axios");
@@ -61,33 +66,55 @@ describe("Delegate Message", () => {
     });
   });
 
-  // it("should decode a delegate locked message correctly", () => {
-  //   const decoded = decodeTransaction(mockMsgDelegateLocked);
+  it("should decode a delegate locked message correctly", async () => {
+    mockedAxios.get.mockImplementation(createMockApiHandler(mockApiResponsesDelegateLocked));
 
-  //   expect(decoded.messages).toHaveLength(1);
-  //   expect(decoded.messages[0]).toEqual({
-  //     action: "delegate",
-  //     data: {
-  //       coins: [
-  //         {
-  //           amount: "400000",
-  //           denom: "uinit",
-  //         },
-  //       ],
-  //       delegatorAddress: "init1kw2unuhgfa6mz6r0ehrzlr9k9ftjk7pql8u5fm",
-  //       validatorAddress: "initvaloper1qx6ghyv83caecuxgl77lvlnha9d9y6fntryc8a",
-  //     },
-  //     isIbc: false,
-  //     isOp: false,
-  //   });
+    const decoded = await decoder.decodeTransaction(mockMsgDelegateLocked);
 
-  //   expect(decoded.balanceChanges).toEqual({
-  //     ft: {
-  //       init1kw2unuhgfa6mz6r0ehrzlr9k9ftjk7pql8u5fm: {
-  //         uinit: "-400000",
-  //       },
-  //     },
-  //     object: {},
-  //   });
-  // });
+    expect(decoded.messages).toHaveLength(1);
+    expect(decoded.messages[0].decodedMessage).toEqual({
+      action: "delegate",
+      data: {
+        coins: [
+          {
+            amount: "400000",
+            denom: "uinit",
+          },
+        ],
+        delegatorAddress: "init1kw2unuhgfa6mz6r0ehrzlr9k9ftjk7pql8u5fm",
+        validatorAddress: "initvaloper1qx6ghyv83caecuxgl77lvlnha9d9y6fntryc8a",
+      },
+      isIbc: false,
+      isOp: false,
+    });
+    expect(decoded.messages[0].balanceChanges).toEqual({
+      ft: {
+        init1fl48vsnmsdzcv85q5d2q4z5ajdha8yu3mdfuj4: {
+          uinit: "400000",
+        },
+        init1kw2unuhgfa6mz6r0ehrzlr9k9ftjk7pql8u5fm: {
+          uinit: "-400000",
+        },
+        init1q42q8rd6a9yyy7um0kqc4xqgudn8tjpxwezt9rd9udaycccd4tys30hvzx: {
+          uinit: "0",
+        },
+      },
+      object: {},
+    });
+
+    expect(decoded.totalBalanceChanges).toEqual({
+      ft: {
+        init1fl48vsnmsdzcv85q5d2q4z5ajdha8yu3mdfuj4: {
+          uinit: "400000",
+        },
+        init1kw2unuhgfa6mz6r0ehrzlr9k9ftjk7pql8u5fm: {
+          uinit: "-400000",
+        },
+        init1q42q8rd6a9yyy7um0kqc4xqgudn8tjpxwezt9rd9udaycccd4tys30hvzx: {
+          uinit: "0",
+        },
+      },
+      object: {},
+    });
+  });
 });
