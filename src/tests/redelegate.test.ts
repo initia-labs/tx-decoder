@@ -32,6 +32,7 @@ describe("Redelegate Message", () => {
       isOp: false,
     });
 
+    // This is staking reward
     expect(decoded.messages[0].balanceChanges).toEqual({
       ft: {
         init1jv65s3grqf6v6jl3dp4t6c9t9rk99cd8ffy0za: {
@@ -44,6 +45,7 @@ describe("Redelegate Message", () => {
       object: {},
     });
 
+    // This is staking reward
     expect(decoded.totalBalanceChanges).toEqual({
       ft: {
         init1jv65s3grqf6v6jl3dp4t6c9t9rk99cd8ffy0za: {
