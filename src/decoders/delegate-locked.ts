@@ -23,9 +23,17 @@ export const delegateLockedDecoder: MessageDecoder = {
       throw new Error("Delegate locked event not found");
     }
 
+    const denom = await apiClient.findDenomFromMetadataAddr(
+      delegateLockedEvent.metadata
+    );
+
+    if (!denom) {
+      throw new Error("Denom not found for delegate locked event");
+    }
+
     const delegateLockedCoin = {
       amount: delegateLockedEvent.locked_share,
-      denom: "uinit",
+      denom,
     };
 
     const validator = await apiClient.findValidator(
