@@ -2,6 +2,7 @@ import type { DecodedMessage, MessageDecoder } from "@/interfaces";
 import type { Log, Message } from "@/schema";
 
 import { ApiClient } from "@/api";
+import { LOCK_STAKING_MODULE_ADDRESS } from "@/constants";
 import { zDelegateLockedEvent, zMsgDelegateLocked } from "@/schema";
 import { findMoveEvent } from "@/utils";
 
@@ -16,16 +17,24 @@ export const delegateLockedDecoder: MessageDecoder = {
     const { sender } = parsed.data;
     const delegateLockedEvent = findMoveEvent(
       log.events,
-      "0x3a886b32a802582f2e446e74d4a24d1d7ed01adf46d2a8f65c5723887e708789::lock_staking::DepositDelegationEvent",
+      `${LOCK_STAKING_MODULE_ADDRESS}::lock_staking::DepositDelegationEvent`,
       zDelegateLockedEvent
     );
     if (!delegateLockedEvent) {
       throw new Error("Delegate locked event not found");
     }
 
+    const denom = await apiClient.findDenomFromMetadataAddr(
+      delegateLockedEvent.metadata
+    );
+
+    if (!denom) {
+      throw new Error("Denom not found for delegate locked event");
+    }
+
     const delegateLockedCoin = {
       amount: delegateLockedEvent.locked_share,
-      denom: "uinit",
+      denom,
     };
 
     const validator = await apiClient.findValidator(

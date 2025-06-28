@@ -4,6 +4,7 @@ export * from "./ibc";
 export * from "./move";
 export * from "./op-init";
 export * from "./redelegate";
+export * from "./redelegate-locked";
 export * from "./send";
 export * from "./undelegate";
 export * from "./undelegate-locked";

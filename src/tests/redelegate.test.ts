@@ -2,7 +2,9 @@ import axios from "axios";
 
 import {
   mockApiResponsesRedelegate,
+  mockApiResponsesRedelegateLocked,
   mockMsgRedelegate,
+  mockMsgRedelegateLocked,
 } from "./fixtures/redelegate.fixture";
 import { createMockApiHandler, initialize } from "./helpers";
 
@@ -82,6 +84,81 @@ describe("Redelegate Message", () => {
         init1kw2unuhgfa6mz6r0ehrzlr9k9ftjk7pql8u5fm: {
           uinit: "2",
         },
+      },
+      object: {},
+    });
+  });
+
+  it("should decode a redelegate locked message correctly", async () => {
+    const mockApiHandler = createMockApiHandler(
+      mockApiResponsesRedelegateLocked
+    );
+    mockedAxios.get.mockImplementation(mockApiHandler);
+
+    const { messages, totalBalanceChanges } = await decoder.decodeTransaction(
+      mockMsgRedelegateLocked
+    );
+
+    const { balanceChanges, decodedMessage } = messages[0];
+
+    expect(messages).toHaveLength(1);
+    expect(decodedMessage).toEqual({
+      action: "redelegate",
+      data: {
+        coins: [
+          {
+            amount: "1083469",
+            denom: "USDC-INIT",
+          },
+        ],
+        delegatorAddress: "init1tacytfqagzjv73v5ke2s4qj8l68c2w0q4v0q0n",
+        validatorDst: {
+          description: {
+            details:
+              "Four Pillars is a global blockchain research firm dedicated to providing insights and guidance for builders in the Web3 space. We track emerging blockchain trends, spotlight innovative crypto projects, and partner with companies that share our vision.",
+            identity: "40FCEFE83A8394E3",
+            moniker: "Four Pillars",
+            security_contact: "",
+            website: "https://4pillars.io",
+          },
+          operator_address:
+            "initvaloper13ze0ryc7vfj2n86sfxfugww4qygjf8mnxxy9uk",
+        },
+        validatorSrc: {
+          description: {
+            details:
+              "Delphi Consulting delivers expert crypto consulting across technology assessment, token advisory, asset intelligence, education, and design services.",
+            identity: "2F47665C54DB2742",
+            moniker: "Delphi Consulting",
+            security_contact: "ops@delphiconsulting.io",
+            website: "https://delphidigital.io/consulting",
+          },
+          operator_address:
+            "initvaloper1qgje6dgazcruzsashpqektp2yaf47x2wyysjqx",
+        },
+      },
+      isIbc: false,
+      isOp: false,
+    });
+
+    expect(balanceChanges).toEqual({
+      ft: {
+        init1ed6zkyv8g87m9ymtc736mewx9gvvp0mtqyt2rfcnv9xucejmhnkqe22kyd: {
+          uinit: "0",
+        },
+        init1jv65s3grqf6v6jl3dp4t6c9t9rk99cd8ffy0za: { uinit: "-33" },
+        init1tacytfqagzjv73v5ke2s4qj8l68c2w0q4v0q0n: { uinit: "33" },
+      },
+      object: {},
+    });
+
+    expect(totalBalanceChanges).toEqual({
+      ft: {
+        init1ed6zkyv8g87m9ymtc736mewx9gvvp0mtqyt2rfcnv9xucejmhnkqe22kyd: {
+          uinit: "0",
+        },
+        init1jv65s3grqf6v6jl3dp4t6c9t9rk99cd8ffy0za: { uinit: "-33" },
+        init1tacytfqagzjv73v5ke2s4qj8l68c2w0q4v0q0n: { uinit: "33" },
       },
       object: {},
     });
