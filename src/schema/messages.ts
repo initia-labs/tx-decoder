@@ -105,6 +105,14 @@ export const zMsgRedelegateLocked = zMsgMoveExecute.extend({
   module_name: z.literal("lock_staking"),
 });
 
+export const zMsgRedelegateLocked = zMsgMoveExecute.extend({
+  function_name: z.literal("redelegate"),
+  module_address: z.literal(
+    "0x3a886b32a802582f2e446e74d4a24d1d7ed01adf46d2a8f65c5723887e708789"
+  ),
+  module_name: z.literal("lock_staking"),
+});
+
 export const zMsgMoveDexSwap = zMsgMoveExecute.extend({
   function_name: z.literal("swap_script"),
   module_address: z.literal("0x1"),
