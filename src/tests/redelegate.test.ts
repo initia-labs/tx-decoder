@@ -3,8 +3,7 @@ import axios from "axios";
 import {
   mockApiResponsesRedelegate,
   mockMsgRedelegate,
-} from "@/tests/fixtures/redelegate.fixture";
-
+} from "./fixtures/redelegate.fixture";
 import { createMockApiHandler, initialize } from "./helpers";
 
 jest.mock("axios");

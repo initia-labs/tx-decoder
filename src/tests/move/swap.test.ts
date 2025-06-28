@@ -4,8 +4,7 @@ import {
   mockApiResponsesSwap,
   mockMsgDexSwap,
   mockMsgStableSwap,
-} from "@/tests/fixtures/move/swap.fixture";
-
+} from "../fixtures/move/swap.fixture";
 import { createMockApiHandler, initialize } from "../helpers";
 
 jest.mock("axios");
