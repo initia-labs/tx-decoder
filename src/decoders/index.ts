@@ -9,3 +9,4 @@ export * from "./send";
 export * from "./undelegate";
 export * from "./undelegate-locked";
 export * from "./withdraw-delegator-reward";
+export * from "./withdraw-delegator-reward-locked";

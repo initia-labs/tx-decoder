@@ -37,7 +37,7 @@ interface DecodedWithdrawDelegatorRewardMessage extends DecodedMessageBase {
   action: "withdraw_delegator_reward";
   data: {
     coins: Coin[];
-    from: string;
+    delegatorAddress: string;
     validator: Validator | null;
   };
 }

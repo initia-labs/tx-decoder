@@ -26,7 +26,7 @@ export const withdrawDelegatorRewardDecoder: MessageDecoder = {
       action: "withdraw_delegator_reward",
       data: {
         coins,
-        from: delegator_address,
+        delegatorAddress: delegator_address,
         validator,
       },
       isIbc: false,
