@@ -1,5 +1,4 @@
-import { mockMsgNftBurn } from "@/tests/fixtures/move/nft-burn.fixture";
-
+import { mockMsgNftBurn } from "../fixtures/move/nft-burn.fixture";
 import { initialize } from "../helpers";
 
 jest.mock("axios");

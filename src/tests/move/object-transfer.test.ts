@@ -1,5 +1,4 @@
-import { mockMsgObjectTransfer } from "@/tests/fixtures/move/object-transfer.fixture";
-
+import { mockMsgObjectTransfer } from "../fixtures/move/object-transfer.fixture";
 import { initialize } from "../helpers";
 
 jest.mock("axios");

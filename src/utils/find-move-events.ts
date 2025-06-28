@@ -2,11 +2,11 @@ import { z } from "zod";
 
 import { Event } from "@/schema";
 
-export const findMoveEvent = <T>(
+export const findMoveEvent = <S extends z.ZodType<unknown>>(
   events: Event[],
   typeTag: string,
-  schema: z.ZodType<T>
-): T | null => {
+  schema: S
+): z.infer<S> | null => {
   const event = events.find(
     (event) =>
       event.type === "move" &&
