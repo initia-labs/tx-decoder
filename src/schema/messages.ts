@@ -1,6 +1,9 @@
 import { z } from "zod";
 
-import { USERNAME_MODULE_ADDRESSES } from "@/constants";
+import {
+  LOCK_STAKING_MODULE_ADDRESS,
+  USERNAME_MODULE_ADDRESSES,
+} from "@/constants";
 
 import { SUPPORTED_MESSAGE_TYPES } from "../message-types";
 import { zCoin } from "./common";
@@ -86,25 +89,19 @@ export const zMsgMoveExecute = z.object({
 
 export const zMsgDelegateLocked = zMsgMoveExecute.extend({
   function_name: z.literal("delegate"),
-  module_address: z.literal(
-    "0x3a886b32a802582f2e446e74d4a24d1d7ed01adf46d2a8f65c5723887e708789"
-  ),
+  module_address: z.literal(LOCK_STAKING_MODULE_ADDRESS),
   module_name: z.literal("lock_staking"),
 });
 
 export const zMsgUndelegateLocked = zMsgMoveExecute.extend({
   function_name: z.literal("undelegate"),
-  module_address: z.literal(
-    "0x3a886b32a802582f2e446e74d4a24d1d7ed01adf46d2a8f65c5723887e708789"
-  ),
+  module_address: z.literal(LOCK_STAKING_MODULE_ADDRESS),
   module_name: z.literal("lock_staking"),
 });
 
 export const zMsgRedelegateLocked = zMsgMoveExecute.extend({
   function_name: z.literal("redelegate"),
-  module_address: z.literal(
-    "0x3a886b32a802582f2e446e74d4a24d1d7ed01adf46d2a8f65c5723887e708789"
-  ),
+  module_address: z.literal(LOCK_STAKING_MODULE_ADDRESS),
   module_name: z.literal("lock_staking"),
 });
 
