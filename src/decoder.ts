@@ -26,6 +26,7 @@ const messageDecoders: MessageDecoder[] = [
   Decoders.redelegateDecoder,
   Decoders.redelegateLockedDecoder,
   Decoders.withdrawDelegatorRewardDecoder,
+  Decoders.withdrawDelegatorRewardLockedDecoder,
   Decoders.dexSwapDecoder,
   Decoders.stableSwapDecoder,
   Decoders.nftMintDecoder,
