@@ -597,4 +597,48 @@ export const mockApiResponseMsgTransfer = {
         },
       ],
     },
+  "/initia/move/v1/accounts/0x873cbc9d221091c5711ca3341776caa29a9e8a51ed31bc6791c98e3298f6a10b/resources":
+    {
+      pagination: { next_key: null, total: "0" },
+      resources: [
+        {
+          address:
+            "0x873cbc9d221091c5711ca3341776caa29a9e8a51ed31bc6791c98e3298f6a10b",
+          move_resource:
+            '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0x966828677de67f46824ee20b09a59670cf7b40a2","version":"1"}}',
+          raw_bytes: "AAAAAAAAAAAAAAAAlmgoZ33mf0aCTuILCaWWcM97QKIAAQAAAAAAAAA=",
+          struct_tag: "0x1::object::ObjectCore",
+        },
+        {
+          address:
+            "0x873cbc9d221091c5711ca3341776caa29a9e8a51ed31bc6791c98e3298f6a10b",
+          move_resource:
+            '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"20137660564","frozen":false,"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}',
+          raw_bytes: "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdmUUEywBAAAAAA=",
+          struct_tag: "0x1::fungible_asset::FungibleStore",
+        },
+      ],
+    },
+  "/initia/move/v1/accounts/0xe2d99fcea59da8da2d4095cc11cb83e6ff80cf2e41522c678b8f152233d1b65e/resources":
+    {
+      pagination: { next_key: null, total: "0" },
+      resources: [
+        {
+          address:
+            "0xe2d99fcea59da8da2d4095cc11cb83e6ff80cf2e41522c678b8f152233d1b65e",
+          move_resource:
+            '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0xb395c9f2e84f75b1686fcdc62f8cb62a572b7820","version":"1"}}',
+          raw_bytes: "AAAAAAAAAAAAAAAAs5XJ8uhPdbFob83GL4y2KlcreCAAAQAAAAAAAAA=",
+          struct_tag: "0x1::object::ObjectCore",
+        },
+        {
+          address:
+            "0xe2d99fcea59da8da2d4095cc11cb83e6ff80cf2e41522c678b8f152233d1b65e",
+          move_resource:
+            '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"3312995","frozen":false,"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}',
+          raw_bytes: "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdljjTIAAAAAAAA=",
+          struct_tag: "0x1::fungible_asset::FungibleStore",
+        },
+      ],
+    },
 };
