@@ -100,6 +100,7 @@ describe("Delegate Message", () => {
           },
         ],
         delegatorAddress: "init1kw2unuhgfa6mz6r0ehrzlr9k9ftjk7pql8u5fm",
+        releaseTimestamp: "1753234484",
         validator: {
           description: {
             details:

@@ -71,6 +71,7 @@ describe("VIP Lock Stake Message", () => {
           },
         ],
         delegatorAddress: "init1tacytfqagzjv73v5ke2s4qj8l68c2w0q4v0q0n",
+        releaseTimestamp: "1780650846",
         validator: {
           description: {
             details:

@@ -50,6 +50,7 @@ export const vipLockStakeDecoder: MessageDecoder = {
       data: {
         coins: [vipLockStakeCoin],
         delegatorAddress: sender,
+        releaseTimestamp: depositDelegationEvent.release_time,
         validator,
         validatorAddress: depositDelegationEvent.validator,
       },
