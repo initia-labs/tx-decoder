@@ -116,3 +116,15 @@ export const zWithdrawEvent = zJsonString.pipe(
   })
 );
 export type WithdrawEvent = z.infer<typeof zWithdrawEvent>;
+
+export const zMsgIbcTransferSendPacketEvent = zJsonString.pipe(
+  z.object({
+    amount: z.string(),
+    denom: z.string(),
+    receiver: z.string(),
+    sender: z.string(),
+  })
+);
+export type IbcTransferSendPacketEvent = z.infer<
+  typeof zMsgIbcTransferSendPacketEvent
+>;
