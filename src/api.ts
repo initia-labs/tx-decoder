@@ -1,6 +1,4 @@
-import axios, { AxiosResponse } from "axios";
-import { promises as fs } from "fs";
-import path from "path";
+import axios from "axios";
 
 import { DecoderConfig } from "./interfaces";
 import {
@@ -86,28 +84,28 @@ export class ApiClient {
     }
   }
 
-  private async _debugApiCall(address: string, response: AxiosResponse) {
-    const key = `/initia/move/v1/accounts/${address}/resources`;
-    const filePath = path.join(__dirname, "tests/_output/resources.json");
+  // private async _debugApiCall(address: string, response: AxiosResponse) {
+  //   const key = `/initia/move/v1/accounts/${address}/resources`;
+  //   const filePath = path.join(__dirname, "tests/_output/resources.json");
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    let existingData: any = {};
-    try {
-      const fileContent = await fs.readFile(filePath, "utf-8");
-      existingData = JSON.parse(fileContent);
-    } catch {
-      // File does not exist or is invalid — start fresh
-      existingData = {};
-    }
+  //   // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  //   let existingData: any = {};
+  //   try {
+  //     const fileContent = await fs.readFile(filePath, "utf-8");
+  //     existingData = JSON.parse(fileContent);
+  //   } catch {
+  //     // File does not exist or is invalid — start fresh
+  //     existingData = {};
+  //   }
 
-    existingData[key] = response.data;
+  //   existingData[key] = response.data;
 
-    await fs.writeFile(
-      filePath,
-      JSON.stringify(existingData, null, 2),
-      "utf-8"
-    );
-  }
+  //   await fs.writeFile(
+  //     filePath,
+  //     JSON.stringify(existingData, null, 2),
+  //     "utf-8"
+  //   );
+  // }
 
   private async _getAccountResources(address: string) {
     try {
