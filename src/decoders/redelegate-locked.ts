@@ -4,9 +4,9 @@ import type { Log, Message } from "@/schema";
 import { ApiClient } from "@/api";
 import { LOCK_STAKING_MODULE_ADDRESS } from "@/constants";
 import {
-  zDelegateLockedEvent,
+  zDepositDelegationEvent,
   zMsgRedelegateLocked,
-  zUndelegateLockedEvent,
+  zWithdrawDelegationEvent,
 } from "@/schema";
 import { findMoveEvent } from "@/utils";
 
@@ -20,28 +20,28 @@ export const redelegateLockedDecoder: MessageDecoder = {
     }
     const { sender } = parsed.data;
 
-    const undelegateLockedEvent = findMoveEvent(
+    const withdrawDelegationEvent = findMoveEvent(
       log.events,
       `${LOCK_STAKING_MODULE_ADDRESS}::lock_staking::WithdrawDelegationEvent`,
-      zUndelegateLockedEvent
+      zWithdrawDelegationEvent
     );
-    if (!undelegateLockedEvent) {
+    if (!withdrawDelegationEvent) {
       throw new Error(
-        "Undelegate locked event not found in redelegate message"
+        "Withdraw delegation event not found in redelegate message"
       );
     }
 
     const delegateLockedEvent = findMoveEvent(
       log.events,
       `${LOCK_STAKING_MODULE_ADDRESS}::lock_staking::DepositDelegationEvent`,
-      zDelegateLockedEvent
+      zDepositDelegationEvent
     );
     if (!delegateLockedEvent) {
       throw new Error("Delegate locked event not found in redelegate message");
     }
 
     const denom = await apiClient.findDenomFromMetadataAddr(
-      undelegateLockedEvent.metadata
+      withdrawDelegationEvent.metadata
     );
 
     if (!denom) {
@@ -49,13 +49,13 @@ export const redelegateLockedDecoder: MessageDecoder = {
     }
 
     const redelegateLockedCoin = {
-      amount: undelegateLockedEvent.locked_share,
+      amount: withdrawDelegationEvent.locked_share,
       denom,
     };
 
     const [validatorDst, validatorSrc] = await Promise.all([
       apiClient.findValidator(delegateLockedEvent.validator),
-      apiClient.findValidator(undelegateLockedEvent.validator),
+      apiClient.findValidator(withdrawDelegationEvent.validator),
     ]);
 
     const decodedMessage: DecodedMessage = {
@@ -66,7 +66,7 @@ export const redelegateLockedDecoder: MessageDecoder = {
         validatorDst,
         validatorDstAddress: delegateLockedEvent.validator,
         validatorSrc,
-        validatorSrcAddress: undelegateLockedEvent.validator,
+        validatorSrcAddress: withdrawDelegationEvent.validator,
       },
       isIbc: false,
       isOp: false,
