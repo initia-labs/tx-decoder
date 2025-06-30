@@ -37,15 +37,15 @@ describe("IBC Receive NFT Message", () => {
         expect(receiveMessage).toEqual({
           action: "ibc_nft_receive",
           data: {
-            collection_id:
+            collectionId:
               "0x9af765d811209d39bd35ff1d75f5cf0cf46663cfd7a5455a948266db188d67f3",
-            collection_uri: "https://nft-rho-ten.vercel.app/thailand",
-            destination_channel: "channel-28",
-            destination_port: "nft-transfer",
+            collectionUri: "https://nft-rho-ten.vercel.app/thailand",
+            destinationChannel: "channel-28",
+            destinationPort: "nft-transfer",
             receiver: "init1t9k78msywte6jx4zrxkp94pa9u9laa9pqfpytk",
             sender: "init1t9k78msywte6jx4zrxkp94pa9u9laa9pqfpytk",
-            token_ids: ["1"],
-            token_uris: ["https://nft-rho-ten.vercel.app/thailand/1"],
+            tokenIds: ["1"],
+            tokenUris: ["https://nft-rho-ten.vercel.app/thailand/1"],
           },
           isIbc: true,
           isOp: false,
@@ -90,14 +90,14 @@ describe("IBC Receive NFT Message", () => {
 
       expect(message?.action).toBe("ibc_nft_receive");
       if (message && message.action === "ibc_nft_receive") {
-        expect(message.data.collection_id).toBe(
+        expect(message.data.collectionId).toBe(
           "0x9af765d811209d39bd35ff1d75f5cf0cf46663cfd7a5455a948266db188d67f3"
         );
-        expect(message.data.collection_uri).toBe(
+        expect(message.data.collectionUri).toBe(
           "https://nft-rho-ten.vercel.app/thailand"
         );
-        expect(message.data.token_ids).toEqual(["1"]);
-        expect(message.data.token_uris).toEqual([
+        expect(message.data.tokenIds).toEqual(["1"]);
+        expect(message.data.tokenUris).toEqual([
           "https://nft-rho-ten.vercel.app/thailand/1",
         ]);
       }
@@ -113,8 +113,8 @@ describe("IBC Receive NFT Message", () => {
 
       expect(message?.action).toBe("ibc_nft_receive");
       if (message && message.action === "ibc_nft_receive") {
-        expect(message.data.destination_port).toBe("nft-transfer");
-        expect(message.data.destination_channel).toBe("channel-28");
+        expect(message.data.destinationPort).toBe("nft-transfer");
+        expect(message.data.destinationChannel).toBe("channel-28");
       }
     });
 
@@ -156,15 +156,15 @@ describe("IBC Receive NFT Message", () => {
         expect(receiveMessage).toEqual({
           action: "ibc_nft_receive",
           data: {
-            collection_id:
+            collectionId:
               "0xfa4e6b1a87f3acefcf070ecee04eb1e0ce4c6c5c89b87fe026b99c6ac47b010c",
-            collection_uri: null,
-            destination_channel: "channel-67",
-            destination_port: "nft-transfer",
+            collectionUri: null,
+            destinationChannel: "channel-67",
+            destinationPort: "nft-transfer",
             receiver: "init18cd6ufdufm4crr4tjr23uwhn26qz6ndea57aya",
             sender: "init18cd6ufdufm4crr4tjr23uwhn26qz6ndea57aya",
-            token_ids: ["6089"],
-            token_uris: [
+            tokenIds: ["6089"],
+            tokenUris: [
               "ipfs://bafybeifye6qvvdw45he36lfoqolfxunwvk3k3vh4b2ahloubv7cnstt56i/6089",
             ],
           },
@@ -212,12 +212,12 @@ describe("IBC Receive NFT Message", () => {
 
       expect(message?.action).toBe("ibc_nft_receive");
       if (message && message.action === "ibc_nft_receive") {
-        expect(message.data.collection_id).toBe(
+        expect(message.data.collectionId).toBe(
           "0xfa4e6b1a87f3acefcf070ecee04eb1e0ce4c6c5c89b87fe026b99c6ac47b010c"
         );
-        expect(message.data.collection_uri).toBe(null);
-        expect(message.data.token_ids).toEqual(["6089"]);
-        expect(message.data.token_uris).toEqual([
+        expect(message.data.collectionUri).toBe(null);
+        expect(message.data.tokenIds).toEqual(["6089"]);
+        expect(message.data.tokenUris).toEqual([
           "ipfs://bafybeifye6qvvdw45he36lfoqolfxunwvk3k3vh4b2ahloubv7cnstt56i/6089",
         ]);
       }
@@ -233,8 +233,8 @@ describe("IBC Receive NFT Message", () => {
 
       expect(message?.action).toBe("ibc_nft_receive");
       if (message && message.action === "ibc_nft_receive") {
-        expect(message.data.destination_port).toBe("nft-transfer");
-        expect(message.data.destination_channel).toBe("channel-67");
+        expect(message.data.destinationPort).toBe("nft-transfer");
+        expect(message.data.destinationChannel).toBe("channel-67");
       }
     });
 
@@ -267,7 +267,7 @@ describe("IBC Receive NFT Message", () => {
 
       expect(message?.action).toBe("ibc_nft_receive");
       if (message && message.action === "ibc_nft_receive") {
-        expect(message.data.collection_uri).toBe(null);
+        expect(message.data.collectionUri).toBe(null);
       }
     });
   });

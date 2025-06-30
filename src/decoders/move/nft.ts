@@ -36,9 +36,9 @@ export const nftMintDecoder: MessageDecoder = {
     return {
       action: "nft_mint",
       data: {
-        collection_address: mintEvent.collection,
-        token_address: mintEvent.nft,
-        token_id: mintEvent.token_id,
+        collectionAddress: mintEvent.collection,
+        tokenAddress: mintEvent.nft,
+        tokenId: mintEvent.token_id,
       },
       isIbc: false,
       isOp: false,
@@ -107,9 +107,9 @@ export const nftBurnDecoder: MessageDecoder = {
     return {
       action: "nft_burn",
       data: {
-        collection_address: burnEvent.collection,
-        token_address: burnEvent.nft,
-        token_id: burnEvent.token_id,
+        collectionAddress: burnEvent.collection,
+        tokenAddress: burnEvent.nft,
+        tokenId: burnEvent.token_id,
       },
       isIbc: false,
       isOp: false,

@@ -113,10 +113,10 @@ interface DecodedNotSupportedMessage extends DecodedMessageBase {
 interface DecodedNftMintMessage extends DecodedMessageBase {
   action: "nft_mint";
   data: {
-    collection_address: string;
-    token_address: string;
-    token_id: string;
-    token_uri?: string;
+    collectionAddress: string;
+    tokenAddress: string;
+    tokenId: string;
+    tokenUri?: string;
   };
 }
 
@@ -132,36 +132,36 @@ interface DecodedObjectTransferMessage extends DecodedMessageBase {
 interface DecodedNftBurnMessage extends DecodedMessageBase {
   action: "nft_burn";
   data: {
-    collection_address: string;
-    token_address: string;
-    token_id: string;
+    collectionAddress: string;
+    tokenAddress: string;
+    tokenId: string;
   };
 }
 
 interface DecodedIbcNftSendMessage extends DecodedMessageBase {
   action: "ibc_nft_send";
   data: {
-    collection_id: string;
-    collection_uri: string | null;
+    collectionId: string;
+    collectionUri: string | null;
     receiver: string;
     sender: string;
-    source_channel: string;
-    source_port: string;
-    token_ids: string[];
-    token_uris: string[];
+    sourceChannel: string;
+    sourcePort: string;
+    tokenIds: string[];
+    tokenUris: string[];
   };
 }
 
 interface DecodedIbcNftReceiveMessage extends DecodedMessageBase {
   action: "ibc_nft_receive";
   data: {
-    collection_id: string;
-    collection_uri: string | null;
-    destination_channel: string;
-    destination_port: string;
+    collectionId: string;
+    collectionUri: string | null;
+    destinationChannel: string;
+    destinationPort: string;
     receiver: string;
     sender: string;
-    token_ids: string[];
-    token_uris: string[];
+    tokenIds: string[];
+    tokenUris: string[];
   };
 }
