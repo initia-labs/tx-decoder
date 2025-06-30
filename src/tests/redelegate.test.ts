@@ -46,6 +46,8 @@ describe("Redelegate Message", () => {
           operator_address:
             "initvaloper19uzc087w778p0l333w52ju0dgsajcj6ydep4rm",
         },
+        validatorDstAddress:
+          "initvaloper19uzc087w778p0l333w52ju0dgsajcj6ydep4rm",
         validatorSrc: {
           description: {
             details: "Provides secure validation services for dPoS networks",
@@ -57,6 +59,8 @@ describe("Redelegate Message", () => {
           operator_address:
             "initvaloper1cmlx2pqfgt2kpshe2fmc40epzvg699eqv3ax66",
         },
+        validatorSrcAddress:
+          "initvaloper1cmlx2pqfgt2kpshe2fmc40epzvg699eqv3ax66",
       },
       isIbc: false,
       isOp: false,
@@ -124,6 +128,8 @@ describe("Redelegate Message", () => {
           operator_address:
             "initvaloper13ze0ryc7vfj2n86sfxfugww4qygjf8mnxxy9uk",
         },
+        validatorDstAddress:
+          "initvaloper13ze0ryc7vfj2n86sfxfugww4qygjf8mnxxy9uk",
         validatorSrc: {
           description: {
             details:
@@ -136,6 +142,8 @@ describe("Redelegate Message", () => {
           operator_address:
             "initvaloper1qgje6dgazcruzsashpqektp2yaf47x2wyysjqx",
         },
+        validatorSrcAddress:
+          "initvaloper1qgje6dgazcruzsashpqektp2yaf47x2wyysjqx",
       },
       isIbc: false,
       isOp: false,

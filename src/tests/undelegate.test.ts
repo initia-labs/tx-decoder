@@ -48,6 +48,7 @@ describe("Undelegate Message", () => {
           operator_address:
             "initvaloper1r20z6zmlnqrea5p9cendrgeke35nxzfueqwaz6",
         },
+        validatorAddress: "initvaloper1r20z6zmlnqrea5p9cendrgeke35nxzfueqwaz6",
       },
       isIbc: false,
       isOp: false,
@@ -115,6 +116,7 @@ describe("Undelegate Message", () => {
           operator_address:
             "initvaloper1qgje6dgazcruzsashpqektp2yaf47x2wyysjqx",
         },
+        validatorAddress: "initvaloper1qgje6dgazcruzsashpqektp2yaf47x2wyysjqx",
       },
       isIbc: false,
       isOp: false,

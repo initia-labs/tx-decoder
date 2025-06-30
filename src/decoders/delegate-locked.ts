@@ -47,6 +47,7 @@ export const delegateLockedDecoder: MessageDecoder = {
         coins: [delegateLockedCoin],
         delegatorAddress: sender,
         validator,
+        validatorAddress: delegateLockedEvent.validator,
       },
       isIbc: false,
       isOp: false,

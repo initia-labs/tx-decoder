@@ -61,6 +61,8 @@ describe("Delegate Message", () => {
             operator_address:
               "initvaloper1cmlx2pqfgt2kpshe2fmc40epzvg699eqv3ax66",
           },
+          validatorAddress:
+            "initvaloper1cmlx2pqfgt2kpshe2fmc40epzvg699eqv3ax66",
         },
         isIbc: false,
         isOp: false,
@@ -110,6 +112,7 @@ describe("Delegate Message", () => {
           operator_address:
             "initvaloper1qx6ghyv83caecuxgl77lvlnha9d9y6fntryc8a",
         },
+        validatorAddress: "initvaloper1qx6ghyv83caecuxgl77lvlnha9d9y6fntryc8a",
       },
       isIbc: false,
       isOp: false,
