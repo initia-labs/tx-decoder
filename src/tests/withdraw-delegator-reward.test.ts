@@ -48,6 +48,7 @@ describe("Withdraw Delegator Reward Message", () => {
           operator_address:
             "initvaloper1gs7kwd5jm8ghnvx4z973aqcenfcej6ykpuydc4",
         },
+        validatorAddress: "initvaloper1gs7kwd5jm8ghnvx4z973aqcenfcej6ykpuydc4",
       },
       isIbc: false,
       isOp: false,
@@ -104,6 +105,7 @@ describe("Withdraw Delegator Reward Message", () => {
           operator_address:
             "initvaloper1qx6ghyv83caecuxgl77lvlnha9d9y6fntryc8a",
         },
+        validatorAddress: "initvaloper1qx6ghyv83caecuxgl77lvlnha9d9y6fntryc8a",
       },
       isIbc: false,
       isOp: false,

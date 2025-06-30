@@ -45,6 +45,7 @@ export const withdrawDelegatorRewardLockedDecoder: MessageDecoder = {
         coins,
         delegatorAddress: sender,
         validator,
+        validatorAddress,
       },
       isIbc: false,
       isOp: false,

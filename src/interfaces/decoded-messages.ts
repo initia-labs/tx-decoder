@@ -39,6 +39,7 @@ interface DecodedWithdrawDelegatorRewardMessage extends DecodedMessageBase {
     coins: Coin[];
     delegatorAddress: string;
     validator: Validator | null;
+    validatorAddress: string;
   };
 }
 
@@ -59,6 +60,7 @@ interface DecodedDelegateMessage extends DecodedMessageBase {
     coins: Coin[];
     delegatorAddress: string;
     validator: Validator | null;
+    validatorAddress: string;
   };
 }
 
@@ -68,6 +70,7 @@ interface DecodedUndelegateMessage extends DecodedMessageBase {
     coins: Coin[];
     delegatorAddress: string;
     validator: Validator | null;
+    validatorAddress: string;
   };
 }
 
@@ -77,7 +80,9 @@ interface DecodedRedelegateMessage extends DecodedMessageBase {
     coins: Coin[];
     delegatorAddress: string;
     validatorDst: Validator | null;
+    validatorDstAddress: string;
     validatorSrc: Validator | null;
+    validatorSrcAddress: string;
   };
 }
 
