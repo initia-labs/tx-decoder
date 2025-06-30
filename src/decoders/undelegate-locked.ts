@@ -3,7 +3,7 @@ import type { Log, Message } from "@/schema";
 
 import { ApiClient } from "@/api";
 import { LOCK_STAKING_MODULE_ADDRESS } from "@/constants";
-import { zMsgUndelegateLocked, zUndelegateLockedEvent } from "@/schema";
+import { zMsgUndelegateLocked, zWithdrawDelegationEvent } from "@/schema";
 import { findMoveEvent } from "@/utils";
 
 export const undelegateLockedDecoder: MessageDecoder = {
@@ -18,7 +18,7 @@ export const undelegateLockedDecoder: MessageDecoder = {
     const undelegateLockedEvent = findMoveEvent(
       log.events,
       `${LOCK_STAKING_MODULE_ADDRESS}::lock_staking::WithdrawDelegationEvent`,
-      zUndelegateLockedEvent
+      zWithdrawDelegationEvent
     );
     if (!undelegateLockedEvent) {
       throw new Error("Undelegate locked event not found");

@@ -77,7 +77,7 @@ export type MoveCreateCollectionEvent = z.infer<
   typeof zMsgMoveCreateCollectionEvent
 >;
 
-export const zDelegateLockedEvent = zJsonString.pipe(
+export const zDepositDelegationEvent = zJsonString.pipe(
   z.object({
     locked_share: z.string(),
     metadata: z.string(),
@@ -86,9 +86,9 @@ export const zDelegateLockedEvent = zJsonString.pipe(
     validator: z.string(),
   })
 );
-export type DelegateLockedEvent = z.infer<typeof zDelegateLockedEvent>;
+export type DelegateLockedEvent = z.infer<typeof zDepositDelegationEvent>;
 
-export const zUndelegateLockedEvent = zJsonString.pipe(
+export const zWithdrawDelegationEvent = zJsonString.pipe(
   z.object({
     locked_share: z.string(),
     metadata: z.string(),
@@ -97,7 +97,7 @@ export const zUndelegateLockedEvent = zJsonString.pipe(
     validator: z.string(),
   })
 );
-export type UndelegateLockedEvent = z.infer<typeof zUndelegateLockedEvent>;
+export type UndelegateLockedEvent = z.infer<typeof zWithdrawDelegationEvent>;
 
 export const zDepositEvent = zJsonString.pipe(
   z.object({
