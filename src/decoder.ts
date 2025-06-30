@@ -32,6 +32,7 @@ const messageDecoders: MessageDecoder[] = [
   Decoders.nftMintDecoder,
   Decoders.objectTransferDecoder,
   Decoders.nftBurnDecoder,
+  Decoders.ibcTransferDecoder,
   // Add more decoders here in order of priority
 ];
 

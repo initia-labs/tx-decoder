@@ -19,6 +19,7 @@ export const SUPPORTED_MESSAGE_TYPES = {
   MsgFinalizeTokenWithdrawal: "/opinit.ophost.v1.MsgFinalizeTokenWithdrawal",
 
   // ibc messages
+  MsgIbcTransfer: "/ibc.applications.transfer.v1.MsgTransfer",
   MsgIbcNftTransfer: "/ibc.applications.nft_transfer.v1.MsgTransfer",
   MsgIbcRecvPacket: "/ibc.core.channel.v1.MsgRecvPacket",
 } as const;

@@ -10,6 +10,7 @@ export type DecodedMessage =
   | DecodedFinalizeTokenWithdrawalMessage
   | DecodedIbcNftReceiveMessage
   | DecodedIbcNftSendMessage
+  | DecodedIbcTransferMessage
   | DecodedInitiateTokenDepositMessage
   | DecodedNftBurnMessage
   | DecodedNftMintMessage
@@ -30,6 +31,20 @@ interface DecodedSendMessage extends DecodedMessageBase {
     }[];
     from: string;
     to: string;
+  };
+}
+
+interface DecodedIbcTransferMessage extends DecodedMessageBase {
+  action: "ibc_transfer";
+  data: {
+    amount: string;
+    denom: string;
+    destinationChannel: string;
+    destinationPort: string;
+    receiver: string;
+    sender: string;
+    sourceChannel: string;
+    sourcePort: string;
   };
 }
 
