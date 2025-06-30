@@ -74,6 +74,7 @@ interface DecodedDelegateMessage extends DecodedMessageBase {
   data: {
     coins: Coin[];
     delegatorAddress: string;
+    releaseTimestamp?: string; // for lock stake only
     validator: Validator | null;
     validatorAddress: string;
   };
@@ -84,6 +85,7 @@ interface DecodedUndelegateMessage extends DecodedMessageBase {
   data: {
     coins: Coin[];
     delegatorAddress: string;
+    unlockTimestamp?: string; // for lock stake only
     validator: Validator | null;
     validatorAddress: string;
   };

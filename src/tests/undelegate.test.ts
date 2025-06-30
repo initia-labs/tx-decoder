@@ -104,6 +104,7 @@ describe("Undelegate Message", () => {
           },
         ],
         delegatorAddress: "init1xqrvfuga56m4alc7lz0rhnkwy5z8d5pefg8vz9",
+        unlockTimestamp: "1748095098",
         validator: {
           description: {
             details:
