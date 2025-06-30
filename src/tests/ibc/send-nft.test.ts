@@ -12,15 +12,15 @@ describe("IBC Send NFT Message", () => {
     expect(decoded.messages[0].decodedMessage).toEqual({
       action: "ibc_nft_send",
       data: {
-        collection_id:
+        collectionId:
           "0x4b224b3b82140614fbe0706b421d887f4532ea91d4ad0cf2b99a1251c06dfa9a",
-        collection_uri: "https://jennie.initia.xyz/data/collection.json",
+        collectionUri: "https://jennie.initia.xyz/data/collection.json",
         receiver: "init1ulw753hxh4mrc9ss7p2y7h8emjxxyw6uce0hk9",
         sender: "init1dw49mn7s2r5mskjdmus5hth80zz8wwaywycq06",
-        source_channel: "channel-28",
-        source_port: "nft-transfer",
-        token_ids: ["1"],
-        token_uris: ["https://jennie.initia.xyz/data/9_4.json"],
+        sourceChannel: "channel-28",
+        sourcePort: "nft-transfer",
+        tokenIds: ["1"],
+        tokenUris: ["https://jennie.initia.xyz/data/9_4.json"],
       },
       isIbc: true,
       isOp: false,
@@ -65,14 +65,14 @@ describe("IBC Send NFT Message", () => {
     // Type guard to ensure we have the correct message type
     expect(decodedMessage.action).toBe("ibc_nft_send");
     if (decodedMessage.action === "ibc_nft_send") {
-      expect(decodedMessage.data.collection_id).toBe(
+      expect(decodedMessage.data.collectionId).toBe(
         "0x4b224b3b82140614fbe0706b421d887f4532ea91d4ad0cf2b99a1251c06dfa9a"
       );
-      expect(decodedMessage.data.collection_uri).toBe(
+      expect(decodedMessage.data.collectionUri).toBe(
         "https://jennie.initia.xyz/data/collection.json"
       );
-      expect(decodedMessage.data.token_ids).toEqual(["1"]);
-      expect(decodedMessage.data.token_uris).toEqual([
+      expect(decodedMessage.data.tokenIds).toEqual(["1"]);
+      expect(decodedMessage.data.tokenUris).toEqual([
         "https://jennie.initia.xyz/data/9_4.json",
       ]);
     }
@@ -85,8 +85,8 @@ describe("IBC Send NFT Message", () => {
     // Type guard to ensure we have the correct message type
     expect(decodedMessage.action).toBe("ibc_nft_send");
     if (decodedMessage.action === "ibc_nft_send") {
-      expect(decodedMessage.data.source_port).toBe("nft-transfer");
-      expect(decodedMessage.data.source_channel).toBe("channel-28");
+      expect(decodedMessage.data.sourcePort).toBe("nft-transfer");
+      expect(decodedMessage.data.sourceChannel).toBe("channel-28");
     }
   });
 

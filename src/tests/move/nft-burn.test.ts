@@ -12,11 +12,11 @@ describe("NFT Burn Message", () => {
     expect(decoded.messages[0].decodedMessage).toEqual({
       action: "nft_burn",
       data: {
-        collection_address:
+        collectionAddress:
           "0x6490737f36898086529ecc342f6abe7846d12d40d7df2a4f392e6df9b57af0f4",
-        token_address:
+        tokenAddress:
           "0x3d879bacd0cb90899bacfa30385498cdd522b06a6e7b8352e9e62aaa1036f814",
-        token_id: "1",
+        tokenId: "1",
       },
       isIbc: false,
       isOp: false,
