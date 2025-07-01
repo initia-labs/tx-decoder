@@ -566,30 +566,6 @@ export const mockApiResponsesForFinalizeTokenWithdrawal = {
           },
         ],
       },
-    "initia/move/v1/accounts/0x44dca07a407c21bbbc1ce5ad9c54507b137bb772787b3c732f921cd79f0790e2/resources":
-      {
-        pagination: { next_key: null, total: "0" },
-        resources: [
-          {
-            address:
-              "0x44dca07a407c21bbbc1ce5ad9c54507b137bb772787b3c732f921cd79f0790e2",
-            move_resource:
-              '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0x19577a28b8cda4d7b236193bbb43c44e8478a820","version":"1"}}',
-            raw_bytes:
-              "AAAAAAAAAAAAAAAAGVd6KLjNpNeyNhk7u0PEToR4qCAAAQAAAAAAAAA=",
-            struct_tag: "0x1::object::ObjectCore",
-          },
-          {
-            address:
-              "0x44dca07a407c21bbbc1ce5ad9c54507b137bb772787b3c732f921cd79f0790e2",
-            move_resource:
-              '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"98515","frozen":false,"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}',
-            raw_bytes:
-              "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdnTgAEAAAAAAAA=",
-            struct_tag: "0x1::fungible_asset::FungibleStore",
-          },
-        ],
-      },
   },
   POST: {
     "/initia/move/v1/view/json": [
