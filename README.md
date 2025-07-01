@@ -88,8 +88,8 @@ Currently supported message types:
 - `/initia.mstaking.v1.MsgUndelegate`
 - `/initia.mstaking.v1.MsgBeginRedelegate`
 - `/initia.move.v1.MsgExecute` or `/initia.move.v1.MsgExecuteJSON`
-  - `0x1::dex::swap_script`
   - `0x1::stableswap::swap_script`
+  - `0x1::dex::swap_script`
   - `0x1::simple_nft::mint`
   - `<module_address>::usernames::register_domain`
 - `/opinit.ophost.v1.MsgInitiateTokenDeposit`
@@ -110,10 +110,8 @@ tx-decoder/
 │   ├── processors/               # Event processor
 │   ├── schema/                   # Zod schemas for validation
 │   ├── utils/                    # Utility functions
-│   ├── fixtures/                 # Mock data for tests
-│   │   ├── move/                 # Move-specific fixtures
-│   │   └── withdraw-delegator-reward.fixture.ts
 │   └── tests/                    # Unit tests
+│       ├── fixtures/             # Mock data for tests
 │       └── withdraw-delegator-reward.test.ts
 ├── package.json                  # Project metadata and dependencies
 ├── README.md                     # Project documentation
