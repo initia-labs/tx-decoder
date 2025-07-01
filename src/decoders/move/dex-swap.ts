@@ -19,18 +19,16 @@ export const dexSwapDecoder: MessageDecoder = {
       throw new Error("Dex Swap event not found");
     }
 
-    const denomIn = await apiClient.findDenomFromMetadataAddr(
-      swapEvent.offer_coin
-    );
+    const [denomIn, denomOut] = await Promise.all([
+      apiClient.findDenomFromMetadataAddr(swapEvent.offer_coin),
+      apiClient.findDenomFromMetadataAddr(swapEvent.return_coin),
+    ]);
+
     if (!denomIn) {
       throw new Error(
         `Denom in not found for offer coin ${swapEvent.offer_coin}`
       );
     }
-
-    const denomOut = await apiClient.findDenomFromMetadataAddr(
-      swapEvent.return_coin
-    );
 
     if (!denomOut) {
       throw new Error(
