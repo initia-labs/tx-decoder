@@ -32,7 +32,7 @@ export const vipLockStakeDecoder: MessageDecoder = {
 
     if (!denom) {
       throw new Error(
-        "Denom not found for deposit delegation event in VIP lock stake message"
+        `Denom not found for deposit delegation event in VIP lock stake message from metadata address: ${depositDelegationEvent.metadata}`
       );
     }
 

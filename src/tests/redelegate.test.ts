@@ -1,12 +1,12 @@
 import axios from "axios";
 
 import {
-  mockApiResponsesRedelegate,
-  mockApiResponsesRedelegateLocked,
+  mockApiResponsesForRedelegate,
+  mockApiResponsesForRedelegateLocked,
   mockMsgRedelegate,
   mockMsgRedelegateLocked,
 } from "./fixtures/redelegate.fixture";
-import { createMockApiHandler, initialize } from "./helpers";
+import { initialize, setupMockApi } from "./helpers";
 
 jest.mock("axios");
 const decoder = initialize();
@@ -14,9 +14,7 @@ const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 describe("Redelegate Message", () => {
   it("should decode a redelegate message correctly", async () => {
-    mockedAxios.get.mockImplementation(
-      createMockApiHandler(mockApiResponsesRedelegate)
-    );
+    setupMockApi(mockedAxios, mockApiResponsesForRedelegate);
 
     const { messages, totalBalanceChanges } = await decoder.decodeTransaction(
       mockMsgRedelegate
@@ -94,11 +92,7 @@ describe("Redelegate Message", () => {
   });
 
   it("should decode a redelegate locked message correctly", async () => {
-    const mockApiHandler = createMockApiHandler(
-      mockApiResponsesRedelegateLocked
-    );
-    mockedAxios.get.mockImplementation(mockApiHandler);
-
+    setupMockApi(mockedAxios, mockApiResponsesForRedelegateLocked);
     const { messages, totalBalanceChanges } = await decoder.decodeTransaction(
       mockMsgRedelegateLocked
     );
@@ -112,7 +106,8 @@ describe("Redelegate Message", () => {
         coins: [
           {
             amount: "1083469",
-            denom: "USDC-INIT",
+            denom:
+              "move/543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1",
           },
         ],
         delegatorAddress: "init1tacytfqagzjv73v5ke2s4qj8l68c2w0q4v0q0n",

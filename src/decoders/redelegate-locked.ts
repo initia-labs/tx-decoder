@@ -45,7 +45,9 @@ export const redelegateLockedDecoder: MessageDecoder = {
     );
 
     if (!denom) {
-      throw new Error("Denom not found for redelegate locked event");
+      throw new Error(
+        `Denom not found for redelegate locked event from metadata address: ${withdrawDelegationEvent.metadata}`
+      );
     }
 
     const redelegateLockedCoin = {

@@ -25,7 +25,7 @@ export const withdrawEventProcessor: BalanceEventProcessor = {
       }
       if (!denom) {
         throw new Error(
-          `Denom not found for metadata address: ${data.metadata_addr}`
+          `Denom not found for withdraw event from metadata address: ${data.metadata_addr}`
         );
       }
 

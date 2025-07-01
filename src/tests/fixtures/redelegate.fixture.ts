@@ -1100,359 +1100,247 @@ export const mockMsgRedelegateLocked = {
   txhash: "605F7D5A02600A5E8C5F829DBD1D4FEDAE714D39FA1DD269FCC8CBD57CDEDB56",
 };
 
-export const mockApiResponsesRedelegate = {
-  "/initia/move/v1/accounts/0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9/resources":
-    {
-      pagination: { next_key: null, total: "0" },
-      resources: [
-        {
-          address:
-            "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
-          move_resource:
-            '{"type":"0x1::coin::ManagingRefs","data":{"burn_ref":{"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}},"mint_ref":{"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}},"transfer_ref":{"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}}',
-          raw_bytes:
-            "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdmORzO9q899Svw9FPDdRsm/UvsPzp5LmWyTnhlbi8iR2Y5HM72rz31K/D0U8N1Gyb9S+w/OnkuZbJOeGVuLyJHZ",
-          struct_tag: "0x1::coin::ManagingRefs",
-        },
-        {
-          address:
-            "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
-          move_resource:
-            '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":true,"owner":"0x1","version":"1"}}',
-          raw_bytes: "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEBAQAAAAAAAAA=",
-          struct_tag: "0x1::object::ObjectCore",
-        },
-        {
-          address:
-            "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
-          move_resource:
-            '{"type":"0x1::managed_coin::Capabilities","data":{"burn_cap":{"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}},"freeze_cap":{"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}},"mint_cap":{"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}}',
-          raw_bytes:
-            "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdmORzO9q899Svw9FPDdRsm/UvsPzp5LmWyTnhlbi8iR2Y5HM72rz31K/D0U8N1Gyb9S+w/OnkuZbJOeGVuLyJHZ",
-          struct_tag: "0x1::managed_coin::Capabilities",
-        },
-        {
-          address:
-            "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
-          move_resource:
-            '{"type":"0x1::fungible_asset::Supply","data":{"current":"1000007461173507","maximum":null}}',
-          raw_bytes: "A/l+YYCNAwAAAAAAAAAAAAA=",
-          struct_tag: "0x1::fungible_asset::Supply",
-        },
-        {
-          address:
-            "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
-          move_resource:
-            '{"type":"0x1::fungible_asset::Metadata","data":{"decimals":0,"icon_uri":"","name":"uinit Coin","project_uri":"","symbol":"uinit"}}',
-          raw_bytes: "CnVpbml0IENvaW4FdWluaXQAAAA=",
-          struct_tag: "0x1::fungible_asset::Metadata",
-        },
-        {
-          address:
-            "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
-          move_resource:
-            '{"type":"0x1::primary_fungible_store::DeriveRefPod","data":{"metadata_derive_ref":{"self":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9","version":"1"}}}',
-          raw_bytes: "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdkBAAAAAAAAAA==",
-          struct_tag: "0x1::primary_fungible_store::DeriveRefPod",
-        },
-      ],
-    },
-  "/initia/move/v1/accounts/0xba2a23251eb06923fadb03ea9856c66510fefc4dfa9abe92cfb2961c9145cfb3/resources":
-    {
-      pagination: { next_key: null, total: "0" },
-      resources: [
-        {
-          address:
-            "0xba2a23251eb06923fadb03ea9856c66510fefc4dfa9abe92cfb2961c9145cfb3",
-          move_resource:
-            '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0x93354845030274cd4bf1686abd60ab28ec52e1a7","version":"1"}}',
-          raw_bytes: "AAAAAAAAAAAAAAAAkzVIRQMCdM1L8WhqvWCrKOxS4acAAQAAAAAAAAA=",
-          struct_tag: "0x1::object::ObjectCore",
-        },
-        {
-          address:
-            "0xba2a23251eb06923fadb03ea9856c66510fefc4dfa9abe92cfb2961c9145cfb3",
-          move_resource:
-            '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"1550326500987","frozen":false,"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}',
-          raw_bytes: "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdl7Dqn2aAEAAAA=",
-          struct_tag: "0x1::fungible_asset::FungibleStore",
-        },
-      ],
-    },
-  "/initia/move/v1/accounts/0xe2d99fcea59da8da2d4095cc11cb83e6ff80cf2e41522c678b8f152233d1b65e/resources":
-    {
-      pagination: { next_key: null, total: "0" },
-      resources: [
-        {
-          address:
-            "0xe2d99fcea59da8da2d4095cc11cb83e6ff80cf2e41522c678b8f152233d1b65e",
-          move_resource:
-            '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0xb395c9f2e84f75b1686fcdc62f8cb62a572b7820","version":"1"}}',
-          raw_bytes: "AAAAAAAAAAAAAAAAs5XJ8uhPdbFob83GL4y2KlcreCAAAQAAAAAAAAA=",
-          struct_tag: "0x1::object::ObjectCore",
-        },
-        {
-          address:
-            "0xe2d99fcea59da8da2d4095cc11cb83e6ff80cf2e41522c678b8f152233d1b65e",
-          move_resource:
-            '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"4727161","frozen":false,"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}',
-          raw_bytes: "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdl5IUgAAAAAAAA=",
-          struct_tag: "0x1::fungible_asset::FungibleStore",
-        },
-      ],
-    },
-  "/initia/mstaking/v1/validators/initvaloper1cmlx2pqfgt2kpshe2fmc40epzvg699eqv3ax66":
-    {
-      validator: {
-        description: {
-          details: "Provides secure validation services for dPoS networks",
-          identity: "8957C5091FBF4192",
-          moniker: "B-Harvest",
-          security_contact: "contact@bharvest.io",
-          website: "https://bharvest.io",
-        },
-        operator_address: "initvaloper1cmlx2pqfgt2kpshe2fmc40epzvg699eqv3ax66",
+export const mockApiResponsesForRedelegate = {
+  GET: {
+    "/initia/move/v1/accounts/0xba2a23251eb06923fadb03ea9856c66510fefc4dfa9abe92cfb2961c9145cfb3/resources":
+      {
+        pagination: { next_key: null, total: "0" },
+        resources: [
+          {
+            address:
+              "0xba2a23251eb06923fadb03ea9856c66510fefc4dfa9abe92cfb2961c9145cfb3",
+            move_resource:
+              '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0x93354845030274cd4bf1686abd60ab28ec52e1a7","version":"1"}}',
+            raw_bytes:
+              "AAAAAAAAAAAAAAAAkzVIRQMCdM1L8WhqvWCrKOxS4acAAQAAAAAAAAA=",
+            struct_tag: "0x1::object::ObjectCore",
+          },
+          {
+            address:
+              "0xba2a23251eb06923fadb03ea9856c66510fefc4dfa9abe92cfb2961c9145cfb3",
+            move_resource:
+              '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"1550326500987","frozen":false,"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}',
+            raw_bytes:
+              "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdl7Dqn2aAEAAAA=",
+            struct_tag: "0x1::fungible_asset::FungibleStore",
+          },
+        ],
       },
-    },
-  "/initia/mstaking/v1/validators/initvaloper19uzc087w778p0l333w52ju0dgsajcj6ydep4rm":
-    {
-      validator: {
-        description: {
-          details:
-            "Cosmostation is an institutional-grade cryptocurrency infrastructure provider, managing billions of dollars across 70 protocols. Since 2018, we have served more than 500k users globally, providing products that enable protocols to scale.",
-          identity: "AE4C403A6E7AA1AC",
-          moniker: "Cosmostation",
-          security_contact: "node@stamper.network",
-          website: "https://www.cosmostation.io",
-        },
-        operator_address: "initvaloper19uzc087w778p0l333w52ju0dgsajcj6ydep4rm",
+    "/initia/move/v1/accounts/0xe2d99fcea59da8da2d4095cc11cb83e6ff80cf2e41522c678b8f152233d1b65e/resources":
+      {
+        pagination: { next_key: null, total: "0" },
+        resources: [
+          {
+            address:
+              "0xe2d99fcea59da8da2d4095cc11cb83e6ff80cf2e41522c678b8f152233d1b65e",
+            move_resource:
+              '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0xb395c9f2e84f75b1686fcdc62f8cb62a572b7820","version":"1"}}',
+            raw_bytes:
+              "AAAAAAAAAAAAAAAAs5XJ8uhPdbFob83GL4y2KlcreCAAAQAAAAAAAAA=",
+            struct_tag: "0x1::object::ObjectCore",
+          },
+          {
+            address:
+              "0xe2d99fcea59da8da2d4095cc11cb83e6ff80cf2e41522c678b8f152233d1b65e",
+            move_resource:
+              '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"4727161","frozen":false,"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}',
+            raw_bytes:
+              "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdl5IUgAAAAAAAA=",
+            struct_tag: "0x1::fungible_asset::FungibleStore",
+          },
+        ],
       },
-    },
+    "/initia/mstaking/v1/validators/initvaloper1cmlx2pqfgt2kpshe2fmc40epzvg699eqv3ax66":
+      {
+        validator: {
+          description: {
+            details: "Provides secure validation services for dPoS networks",
+            identity: "8957C5091FBF4192",
+            moniker: "B-Harvest",
+            security_contact: "contact@bharvest.io",
+            website: "https://bharvest.io",
+          },
+          operator_address:
+            "initvaloper1cmlx2pqfgt2kpshe2fmc40epzvg699eqv3ax66",
+        },
+      },
+    "/initia/mstaking/v1/validators/initvaloper19uzc087w778p0l333w52ju0dgsajcj6ydep4rm":
+      {
+        validator: {
+          description: {
+            details:
+              "Cosmostation is an institutional-grade cryptocurrency infrastructure provider, managing billions of dollars across 70 protocols. Since 2018, we have served more than 500k users globally, providing products that enable protocols to scale.",
+            identity: "AE4C403A6E7AA1AC",
+            moniker: "Cosmostation",
+            security_contact: "node@stamper.network",
+            website: "https://www.cosmostation.io",
+          },
+          operator_address:
+            "initvaloper19uzc087w778p0l333w52ju0dgsajcj6ydep4rm",
+        },
+      },
+  },
+  POST: {
+    "/initia/move/v1/view/json": [
+      {
+        payload: {
+          address: "0x1",
+          args: [
+            '"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"',
+          ],
+          function_name: "metadata_to_denom",
+          module_name: "coin",
+          typeArgs: [],
+        },
+        response: {
+          data: '"uinit"',
+          events: [],
+          gas_used: "6507",
+        },
+      },
+    ],
+  },
 };
 
-export const mockApiResponsesRedelegateLocked = {
-  "/initia/move/v1/accounts/0x7a2bc535e8f0cb78ed3750ae917240ab6e7421c3c344a4effd67efc444a1b4bf/resources":
-    {
-      pagination: { next_key: null, total: "0" },
-      resources: [
-        {
-          address:
-            "0x7a2bc535e8f0cb78ed3750ae917240ab6e7421c3c344a4effd67efc444a1b4bf",
-          move_resource:
-            '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0xcb742b118741fdb2936bc7a3ade5c62a18c0bf6b0116a1a713614dcc665bbcec","version":"1"}}',
-          raw_bytes: "y3QrEYdB/bKTa8ejreXGKhjAv2sBFqGnE2FNzGZbvOwAAQAAAAAAAAA=",
-          struct_tag: "0x1::object::ObjectCore",
-        },
-        {
-          address:
-            "0x7a2bc535e8f0cb78ed3750ae917240ab6e7421c3c344a4effd67efc444a1b4bf",
-          move_resource:
-            '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"0","frozen":false,"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}',
-          raw_bytes: "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdkAAAAAAAAAAAA=",
-          struct_tag: "0x1::fungible_asset::FungibleStore",
-        },
-      ],
-    },
-  "/initia/move/v1/accounts/0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9/resources":
-    {
-      pagination: { next_key: null, total: "0" },
-      resources: [
-        {
-          address:
-            "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
-          move_resource:
-            '{"type":"0x1::coin::ManagingRefs","data":{"burn_ref":{"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}},"mint_ref":{"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}},"transfer_ref":{"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}}',
-          raw_bytes:
-            "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdmORzO9q899Svw9FPDdRsm/UvsPzp5LmWyTnhlbi8iR2Y5HM72rz31K/D0U8N1Gyb9S+w/OnkuZbJOeGVuLyJHZ",
-          struct_tag: "0x1::coin::ManagingRefs",
-        },
-        {
-          address:
-            "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
-          move_resource:
-            '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":true,"owner":"0x1","version":"1"}}',
-          raw_bytes: "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEBAQAAAAAAAAA=",
-          struct_tag: "0x1::object::ObjectCore",
-        },
-        {
-          address:
-            "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
-          move_resource:
-            '{"type":"0x1::managed_coin::Capabilities","data":{"burn_cap":{"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}},"freeze_cap":{"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}},"mint_cap":{"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}}',
-          raw_bytes:
-            "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdmORzO9q899Svw9FPDdRsm/UvsPzp5LmWyTnhlbi8iR2Y5HM72rz31K/D0U8N1Gyb9S+w/OnkuZbJOeGVuLyJHZ",
-          struct_tag: "0x1::managed_coin::Capabilities",
-        },
-        {
-          address:
-            "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
-          move_resource:
-            '{"type":"0x1::fungible_asset::Supply","data":{"current":"1000007461173507","maximum":null}}',
-          raw_bytes: "A/l+YYCNAwAAAAAAAAAAAAA=",
-          struct_tag: "0x1::fungible_asset::Supply",
-        },
-        {
-          address:
-            "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
-          move_resource:
-            '{"type":"0x1::fungible_asset::Metadata","data":{"decimals":0,"icon_uri":"","name":"uinit Coin","project_uri":"","symbol":"uinit"}}',
-          raw_bytes: "CnVpbml0IENvaW4FdWluaXQAAAA=",
-          struct_tag: "0x1::fungible_asset::Metadata",
-        },
-        {
-          address:
-            "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
-          move_resource:
-            '{"type":"0x1::primary_fungible_store::DeriveRefPod","data":{"metadata_derive_ref":{"self":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9","version":"1"}}}',
-          raw_bytes: "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdkBAAAAAAAAAA==",
-          struct_tag: "0x1::primary_fungible_store::DeriveRefPod",
-        },
-      ],
-    },
-  "/initia/move/v1/accounts/0x543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1/resources":
-    {
-      pagination: { next_key: null, total: "0" },
-      resources: [
-        {
-          address:
-            "0x543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1",
-          move_resource:
-            '{"type":"0x1::dex::Pool","data":{"coin_a_store":{"inner":"0x39e454a8b7b1b71b2c0c27bf4ce1fbe234652f2c40f1fc209b023beaa7ece013"},"coin_b_store":{"inner":"0xd8d20f9cd225d52f126bd3f973cbb83de3212b1b3dae547f13dd01f593d537b3"}}}',
-          raw_bytes:
-            "OeRUqLextxssDCe/TOH74jRlLyxA8fwgmwI76qfs4BPY0g+c0iXVLxJr0/lzy7g94yErGz2uVH8T3QH1k9U3sw==",
-          struct_tag: "0x1::dex::Pool",
-        },
-        {
-          address:
-            "0x543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1",
-          move_resource:
-            '{"type":"0x1::dex::Config","data":{"extend_ref":{"self":"0x543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1","version":"1"},"swap_fee_rate":"0.003","weights":{"weights_after":{"coin_a_weight":"0.2","coin_b_weight":"0.8","timestamp":"1745215174"},"weights_before":{"coin_a_weight":"0.2","coin_b_weight":"0.8","timestamp":"1745215174"}}}}',
-          raw_bytes:
-            "VDs1o5z62tPaPCMknEdEVdFe/S+U+ElHMibe6KPHqeEBAAAAAAAAAAgAABS78IrGAggAAFDswisaC8beBWgAAAAACAAAFLvwisYCCAAAUOzCKxoLxt4FaAAAAAAHAIBT7nuoCg==",
-          struct_tag: "0x1::dex::Config",
-        },
-        {
-          address:
-            "0x543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1",
-          move_resource:
-            '{"type":"0x1::dex::CoinCapabilities","data":{"burn_cap":{"metadata":{"inner":"0x543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1"}},"freeze_cap":{"metadata":{"inner":"0x543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1"}},"mint_cap":{"metadata":{"inner":"0x543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1"}}}}',
-          raw_bytes:
-            "VDs1o5z62tPaPCMknEdEVdFe/S+U+ElHMibe6KPHqeFUOzWjnPra09o8IyScR0RV0V79L5T4SUcyJt7oo8ep4VQ7NaOc+trT2jwjJJxHRFXRXv0vlPhJRzIm3uijx6nh",
-          struct_tag: "0x1::dex::CoinCapabilities",
-        },
-        {
-          address:
-            "0x543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1",
-          move_resource:
-            '{"type":"0x1::coin::ManagingRefs","data":{"burn_ref":{"metadata":{"inner":"0x543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1"}},"mint_ref":{"metadata":{"inner":"0x543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1"}},"transfer_ref":{"metadata":{"inner":"0x543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1"}}}}',
-          raw_bytes:
-            "VDs1o5z62tPaPCMknEdEVdFe/S+U+ElHMibe6KPHqeFUOzWjnPra09o8IyScR0RV0V79L5T4SUcyJt7oo8ep4VQ7NaOc+trT2jwjJJxHRFXRXv0vlPhJRzIm3uijx6nh",
-          struct_tag: "0x1::coin::ManagingRefs",
-        },
-        {
-          address:
-            "0x543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1",
-          move_resource:
-            '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":true,"owner":"0x1","version":"1"}}',
-          raw_bytes: "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEBAQAAAAAAAAA=",
-          struct_tag: "0x1::object::ObjectCore",
-        },
-        {
-          address:
-            "0x543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1",
-          move_resource:
-            '{"type":"0x1::fungible_asset::Supply","data":{"current":"24350981124957","maximum":null}}',
-          raw_bytes: "XXOUpyUWAAAAAAAAAAAAAAA=",
-          struct_tag: "0x1::fungible_asset::Supply",
-        },
-        {
-          address:
-            "0x543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1",
-          move_resource:
-            '{"type":"0x1::fungible_asset::Metadata","data":{"decimals":6,"icon_uri":"","name":"USDC-INIT","project_uri":"","symbol":"USDC-INIT"}}',
-          raw_bytes: "CVVTREMtSU5JVAlVU0RDLUlOSVQGAAA=",
-          struct_tag: "0x1::fungible_asset::Metadata",
-        },
-        {
-          address:
-            "0x543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1",
-          move_resource:
-            '{"type":"0x1::primary_fungible_store::DeriveRefPod","data":{"metadata_derive_ref":{"self":"0x543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1","version":"1"}}}',
-          raw_bytes: "VDs1o5z62tPaPCMknEdEVdFe/S+U+ElHMibe6KPHqeEBAAAAAAAAAA==",
-          struct_tag: "0x1::primary_fungible_store::DeriveRefPod",
-        },
-      ],
-    },
-  "/initia/move/v1/accounts/0x809aca4677fca3593d43e5e7b6070cdc9a8f49392e77cb0eaae721a92ab98b64/resources":
-    {
-      pagination: { next_key: null, total: "0" },
-      resources: [
-        {
-          address:
-            "0x809aca4677fca3593d43e5e7b6070cdc9a8f49392e77cb0eaae721a92ab98b64",
-          move_resource:
-            '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0x5f7045a41d40a4cf4594b6550a8247fe8f8539e0","version":"1"}}',
-          raw_bytes: "AAAAAAAAAAAAAAAAX3BFpB1ApM9FlLZVCoJH/o+FOeAAAQAAAAAAAAA=",
-          struct_tag: "0x1::object::ObjectCore",
-        },
-        {
-          address:
-            "0x809aca4677fca3593d43e5e7b6070cdc9a8f49392e77cb0eaae721a92ab98b64",
-          move_resource:
-            '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"14251818","frozen":false,"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}',
-          raw_bytes: "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdkqd9kAAAAAAAA=",
-          struct_tag: "0x1::fungible_asset::FungibleStore",
-        },
-      ],
-    },
-  "/initia/move/v1/accounts/0xba2a23251eb06923fadb03ea9856c66510fefc4dfa9abe92cfb2961c9145cfb3/resources":
-    {
-      pagination: { next_key: null, total: "0" },
-      resources: [
-        {
-          address:
-            "0xba2a23251eb06923fadb03ea9856c66510fefc4dfa9abe92cfb2961c9145cfb3",
-          move_resource:
-            '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0x93354845030274cd4bf1686abd60ab28ec52e1a7","version":"1"}}',
-          raw_bytes: "AAAAAAAAAAAAAAAAkzVIRQMCdM1L8WhqvWCrKOxS4acAAQAAAAAAAAA=",
-          struct_tag: "0x1::object::ObjectCore",
-        },
-        {
-          address:
-            "0xba2a23251eb06923fadb03ea9856c66510fefc4dfa9abe92cfb2961c9145cfb3",
-          move_resource:
-            '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"1550326500987","frozen":false,"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}',
-          raw_bytes: "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdl7Dqn2aAEAAAA=",
-          struct_tag: "0x1::fungible_asset::FungibleStore",
-        },
-      ],
-    },
-  "/initia/mstaking/v1/validators/initvaloper1qgje6dgazcruzsashpqektp2yaf47x2wyysjqx":
-    {
-      validator: {
-        description: {
-          details:
-            "Delphi Consulting delivers expert crypto consulting across technology assessment, token advisory, asset intelligence, education, and design services.",
-          identity: "2F47665C54DB2742",
-          moniker: "Delphi Consulting",
-          security_contact: "ops@delphiconsulting.io",
-          website: "https://delphidigital.io/consulting",
-        },
-        operator_address: "initvaloper1qgje6dgazcruzsashpqektp2yaf47x2wyysjqx",
+export const mockApiResponsesForRedelegateLocked = {
+  GET: {
+    "/initia/move/v1/accounts/0x7a2bc535e8f0cb78ed3750ae917240ab6e7421c3c344a4effd67efc444a1b4bf/resources":
+      {
+        pagination: { next_key: null, total: "0" },
+        resources: [
+          {
+            address:
+              "0x7a2bc535e8f0cb78ed3750ae917240ab6e7421c3c344a4effd67efc444a1b4bf",
+            move_resource:
+              '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0xcb742b118741fdb2936bc7a3ade5c62a18c0bf6b0116a1a713614dcc665bbcec","version":"1"}}',
+            raw_bytes:
+              "y3QrEYdB/bKTa8ejreXGKhjAv2sBFqGnE2FNzGZbvOwAAQAAAAAAAAA=",
+            struct_tag: "0x1::object::ObjectCore",
+          },
+          {
+            address:
+              "0x7a2bc535e8f0cb78ed3750ae917240ab6e7421c3c344a4effd67efc444a1b4bf",
+            move_resource:
+              '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"0","frozen":false,"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}',
+            raw_bytes:
+              "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdkAAAAAAAAAAAA=",
+            struct_tag: "0x1::fungible_asset::FungibleStore",
+          },
+        ],
       },
-    },
-  "/initia/mstaking/v1/validators/initvaloper13ze0ryc7vfj2n86sfxfugww4qygjf8mnxxy9uk":
-    {
-      validator: {
-        description: {
-          details:
-            "Four Pillars is a global blockchain research firm dedicated to providing insights and guidance for builders in the Web3 space. We track emerging blockchain trends, spotlight innovative crypto projects, and partner with companies that share our vision.",
-          identity: "40FCEFE83A8394E3",
-          moniker: "Four Pillars",
-          security_contact: "",
-          website: "https://4pillars.io",
-        },
-        operator_address: "initvaloper13ze0ryc7vfj2n86sfxfugww4qygjf8mnxxy9uk",
+    "/initia/move/v1/accounts/0x809aca4677fca3593d43e5e7b6070cdc9a8f49392e77cb0eaae721a92ab98b64/resources":
+      {
+        pagination: { next_key: null, total: "0" },
+        resources: [
+          {
+            address:
+              "0x809aca4677fca3593d43e5e7b6070cdc9a8f49392e77cb0eaae721a92ab98b64",
+            move_resource:
+              '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0x5f7045a41d40a4cf4594b6550a8247fe8f8539e0","version":"1"}}',
+            raw_bytes:
+              "AAAAAAAAAAAAAAAAX3BFpB1ApM9FlLZVCoJH/o+FOeAAAQAAAAAAAAA=",
+            struct_tag: "0x1::object::ObjectCore",
+          },
+          {
+            address:
+              "0x809aca4677fca3593d43e5e7b6070cdc9a8f49392e77cb0eaae721a92ab98b64",
+            move_resource:
+              '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"14251818","frozen":false,"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}',
+            raw_bytes:
+              "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdkqd9kAAAAAAAA=",
+            struct_tag: "0x1::fungible_asset::FungibleStore",
+          },
+        ],
       },
-    },
+    "/initia/move/v1/accounts/0xba2a23251eb06923fadb03ea9856c66510fefc4dfa9abe92cfb2961c9145cfb3/resources":
+      {
+        pagination: { next_key: null, total: "0" },
+        resources: [
+          {
+            address:
+              "0xba2a23251eb06923fadb03ea9856c66510fefc4dfa9abe92cfb2961c9145cfb3",
+            move_resource:
+              '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0x93354845030274cd4bf1686abd60ab28ec52e1a7","version":"1"}}',
+            raw_bytes:
+              "AAAAAAAAAAAAAAAAkzVIRQMCdM1L8WhqvWCrKOxS4acAAQAAAAAAAAA=",
+            struct_tag: "0x1::object::ObjectCore",
+          },
+          {
+            address:
+              "0xba2a23251eb06923fadb03ea9856c66510fefc4dfa9abe92cfb2961c9145cfb3",
+            move_resource:
+              '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"1550326500987","frozen":false,"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}',
+            raw_bytes:
+              "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdl7Dqn2aAEAAAA=",
+            struct_tag: "0x1::fungible_asset::FungibleStore",
+          },
+        ],
+      },
+    "/initia/mstaking/v1/validators/initvaloper1qgje6dgazcruzsashpqektp2yaf47x2wyysjqx":
+      {
+        validator: {
+          description: {
+            details:
+              "Delphi Consulting delivers expert crypto consulting across technology assessment, token advisory, asset intelligence, education, and design services.",
+            identity: "2F47665C54DB2742",
+            moniker: "Delphi Consulting",
+            security_contact: "ops@delphiconsulting.io",
+            website: "https://delphidigital.io/consulting",
+          },
+          operator_address:
+            "initvaloper1qgje6dgazcruzsashpqektp2yaf47x2wyysjqx",
+        },
+      },
+    "/initia/mstaking/v1/validators/initvaloper13ze0ryc7vfj2n86sfxfugww4qygjf8mnxxy9uk":
+      {
+        validator: {
+          description: {
+            details:
+              "Four Pillars is a global blockchain research firm dedicated to providing insights and guidance for builders in the Web3 space. We track emerging blockchain trends, spotlight innovative crypto projects, and partner with companies that share our vision.",
+            identity: "40FCEFE83A8394E3",
+            moniker: "Four Pillars",
+            security_contact: "",
+            website: "https://4pillars.io",
+          },
+          operator_address:
+            "initvaloper13ze0ryc7vfj2n86sfxfugww4qygjf8mnxxy9uk",
+        },
+      },
+  },
+  POST: {
+    "/initia/move/v1/view/json": [
+      {
+        payload: {
+          address: "0x1",
+          args: [
+            '"0x543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1"',
+          ],
+          function_name: "metadata_to_denom",
+          module_name: "coin",
+          typeArgs: [],
+        },
+        response: {
+          data: '"move/543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1"',
+          events: [],
+          gas_used: "6507",
+        },
+      },
+      {
+        payload: {
+          address: "0x1",
+          args: [
+            '"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"',
+          ],
+          function_name: "metadata_to_denom",
+          module_name: "coin",
+          typeArgs: [],
+        },
+        response: {
+          data: '"uinit"',
+          events: [],
+          gas_used: "6507",
+        },
+      },
+    ],
+  },
 };

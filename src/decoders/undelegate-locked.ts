@@ -29,7 +29,9 @@ export const undelegateLockedDecoder: MessageDecoder = {
     );
 
     if (!denom) {
-      throw new Error("Denom not found in undelegate locked event");
+      throw new Error(
+        `Denom not found in undelegate locked event from metadata address: ${undelegateLockedEvent.metadata}`
+      );
     }
 
     const undelegateLockedCoin = {
