@@ -324,53 +324,57 @@ export const mockMsgNftMint = {
   txhash: "C6047C38A5B9FD443DDCB2713574EECCF71E035712F1CF6735232967EE219935",
 };
 
-export const mockApiResponsesNftMint = {
-  "/initia/move/v1/accounts/0xeafbe62f2441e2ecce99db4cfbab294f7542d78ce2d82ca28de13da0a9d41b86/resources":
-    {
-      pagination: { next_key: null, total: "0" },
-      resources: [
-        {
-          address:
-            "0xeafbe62f2441e2ecce99db4cfbab294f7542d78ce2d82ca28de13da0a9d41b86",
-          move_resource:
-            '{"type":"0x1::nft::Nft","data":{"collection":{"inner":"0x597cd3f37f21f59c771731a31e92ac1214f72b4f8a86541a94b50f0308f4e20"},"description":"Chongqing Xiaomian - Authentic spicy noodles from the mountain city, featuring numbing Sichuan peppercorns and bold chili oil","token_id":"1","uri":"https://nft-rho-ten.vercel.app/favoritefood/1"}}',
-          raw_bytes:
-            "BZfNPzfyH1nHcXMaMekqwSFPcrT4qGVBqUtQ8DCPTiB9Q2hvbmdxaW5nIFhpYW9taWFuIC0gQXV0aGVudGljIHNwaWN5IG5vb2RsZXMgZnJvbSB0aGUgbW91bnRhaW4gY2l0eSwgZmVhdHVyaW5nIG51bWJpbmcgU2ljaHVhbiBwZXBwZXJjb3JucyBhbmQgYm9sZCBjaGlsaSBvaWwBMS1odHRwczovL25mdC1yaG8tdGVuLnZlcmNlbC5hcHAvZmF2b3JpdGVmb29kLzE=",
-          struct_tag: "0x1::nft::Nft",
-        },
-        {
-          address:
-            "0xeafbe62f2441e2ecce99db4cfbab294f7542d78ce2d82ca28de13da0a9d41b86",
-          move_resource:
-            '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":true,"owner":"0xe7ddea46e6bd763c1610f0544f5cf9dc8c623b5c","version":"1"}}',
-          raw_bytes: "AAAAAAAAAAAAAAAA593qRua9djwWEPBUT1z53IxiO1wBAQAAAAAAAAA=",
-          struct_tag: "0x1::object::ObjectCore",
-        },
-        {
-          address:
-            "0xeafbe62f2441e2ecce99db4cfbab294f7542d78ce2d82ca28de13da0a9d41b86",
-          move_resource:
-            '{"type":"0x1::initia_nft::InitiaNft","data":{"burn_ref":{"delete_ref":{"self":"0xeafbe62f2441e2ecce99db4cfbab294f7542d78ce2d82ca28de13da0a9d41b86","version":"1"}},"mutator_ref":{"self":"0xeafbe62f2441e2ecce99db4cfbab294f7542d78ce2d82ca28de13da0a9d41b86"}}}',
-          raw_bytes:
-            "Aer75i8kQeLszpnbTPurKU91QteM4tgsoo3hPaCp1BuGAQAAAAAAAAAB6vvmLyRB4uzOmdtM+6spT3VC14zi2CyijeE9oKnUG4Y=",
-          struct_tag: "0x1::initia_nft::InitiaNft",
-        },
-        {
-          address:
-            "0xeafbe62f2441e2ecce99db4cfbab294f7542d78ce2d82ca28de13da0a9d41b86",
-          move_resource:
-            '{"type":"0x1::simple_nft::SimpleNft","data":{"property_mutator_ref":{"self":"0xeafbe62f2441e2ecce99db4cfbab294f7542d78ce2d82ca28de13da0a9d41b86"}}}',
-          raw_bytes: "6vvmLyRB4uzOmdtM+6spT3VC14zi2CyijeE9oKnUG4Y=",
-          struct_tag: "0x1::simple_nft::SimpleNft",
-        },
-        {
-          address:
-            "0xeafbe62f2441e2ecce99db4cfbab294f7542d78ce2d82ca28de13da0a9d41b86",
-          move_resource:
-            '{"type":"0x1::property_map::PropertyMap","data":{"inner":{"data":[]}}}',
-          raw_bytes: "AA==",
-          struct_tag: "0x1::property_map::PropertyMap",
-        },
-      ],
-    },
+export const mockApiResponsesForNftMint = {
+  GET: {
+    "/initia/move/v1/accounts/0xeafbe62f2441e2ecce99db4cfbab294f7542d78ce2d82ca28de13da0a9d41b86/resources":
+      {
+        pagination: { next_key: null, total: "0" },
+        resources: [
+          {
+            address:
+              "0xeafbe62f2441e2ecce99db4cfbab294f7542d78ce2d82ca28de13da0a9d41b86",
+            move_resource:
+              '{"type":"0x1::nft::Nft","data":{"collection":{"inner":"0x597cd3f37f21f59c771731a31e92ac1214f72b4f8a86541a94b50f0308f4e20"},"description":"Chongqing Xiaomian - Authentic spicy noodles from the mountain city, featuring numbing Sichuan peppercorns and bold chili oil","token_id":"1","uri":"https://nft-rho-ten.vercel.app/favoritefood/1"}}',
+            raw_bytes:
+              "BZfNPzfyH1nHcXMaMekqwSFPcrT4qGVBqUtQ8DCPTiB9Q2hvbmdxaW5nIFhpYW9taWFuIC0gQXV0aGVudGljIHNwaWN5IG5vb2RsZXMgZnJvbSB0aGUgbW91bnRhaW4gY2l0eSwgZmVhdHVyaW5nIG51bWJpbmcgU2ljaHVhbiBwZXBwZXJjb3JucyBhbmQgYm9sZCBjaGlsaSBvaWwBMS1odHRwczovL25mdC1yaG8tdGVuLnZlcmNlbC5hcHAvZmF2b3JpdGVmb29kLzE=",
+            struct_tag: "0x1::nft::Nft",
+          },
+          {
+            address:
+              "0xeafbe62f2441e2ecce99db4cfbab294f7542d78ce2d82ca28de13da0a9d41b86",
+            move_resource:
+              '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":true,"owner":"0xe7ddea46e6bd763c1610f0544f5cf9dc8c623b5c","version":"1"}}',
+            raw_bytes:
+              "AAAAAAAAAAAAAAAA593qRua9djwWEPBUT1z53IxiO1wBAQAAAAAAAAA=",
+            struct_tag: "0x1::object::ObjectCore",
+          },
+          {
+            address:
+              "0xeafbe62f2441e2ecce99db4cfbab294f7542d78ce2d82ca28de13da0a9d41b86",
+            move_resource:
+              '{"type":"0x1::initia_nft::InitiaNft","data":{"burn_ref":{"delete_ref":{"self":"0xeafbe62f2441e2ecce99db4cfbab294f7542d78ce2d82ca28de13da0a9d41b86","version":"1"}},"mutator_ref":{"self":"0xeafbe62f2441e2ecce99db4cfbab294f7542d78ce2d82ca28de13da0a9d41b86"}}}',
+            raw_bytes:
+              "Aer75i8kQeLszpnbTPurKU91QteM4tgsoo3hPaCp1BuGAQAAAAAAAAAB6vvmLyRB4uzOmdtM+6spT3VC14zi2CyijeE9oKnUG4Y=",
+            struct_tag: "0x1::initia_nft::InitiaNft",
+          },
+          {
+            address:
+              "0xeafbe62f2441e2ecce99db4cfbab294f7542d78ce2d82ca28de13da0a9d41b86",
+            move_resource:
+              '{"type":"0x1::simple_nft::SimpleNft","data":{"property_mutator_ref":{"self":"0xeafbe62f2441e2ecce99db4cfbab294f7542d78ce2d82ca28de13da0a9d41b86"}}}',
+            raw_bytes: "6vvmLyRB4uzOmdtM+6spT3VC14zi2CyijeE9oKnUG4Y=",
+            struct_tag: "0x1::simple_nft::SimpleNft",
+          },
+          {
+            address:
+              "0xeafbe62f2441e2ecce99db4cfbab294f7542d78ce2d82ca28de13da0a9d41b86",
+            move_resource:
+              '{"type":"0x1::property_map::PropertyMap","data":{"inner":{"data":[]}}}',
+            raw_bytes: "AA==",
+            struct_tag: "0x1::property_map::PropertyMap",
+          },
+        ],
+      },
+  },
+  POST: {},
 };

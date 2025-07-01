@@ -1,22 +1,22 @@
-import axios from "axios";
-
 import {
-  mockApiResponsesIbcReceiveNft,
+  mockApiResponsesForIbcReceiveNft,
   mockMsgIbcReceiveNftRemoteToken,
   mockMsgIbcReceiveNftSourceToken,
 } from "../fixtures/ibc/receive-nft.fixture";
-import { createMockApiHandler, initialize } from "../helpers";
+import {
+  initialize,
+  mockedAxios,
+  resetMockApi,
+  setupMockApi,
+} from "../helpers";
 
 jest.mock("axios");
 
 const decoder = initialize();
-const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 describe("IBC Receive NFT Message", () => {
-  beforeAll(() => {
-    mockedAxios.get.mockImplementation(
-      createMockApiHandler(mockApiResponsesIbcReceiveNft)
-    );
+  beforeEach(() => {
+    resetMockApi(mockedAxios);
   });
 
   describe("Source Token Receive", () => {
@@ -140,6 +140,7 @@ describe("IBC Receive NFT Message", () => {
 
   describe("Remote Token Receive", () => {
     it("should decode an IBC NFT receive message for remote token correctly", async () => {
+      setupMockApi(mockedAxios, mockApiResponsesForIbcReceiveNft);
       const decoded = await decoder.decodeTransaction(
         mockMsgIbcReceiveNftRemoteToken
       );

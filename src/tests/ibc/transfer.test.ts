@@ -1,19 +1,24 @@
-import axios from "axios";
-
 import {
-  mockApiResponseMsgTransfer,
+  mockApiResponsesForMsgTransfer,
   mockMsgTransfer,
 } from "../fixtures/ibc/transfer.fixture";
-import { createMockApiHandler, initialize } from "../helpers";
+import {
+  initialize,
+  mockedAxios,
+  resetMockApi,
+  setupMockApi,
+} from "../helpers";
 
 jest.mock("axios");
 const decoder = initialize();
-const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 describe("IBC Transfer Decoder", () => {
+  beforeEach(() => {
+    resetMockApi(mockedAxios);
+  });
+
   it("should decode IBC transfer message", async () => {
-    const mockApiHandler = createMockApiHandler(mockApiResponseMsgTransfer);
-    mockedAxios.get.mockImplementation(mockApiHandler);
+    setupMockApi(mockedAxios, mockApiResponsesForMsgTransfer);
 
     const decoded = await decoder.decodeTransaction(mockMsgTransfer);
 

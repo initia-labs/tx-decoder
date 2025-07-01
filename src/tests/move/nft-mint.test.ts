@@ -1,24 +1,25 @@
-import axios from "axios";
-
 import {
-  mockApiResponsesNftMint,
+  mockApiResponsesForNftMint,
   mockMsgNftMint,
 } from "../fixtures/move/nft-mint.fixture";
-import { createMockApiHandler, initialize } from "../helpers";
+import {
+  initialize,
+  mockedAxios,
+  resetMockApi,
+  setupMockApi,
+} from "../helpers";
 
 jest.mock("axios");
+
 const decoder = initialize();
-const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 describe("NFT Mint Message", () => {
   beforeEach(() => {
-    mockedAxios.get.mockReset();
+    resetMockApi(mockedAxios);
   });
 
   it("should decode an NFT mint message correctly", async () => {
-    mockedAxios.get.mockImplementation(
-      createMockApiHandler(mockApiResponsesNftMint)
-    );
+    setupMockApi(mockedAxios, mockApiResponsesForNftMint);
 
     const decoded = await decoder.decodeTransaction(mockMsgNftMint);
 

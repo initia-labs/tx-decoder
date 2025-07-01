@@ -1561,36 +1561,41 @@ export const mockMsgIbcReceiveNftRemoteToken = {
   txhash: "718AFCF8FC3A9940295F8A2CC3FBB035A03D128CC190764946A539D0AE3DDFC1",
 };
 
-export const mockApiResponsesIbcReceiveNft = {
-  "/initia/move/v1/accounts/0x5eab800f87ca40210f6905ac31341352575a44246302c5b27f438e978071bf73/resources":
-    {
-      pagination: { next_key: null, total: "0" },
-      resources: [
-        {
-          address:
-            "0x5eab800f87ca40210f6905ac31341352575a44246302c5b27f438e978071bf73",
-          move_resource:
-            '{"type":"0x1::nft::Nft","data":{"collection":{"inner":"0xfa4e6b1a87f3acefcf070ecee04eb1e0ce4c6c5c89b87fe026b99c6ac47b010c"},"description":"","token_id":"6089","uri":"ipfs://bafybeifye6qvvdw45he36lfoqolfxunwvk3k3vh4b2ahloubv7cnstt56i/6089"}}',
-          raw_bytes:
-            "+k5rGofzrO/PBw7O4E6x4M5MbFyJuH/gJrmcasR7AQwABDYwODlHaXBmczovL2JhZnliZWlmeWU2cXZ2ZHc0NWhlMzZsZm9xb2xmeHVud3ZrM2szdmg0YjJhaGxvdWJ2N2Nuc3R0NTZpLzYwODk=",
-          struct_tag: "0x1::nft::Nft",
-        },
-        {
-          address:
-            "0x5eab800f87ca40210f6905ac31341352575a44246302c5b27f438e978071bf73",
-          move_resource:
-            '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":true,"owner":"0x3e1bae25bc4eeb818eab90d51e3af356802d4db9","version":"1"}}',
-          raw_bytes: "AAAAAAAAAAAAAAAAPhuuJbxO64GOq5DVHjrzVoAtTbkBAQAAAAAAAAA=",
-          struct_tag: "0x1::object::ObjectCore",
-        },
-        {
-          address:
-            "0x5eab800f87ca40210f6905ac31341352575a44246302c5b27f438e978071bf73",
-          move_resource:
-            '{"type":"0x1::initia_nft::InitiaNft","data":{"burn_ref":{"delete_ref":{"self":"0x5eab800f87ca40210f6905ac31341352575a44246302c5b27f438e978071bf73","version":"1"}},"mutator_ref":null}}',
-          raw_bytes: "AV6rgA+HykAhD2kFrDE0E1JXWkQkYwLFsn9DjpeAcb9zAQAAAAAAAAAA",
-          struct_tag: "0x1::initia_nft::InitiaNft",
-        },
-      ],
-    },
+export const mockApiResponsesForIbcReceiveNft = {
+  GET: {
+    "/initia/move/v1/accounts/0x5eab800f87ca40210f6905ac31341352575a44246302c5b27f438e978071bf73/resources":
+      {
+        pagination: { next_key: null, total: "0" },
+        resources: [
+          {
+            address:
+              "0x5eab800f87ca40210f6905ac31341352575a44246302c5b27f438e978071bf73",
+            move_resource:
+              '{"type":"0x1::nft::Nft","data":{"collection":{"inner":"0xfa4e6b1a87f3acefcf070ecee04eb1e0ce4c6c5c89b87fe026b99c6ac47b010c"},"description":"","token_id":"6089","uri":"ipfs://bafybeifye6qvvdw45he36lfoqolfxunwvk3k3vh4b2ahloubv7cnstt56i/6089"}}',
+            raw_bytes:
+              "+k5rGofzrO/PBw7O4E6x4M5MbFyJuH/gJrmcasR7AQwABDYwODlHaXBmczovL2JhZnliZWlmeWU2cXZ2ZHc0NWhlMzZsZm9xb2xmeHVud3ZrM2szdmg0YjJhaGxvdWJ2N2Nuc3R0NTZpLzYwODk=",
+            struct_tag: "0x1::nft::Nft",
+          },
+          {
+            address:
+              "0x5eab800f87ca40210f6905ac31341352575a44246302c5b27f438e978071bf73",
+            move_resource:
+              '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":true,"owner":"0x3e1bae25bc4eeb818eab90d51e3af356802d4db9","version":"1"}}',
+            raw_bytes:
+              "AAAAAAAAAAAAAAAAPhuuJbxO64GOq5DVHjrzVoAtTbkBAQAAAAAAAAA=",
+            struct_tag: "0x1::object::ObjectCore",
+          },
+          {
+            address:
+              "0x5eab800f87ca40210f6905ac31341352575a44246302c5b27f438e978071bf73",
+            move_resource:
+              '{"type":"0x1::initia_nft::InitiaNft","data":{"burn_ref":{"delete_ref":{"self":"0x5eab800f87ca40210f6905ac31341352575a44246302c5b27f438e978071bf73","version":"1"}},"mutator_ref":null}}',
+            raw_bytes:
+              "AV6rgA+HykAhD2kFrDE0E1JXWkQkYwLFsn9DjpeAcb9zAQAAAAAAAAAA",
+            struct_tag: "0x1::initia_nft::InitiaNft",
+          },
+        ],
+      },
+  },
+  POST: {},
 };
