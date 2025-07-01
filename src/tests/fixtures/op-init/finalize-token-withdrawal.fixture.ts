@@ -458,127 +458,153 @@ export const mockMsgFinalizeTokenWithdrawal = {
   txhash: "69C3617C88920F5C85D77004EEB83CE382654FA0D32B9091818DE6D8B5B42016",
 };
 
-export const mockApiResponsesFinalizeTokenWithdrawal = {
-  "/initia/move/v1/accounts/0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9/resources":
-    {
-      pagination: { next_key: null, total: "0" },
-      resources: [
-        {
-          address:
-            "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
-          move_resource:
-            '{"type":"0x1::coin::ManagingRefs","data":{"burn_ref":{"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}},"mint_ref":{"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}},"transfer_ref":{"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}}',
-          raw_bytes:
-            "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdmORzO9q899Svw9FPDdRsm/UvsPzp5LmWyTnhlbi8iR2Y5HM72rz31K/D0U8N1Gyb9S+w/OnkuZbJOeGVuLyJHZ",
-          struct_tag: "0x1::coin::ManagingRefs",
+export const mockApiResponsesForFinalizeTokenWithdrawal = {
+  GET: {
+    "/initia/move/v1/accounts/0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9/resources":
+      {
+        pagination: { next_key: null, total: "0" },
+        resources: [
+          {
+            address:
+              "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
+            move_resource:
+              '{"type":"0x1::coin::ManagingRefs","data":{"burn_ref":{"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}},"mint_ref":{"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}},"transfer_ref":{"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}}',
+            raw_bytes:
+              "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdmORzO9q899Svw9FPDdRsm/UvsPzp5LmWyTnhlbi8iR2Y5HM72rz31K/D0U8N1Gyb9S+w/OnkuZbJOeGVuLyJHZ",
+            struct_tag: "0x1::coin::ManagingRefs",
+          },
+          {
+            address:
+              "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
+            move_resource:
+              '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":true,"owner":"0x1","version":"1"}}',
+            raw_bytes:
+              "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEBAQAAAAAAAAA=",
+            struct_tag: "0x1::object::ObjectCore",
+          },
+          {
+            address:
+              "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
+            move_resource:
+              '{"type":"0x1::managed_coin::Capabilities","data":{"burn_cap":{"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}},"freeze_cap":{"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}},"mint_cap":{"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}}',
+            raw_bytes:
+              "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdmORzO9q899Svw9FPDdRsm/UvsPzp5LmWyTnhlbi8iR2Y5HM72rz31K/D0U8N1Gyb9S+w/OnkuZbJOeGVuLyJHZ",
+            struct_tag: "0x1::managed_coin::Capabilities",
+          },
+          {
+            address:
+              "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
+            move_resource:
+              '{"type":"0x1::fungible_asset::Supply","data":{"current":"1000007461173507","maximum":null}}',
+            raw_bytes: "A/l+YYCNAwAAAAAAAAAAAAA=",
+            struct_tag: "0x1::fungible_asset::Supply",
+          },
+          {
+            address:
+              "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
+            move_resource:
+              '{"type":"0x1::fungible_asset::Metadata","data":{"decimals":0,"icon_uri":"","name":"uinit Coin","project_uri":"","symbol":"uinit"}}',
+            raw_bytes: "CnVpbml0IENvaW4FdWluaXQAAAA=",
+            struct_tag: "0x1::fungible_asset::Metadata",
+          },
+          {
+            address:
+              "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
+            move_resource:
+              '{"type":"0x1::primary_fungible_store::DeriveRefPod","data":{"metadata_derive_ref":{"self":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9","version":"1"}}}',
+            raw_bytes:
+              "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdkBAAAAAAAAAA==",
+            struct_tag: "0x1::primary_fungible_store::DeriveRefPod",
+          },
+        ],
+      },
+    "/initia/move/v1/accounts/0x44dca07a407c21bbbc1ce5ad9c54507b137bb772787b3c732f921cd79f0790e2/resources":
+      {
+        pagination: { next_key: null, total: "0" },
+        resources: [
+          {
+            address:
+              "0x44dca07a407c21bbbc1ce5ad9c54507b137bb772787b3c732f921cd79f0790e2",
+            move_resource:
+              '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0x19577a28b8cda4d7b236193bbb43c44e8478a820","version":"1"}}',
+            raw_bytes:
+              "AAAAAAAAAAAAAAAAGVd6KLjNpNeyNhk7u0PEToR4qCAAAQAAAAAAAAA=",
+            struct_tag: "0x1::object::ObjectCore",
+          },
+          {
+            address:
+              "0x44dca07a407c21bbbc1ce5ad9c54507b137bb772787b3c732f921cd79f0790e2",
+            move_resource:
+              '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"98515","frozen":false,"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}',
+            raw_bytes:
+              "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdnTgAEAAAAAAAA=",
+            struct_tag: "0x1::fungible_asset::FungibleStore",
+          },
+        ],
+      },
+    "/initia/move/v1/accounts/0xad531c65fc7ef214089dd4a9e4d5375186833221bf150dc101f90af9c61b78b3/resources":
+      {
+        pagination: { next_key: null, total: "0" },
+        resources: [
+          {
+            address:
+              "0xad531c65fc7ef214089dd4a9e4d5375186833221bf150dc101f90af9c61b78b3",
+            move_resource:
+              '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0xc628a1449fc2e148d66e49593b51274f6be1bcd9cd9ddf8d830a2d5d578d8c75","version":"1"}}',
+            raw_bytes:
+              "xiihRJ/C4UjWbklZO1EnT2vhvNnNnd+NgwotXVeNjHUAAQAAAAAAAAA=",
+            struct_tag: "0x1::object::ObjectCore",
+          },
+          {
+            address:
+              "0xad531c65fc7ef214089dd4a9e4d5375186833221bf150dc101f90af9c61b78b3",
+            move_resource:
+              '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"559710275862","frozen":false,"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}',
+            raw_bytes:
+              "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdkWCVVRggAAAAA=",
+            struct_tag: "0x1::fungible_asset::FungibleStore",
+          },
+        ],
+      },
+    "initia/move/v1/accounts/0x44dca07a407c21bbbc1ce5ad9c54507b137bb772787b3c732f921cd79f0790e2/resources":
+      {
+        pagination: { next_key: null, total: "0" },
+        resources: [
+          {
+            address:
+              "0x44dca07a407c21bbbc1ce5ad9c54507b137bb772787b3c732f921cd79f0790e2",
+            move_resource:
+              '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0x19577a28b8cda4d7b236193bbb43c44e8478a820","version":"1"}}',
+            raw_bytes:
+              "AAAAAAAAAAAAAAAAGVd6KLjNpNeyNhk7u0PEToR4qCAAAQAAAAAAAAA=",
+            struct_tag: "0x1::object::ObjectCore",
+          },
+          {
+            address:
+              "0x44dca07a407c21bbbc1ce5ad9c54507b137bb772787b3c732f921cd79f0790e2",
+            move_resource:
+              '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"98515","frozen":false,"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}',
+            raw_bytes:
+              "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdnTgAEAAAAAAAA=",
+            struct_tag: "0x1::fungible_asset::FungibleStore",
+          },
+        ],
+      },
+  },
+  POST: {
+    "/initia/move/v1/view/json": [
+      {
+        payload: {
+          address: "0x1",
+          args: [
+            '"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"',
+          ],
+          function_name: "metadata_to_denom",
+          module_name: "coin",
+          typeArgs: [],
         },
-        {
-          address:
-            "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
-          move_resource:
-            '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":true,"owner":"0x1","version":"1"}}',
-          raw_bytes: "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEBAQAAAAAAAAA=",
-          struct_tag: "0x1::object::ObjectCore",
-        },
-        {
-          address:
-            "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
-          move_resource:
-            '{"type":"0x1::managed_coin::Capabilities","data":{"burn_cap":{"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}},"freeze_cap":{"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}},"mint_cap":{"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}}',
-          raw_bytes:
-            "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdmORzO9q899Svw9FPDdRsm/UvsPzp5LmWyTnhlbi8iR2Y5HM72rz31K/D0U8N1Gyb9S+w/OnkuZbJOeGVuLyJHZ",
-          struct_tag: "0x1::managed_coin::Capabilities",
-        },
-        {
-          address:
-            "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
-          move_resource:
-            '{"type":"0x1::fungible_asset::Supply","data":{"current":"1000007461173507","maximum":null}}',
-          raw_bytes: "A/l+YYCNAwAAAAAAAAAAAAA=",
-          struct_tag: "0x1::fungible_asset::Supply",
-        },
-        {
-          address:
-            "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
-          move_resource:
-            '{"type":"0x1::fungible_asset::Metadata","data":{"decimals":0,"icon_uri":"","name":"uinit Coin","project_uri":"","symbol":"uinit"}}',
-          raw_bytes: "CnVpbml0IENvaW4FdWluaXQAAAA=",
-          struct_tag: "0x1::fungible_asset::Metadata",
-        },
-        {
-          address:
-            "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
-          move_resource:
-            '{"type":"0x1::primary_fungible_store::DeriveRefPod","data":{"metadata_derive_ref":{"self":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9","version":"1"}}}',
-          raw_bytes: "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdkBAAAAAAAAAA==",
-          struct_tag: "0x1::primary_fungible_store::DeriveRefPod",
-        },
-      ],
-    },
-  "/initia/move/v1/accounts/0x44dca07a407c21bbbc1ce5ad9c54507b137bb772787b3c732f921cd79f0790e2/resources":
-    {
-      pagination: { next_key: null, total: "0" },
-      resources: [
-        {
-          address:
-            "0x44dca07a407c21bbbc1ce5ad9c54507b137bb772787b3c732f921cd79f0790e2",
-          move_resource:
-            '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0x19577a28b8cda4d7b236193bbb43c44e8478a820","version":"1"}}',
-          raw_bytes: "AAAAAAAAAAAAAAAAGVd6KLjNpNeyNhk7u0PEToR4qCAAAQAAAAAAAAA=",
-          struct_tag: "0x1::object::ObjectCore",
-        },
-        {
-          address:
-            "0x44dca07a407c21bbbc1ce5ad9c54507b137bb772787b3c732f921cd79f0790e2",
-          move_resource:
-            '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"98515","frozen":false,"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}',
-          raw_bytes: "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdnTgAEAAAAAAAA=",
-          struct_tag: "0x1::fungible_asset::FungibleStore",
-        },
-      ],
-    },
-  "/initia/move/v1/accounts/0xad531c65fc7ef214089dd4a9e4d5375186833221bf150dc101f90af9c61b78b3/resources":
-    {
-      pagination: { next_key: null, total: "0" },
-      resources: [
-        {
-          address:
-            "0xad531c65fc7ef214089dd4a9e4d5375186833221bf150dc101f90af9c61b78b3",
-          move_resource:
-            '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0xc628a1449fc2e148d66e49593b51274f6be1bcd9cd9ddf8d830a2d5d578d8c75","version":"1"}}',
-          raw_bytes: "xiihRJ/C4UjWbklZO1EnT2vhvNnNnd+NgwotXVeNjHUAAQAAAAAAAAA=",
-          struct_tag: "0x1::object::ObjectCore",
-        },
-        {
-          address:
-            "0xad531c65fc7ef214089dd4a9e4d5375186833221bf150dc101f90af9c61b78b3",
-          move_resource:
-            '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"559710275862","frozen":false,"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}',
-          raw_bytes: "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdkWCVVRggAAAAA=",
-          struct_tag: "0x1::fungible_asset::FungibleStore",
-        },
-      ],
-    },
-  "initia/move/v1/accounts/0x44dca07a407c21bbbc1ce5ad9c54507b137bb772787b3c732f921cd79f0790e2/resources":
-    {
-      pagination: { next_key: null, total: "0" },
-      resources: [
-        {
-          address:
-            "0x44dca07a407c21bbbc1ce5ad9c54507b137bb772787b3c732f921cd79f0790e2",
-          move_resource:
-            '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0x19577a28b8cda4d7b236193bbb43c44e8478a820","version":"1"}}',
-          raw_bytes: "AAAAAAAAAAAAAAAAGVd6KLjNpNeyNhk7u0PEToR4qCAAAQAAAAAAAAA=",
-          struct_tag: "0x1::object::ObjectCore",
-        },
-        {
-          address:
-            "0x44dca07a407c21bbbc1ce5ad9c54507b137bb772787b3c732f921cd79f0790e2",
-          move_resource:
-            '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"98515","frozen":false,"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}',
-          raw_bytes: "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdnTgAEAAAAAAAA=",
-          struct_tag: "0x1::fungible_asset::FungibleStore",
-        },
-      ],
-    },
+        response: { data: '"uinit"', events: [], gas_used: "6507" },
+      },
+    ],
+  },
 };

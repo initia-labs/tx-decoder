@@ -1,27 +1,29 @@
-import axios from "axios";
-
 import {
-  mockApiResponsesFinalizeTokenWithdrawal,
+  mockApiResponsesForFinalizeTokenWithdrawal,
   mockMsgFinalizeTokenWithdrawal,
 } from "../fixtures/op-init/finalize-token-withdrawal.fixture";
-import { createMockApiHandler, initialize } from "../helpers";
+import {
+  initialize,
+  mockedAxios,
+  resetMockApi,
+  setupMockApi,
+} from "../helpers";
 
 jest.mock("axios");
 
 const decoder = initialize();
-const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 describe("Finalize Token Withdrawal Message", () => {
   beforeEach(() => {
-    mockedAxios.get.mockReset();
+    resetMockApi(mockedAxios);
   });
 
   it("should decode a finalize token withdrawal message correctly", async () => {
-    mockedAxios.get.mockImplementation(
-      createMockApiHandler(mockApiResponsesFinalizeTokenWithdrawal)
-    );
+    setupMockApi(mockedAxios, mockApiResponsesForFinalizeTokenWithdrawal);
 
-    const decoded = await decoder.decodeTransaction(mockMsgFinalizeTokenWithdrawal);
+    const decoded = await decoder.decodeTransaction(
+      mockMsgFinalizeTokenWithdrawal
+    );
 
     expect(decoded.messages).toHaveLength(1);
     expect(decoded.messages[0].decodedMessage).toEqual({
