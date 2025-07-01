@@ -89,9 +89,9 @@ Currently supported message types:
 - `/initia.mstaking.v1.MsgBeginRedelegate`
 - `/initia.move.v1.MsgExecute` or `/initia.move.v1.MsgExecuteJSON`
   - `0x1::dex::swap_script`
+  - `0x1::stableswap::swap_script`
   - `0x1::simple_nft::mint`
   - `<module_address>::usernames::register_domain`
-  - `0x1::stableswap::swap_script`
 - `/opinit.ophost.v1.MsgInitiateTokenDeposit`
 - `/opinit.ophost.v1.MsgFinalizeTokenWithdrawal`
 - `/ibc.applications.nft_transfer.v1.MsgTransfer`
