@@ -1,28 +1,22 @@
-import axios from "axios";
-
 import {
-  mockApiResponsesWithdrawDelegatorReward,
-  mockApiResponsesWithdrawDelegatorRewardLocked,
+  mockApiResponsesForWithdrawDelegatorReward,
+  mockApiResponsesForWithdrawDelegatorRewardLocked,
   mockMsgWithdrawDelegatorReward,
   mockMsgWithdrawDelegatorRewardLocked,
 } from "./fixtures/withdraw-delegator-reward.fixture";
-import { createMockApiHandler, initialize } from "./helpers";
+import { initialize, mockedAxios, resetMockApi, setupMockApi } from "./helpers";
 
 jest.mock("axios");
 
 const decoder = initialize();
-const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 describe("Withdraw Delegator Reward Message", () => {
   beforeEach(() => {
-    mockedAxios.get.mockReset();
+    resetMockApi(mockedAxios);
   });
 
   it("should decode a withdraw delegator reward message correctly", async () => {
-    const mockApiHandler = createMockApiHandler(
-      mockApiResponsesWithdrawDelegatorReward
-    );
-    mockedAxios.get.mockImplementation(mockApiHandler);
+    setupMockApi(mockedAxios, mockApiResponsesForWithdrawDelegatorReward);
 
     const { messages, totalBalanceChanges } = await decoder.decodeTransaction(
       mockMsgWithdrawDelegatorReward
@@ -76,10 +70,7 @@ describe("Withdraw Delegator Reward Message", () => {
   });
 
   it("should decode a withdraw delegator reward locked message correctly", async () => {
-    const mockApiHandler = createMockApiHandler(
-      mockApiResponsesWithdrawDelegatorRewardLocked
-    );
-    mockedAxios.get.mockImplementation(mockApiHandler);
+    setupMockApi(mockedAxios, mockApiResponsesForWithdrawDelegatorRewardLocked);
 
     const { messages, totalBalanceChanges } = await decoder.decodeTransaction(
       mockMsgWithdrawDelegatorRewardLocked

@@ -4,12 +4,16 @@ import {
   mockMsgUndelegate,
   mockMsgUndelegateLocked,
 } from "./fixtures/undelegate.fixture";
-import { initialize, mockedAxios, setupMockApi } from "./helpers";
+import { initialize, mockedAxios, resetMockApi, setupMockApi } from "./helpers";
 
 jest.mock("axios");
 const decoder = initialize();
 
 describe("Undelegate Message", () => {
+  beforeEach(() => {
+    resetMockApi(mockedAxios);
+  });
+
   it("should decode an undelegate message correctly", async () => {
     setupMockApi(mockedAxios, mockApiResponseForUndelegate);
 

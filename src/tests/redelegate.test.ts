@@ -1,18 +1,19 @@
-import axios from "axios";
-
 import {
   mockApiResponsesForRedelegate,
   mockApiResponsesForRedelegateLocked,
   mockMsgRedelegate,
   mockMsgRedelegateLocked,
 } from "./fixtures/redelegate.fixture";
-import { initialize, setupMockApi } from "./helpers";
+import { initialize, mockedAxios, resetMockApi, setupMockApi } from "./helpers";
 
 jest.mock("axios");
 const decoder = initialize();
-const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 describe("Redelegate Message", () => {
+  beforeEach(() => {
+    resetMockApi(mockedAxios);
+  });
+
   it("should decode a redelegate message correctly", async () => {
     setupMockApi(mockedAxios, mockApiResponsesForRedelegate);
 
