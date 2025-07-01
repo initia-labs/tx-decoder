@@ -1,25 +1,20 @@
-import axios from "axios";
-
 import {
-  mockApiResponsesVipLockStake,
+  mockApiResponsesForVipLockStake,
   mockMsgVipLockStake,
 } from "./fixtures/vip-lock-stake.fixture";
-import { createMockApiHandler, initialize } from "./helpers";
+import { initialize, mockedAxios, resetMockApi, setupMockApi } from "./helpers";
 
 jest.mock("axios");
 
 const decoder = initialize();
-const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 describe("VIP Lock Stake Message", () => {
   beforeEach(() => {
-    mockedAxios.get.mockReset();
+    resetMockApi(mockedAxios);
   });
 
   it("should decode a VIP lock stake message correctly", async () => {
-    mockedAxios.get.mockImplementation(
-      createMockApiHandler(mockApiResponsesVipLockStake)
-    );
+    setupMockApi(mockedAxios, mockApiResponsesForVipLockStake);
 
     const { messages, totalBalanceChanges } = await decoder.decodeTransaction(
       mockMsgVipLockStake
@@ -38,13 +33,16 @@ describe("VIP Lock Stake Message", () => {
       isIbc: false,
       isOp: false,
     });
+
     expect(messages[1].balanceChanges).toEqual({
       ft: {
         init1ed6zkyv8g87m9ymtc736mewx9gvvp0mtqyt2rfcnv9xucejmhnkqe22kyd: {
-          "USDC-INIT": "0",
+          "move/543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1":
+            "0",
         },
         init1fl48vsnmsdzcv85q5d2q4z5ajdha8yu3mdfuj4: {
-          "USDC-INIT": "1083469",
+          "move/543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1":
+            "1083469",
         },
         init1tacytfqagzjv73v5ke2s4qj8l68c2w0q4v0q0n: {
           "ibc/6490A7EAB61059BFC1CDDEB05917DD70BDF3A611654162A1A47DB930D40D8AF4":
@@ -67,7 +65,8 @@ describe("VIP Lock Stake Message", () => {
         coins: [
           {
             amount: "1083469",
-            denom: "USDC-INIT",
+            denom:
+              "move/543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1",
           },
         ],
         delegatorAddress: "init1tacytfqagzjv73v5ke2s4qj8l68c2w0q4v0q0n",
@@ -93,10 +92,12 @@ describe("VIP Lock Stake Message", () => {
     expect(totalBalanceChanges).toEqual({
       ft: {
         init1ed6zkyv8g87m9ymtc736mewx9gvvp0mtqyt2rfcnv9xucejmhnkqe22kyd: {
-          "USDC-INIT": "0",
+          "move/543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1":
+            "0",
         },
         init1fl48vsnmsdzcv85q5d2q4z5ajdha8yu3mdfuj4: {
-          "USDC-INIT": "1083469",
+          "move/543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1":
+            "1083469",
         },
         init1tacytfqagzjv73v5ke2s4qj8l68c2w0q4v0q0n: {
           "ibc/6490A7EAB61059BFC1CDDEB05917DD70BDF3A611654162A1A47DB930D40D8AF4":
