@@ -8,5 +8,6 @@ export * from "./redelegate-locked";
 export * from "./send";
 export * from "./undelegate";
 export * from "./undelegate-locked";
+export * from "./vip-lock-stake";
 export * from "./withdraw-delegator-reward";
 export * from "./withdraw-delegator-reward-locked";

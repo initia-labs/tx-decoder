@@ -10,6 +10,7 @@ export type DecodedMessage =
   | DecodedFinalizeTokenWithdrawalMessage
   | DecodedIbcNftReceiveMessage
   | DecodedIbcNftSendMessage
+  | DecodedIbcTransferMessage
   | DecodedInitiateTokenDepositMessage
   | DecodedNftBurnMessage
   | DecodedNftMintMessage
@@ -30,6 +31,20 @@ interface DecodedSendMessage extends DecodedMessageBase {
     }[];
     from: string;
     to: string;
+  };
+}
+
+interface DecodedIbcTransferMessage extends DecodedMessageBase {
+  action: "ibc_transfer";
+  data: {
+    amount: string;
+    denom: string;
+    destinationChannel: string;
+    destinationPort: string;
+    receiver: string;
+    sender: string;
+    sourceChannel: string;
+    sourcePort: string;
   };
 }
 
@@ -59,6 +74,7 @@ interface DecodedDelegateMessage extends DecodedMessageBase {
   data: {
     coins: Coin[];
     delegatorAddress: string;
+    releaseTimestamp?: string; // for lock stake only
     validator: Validator | null;
     validatorAddress: string;
   };
@@ -69,6 +85,7 @@ interface DecodedUndelegateMessage extends DecodedMessageBase {
   data: {
     coins: Coin[];
     delegatorAddress: string;
+    unlockTimestamp?: string; // for lock stake only
     validator: Validator | null;
     validatorAddress: string;
   };

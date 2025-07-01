@@ -3,52 +3,56 @@ import type { Log, Message } from "@/schema";
 
 import { ApiClient } from "@/api";
 import { LOCK_STAKING_MODULE_ADDRESS } from "@/constants";
-import { zDepositDelegationEvent, zMsgDelegateLocked } from "@/schema";
+import { zDepositDelegationEvent, zMsgVipLockStake } from "@/schema";
 import { findMoveEvent } from "@/utils";
 
-export const delegateLockedDecoder: MessageDecoder = {
+export const vipLockStakeDecoder: MessageDecoder = {
   check: (message: Message, _log: Log) =>
-    zMsgDelegateLocked.safeParse(message).success,
+    zMsgVipLockStake.safeParse(message).success,
   decode: async (message: Message, log: Log, apiClient: ApiClient) => {
-    const parsed = zMsgDelegateLocked.safeParse(message);
+    const parsed = zMsgVipLockStake.safeParse(message);
     if (!parsed.success) {
-      throw new Error("Invalid delegate locked message");
+      throw new Error("Invalid VIP lock stake message");
     }
     const { sender } = parsed.data;
-    const delegateLockedEvent = findMoveEvent(
+    const depositDelegationEvent = findMoveEvent(
       log.events,
       `${LOCK_STAKING_MODULE_ADDRESS}::lock_staking::DepositDelegationEvent`,
       zDepositDelegationEvent
     );
-    if (!delegateLockedEvent) {
-      throw new Error("Delegate locked event not found");
+    if (!depositDelegationEvent) {
+      throw new Error(
+        "Deposit delegation event not found in VIP lock stake message"
+      );
     }
 
     const denom = await apiClient.findDenomFromMetadataAddr(
-      delegateLockedEvent.metadata
+      depositDelegationEvent.metadata
     );
 
     if (!denom) {
-      throw new Error("Denom not found for delegate locked event");
+      throw new Error(
+        "Denom not found for deposit delegation event in VIP lock stake message"
+      );
     }
 
-    const delegateLockedCoin = {
-      amount: delegateLockedEvent.locked_share,
+    const vipLockStakeCoin = {
+      amount: depositDelegationEvent.locked_share,
       denom,
     };
 
     const validator = await apiClient.findValidator(
-      delegateLockedEvent.validator
+      depositDelegationEvent.validator
     );
 
     const decodedMessage: DecodedMessage = {
       action: "delegate",
       data: {
-        coins: [delegateLockedCoin],
+        coins: [vipLockStakeCoin],
         delegatorAddress: sender,
-        releaseTimestamp: delegateLockedEvent.release_time,
+        releaseTimestamp: depositDelegationEvent.release_time,
         validator,
-        validatorAddress: delegateLockedEvent.validator,
+        validatorAddress: depositDelegationEvent.validator,
       },
       isIbc: false,
       isOp: false,
