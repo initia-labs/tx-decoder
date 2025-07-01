@@ -1,27 +1,22 @@
-import axios from "axios";
-
 import {
-  mockApiResponsesDelegate,
-  mockApiResponsesDelegateLocked,
+  mockApiResponsesForDelegate,
+  mockApiResponsesForDelegateLocked,
   mockMsgDelegate,
   mockMsgDelegateLocked,
 } from "./fixtures/delegate.fixture";
-import { createMockApiHandler, initialize } from "./helpers";
+import { initialize, mockedAxios, resetMockApi, setupMockApi } from "./helpers";
 
 jest.mock("axios");
 
 const decoder = initialize();
-const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 describe("Delegate Message", () => {
   beforeEach(() => {
-    mockedAxios.get.mockReset();
+    resetMockApi(mockedAxios);
   });
 
   it("should decode a delegate message correctly", async () => {
-    mockedAxios.get.mockImplementation(
-      createMockApiHandler(mockApiResponsesDelegate)
-    );
+    setupMockApi(mockedAxios, mockApiResponsesForDelegate);
 
     const { messages, totalBalanceChanges } = await decoder.decodeTransaction(
       mockMsgDelegate
@@ -83,9 +78,7 @@ describe("Delegate Message", () => {
   });
 
   it("should decode a delegate locked message correctly", async () => {
-    mockedAxios.get.mockImplementation(
-      createMockApiHandler(mockApiResponsesDelegateLocked)
-    );
+    setupMockApi(mockedAxios, mockApiResponsesForDelegateLocked);
 
     const decoded = await decoder.decodeTransaction(mockMsgDelegateLocked);
 

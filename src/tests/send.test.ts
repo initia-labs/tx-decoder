@@ -1,5 +1,3 @@
-import axios from "axios";
-
 import {
   mockApiResponsesForMultipleCoins,
   mockApiResponsesForMultipleMessages,
@@ -8,16 +6,15 @@ import {
   mockMsgSendWithMultipleMessages,
   mockMsgSendWithSingleCoin,
 } from "./fixtures/send.fixture";
-import { initialize, setupMockApi } from "./helpers";
+import { initialize, mockedAxios, resetMockApi, setupMockApi } from "./helpers";
 
 jest.mock("axios");
 
 const decoder = initialize();
-const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 describe("Send Message", () => {
   beforeEach(() => {
-    mockedAxios.get.mockReset();
+    resetMockApi(mockedAxios);
   });
 
   it.each([

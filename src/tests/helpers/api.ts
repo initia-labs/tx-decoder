@@ -1,5 +1,6 @@
 import axios from "axios";
 
+// remove soon
 export const createMockApiHandler = (
   urlResponseMap: Record<string, unknown>
 ) => {
@@ -25,10 +26,28 @@ export const createMockApiHandler = (
   };
 };
 
+export type MockedAxios = jest.Mocked<typeof axios>;
+
 export interface MockApiResponses {
   GET?: { [url: string]: unknown };
   POST?: { [url: string]: unknown };
 }
+
+export const mockedAxios = axios as MockedAxios;
+
+export const setupMockApi = (
+  mockedAxios: MockedAxios,
+  responses: MockApiResponses
+) => {
+  const { get, post } = createMockApiHandlers(responses);
+  mockedAxios.get.mockImplementation(get);
+  mockedAxios.post.mockImplementation(post);
+};
+
+export const resetMockApi = (mockedAxios: MockedAxios) => {
+  mockedAxios.get.mockReset();
+  mockedAxios.post.mockReset();
+};
 
 export const createMockApiHandlers = (responses: MockApiResponses) => {
   const getPath = (url: string) => {
@@ -81,13 +100,4 @@ export const createMockApiHandlers = (responses: MockApiResponses) => {
     get: getHandler,
     post: postHandler,
   };
-};
-
-export const setupMockApi = (
-  mockedAxios: jest.Mocked<typeof axios>,
-  responses: MockApiResponses
-) => {
-  const { get, post } = createMockApiHandlers(responses);
-  mockedAxios.get.mockImplementation(get);
-  mockedAxios.post.mockImplementation(post);
 };
