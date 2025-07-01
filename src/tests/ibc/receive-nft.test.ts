@@ -17,6 +17,7 @@ const decoder = initialize();
 describe("IBC Receive NFT Message", () => {
   beforeEach(() => {
     resetMockApi(mockedAxios);
+    setupMockApi(mockedAxios, mockApiResponsesForIbcReceiveNft);
   });
 
   describe("Source Token Receive", () => {
@@ -140,7 +141,6 @@ describe("IBC Receive NFT Message", () => {
 
   describe("Remote Token Receive", () => {
     it("should decode an IBC NFT receive message for remote token correctly", async () => {
-      setupMockApi(mockedAxios, mockApiResponsesForIbcReceiveNft);
       const decoded = await decoder.decodeTransaction(
         mockMsgIbcReceiveNftRemoteToken
       );
