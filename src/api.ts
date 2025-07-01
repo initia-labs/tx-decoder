@@ -4,7 +4,7 @@ import { DecoderConfig } from "./interfaces";
 import {
   NftResource,
   zAccountResources,
-  zFungibleAssetMetadataResource,
+  zMoveViewResponse,
   zNftResource,
   zObjectCoreResource,
   zValidator,
@@ -21,20 +21,15 @@ export class ApiClient {
   public async findDenomFromMetadataAddr(
     metadataAddr: string
   ): Promise<string | null> {
-    const resources = await this._getAccountResources(metadataAddr);
-    if (!resources) {
-      return null;
-    }
-    const fungibleMetadataResource = resources.find(
-      (resource) => resource.struct_tag === "0x1::fungible_asset::Metadata"
+    const response = await this._viewMoveContract(
+      "0x1",
+      "metadata_to_denom",
+      "coin",
+      [`"${metadataAddr}"`],
+      []
     );
-    if (!fungibleMetadataResource) {
-      return null;
-    }
-    const metadata = zFungibleAssetMetadataResource.parse(
-      fungibleMetadataResource.move_resource
-    );
-    return metadata.data.symbol;
+    const data = response?.data ?? null;
+    return data;
   }
 
   public async findNftFromTokenAddr(
@@ -84,29 +79,6 @@ export class ApiClient {
     }
   }
 
-  // private async _debugApiCall(address: string, response: AxiosResponse) {
-  //   const key = `/initia/move/v1/accounts/${address}/resources`;
-  //   const filePath = path.join(__dirname, "tests/_output/resources.json");
-
-  //   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  //   let existingData: any = {};
-  //   try {
-  //     const fileContent = await fs.readFile(filePath, "utf-8");
-  //     existingData = JSON.parse(fileContent);
-  //   } catch {
-  //     // File does not exist or is invalid — start fresh
-  //     existingData = {};
-  //   }
-
-  //   existingData[key] = response.data;
-
-  //   await fs.writeFile(
-  //     filePath,
-  //     JSON.stringify(existingData, null, 2),
-  //     "utf-8"
-  //   );
-  // }
-
   private async _getAccountResources(address: string) {
     try {
       const response = await axios.get(
@@ -117,6 +89,31 @@ export class ApiClient {
       // await this._debugApiCall(address, response);
 
       return zAccountResources.parse(response.data).resources;
+    } catch {
+      return null;
+    }
+  }
+
+  private async _viewMoveContract(
+    address: string,
+    functionName: string,
+    moduleName: string,
+    args: string[],
+    typeArgs: string[]
+  ) {
+    try {
+      const response = await axios.post(
+        `${this.restUrl}/initia/move/v1/view/json`,
+        {
+          address,
+          args,
+          function_name: functionName,
+          module_name: moduleName,
+          typeArgs,
+        }
+      );
+
+      return zMoveViewResponse.parse(response.data);
     } catch {
       return null;
     }

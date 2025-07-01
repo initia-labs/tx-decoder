@@ -4,3 +4,4 @@ export * from "./messages";
 export * from "./resources";
 export * from "./transaction";
 export * from "./validators";
+export * from "./view";

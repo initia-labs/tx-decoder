@@ -1,22 +1,20 @@
-import axios from "axios";
-
 import {
-  mockApiResponsesMultipleCoins,
-  mockApiResponsesSingleCoin,
+  mockApiResponsesForMultipleCoins,
+  mockApiResponsesForMultipleMessages,
+  mockApiResponsesForSingleCoin,
   mockMsgSendWithMultipleCoins,
   mockMsgSendWithMultipleMessages,
   mockMsgSendWithSingleCoin,
 } from "./fixtures/send.fixture";
-import { createMockApiHandler, initialize } from "./helpers";
+import { initialize, mockedAxios, resetMockApi, setupMockApi } from "./helpers";
 
 jest.mock("axios");
 
 const decoder = initialize();
-const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 describe("Send Message", () => {
   beforeEach(() => {
-    mockedAxios.get.mockReset();
+    resetMockApi(mockedAxios);
   });
 
   it.each([
@@ -50,7 +48,7 @@ describe("Send Message", () => {
         },
         object: {},
       },
-      mockApiResponses: mockApiResponsesSingleCoin,
+      mockApiResponses: mockApiResponsesForSingleCoin,
       mockData: mockMsgSendWithSingleCoin,
     },
     {
@@ -103,7 +101,7 @@ describe("Send Message", () => {
         },
         object: {},
       },
-      mockApiResponses: mockApiResponsesMultipleCoins,
+      mockApiResponses: mockApiResponsesForMultipleCoins,
       mockData: mockMsgSendWithMultipleCoins,
     },
   ])(
@@ -114,8 +112,7 @@ describe("Send Message", () => {
       mockApiResponses,
       mockData,
     }) => {
-      const mockApiHandler = createMockApiHandler(mockApiResponses);
-      mockedAxios.get.mockImplementation(mockApiHandler);
+      setupMockApi(mockedAxios, mockApiResponses);
 
       const decoded = await decoder.decodeTransaction(mockData);
 
@@ -125,8 +122,8 @@ describe("Send Message", () => {
   );
 
   it("should decode multiple send messages correctly", async () => {
-    const mockApiHandler = createMockApiHandler(mockApiResponsesMultipleCoins);
-    mockedAxios.get.mockImplementation(mockApiHandler);
+    setupMockApi(mockedAxios, mockApiResponsesForMultipleMessages);
+
     const decoded = await decoder.decodeTransaction(
       mockMsgSendWithMultipleMessages
     );
