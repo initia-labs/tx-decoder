@@ -29,5 +29,6 @@ export type FtChange = { [denom: string]: string };
 export type ObjectChange = { [address: string]: string };
 
 export interface DecoderConfig {
+  registryUrls: string[];
   restUrl: string;
 }

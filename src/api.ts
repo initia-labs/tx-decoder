@@ -5,20 +5,26 @@ import { DecoderConfig } from "./interfaces";
 import {
   AccountResource,
   NftResource,
+  Registry,
   zAccountResources,
   zMoveViewResponse,
   zNftResource,
   zObjectCoreResource,
+  zRegistries,
   zValidator,
 } from "./schema";
 import { toBech32 } from "./utils";
 
 export class ApiClient {
+  public registries: Registry[] = [];
   private readonly cache: Map<string, unknown> = new Map();
+
+  private readonly registryUrls: string[];
   private readonly restUrl: string;
 
   constructor(config: DecoderConfig) {
     this.restUrl = config.restUrl;
+    this.registryUrls = config.registryUrls;
   }
 
   public async findDenomFromMetadataAddr(
@@ -70,6 +76,14 @@ export class ApiClient {
     );
   }
 
+  public async findRollupChainId(bridgeId: string) {
+    await this._getRegistries();
+
+    return this.registries.find(
+      (registry) => registry.metadata?.op_bridge_id === bridgeId
+    )?.chain_id;
+  }
+
   public async findValidator(validatorAddress: string) {
     try {
       const response = await axios.get(
@@ -102,6 +116,37 @@ export class ApiClient {
     } catch {
       return null;
     }
+  }
+
+  private async _getRegistries() {
+    if (this.registries.length > 0) {
+      return this.registries;
+    }
+
+    const results = await Promise.allSettled(
+      this.registryUrls.map((url) => axios.get(`${url}/chains.json`))
+    );
+
+    this.registries = results.flatMap((result, index) => {
+      if (result.status === "rejected") {
+        console.error(
+          `Failed to fetch from ${this.registryUrls[index]}:`,
+          result.reason
+        );
+        return [];
+      }
+
+      const parsed = zRegistries.safeParse(result.value.data);
+
+      if (parsed.success) {
+        return parsed.data;
+      }
+      console.warn(
+        `Invalid registry format from ${this.registryUrls[index]}:`,
+        parsed.error
+      );
+      return [];
+    });
   }
 
   private async _viewMoveContract(

@@ -452,6 +452,16 @@ export const mockMsgInitiateTokenDeposit = {
 
 export const mockApiResponsesForInitiateTokenDeposit = {
   GET: {
+    "/chains.json": [
+      {
+        chain_id: "rena-nuwa-1",
+        chain_name: "rena",
+        metadata: {
+          op_bridge_id: "30",
+          op_denoms: ["uinit"],
+        },
+      },
+    ],
     "/initia/move/v1/accounts/0x9ce0a43e93b13905e877ff058f5e47acd89b0a43224f7e5dae194c4ae9c16e80/resources":
       {
         pagination: { next_key: null, total: "0" },

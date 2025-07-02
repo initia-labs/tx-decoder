@@ -460,6 +460,16 @@ export const mockMsgFinalizeTokenWithdrawal = {
 
 export const mockApiResponsesForFinalizeTokenWithdrawal = {
   GET: {
+    "/chains.json": [
+      {
+        chain_id: "civitia-1",
+        chain_name: "civitia",
+        metadata: {
+          op_bridge_id: "12",
+          op_denoms: ["uinit"],
+        },
+      },
+    ],
     "/initia/move/v1/accounts/0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9/resources":
       {
         pagination: { next_key: null, total: "0" },
