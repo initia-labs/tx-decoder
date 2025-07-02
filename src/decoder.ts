@@ -8,6 +8,7 @@ import {
   MessageDecoder,
   ProcessedMessage,
 } from "./interfaces";
+import { resolveMetadata } from "./metadata-resolver";
 import { Log, Message, TxResponse, zTxResponse } from "./schema";
 import { attachTxLogs, mergeBalanceChanges } from "./utils";
 import { createNotSupportedMessage } from "./utils";
@@ -73,9 +74,11 @@ export class TxDecoder {
       DEFAULT_BALANCE_CHANGES
     );
 
+    const metadata = await resolveMetadata(this.apiClient, totalBalanceChanges);
+
     return {
       messages: processedMessages,
-      metadata: {},
+      metadata,
       totalBalanceChanges,
     };
   }

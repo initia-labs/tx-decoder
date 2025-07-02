@@ -357,22 +357,6 @@ export const mockApiResponsesForNftMint = {
               "Aer75i8kQeLszpnbTPurKU91QteM4tgsoo3hPaCp1BuGAQAAAAAAAAAB6vvmLyRB4uzOmdtM+6spT3VC14zi2CyijeE9oKnUG4Y=",
             struct_tag: "0x1::initia_nft::InitiaNft",
           },
-          {
-            address:
-              "0xeafbe62f2441e2ecce99db4cfbab294f7542d78ce2d82ca28de13da0a9d41b86",
-            move_resource:
-              '{"type":"0x1::simple_nft::SimpleNft","data":{"property_mutator_ref":{"self":"0xeafbe62f2441e2ecce99db4cfbab294f7542d78ce2d82ca28de13da0a9d41b86"}}}',
-            raw_bytes: "6vvmLyRB4uzOmdtM+6spT3VC14zi2CyijeE9oKnUG4Y=",
-            struct_tag: "0x1::simple_nft::SimpleNft",
-          },
-          {
-            address:
-              "0xeafbe62f2441e2ecce99db4cfbab294f7542d78ce2d82ca28de13da0a9d41b86",
-            move_resource:
-              '{"type":"0x1::property_map::PropertyMap","data":{"inner":{"data":[]}}}',
-            raw_bytes: "AA==",
-            struct_tag: "0x1::property_map::PropertyMap",
-          },
         ],
       },
   },

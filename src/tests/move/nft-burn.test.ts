@@ -13,9 +13,9 @@ describe("NFT Burn Message", () => {
       action: "nft_burn",
       data: {
         collectionAddress:
-          "0x6490737f36898086529ecc342f6abe7846d12d40d7df2a4f392e6df9b57af0f4",
+          "init1vjg8xlek3xqgv557es6z76470prdzt2q6l0j5nee9eklndt67r6qekakfx",
         tokenAddress:
-          "0x3d879bacd0cb90899bacfa30385498cdd522b06a6e7b8352e9e62aaa1036f814",
+          "init18krehtxsewggnxavlgcrs4yceh2j9vr2deacx5hfuc425ypklq2q926m8u",
         tokenId: "1",
       },
       isIbc: false,
@@ -31,5 +31,8 @@ describe("NFT Burn Message", () => {
     //     },
     //   },
     // });
+
+    // Since we don't have the metadata for the burned NFT, we expect an empty object
+    expect(decoded.metadata).toEqual({});
   });
 });

@@ -428,3 +428,32 @@ export const mockMsgIbcSendNft = {
   },
   txhash: "799FE662461D38A08D617C4E60025ED373177B9912B6C3468FDDE2B1825CD4AC",
 };
+
+export const mockApiResponsesForIbcSendNft = {
+  GET: {
+    "/initia/move/v1/accounts/0x628d39fde7251e7ce340a82b73006aeb1b927238cba83322ee9ce8b892b2bb55/resources":
+      {
+        pagination: { next_key: null, total: "0" },
+        resources: [
+          {
+            address:
+              "0x628d39fde7251e7ce340a82b73006aeb1b927238cba83322ee9ce8b892b2bb55",
+            move_resource:
+              '{"type":"0x1::nft::Nft","data":{"collection":{"inner":"0x4b224b3b82140614fbe0706b421d887f4532ea91d4ad0cf2b99a1251c06dfa9a"},"description":"Avatar Jennie, the master of all elements. An unparalleled Sigma, and a force to be reckoned with.","token_id":"1","uri":"https://jennie.initia.xyz/data/9_4.json"}}',
+            raw_bytes:
+              "SyJLO4IUBhT74HBrQh2If0Uy6pHUrQzyuZoSUcBt+ppiQXZhdGFyIEplbm5pZSwgdGhlIG1hc3RlciBvZiBhbGwgZWxlbWVudHMuIEFuIHVucGFyYWxsZWxlZCBTaWdtYSwgYW5kIGEgZm9yY2UgdG8gYmUgcmVja29uZWQgd2l0aC4BMSdodHRwczovL2plbm5pZS5pbml0aWEueHl6L2RhdGEvOV80Lmpzb24=",
+            struct_tag: "0x1::nft::Nft",
+          },
+          {
+            address:
+              "0x628d39fde7251e7ce340a82b73006aeb1b927238cba83322ee9ce8b892b2bb55",
+            move_resource:
+              '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":true,"owner":"0x6baa5dcfd050e9b85a4ddf214baee77884773ba4","version":"1"}}',
+            raw_bytes:
+              "AAAAAAAAAAAAAAAAa6pdz9BQ6bhaTd8hS67neIR3O6QBAQAAAAAAAAA=",
+            struct_tag: "0x1::object::ObjectCore",
+          },
+        ],
+      },
+  },
+};

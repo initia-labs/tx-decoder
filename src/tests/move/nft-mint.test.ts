@@ -28,9 +28,9 @@ describe("NFT Mint Message", () => {
       action: "nft_mint",
       data: {
         collectionAddress:
-          "0x597cd3f37f21f59c771731a31e92ac1214f72b4f8a86541a94b50f0308f4e20",
+          "init1qktu60eh7g04n3m3wvdrr6f2cys57u45lz5x2sdffdg0qvy0fcsqk9gvt9",
         tokenAddress:
-          "0xeafbe62f2441e2ecce99db4cfbab294f7542d78ce2d82ca28de13da0a9d41b86",
+          "init1ata7vteyg83wen5emdx0h2effa6594uvutvzeg5duy76p2w5rwrqy2y24c",
         tokenId: "1",
       },
       isIbc: false,
@@ -51,6 +51,16 @@ describe("NFT Mint Message", () => {
         init1ulw753hxh4mrc9ss7p2y7h8emjxxyw6uce0hk9: {
           init1ata7vteyg83wen5emdx0h2effa6594uvutvzeg5duy76p2w5rwrqy2y24c: "1",
         },
+      },
+    });
+
+    expect(decoded.metadata).toEqual({
+      init1ata7vteyg83wen5emdx0h2effa6594uvutvzeg5duy76p2w5rwrqy2y24c: {
+        collectionAddress:
+          "init1qktu60eh7g04n3m3wvdrr6f2cys57u45lz5x2sdffdg0qvy0fcsqk9gvt9",
+        tokenId: "1",
+        tokenUri: "https://nft-rho-ten.vercel.app/favoritefood/1",
+        type: "nft",
       },
     });
   });
