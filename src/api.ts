@@ -1,7 +1,9 @@
 import axios from "axios";
+import { z } from "zod";
 
 import { DecoderConfig } from "./interfaces";
 import {
+  AccountResource,
   NftResource,
   zAccountResources,
   zMoveViewResponse,
@@ -12,6 +14,7 @@ import {
 import { toBech32 } from "./utils";
 
 export class ApiClient {
+  private readonly cache: Map<string, unknown> = new Map();
   private readonly restUrl: string;
 
   constructor(config: DecoderConfig) {
@@ -28,8 +31,8 @@ export class ApiClient {
       [`"${metadataAddr}"`],
       []
     );
-    const data = response?.data ?? null;
-    return data;
+
+    return z.string().parse(response);
   }
 
   public async findNftFromTokenAddr(
@@ -79,16 +82,23 @@ export class ApiClient {
     }
   }
 
-  private async _getAccountResources(address: string) {
+  private async _getAccountResources(
+    address: string
+  ): Promise<AccountResource[] | null> {
+    const url = `${this.restUrl}/initia/move/v1/accounts/${address}/resources`;
+
+    const cachedData = this.cache.get(url);
+    const parsedCache = zAccountResources.shape.resources.safeParse(cachedData);
+
+    if (parsedCache.success) {
+      return parsedCache.data;
+    }
+
     try {
-      const response = await axios.get(
-        `${this.restUrl}/initia/move/v1/accounts/${address}/resources`
-      );
-
-      // Uncomment the line below to enable debugging output
-      // await this._debugApiCall(address, response);
-
-      return zAccountResources.parse(response.data).resources;
+      const response = await axios.get(url);
+      const result = zAccountResources.parse(response.data).resources;
+      this.cache.set(url, result);
+      return result;
     } catch {
       return null;
     }
@@ -101,6 +111,25 @@ export class ApiClient {
     args: string[],
     typeArgs: string[]
   ) {
+    const url = `${this.restUrl}/initia/move/v1/view/json`;
+    const cacheKey = JSON.stringify({
+      payload: {
+        address,
+        args,
+        function_name: functionName,
+        module_name: moduleName,
+        typeArgs,
+      },
+      url,
+    });
+
+    const cachedData = this.cache.get(cacheKey);
+    const parsedCache = zMoveViewResponse.safeParse(cachedData);
+
+    if (parsedCache.success) {
+      return parsedCache.data.data;
+    }
+
     try {
       const response = await axios.post(
         `${this.restUrl}/initia/move/v1/view/json`,
@@ -113,7 +142,9 @@ export class ApiClient {
         }
       );
 
-      return zMoveViewResponse.parse(response.data);
+      const result = zMoveViewResponse.parse(response.data);
+      this.cache.set(cacheKey, result);
+      return result.data;
     } catch {
       return null;
     }
