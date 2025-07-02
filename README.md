@@ -36,8 +36,8 @@ import { TxDecoder } from "@initia/tx-decoder";
 const decoder = new TxDecoder({
   registryUrls: [
     "https://registry.initia.xyz/",
-    "https://registry.testnet.initia.xyz/"
-  ]
+    "https://registry.testnet.initia.xyz/",
+  ],
   restUrl: "https://rest.initia.xyz",
 });
 const decodedTx = await decoder.decodeTransaction(txResponse);
