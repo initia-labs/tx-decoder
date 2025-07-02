@@ -1,4 +1,4 @@
-export const mockMsgTransfer = {
+export const mockMsgIbcSendFt = {
   code: 0,
   codespace: "",
   data: "12380A312F6962632E6170706C69636174696F6E732E7472616E736665722E76312E4D73675472616E73666572526573706F6E7365120308D216",
@@ -540,7 +540,7 @@ export const mockMsgTransfer = {
   txhash: "12B2F51153D9308C079DDF6FD5964B411BA512E52CBF8F6A63D7A0898C580CB4",
 };
 
-export const mockApiResponsesForMsgTransfer = {
+export const mockApiResponsesForMsgIbcSend = {
   GET: {
     "/initia/move/v1/accounts/0x873cbc9d221091c5711ca3341776caa29a9e8a51ed31bc6791c98e3298f6a10b/resources":
       {

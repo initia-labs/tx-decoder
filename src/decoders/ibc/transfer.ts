@@ -3,11 +3,12 @@ import { MessageDecoder } from "@/interfaces";
 import {
   Log,
   Message,
+  zIbcTransferRecvPacket,
+  zMsgIbcRecvPacket,
   zMsgIbcTransfer,
-  zMsgIbcTransferSendPacketEvent,
 } from "@/schema";
 
-export const ibcTransferDecoder: MessageDecoder = {
+export const ibcSendFtDecoder: MessageDecoder = {
   check: (message: Message, _log: Log) => {
     const parsed = zMsgIbcTransfer.safeParse(message);
     return parsed.success && parsed.data.source_port === "transfer";
@@ -20,23 +21,8 @@ export const ibcTransferDecoder: MessageDecoder = {
 
     if (!event) throw new Error("IBC Transfer send packet event not found");
 
-    const dataAttribute = event.attributes.find(
-      (attr) => attr.key === "packet_data"
-    );
-
-    if (!dataAttribute) {
-      throw new Error("IBC Transfer send packet data attribute not found");
-    }
-
-    const parsedData = zMsgIbcTransferSendPacketEvent.safeParse(
-      dataAttribute.value
-    );
-    if (!parsedData.success) {
-      throw new Error("IBC Transfer send packet data attribute not found");
-    }
-
     return {
-      action: "ibc_transfer",
+      action: "ibc_ft_send",
       data: {
         amount: token.amount,
         denom: token.denom,
@@ -48,6 +34,45 @@ export const ibcTransferDecoder: MessageDecoder = {
             ?.value ?? "",
         receiver,
         sender,
+        sourceChannel: source_channel,
+        sourcePort: source_port,
+      },
+      isIbc: true,
+      isOp: false,
+    };
+  },
+};
+
+export const ibcReceiveFtDecoder: MessageDecoder = {
+  check: (message: Message, _log: Log) => {
+    const parsed = zMsgIbcRecvPacket.safeParse(message);
+    return parsed.success && parsed.data.packet.source_port === "transfer";
+  },
+  decode: async (message: Message, _log: Log, _apiClient: ApiClient) => {
+    const parsed = zMsgIbcRecvPacket.parse(message);
+    const {
+      packet: {
+        data,
+        destination_channel,
+        destination_port,
+        source_channel,
+        source_port,
+      },
+    } = parsed;
+
+    const parsedPacket = zIbcTransferRecvPacket.parse(
+      Buffer.from(data, "base64").toString()
+    );
+
+    return {
+      action: "ibc_ft_receive",
+      data: {
+        amount: parsedPacket.amount,
+        denom: parsedPacket.denom,
+        destinationChannel: destination_channel,
+        destinationPort: destination_port,
+        receiver: parsedPacket.receiver,
+        sender: parsedPacket.sender,
         sourceChannel: source_channel,
         sourcePort: source_port,
       },

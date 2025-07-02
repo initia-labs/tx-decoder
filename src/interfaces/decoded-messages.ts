@@ -8,9 +8,10 @@ interface DecodedMessageBase {
 export type DecodedMessage =
   | DecodedDelegateMessage
   | DecodedFinalizeTokenWithdrawalMessage
+  | DecodedIbcFtReceiveMessage
+  | DecodedIbcFtSendMessage
   | DecodedIbcNftReceiveMessage
   | DecodedIbcNftSendMessage
-  | DecodedIbcTransferMessage
   | DecodedInitiateTokenDepositMessage
   | DecodedNftBurnMessage
   | DecodedNftMintMessage
@@ -34,8 +35,22 @@ interface DecodedSendMessage extends DecodedMessageBase {
   };
 }
 
-interface DecodedIbcTransferMessage extends DecodedMessageBase {
-  action: "ibc_transfer";
+interface DecodedIbcFtSendMessage extends DecodedMessageBase {
+  action: "ibc_ft_send";
+  data: {
+    amount: string;
+    denom: string;
+    destinationChannel: string;
+    destinationPort: string;
+    receiver: string;
+    sender: string;
+    sourceChannel: string;
+    sourcePort: string;
+  };
+}
+
+interface DecodedIbcFtReceiveMessage extends DecodedMessageBase {
+  action: "ibc_ft_receive";
   data: {
     amount: string;
     denom: string;

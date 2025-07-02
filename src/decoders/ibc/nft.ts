@@ -4,7 +4,7 @@ import {
   Log,
   Message,
   zMsgIbcNftTransferSendPacketEvent,
-  zMsgIbcReceiveNft,
+  zMsgIbcRecvPacket,
   zMsgIbcSendNft,
   zMsgMoveCreateCollectionEvent,
 } from "@/schema";
@@ -58,13 +58,13 @@ export const ibcSendNftDecoder: MessageDecoder = {
 
 export const ibcReceiveNftDecoder: MessageDecoder = {
   check: (message: Message, _log: Log) => {
-    const parsed = zMsgIbcReceiveNft.safeParse(message);
+    const parsed = zMsgIbcRecvPacket.safeParse(message);
     return (
       parsed.success && parsed.data.packet.destination_port === "nft-transfer"
     );
   },
   decode: async (message: Message, log: Log, _apiClient: ApiClient) => {
-    const parsed = zMsgIbcReceiveNft.parse(message);
+    const parsed = zMsgIbcRecvPacket.parse(message);
     const { destination_channel, destination_port } = parsed.packet;
 
     const event = log.events.find((event) => event.type === "recv_packet");
