@@ -22,17 +22,6 @@ export const zMsgSend = z.object({
   to_address: z.string(),
 });
 
-export const zMsgIbcTransfer = z.object({
-  "@type": z.literal(SUPPORTED_MESSAGE_TYPES.MsgIbcTransfer),
-  memo: z.string(),
-  receiver: z.string(),
-  sender: z.string(),
-  source_channel: z.string(),
-  source_port: z.string(),
-  timeout_timestamp: z.string(),
-  token: zCoin,
-});
-
 export const zMsgDelegate = z.object({
   "@type": z.literal(SUPPORTED_MESSAGE_TYPES.MsgDelegate),
   amount: z.array(zCoin),
@@ -83,6 +72,17 @@ export const zMsgWithdrawDelegatorReward = z.object({
   "@type": z.literal(SUPPORTED_MESSAGE_TYPES.MsgWithdrawDelegatorReward),
   delegator_address: z.string(),
   validator_address: z.string(),
+});
+
+export const zMsgIbcTransfer = z.object({
+  "@type": z.literal(SUPPORTED_MESSAGE_TYPES.MsgIbcTransfer),
+  memo: z.string(),
+  receiver: z.string(),
+  sender: z.string(),
+  source_channel: z.string(),
+  source_port: z.string(),
+  timeout_timestamp: z.string(),
+  token: zCoin,
 });
 
 export const zMsgMoveExecute = z.object({
@@ -181,7 +181,7 @@ export const zMsgIbcSendNft = z.object({
   token_ids: z.array(z.string()),
 });
 
-export const zMsgIbcReceiveNft = z.object({
+export const zMsgIbcRecvPacket = z.object({
   "@type": z.literal(SUPPORTED_MESSAGE_TYPES.MsgIbcRecvPacket),
   packet: z.object({
     data: z.string(),
