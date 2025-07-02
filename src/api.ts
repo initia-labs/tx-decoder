@@ -1,21 +1,30 @@
 import axios from "axios";
+import { z } from "zod";
 
 import { DecoderConfig } from "./interfaces";
 import {
+  AccountResource,
   NftResource,
+  Registry,
   zAccountResources,
   zMoveViewResponse,
   zNftResource,
   zObjectCoreResource,
+  zRegistries,
   zValidator,
 } from "./schema";
 import { toBech32 } from "./utils";
 
 export class ApiClient {
+  public registries: Registry[] = [];
+  private readonly cache: Map<string, unknown> = new Map();
+
+  private readonly registryUrls: string[];
   private readonly restUrl: string;
 
   constructor(config: DecoderConfig) {
     this.restUrl = config.restUrl;
+    this.registryUrls = config.registryUrls;
   }
 
   public async findDenomFromMetadataAddr(
@@ -28,8 +37,8 @@ export class ApiClient {
       [`"${metadataAddr}"`],
       []
     );
-    const data = response?.data ?? null;
-    return data;
+
+    return z.string().parse(response);
   }
 
   public async findNftFromTokenAddr(
@@ -67,6 +76,14 @@ export class ApiClient {
     );
   }
 
+  public async findRollupChainId(bridgeId: string) {
+    await this._getRegistries();
+
+    return this.registries.find(
+      (registry) => registry.metadata?.op_bridge_id === bridgeId
+    )?.chain_id;
+  }
+
   public async findValidator(validatorAddress: string) {
     try {
       const response = await axios.get(
@@ -79,19 +96,57 @@ export class ApiClient {
     }
   }
 
-  private async _getAccountResources(address: string) {
+  private async _getAccountResources(
+    address: string
+  ): Promise<AccountResource[] | null> {
+    const url = `${this.restUrl}/initia/move/v1/accounts/${address}/resources`;
+
+    const cachedData = this.cache.get(url);
+    const parsedCache = zAccountResources.shape.resources.safeParse(cachedData);
+
+    if (parsedCache.success) {
+      return parsedCache.data;
+    }
+
     try {
-      const response = await axios.get(
-        `${this.restUrl}/initia/move/v1/accounts/${address}/resources`
-      );
-
-      // Uncomment the line below to enable debugging output
-      // await this._debugApiCall(address, response);
-
-      return zAccountResources.parse(response.data).resources;
+      const response = await axios.get(url);
+      const result = zAccountResources.parse(response.data).resources;
+      this.cache.set(url, result);
+      return result;
     } catch {
       return null;
     }
+  }
+
+  private async _getRegistries() {
+    if (this.registries.length > 0) {
+      return this.registries;
+    }
+
+    const results = await Promise.allSettled(
+      this.registryUrls.map((url) => axios.get(`${url}/chains.json`))
+    );
+
+    this.registries = results.flatMap((result, index) => {
+      if (result.status === "rejected") {
+        console.error(
+          `Failed to fetch from ${this.registryUrls[index]}:`,
+          result.reason
+        );
+        return [];
+      }
+
+      const parsed = zRegistries.safeParse(result.value.data);
+
+      if (parsed.success) {
+        return parsed.data;
+      }
+      console.warn(
+        `Invalid registry format from ${this.registryUrls[index]}:`,
+        parsed.error
+      );
+      return [];
+    });
   }
 
   private async _viewMoveContract(
@@ -101,6 +156,25 @@ export class ApiClient {
     args: string[],
     typeArgs: string[]
   ) {
+    const url = `${this.restUrl}/initia/move/v1/view/json`;
+    const cacheKey = JSON.stringify({
+      payload: {
+        address,
+        args,
+        function_name: functionName,
+        module_name: moduleName,
+        typeArgs,
+      },
+      url,
+    });
+
+    const cachedData = this.cache.get(cacheKey);
+    const parsedCache = zMoveViewResponse.safeParse(cachedData);
+
+    if (parsedCache.success) {
+      return parsedCache.data.data;
+    }
+
     try {
       const response = await axios.post(
         `${this.restUrl}/initia/move/v1/view/json`,
@@ -113,7 +187,9 @@ export class ApiClient {
         }
       );
 
-      return zMoveViewResponse.parse(response.data);
+      const result = zMoveViewResponse.parse(response.data);
+      this.cache.set(cacheKey, result);
+      return result.data;
     } catch {
       return null;
     }

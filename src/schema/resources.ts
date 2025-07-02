@@ -2,12 +2,13 @@ import { z } from "zod";
 
 import { zJsonString } from "./common";
 
-const zAccountResource = z.object({
+export const zAccountResource = z.object({
   address: z.string(),
   move_resource: z.string(),
   raw_bytes: z.string(),
   struct_tag: z.string(),
 });
+export type AccountResource = z.infer<typeof zAccountResource>;
 
 export const zAccountResources = z.object({
   pagination: z.object({

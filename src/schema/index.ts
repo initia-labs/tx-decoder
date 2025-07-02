@@ -1,6 +1,7 @@
 export * from "./common";
 export * from "./events";
 export * from "./messages";
+export * from "./registry";
 export * from "./resources";
 export * from "./transaction";
 export * from "./validators";

@@ -109,6 +109,7 @@ interface DecodedInitiateTokenDepositMessage extends DecodedMessageBase {
     amount: string;
     bridgeId: string;
     denom: string;
+    dstChainId: string;
     from: string;
     to: string;
   };
@@ -121,6 +122,7 @@ interface DecodedFinalizeTokenWithdrawalMessage extends DecodedMessageBase {
     bridgeId: string;
     denom: string;
     from: string;
+    srcChainId: string;
     to: string;
   };
 }

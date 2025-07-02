@@ -32,6 +32,7 @@ describe("Initiate Token Deposit Message", () => {
         amount: "360000000",
         bridgeId: "30",
         denom: "uinit",
+        dstChainId: "rena-nuwa-1",
         from: "init1s3qauqxfmtqhmvpwpfgrka9944me2s0jn52qfe",
         to: "init1s3qauqxfmtqhmvpwpfgrka9944me2s0jn52qfe",
       },

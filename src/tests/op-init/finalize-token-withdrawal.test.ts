@@ -33,6 +33,7 @@ describe("Finalize Token Withdrawal Message", () => {
         bridgeId: "12",
         denom: "uinit",
         from: "init1r9th529cekjd0v3kryamks7yf6z832pqsapys7",
+        srcChainId: "civitia-1",
         to: "init1r9th529cekjd0v3kryamks7yf6z832pqsapys7",
       },
       isIbc: false,

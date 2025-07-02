@@ -16,6 +16,12 @@ export const finalizeTokenWithdrawalDecoder: MessageDecoder = {
 
     const { amount, bridge_id, from, to } = parsed.data;
 
+    const srcChainId = await _apiClient.findRollupChainId(bridge_id);
+
+    if (!srcChainId) {
+      throw new Error(`Source chain ID not found for bridge ID: ${bridge_id}`);
+    }
+
     const decodedMessage: DecodedMessage = {
       action: "op_finalize_withdraw",
       data: {
@@ -23,6 +29,7 @@ export const finalizeTokenWithdrawalDecoder: MessageDecoder = {
         bridgeId: bridge_id,
         denom: amount.denom,
         from,
+        srcChainId,
         to,
       },
       isIbc: false,
