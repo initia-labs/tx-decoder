@@ -60,7 +60,9 @@ export const ibcReceiveFtDecoder: MessageDecoder = {
       },
     } = parsed;
 
-    const parsedPacket = zIbcTransferRecvPacket.parse(atob(data));
+    const parsedPacket = zIbcTransferRecvPacket.parse(
+      Buffer.from(data, "base64").toString()
+    );
 
     return {
       action: "ibc_ft_receive",
