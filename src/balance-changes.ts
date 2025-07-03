@@ -6,11 +6,11 @@ import { Event, Log } from "./schema";
 import { mergeBalanceChanges } from "./utils";
 
 const allBalanceEventProcessors: BalanceEventProcessor[] = [
-  Processors.burnEventProcessor,
   Processors.depositEventProcessor,
   Processors.withdrawEventProcessor,
   Processors.mintEventProcessor,
   Processors.objectTransferEventProcessor,
+  Processors.burnEventProcessor,
   // Add other event processors here...
 ];
 
