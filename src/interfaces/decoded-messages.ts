@@ -153,6 +153,7 @@ interface DecodedNftMintMessage extends DecodedMessageBase {
   action: "nft_mint";
   data: {
     collectionAddress: string;
+    from: string;
     tokenAddress: string;
     tokenId: string;
     tokenUri?: string;
@@ -172,6 +173,7 @@ interface DecodedNftBurnMessage extends DecodedMessageBase {
   action: "nft_burn";
   data: {
     collectionAddress: string;
+    from: string;
     tokenAddress: string;
     tokenId: string;
   };

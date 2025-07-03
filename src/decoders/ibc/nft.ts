@@ -8,7 +8,7 @@ import {
   zMsgIbcSendNft,
   zMsgMoveCreateCollectionEvent,
 } from "@/schema";
-import { denomToHex, findMoveEvent, toHex } from "@/utils";
+import { denomToHex, findMoveEvent, toBech32, toHex } from "@/utils";
 
 export const ibcSendNftDecoder: MessageDecoder = {
   check: (message: Message, _log: Log) => {
@@ -41,7 +41,7 @@ export const ibcSendNftDecoder: MessageDecoder = {
     return {
       action: "ibc_nft_send",
       data: {
-        collectionId: denomToHex(class_id),
+        collectionId: toBech32(denomToHex(class_id)),
         collectionUri: parsedData.data.classUri,
         receiver,
         sender,
@@ -103,7 +103,7 @@ export const ibcReceiveNftDecoder: MessageDecoder = {
     return {
       action: "ibc_nft_receive",
       data: {
-        collectionId: collection_id,
+        collectionId: toBech32(collection_id),
         collectionUri: parsedData.data.classUri,
         destinationChannel: destination_channel,
         destinationPort: destination_port,

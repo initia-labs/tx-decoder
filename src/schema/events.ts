@@ -12,7 +12,14 @@ export const zSwapEvent = zJsonString.pipe(
     return_coin: z.string(),
   })
 );
-export type SwapEvent = z.infer<typeof zSwapEvent>;
+
+export const zCreateEvent = zJsonString.pipe(
+  z.object({
+    object: z.string(),
+    owner: z.string(),
+    version: z.string(),
+  })
+);
 
 export const zMintNftEvent = zJsonString.pipe(
   z.object({
@@ -21,7 +28,6 @@ export const zMintNftEvent = zJsonString.pipe(
     token_id: z.string(),
   })
 );
-export type MintNftEvent = z.infer<typeof zMintNftEvent>;
 
 export const zMsgMoveObjectCreateEvent = zJsonString.pipe(
   z.object({
@@ -30,7 +36,6 @@ export const zMsgMoveObjectCreateEvent = zJsonString.pipe(
     version: z.string(),
   })
 );
-export type MoveObjectCreateEvent = z.infer<typeof zMsgMoveObjectCreateEvent>;
 
 export const zMsgMoveObjectTransferEvent = zJsonString.pipe(
   z.object({
@@ -39,9 +44,6 @@ export const zMsgMoveObjectTransferEvent = zJsonString.pipe(
     to: z.string(),
   })
 );
-export type MoveObjectTransferEvent = z.infer<
-  typeof zMsgMoveObjectTransferEvent
->;
 
 export const zMsgMoveNftBurnEvent = zJsonString.pipe(
   z.object({
@@ -50,7 +52,6 @@ export const zMsgMoveNftBurnEvent = zJsonString.pipe(
     token_id: z.string(),
   })
 );
-export type MoveNftBurnEvent = z.infer<typeof zMsgMoveNftBurnEvent>;
 
 export const zMsgIbcNftTransferSendPacketEvent = zJsonString.pipe(
   z.object({
@@ -62,9 +63,6 @@ export const zMsgIbcNftTransferSendPacketEvent = zJsonString.pipe(
     tokenUris: z.array(z.string()),
   })
 );
-export type IbcNftTransferSendPacketEvent = z.infer<
-  typeof zMsgIbcNftTransferSendPacketEvent
->;
 
 export const zMsgMoveCreateCollectionEvent = zJsonString.pipe(
   z.object({
@@ -73,9 +71,6 @@ export const zMsgMoveCreateCollectionEvent = zJsonString.pipe(
     name: z.string(),
   })
 );
-export type MoveCreateCollectionEvent = z.infer<
-  typeof zMsgMoveCreateCollectionEvent
->;
 
 export const zDepositDelegationEvent = zJsonString.pipe(
   z.object({
@@ -86,7 +81,6 @@ export const zDepositDelegationEvent = zJsonString.pipe(
     validator: z.string(),
   })
 );
-export type DelegateLockedEvent = z.infer<typeof zDepositDelegationEvent>;
 
 export const zWithdrawDelegationEvent = zJsonString.pipe(
   z.object({
@@ -97,7 +91,6 @@ export const zWithdrawDelegationEvent = zJsonString.pipe(
     validator: z.string(),
   })
 );
-export type UndelegateLockedEvent = z.infer<typeof zWithdrawDelegationEvent>;
 
 export const zDepositEvent = zJsonString.pipe(
   z.object({
@@ -106,7 +99,6 @@ export const zDepositEvent = zJsonString.pipe(
     store_addr: z.string(),
   })
 );
-export type DepositEvent = z.infer<typeof zDepositEvent>;
 
 export const zWithdrawEvent = zJsonString.pipe(
   z.object({
@@ -115,7 +107,6 @@ export const zWithdrawEvent = zJsonString.pipe(
     store_addr: z.string(),
   })
 );
-export type WithdrawEvent = z.infer<typeof zWithdrawEvent>;
 
 export const zMsgIbcTransferSendPacketEvent = zJsonString.pipe(
   z.object({
@@ -125,6 +116,3 @@ export const zMsgIbcTransferSendPacketEvent = zJsonString.pipe(
     sender: z.string(),
   })
 );
-export type IbcTransferSendPacketEvent = z.infer<
-  typeof zMsgIbcTransferSendPacketEvent
->;

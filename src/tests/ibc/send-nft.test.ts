@@ -26,7 +26,7 @@ describe("IBC Send NFT Message", () => {
       action: "ibc_nft_send",
       data: {
         collectionId:
-          "0x4b224b3b82140614fbe0706b421d887f4532ea91d4ad0cf2b99a1251c06dfa9a",
+          "init1fv3ykwuzzsrpf7lqwp45y8vg0azn96536jkseu4engf9rsrdl2dqzkhn6h",
         collectionUri: "https://jennie.initia.xyz/data/collection.json",
         receiver: "init1ulw753hxh4mrc9ss7p2y7h8emjxxyw6uce0hk9",
         sender: "init1dw49mn7s2r5mskjdmus5hth80zz8wwaywycq06",
@@ -89,7 +89,7 @@ describe("IBC Send NFT Message", () => {
     expect(decodedMessage.action).toBe("ibc_nft_send");
     if (decodedMessage.action === "ibc_nft_send") {
       expect(decodedMessage.data.collectionId).toBe(
-        "0x4b224b3b82140614fbe0706b421d887f4532ea91d4ad0cf2b99a1251c06dfa9a"
+        "init1fv3ykwuzzsrpf7lqwp45y8vg0azn96536jkseu4engf9rsrdl2dqzkhn6h"
       );
       expect(decodedMessage.data.collectionUri).toBe(
         "https://jennie.initia.xyz/data/collection.json"
