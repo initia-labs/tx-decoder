@@ -96,6 +96,7 @@ Currently supported message types:
   - `0x1::dex::swap_script`
   - `0x1::simple_nft::mint`
   - `<module_address>::usernames::register_domain`
+  - `<module_address>::lock_staking`
 - `/opinit.ophost.v1.MsgInitiateTokenDeposit`
 - `/opinit.ophost.v1.MsgFinalizeTokenWithdrawal`
 - `/ibc.applications.nft_transfer.v1.MsgTransfer`
