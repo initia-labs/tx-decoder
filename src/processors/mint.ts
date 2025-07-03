@@ -1,7 +1,7 @@
 import { DEFAULT_BALANCE_CHANGES } from "@/constants";
 import { BalanceEventProcessor } from "@/interfaces";
 import { zMintNftEvent, zMsgMoveObjectTransferEvent } from "@/schema";
-import { findMoveEvent, toBech32 } from "@/utils";
+import { toBech32 } from "@/utils";
 
 export const mintEventProcessor: BalanceEventProcessor = {
   async process(event, events, _apiClient) {
@@ -15,15 +15,38 @@ export const mintEventProcessor: BalanceEventProcessor = {
 
       const mintEvent = zMintNftEvent.parse(dataAttribute.value);
 
-      // First try to find the transfer event to get the owner
-      const transferEvent = findMoveEvent(
-        events,
-        "0x1::object::TransferEvent",
-        zMsgMoveObjectTransferEvent
-      );
+      const transferRecipients = events
+        .filter((event) => {
+          if (event.type !== "move") return false;
+
+          const typeTag = event.attributes.find(
+            (attr) => attr.key === "type_tag"
+          )?.value;
+          if (typeTag !== "0x1::object::TransferEvent") return false;
+
+          const data = event.attributes.find(
+            (attr) => attr.key === "data"
+          )?.value;
+          const transferEvent = zMsgMoveObjectTransferEvent.safeParse(data);
+
+          return (
+            transferEvent.success && transferEvent.data.object === mintEvent.nft
+          );
+        })
+        .map((event) => {
+          const data = event.attributes.find(
+            (attr) => attr.key === "data"
+          )?.value;
+          return zMsgMoveObjectTransferEvent.parse(data).to;
+        });
+
+      const latestOwner =
+        transferRecipients.length > 0
+          ? transferRecipients[transferRecipients.length - 1]
+          : null;
 
       const owner =
-        transferEvent?.to ||
+        latestOwner ??
         events
           .find((event) => event.type === "execute")
           ?.attributes.find((attr) => attr.key === "sender")?.value;
