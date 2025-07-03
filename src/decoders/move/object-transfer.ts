@@ -15,11 +15,7 @@ export const objectTransferDecoder: MessageDecoder = {
       return false;
     }
 
-    const transferEvent = findMoveEvent(
-      log.events,
-      "0x1::object::TransferEvent",
-      zMsgMoveObjectTransferEvent
-    );
+    const transferEvent = findTransferEvent(log);
     if (!transferEvent) {
       return false;
     }
@@ -27,11 +23,7 @@ export const objectTransferDecoder: MessageDecoder = {
     return true;
   },
   decode: async (_message: Message, log: Log, _apiClient: ApiClient) => {
-    const transferEvent = findMoveEvent(
-      log.events,
-      "0x1::object::TransferEvent",
-      zMsgMoveObjectTransferEvent
-    );
+    const transferEvent = findTransferEvent(log);
     if (!transferEvent) {
       throw new Error("Object Transfer event not found");
     }
@@ -48,3 +40,10 @@ export const objectTransferDecoder: MessageDecoder = {
     };
   },
 };
+
+const findTransferEvent = (log: Log) =>
+  findMoveEvent(
+    log.events,
+    "0x1::object::TransferEvent",
+    zMsgMoveObjectTransferEvent
+  );
