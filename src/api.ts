@@ -13,7 +13,7 @@ import {
   zRegistries,
   zValidator,
 } from "./schema";
-import { toBech32 } from "./utils";
+import { isAnyHexAddress, toBech32, toHex } from "./utils";
 
 export class ApiClient {
   public registries: Registry[] = [];
@@ -99,7 +99,10 @@ export class ApiClient {
   private async _getAccountResources(
     address: string
   ): Promise<AccountResource[] | null> {
-    const url = `${this.restUrl}/initia/move/v1/accounts/${address}/resources`;
+    // convert to hex if it's a bech32 address
+    const hexAddress = isAnyHexAddress(address) ? address : toHex(address);
+
+    const url = `${this.restUrl}/initia/move/v1/accounts/${hexAddress}/resources`;
 
     const cachedData = this.cache.get(url);
     const parsedCache = zAccountResources.shape.resources.safeParse(cachedData);

@@ -1563,6 +1563,55 @@ export const mockMsgIbcReceiveNftRemoteToken = {
 
 export const mockApiResponsesForIbcReceiveNft = {
   GET: {
+    "/initia/move/v1/accounts/0x1a4bdc22b8ce68ecfd35900171b8d10b2a9d169dcbe4be8b2a5da0623a08f6b7/resources":
+      {
+        pagination: { next_key: null, total: "0" },
+        resources: [
+          {
+            address:
+              "0x1a4bdc22b8ce68ecfd35900171b8d10b2a9d169dcbe4be8b2a5da0623a08f6b7",
+            move_resource:
+              '{"type":"0x1::nft::Nft","data":{"collection":{"inner":"0x9af765d811209d39bd35ff1d75f5cf0cf46663cfd7a5455a948266db188d67f3"},"description":"Ubon Ratchathani, a good place to taste mushroom","token_id":"1","uri":"https://nft-rho-ten.vercel.app/thailand/1"}}',
+            raw_bytes:
+              "mvdl2BEgnTm9Nf8ddfXPDPRmY8/XpUValIJm2xiNZ/MwVWJvbiBSYXRjaGF0aGFuaSwgYSBnb29kIHBsYWNlIHRvIHRhc3RlIG11c2hyb29tATEpaHR0cHM6Ly9uZnQtcmhvLXRlbi52ZXJjZWwuYXBwL3RoYWlsYW5kLzE=",
+            struct_tag: "0x1::nft::Nft",
+          },
+          {
+            address:
+              "0x1a4bdc22b8ce68ecfd35900171b8d10b2a9d169dcbe4be8b2a5da0623a08f6b7",
+            move_resource:
+              '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":true,"owner":"0x596de3ee0472f3a91aa219ac12d43d2f0bfef4a1","version":"1"}}',
+            raw_bytes:
+              "AAAAAAAAAAAAAAAAWW3j7gRy86kaohmsEtQ9Lwv+9KEBAQAAAAAAAAA=",
+            struct_tag: "0x1::object::ObjectCore",
+          },
+          {
+            address:
+              "0x1a4bdc22b8ce68ecfd35900171b8d10b2a9d169dcbe4be8b2a5da0623a08f6b7",
+            move_resource:
+              '{"type":"0x1::initia_nft::InitiaNft","data":{"burn_ref":{"delete_ref":{"self":"0x1a4bdc22b8ce68ecfd35900171b8d10b2a9d169dcbe4be8b2a5da0623a08f6b7","version":"1"}},"mutator_ref":{"self":"0x1a4bdc22b8ce68ecfd35900171b8d10b2a9d169dcbe4be8b2a5da0623a08f6b7"}}}',
+            raw_bytes:
+              "ARpL3CK4zmjs/TWQAXG40QsqnRady+S+iypdoGI6CPa3AQAAAAAAAAABGkvcIrjOaOz9NZABcbjRCyqdFp3L5L6LKl2gYjoI9rc=",
+            struct_tag: "0x1::initia_nft::InitiaNft",
+          },
+          {
+            address:
+              "0x1a4bdc22b8ce68ecfd35900171b8d10b2a9d169dcbe4be8b2a5da0623a08f6b7",
+            move_resource:
+              '{"type":"0x1::simple_nft::SimpleNft","data":{"property_mutator_ref":{"self":"0x1a4bdc22b8ce68ecfd35900171b8d10b2a9d169dcbe4be8b2a5da0623a08f6b7"}}}',
+            raw_bytes: "GkvcIrjOaOz9NZABcbjRCyqdFp3L5L6LKl2gYjoI9rc=",
+            struct_tag: "0x1::simple_nft::SimpleNft",
+          },
+          {
+            address:
+              "0x1a4bdc22b8ce68ecfd35900171b8d10b2a9d169dcbe4be8b2a5da0623a08f6b7",
+            move_resource:
+              '{"type":"0x1::property_map::PropertyMap","data":{"inner":{"data":[]}}}',
+            raw_bytes: "AA==",
+            struct_tag: "0x1::property_map::PropertyMap",
+          },
+        ],
+      },
     "/initia/move/v1/accounts/0x5eab800f87ca40210f6905ac31341352575a44246302c5b27f438e978071bf73/resources":
       {
         pagination: { next_key: null, total: "0" },

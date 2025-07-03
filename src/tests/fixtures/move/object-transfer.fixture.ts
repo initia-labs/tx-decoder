@@ -296,3 +296,58 @@ export const mockMsgObjectTransfer = {
   },
   txhash: "E8A6497B081C9CEF0BF88371857D5BFA465CF6C1F7C070E4C8C803AA3AF397A0",
 };
+
+export const mockApiResponsesForObjectTransfer = {
+  GET: {
+    "/initia/move/v1/accounts/0x481b5e2a539721bfa9f9b35e702adb667c059d0a8e1a030be483178abd928235/resources":
+      {
+        pagination: { next_key: null, total: "0" },
+        resources: [
+          {
+            address:
+              "0x481b5e2a539721bfa9f9b35e702adb667c059d0a8e1a030be483178abd928235",
+            move_resource:
+              '{"type":"0x1::nft::Nft","data":{"collection":{"inner":"0x597cd3f37f21f59c771731a31e92ac1214f72b4f8a86541a94b50f0308f4e20"},"description":"Greek Souvlaki - Traditional grilled meat skewers marinated in olive oil and herbs, served with pita bread, tzatziki sauce and fresh vegetables","token_id":"3","uri":"https://nft-rho-ten.vercel.app/favoritefood/3"}}',
+            raw_bytes:
+              "BZfNPzfyH1nHcXMaMekqwSFPcrT4qGVBqUtQ8DCPTiCPAUdyZWVrIFNvdXZsYWtpIC0gVHJhZGl0aW9uYWwgZ3JpbGxlZCBtZWF0IHNrZXdlcnMgbWFyaW5hdGVkIGluIG9saXZlIG9pbCBhbmQgaGVyYnMsIHNlcnZlZCB3aXRoIHBpdGEgYnJlYWQsIHR6YXR6aWtpIHNhdWNlIGFuZCBmcmVzaCB2ZWdldGFibGVzATMtaHR0cHM6Ly9uZnQtcmhvLXRlbi52ZXJjZWwuYXBwL2Zhdm9yaXRlZm9vZC8z",
+            struct_tag: "0x1::nft::Nft",
+          },
+          {
+            address:
+              "0x481b5e2a539721bfa9f9b35e702adb667c059d0a8e1a030be483178abd928235",
+            move_resource:
+              '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":true,"owner":"0x596de3ee0472f3a91aa219ac12d43d2f0bfef4a1","version":"1"}}',
+            raw_bytes:
+              "AAAAAAAAAAAAAAAAWW3j7gRy86kaohmsEtQ9Lwv+9KEBAQAAAAAAAAA=",
+            struct_tag: "0x1::object::ObjectCore",
+          },
+          {
+            address:
+              "0x481b5e2a539721bfa9f9b35e702adb667c059d0a8e1a030be483178abd928235",
+            move_resource:
+              '{"type":"0x1::initia_nft::InitiaNft","data":{"burn_ref":{"delete_ref":{"self":"0x481b5e2a539721bfa9f9b35e702adb667c059d0a8e1a030be483178abd928235","version":"1"}},"mutator_ref":{"self":"0x481b5e2a539721bfa9f9b35e702adb667c059d0a8e1a030be483178abd928235"}}}',
+            raw_bytes:
+              "AUgbXipTlyG/qfmzXnAq22Z8BZ0KjhoDC+SDF4q9koI1AQAAAAAAAAABSBteKlOXIb+p+bNecCrbZnwFnQqOGgML5IMXir2SgjU=",
+            struct_tag: "0x1::initia_nft::InitiaNft",
+          },
+          {
+            address:
+              "0x481b5e2a539721bfa9f9b35e702adb667c059d0a8e1a030be483178abd928235",
+            move_resource:
+              '{"type":"0x1::simple_nft::SimpleNft","data":{"property_mutator_ref":{"self":"0x481b5e2a539721bfa9f9b35e702adb667c059d0a8e1a030be483178abd928235"}}}',
+            raw_bytes: "SBteKlOXIb+p+bNecCrbZnwFnQqOGgML5IMXir2SgjU=",
+            struct_tag: "0x1::simple_nft::SimpleNft",
+          },
+          {
+            address:
+              "0x481b5e2a539721bfa9f9b35e702adb667c059d0a8e1a030be483178abd928235",
+            move_resource:
+              '{"type":"0x1::property_map::PropertyMap","data":{"inner":{"data":[]}}}',
+            raw_bytes: "AA==",
+            struct_tag: "0x1::property_map::PropertyMap",
+          },
+        ],
+      },
+  },
+  POST: {},
+};

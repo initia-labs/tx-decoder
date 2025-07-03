@@ -66,6 +66,16 @@ describe("IBC Receive NFT Message", () => {
           },
         },
       });
+
+      expect(decoded.metadata).toEqual({
+        init1rf9acg4cee5welf4jqqhrwx3pv4f695ae0jtaze2tksxywsg76msp3qj9a: {
+          collectionAddress:
+            "init1ntmktkq3yzwnn0f4luwhtaw0pn6xvc7067j52k55sfndkxydvlesl6xnsq",
+          tokenId: "1",
+          tokenUri: "https://nft-rho-ten.vercel.app/thailand/1",
+          type: "nft",
+        },
+      });
     });
 
     it("should handle the correct message type for source token", async () => {

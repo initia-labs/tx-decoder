@@ -6,8 +6,6 @@ import {
   zMintNftEvent,
   zMsgMoveNftBurnEvent,
   zMsgMoveObjectCreateEvent,
-  zMsgMoveObjectTransfer,
-  zMsgMoveObjectTransferEvent,
 } from "@/schema";
 import { findMoveEvent, toBech32 } from "@/utils";
 
@@ -36,50 +34,9 @@ export const nftMintDecoder: MessageDecoder = {
     return {
       action: "nft_mint",
       data: {
-        collectionAddress: mintEvent.collection,
-        tokenAddress: mintEvent.nft,
+        collectionAddress: toBech32(mintEvent.collection),
+        tokenAddress: toBech32(mintEvent.nft),
         tokenId: mintEvent.token_id,
-      },
-      isIbc: false,
-      isOp: false,
-    };
-  },
-};
-
-export const objectTransferDecoder: MessageDecoder = {
-  check: (message: Message, log: Log) => {
-    const parsed = zMsgMoveObjectTransfer.safeParse(message);
-    if (!parsed.success) {
-      return false;
-    }
-
-    const transferEvent = findMoveEvent(
-      log.events,
-      "0x1::object::TransferEvent",
-      zMsgMoveObjectTransferEvent
-    );
-    if (!transferEvent) {
-      return false;
-    }
-
-    return true;
-  },
-  decode: async (_message: Message, log: Log, _apiClient: ApiClient) => {
-    const transferEvent = findMoveEvent(
-      log.events,
-      "0x1::object::TransferEvent",
-      zMsgMoveObjectTransferEvent
-    );
-    if (!transferEvent) {
-      throw new Error("Object Transfer event not found");
-    }
-
-    return {
-      action: "object_transfer",
-      data: {
-        from: toBech32(transferEvent.from),
-        object: transferEvent.object,
-        to: toBech32(transferEvent.to),
       },
       isIbc: false,
       isOp: false,
@@ -107,8 +64,8 @@ export const nftBurnDecoder: MessageDecoder = {
     return {
       action: "nft_burn",
       data: {
-        collectionAddress: burnEvent.collection,
-        tokenAddress: burnEvent.nft,
+        collectionAddress: toBech32(burnEvent.collection),
+        tokenAddress: toBech32(burnEvent.nft),
         tokenId: burnEvent.token_id,
       },
       isIbc: false,

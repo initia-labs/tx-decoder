@@ -1,11 +1,24 @@
-import { mockMsgIbcSendNft } from "../fixtures/ibc/send-nft.fixture";
-import { initialize } from "../helpers";
+import {
+  mockApiResponsesForIbcSendNft,
+  mockMsgIbcSendNft,
+} from "../fixtures/ibc/send-nft.fixture";
+import {
+  initialize,
+  mockedAxios,
+  resetMockApi,
+  setupMockApi,
+} from "../helpers";
 
 jest.mock("axios");
 const decoder = initialize();
 
 describe("IBC Send NFT Message", () => {
+  beforeEach(() => {
+    resetMockApi(mockedAxios);
+  });
+
   it("should decode an IBC NFT send message correctly", async () => {
+    setupMockApi(mockedAxios, mockApiResponsesForIbcSendNft);
     const decoded = await decoder.decodeTransaction(mockMsgIbcSendNft);
 
     expect(decoded.messages).toHaveLength(1);
@@ -46,6 +59,16 @@ describe("IBC Send NFT Message", () => {
         init1j0kfut4t788gs9e6l4aqyh7s3pgwtwegnqn6qr: {
           init1v2xnnl08y508ec6q4q4hxqr2avdeyu3cew5rxghwnn5t3y4jhd2smmah7n: "1",
         },
+      },
+    });
+
+    expect(decoded.metadata).toEqual({
+      init1v2xnnl08y508ec6q4q4hxqr2avdeyu3cew5rxghwnn5t3y4jhd2smmah7n: {
+        collectionAddress:
+          "init1fv3ykwuzzsrpf7lqwp45y8vg0azn96536jkseu4engf9rsrdl2dqzkhn6h",
+        tokenId: "1",
+        tokenUri: "https://jennie.initia.xyz/data/9_4.json",
+        type: "nft",
       },
     });
   });

@@ -35,6 +35,9 @@ const isHexWalletAddress = (address: string) =>
 const isHexModuleAddress = (address: string) =>
   isHexAddress(address, HEX_MODULE_ADDRESS_LENGTH);
 
+export const isAnyHexAddress = (address: string) =>
+  isHexWalletAddress(address) || isHexModuleAddress(address);
+
 const hexToBech32AddressByLength = (
   prefix: string,
   hexAddr: string,
