@@ -4,9 +4,9 @@ import { zCreateEvent, zMintNftEvent } from "@/schema";
 import { toBech32 } from "@/utils";
 
 export const mintEventProcessor: BalanceEventProcessor = {
-  async process(event, events, _apiClient) {
+  async process(currentEvent, allEvents, _apiClient) {
     try {
-      const dataAttribute = event.attributes.find(
+      const dataAttribute = currentEvent.attributes.find(
         (attr) => attr.key === "data"
       );
       if (!dataAttribute) {
@@ -15,7 +15,7 @@ export const mintEventProcessor: BalanceEventProcessor = {
 
       const mintEvent = zMintNftEvent.parse(dataAttribute.value);
 
-      const createEvents = events.filter((event) => {
+      const createEvents = allEvents.filter((event) => {
         if (event.type !== "move") return false;
 
         const typeTag = event.attributes.find(

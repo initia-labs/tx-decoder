@@ -4,8 +4,8 @@ import { Event } from "@/schema";
 
 export interface BalanceEventProcessor {
   process: (
-    event: Event,
-    events: Event[],
+    currentEvent: Event,
+    allEvents: Event[],
     apiClient: ApiClient
   ) => Promise<BalanceChanges>;
   type_tag: string;

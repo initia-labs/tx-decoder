@@ -4,9 +4,9 @@ import { zMsgMoveNftBurnEvent } from "@/schema";
 import { toBech32 } from "@/utils";
 
 export const burnEventProcessor: BalanceEventProcessor = {
-  async process(event, events, _apiClient) {
+  async process(currentEvent, allEvents, _apiClient) {
     try {
-      const dataAttribute = event.attributes.find(
+      const dataAttribute = currentEvent.attributes.find(
         (attr) => attr.key === "data"
       );
       if (!dataAttribute) {
@@ -14,7 +14,7 @@ export const burnEventProcessor: BalanceEventProcessor = {
       }
 
       const burnEvent = zMsgMoveNftBurnEvent.parse(dataAttribute.value);
-      const owner = events
+      const owner = allEvents
         .find((event) => event.type === "execute")
         ?.attributes.find((attr) => attr.key === "sender")?.value;
 

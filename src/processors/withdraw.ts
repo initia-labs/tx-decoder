@@ -3,9 +3,9 @@ import { BalanceEventProcessor } from "@/interfaces";
 import { zWithdrawEvent } from "@/schema";
 
 export const withdrawEventProcessor: BalanceEventProcessor = {
-  async process(event, _events, apiClient) {
+  async process(currentEvent, _allEvents, apiClient) {
     try {
-      const dataAttribute = event.attributes.find(
+      const dataAttribute = currentEvent.attributes.find(
         (attr) => attr.key === "data"
       );
       if (!dataAttribute) {
