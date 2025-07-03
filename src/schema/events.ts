@@ -12,7 +12,6 @@ export const zSwapEvent = zJsonString.pipe(
     return_coin: z.string(),
   })
 );
-export type SwapEvent = z.infer<typeof zSwapEvent>;
 
 export const zCreateEvent = zJsonString.pipe(
   z.object({
