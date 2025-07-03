@@ -1,15 +1,11 @@
 import { DEFAULT_BALANCE_CHANGES } from "@/constants";
 import { BalanceEventProcessor } from "@/interfaces";
-import { zMintNftEvent, zMsgMoveObjectTransferEvent } from "@/schema";
-import { findMoveEvent, toBech32 } from "@/utils";
+import { zMsgMoveObjectTransferEvent } from "@/schema";
+import { toBech32 } from "@/utils";
 
 export const objectTransferEventProcessor: BalanceEventProcessor = {
-  async process(event, events, _apiClient) {
+  async process(event, _events, _apiClient) {
     try {
-      // If the object is minted, we don't need to process the transfer
-      if (findMoveEvent(events, "0x1::collection::MintEvent", zMintNftEvent))
-        return DEFAULT_BALANCE_CHANGES;
-
       const dataAttribute = event.attributes.find(
         (attr) => attr.key === "data"
       );

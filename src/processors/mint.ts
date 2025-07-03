@@ -1,6 +1,6 @@
 import { DEFAULT_BALANCE_CHANGES } from "@/constants";
 import { BalanceEventProcessor } from "@/interfaces";
-import { zMintNftEvent, zMsgMoveObjectTransferEvent } from "@/schema";
+import { zCreateEvent, zMintNftEvent } from "@/schema";
 import { toBech32 } from "@/utils";
 
 export const mintEventProcessor: BalanceEventProcessor = {
@@ -15,41 +15,27 @@ export const mintEventProcessor: BalanceEventProcessor = {
 
       const mintEvent = zMintNftEvent.parse(dataAttribute.value);
 
-      const transferRecipients = events
-        .filter((event) => {
-          if (event.type !== "move") return false;
+      const createEvents = events.filter((event) => {
+        if (event.type !== "move") return false;
 
-          const typeTag = event.attributes.find(
-            (attr) => attr.key === "type_tag"
-          )?.value;
-          if (typeTag !== "0x1::object::TransferEvent") return false;
+        const typeTag = event.attributes.find(
+          (attr) => attr.key === "type_tag"
+        )?.value;
+        if (typeTag !== "0x1::object::CreateEvent") return false;
 
-          const data = event.attributes.find(
-            (attr) => attr.key === "data"
-          )?.value;
-          const transferEvent = zMsgMoveObjectTransferEvent.safeParse(data);
+        const data = event.attributes.find(
+          (attr) => attr.key === "data"
+        )?.value;
+        const createEvent = zCreateEvent.safeParse(data);
 
-          return (
-            transferEvent.success && transferEvent.data.object === mintEvent.nft
-          );
-        })
-        .map((event) => {
-          const data = event.attributes.find(
-            (attr) => attr.key === "data"
-          )?.value;
-          return zMsgMoveObjectTransferEvent.parse(data).to;
-        });
+        return createEvent.success && createEvent.data.object === mintEvent.nft;
+      });
 
-      const latestOwner =
-        transferRecipients.length > 0
-          ? transferRecipients[transferRecipients.length - 1]
-          : null;
+      if (createEvents.length > 1) throw new Error("Multiple create events");
 
-      const owner =
-        latestOwner ??
-        events
-          .find((event) => event.type === "execute")
-          ?.attributes.find((attr) => attr.key === "sender")?.value;
+      const owner = zCreateEvent.parse(
+        createEvents[0].attributes.find((attr) => attr.key === "data")?.value
+      ).owner;
 
       if (!owner) {
         throw new Error(`Owner not found for NFT: ${mintEvent.nft}`);

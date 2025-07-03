@@ -39,7 +39,7 @@ describe("IBC Receive NFT Message", () => {
           action: "ibc_nft_receive",
           data: {
             collectionId:
-              "0x9af765d811209d39bd35ff1d75f5cf0cf46663cfd7a5455a948266db188d67f3",
+              "init1ntmktkq3yzwnn0f4luwhtaw0pn6xvc7067j52k55sfndkxydvlesl6xnsq",
             collectionUri: "https://nft-rho-ten.vercel.app/thailand",
             destinationChannel: "channel-28",
             destinationPort: "nft-transfer",
@@ -102,7 +102,7 @@ describe("IBC Receive NFT Message", () => {
       expect(message?.action).toBe("ibc_nft_receive");
       if (message && message.action === "ibc_nft_receive") {
         expect(message.data.collectionId).toBe(
-          "0x9af765d811209d39bd35ff1d75f5cf0cf46663cfd7a5455a948266db188d67f3"
+          "init1ntmktkq3yzwnn0f4luwhtaw0pn6xvc7067j52k55sfndkxydvlesl6xnsq"
         );
         expect(message.data.collectionUri).toBe(
           "https://nft-rho-ten.vercel.app/thailand"
@@ -168,7 +168,7 @@ describe("IBC Receive NFT Message", () => {
           action: "ibc_nft_receive",
           data: {
             collectionId:
-              "0xfa4e6b1a87f3acefcf070ecee04eb1e0ce4c6c5c89b87fe026b99c6ac47b010c",
+              "init1lf8xkx587wkwlnc8pm8wqn43ur8ycmzu3xu8lcpxhxwx43rmqyxqkqeqpp",
             collectionUri: null,
             destinationChannel: "channel-67",
             destinationPort: "nft-transfer",
@@ -192,6 +192,10 @@ describe("IBC Receive NFT Message", () => {
       expect(decoded.messages[1].balanceChanges).toEqual({
         ft: {},
         object: {
+          init1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqpqr5e3d: {
+            init1t64cqru8efqzzrmfqkkrzdqn2ft453pyvvpvtvnlgw8f0qr3haeslr0899:
+              "0",
+          },
           init18cd6ufdufm4crr4tjr23uwhn26qz6ndea57aya: {
             init1t64cqru8efqzzrmfqkkrzdqn2ft453pyvvpvtvnlgw8f0qr3haeslr0899:
               "1",
@@ -224,7 +228,7 @@ describe("IBC Receive NFT Message", () => {
       expect(message?.action).toBe("ibc_nft_receive");
       if (message && message.action === "ibc_nft_receive") {
         expect(message.data.collectionId).toBe(
-          "0xfa4e6b1a87f3acefcf070ecee04eb1e0ce4c6c5c89b87fe026b99c6ac47b010c"
+          "init1lf8xkx587wkwlnc8pm8wqn43ur8ycmzu3xu8lcpxhxwx43rmqyxqkqeqpp"
         );
         expect(message.data.collectionUri).toBe(null);
         expect(message.data.tokenIds).toEqual(["6089"]);

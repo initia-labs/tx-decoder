@@ -18,14 +18,6 @@ const eventProcessors = new Map<string, BalanceEventProcessor>(
   allBalanceEventProcessors.map((p) => [p.type_tag, p])
 );
 
-/**
- * Processes a single transaction log to calculate aggregate balance changes from its events.
- * It acts as a dispatcher, finding and executing the correct processor for each event.
- *
- * @param log The transaction log, assumed to have pre-processed events.
- * @param apiClient The configured API client instance for making network requests.
- * @returns A Promise resolving to the aggregated BalanceChanges for the entire log.
- */
 export async function processLogForBalanceChanges(
   log: Log,
   apiClient: ApiClient
