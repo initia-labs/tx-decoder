@@ -3,7 +3,7 @@ import { BalanceEventProcessor } from "@/interfaces";
 import { zDepositEvent } from "@/schema";
 
 export const depositEventProcessor: BalanceEventProcessor = {
-  async process(event, apiClient) {
+  async process(event, _events, apiClient) {
     try {
       const dataAttribute = event.attributes.find(
         (attr) => attr.key === "data"

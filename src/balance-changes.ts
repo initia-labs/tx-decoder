@@ -6,6 +6,7 @@ import { Event, Log } from "./schema";
 import { mergeBalanceChanges } from "./utils";
 
 const allBalanceEventProcessors: BalanceEventProcessor[] = [
+  Processors.burnEventProcessor,
   Processors.depositEventProcessor,
   Processors.withdrawEventProcessor,
   Processors.mintEventProcessor,
@@ -35,7 +36,9 @@ export async function processLogForBalanceChanges(
     const processor = findProcessorForEvent(event);
 
     if (processor) {
-      balanceChangePromises.push(processor.process(event, apiClient));
+      balanceChangePromises.push(
+        processor.process(event, log.events, apiClient)
+      );
     }
   }
 

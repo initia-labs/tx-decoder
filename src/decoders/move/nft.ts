@@ -4,7 +4,9 @@ import {
   Log,
   Message,
   zMintNftEvent,
+  zMsgMoveExecute,
   zMsgMoveNftBurnEvent,
+  zMsgMoveNftMint,
   zMsgMoveObjectCreateEvent,
 } from "@/schema";
 import { findMoveEvent, toBech32 } from "@/utils";
@@ -12,7 +14,8 @@ import { findMoveEvent, toBech32 } from "@/utils";
 export const nftMintDecoder: MessageDecoder = {
   check: (_message: Message, log: Log) =>
     !!findMoveEvent(log.events, "0x1::collection::MintEvent", zMintNftEvent),
-  decode: async (_message: Message, log: Log, _apiClient: ApiClient) => {
+  decode: async (message: Message, log: Log, _apiClient: ApiClient) => {
+    const parsed = zMsgMoveNftMint.parse(message);
     const mintEvent = findMoveEvent(
       log.events,
       "0x1::collection::MintEvent",
@@ -35,6 +38,7 @@ export const nftMintDecoder: MessageDecoder = {
       action: "nft_mint",
       data: {
         collectionAddress: toBech32(mintEvent.collection),
+        from: parsed.sender,
         tokenAddress: toBech32(mintEvent.nft),
         tokenId: mintEvent.token_id,
       },
@@ -51,7 +55,8 @@ export const nftBurnDecoder: MessageDecoder = {
       "0x1::collection::BurnEvent",
       zMsgMoveNftBurnEvent
     ),
-  decode: async (_message: Message, log: Log, _apiClient: ApiClient) => {
+  decode: async (message: Message, log: Log, _apiClient: ApiClient) => {
+    const parsed = zMsgMoveExecute.parse(message);
     const burnEvent = findMoveEvent(
       log.events,
       "0x1::collection::BurnEvent",
@@ -65,6 +70,7 @@ export const nftBurnDecoder: MessageDecoder = {
       action: "nft_burn",
       data: {
         collectionAddress: toBech32(burnEvent.collection),
+        from: parsed.sender,
         tokenAddress: toBech32(burnEvent.nft),
         tokenId: burnEvent.token_id,
       },

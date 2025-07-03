@@ -29,6 +29,7 @@ describe("NFT Mint Message", () => {
       data: {
         collectionAddress:
           "init1qktu60eh7g04n3m3wvdrr6f2cys57u45lz5x2sdffdg0qvy0fcsqk9gvt9",
+        from: "init1ulw753hxh4mrc9ss7p2y7h8emjxxyw6uce0hk9",
         tokenAddress:
           "init1ata7vteyg83wen5emdx0h2effa6594uvutvzeg5duy76p2w5rwrqy2y24c",
         tokenId: "1",
