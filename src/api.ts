@@ -143,10 +143,15 @@ export class ApiClient {
   }
 
   public async getChainId(): Promise<string> {
-    const response = await axios.get(
-      `${this.restUrl}/cosmos/base/tendermint/v1beta1/node_info`
-    );
-    return zNodeInfo.parse(response.data).default_node_info.network;
+    try {
+      const response = await axios.get(
+        `${this.restUrl}/cosmos/base/tendermint/v1beta1/node_info`
+      );
+      return zNodeInfo.parse(response.data).default_node_info.network;
+    } catch (error) {
+      console.error("Failed to fetch chain ID:", error);
+      throw new Error("Unable to retrieve chain ID from node info");
+    }
   }
 
   private async _getAccountResources(
