@@ -50,3 +50,16 @@ export const zNftResource = zJsonString.pipe(
   })
 );
 export type NftResource = z.infer<typeof zNftResource>;
+
+export const zCollectionResource = zJsonString.pipe(
+  z.object({
+    data: z.object({
+      creator: z.string(),
+      description: z.string(),
+      name: z.string(),
+      uri: z.string(),
+    }),
+    type: z.literal("0x1::collection::Collection"),
+  })
+);
+export type CollectionResource = z.infer<typeof zCollectionResource>;

@@ -25,9 +25,16 @@ describe("IBC Send NFT Message", () => {
     expect(decoded.messages[0].decodedMessage).toEqual({
       action: "ibc_nft_send",
       data: {
+        collection: {
+          creator:
+            "init13fnzkzrac5lx9xeu5mt80r2w0thl4s9ns7ueg9znn4enhyp4fyrsgkt9zc",
+          description:
+            "Jennie you know and love, now living rent-free in your wallet. She'll accompany you wherever you go.",
+          name: "Jennie",
+          uri: "https://jennie.initia.xyz/data/collection.json",
+        },
         collectionId:
           "init1fv3ykwuzzsrpf7lqwp45y8vg0azn96536jkseu4engf9rsrdl2dqzkhn6h",
-        collectionUri: "https://jennie.initia.xyz/data/collection.json",
         receiver: "init1ulw753hxh4mrc9ss7p2y7h8emjxxyw6uce0hk9",
         sender: "init1dw49mn7s2r5mskjdmus5hth80zz8wwaywycq06",
         sourceChannel: "channel-28",
@@ -64,6 +71,14 @@ describe("IBC Send NFT Message", () => {
 
     expect(decoded.metadata).toEqual({
       init1v2xnnl08y508ec6q4q4hxqr2avdeyu3cew5rxghwnn5t3y4jhd2smmah7n: {
+        collection: {
+          creator:
+            "init13fnzkzrac5lx9xeu5mt80r2w0thl4s9ns7ueg9znn4enhyp4fyrsgkt9zc",
+          description:
+            "Jennie you know and love, now living rent-free in your wallet. She'll accompany you wherever you go.",
+          name: "Jennie",
+          uri: "https://jennie.initia.xyz/data/collection.json",
+        },
         collectionAddress:
           "init1fv3ykwuzzsrpf7lqwp45y8vg0azn96536jkseu4engf9rsrdl2dqzkhn6h",
         tokenId: "1",
@@ -91,7 +106,7 @@ describe("IBC Send NFT Message", () => {
       expect(decodedMessage.data.collectionId).toBe(
         "init1fv3ykwuzzsrpf7lqwp45y8vg0azn96536jkseu4engf9rsrdl2dqzkhn6h"
       );
-      expect(decodedMessage.data.collectionUri).toBe(
+      expect(decodedMessage.data.collection.uri).toBe(
         "https://jennie.initia.xyz/data/collection.json"
       );
       expect(decodedMessage.data.tokenIds).toEqual(["1"]);

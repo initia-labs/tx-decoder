@@ -4,9 +4,11 @@ import { z } from "zod";
 import { DecoderConfig } from "./interfaces";
 import {
   AccountResource,
+  CollectionResource,
   NftResource,
   Registry,
   zAccountResources,
+  zCollectionResource,
   zMoveViewResponse,
   zNftResource,
   zObjectCoreResource,
@@ -25,6 +27,22 @@ export class ApiClient {
   constructor(config: DecoderConfig) {
     this.restUrl = config.restUrl;
     this.registryUrls = config.registryUrls;
+  }
+
+  public async findCollectionFromCollectionAddr(
+    collectionAddr: string
+  ): Promise<CollectionResource | null> {
+    const resources = await this._getAccountResources(collectionAddr);
+    if (!resources) {
+      return null;
+    }
+    const collectionResource = resources.find(
+      (resource) => resource.struct_tag === "0x1::collection::Collection"
+    );
+    if (!collectionResource) {
+      return null;
+    }
+    return zCollectionResource.parse(collectionResource.move_resource);
   }
 
   public async findDenomFromMetadataAddr(

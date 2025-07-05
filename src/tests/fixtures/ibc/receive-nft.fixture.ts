@@ -1561,7 +1561,7 @@ export const mockMsgIbcReceiveNftRemoteToken = {
   txhash: "718AFCF8FC3A9940295F8A2CC3FBB035A03D128CC190764946A539D0AE3DDFC1",
 };
 
-export const mockApiResponsesForIbcReceiveNft = {
+export const mockApiResponsesForIbcReceiveNftSourceToken = {
   GET: {
     "/initia/move/v1/accounts/0x1a4bdc22b8ce68ecfd35900171b8d10b2a9d169dcbe4be8b2a5da0623a08f6b7/resources":
       {
@@ -1612,6 +1612,70 @@ export const mockApiResponsesForIbcReceiveNft = {
           },
         ],
       },
+    "/initia/move/v1/accounts/0x9af765d811209d39bd35ff1d75f5cf0cf46663cfd7a5455a948266db188d67f3/resources":
+      {
+        pagination: { next_key: null, total: "0" },
+        resources: [
+          {
+            address:
+              "0x9af765d811209d39bd35ff1d75f5cf0cf46663cfd7a5455a948266db188d67f3",
+            move_resource:
+              '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":true,"owner":"0xe7ddea46e6bd763c1610f0544f5cf9dc8c623b5c","version":"1"}}',
+            raw_bytes:
+              "AAAAAAAAAAAAAAAA593qRua9djwWEPBUT1z53IxiO1wBAQAAAAAAAAA=",
+            struct_tag: "0x1::object::ObjectCore",
+          },
+          {
+            address:
+              "0x9af765d811209d39bd35ff1d75f5cf0cf46663cfd7a5455a948266db188d67f3",
+            move_resource:
+              '{"type":"0x1::royalty::Royalty","data":{"payee_address":"0xe7ddea46e6bd763c1610f0544f5cf9dc8c623b5c","royalty":"0.05"}}',
+            raw_bytes:
+              "BwAAxS68orEAAAAAAAAAAAAAAADn3epG5r12PBYQ8FRPXPncjGI7XA==",
+            struct_tag: "0x1::royalty::Royalty",
+          },
+          {
+            address:
+              "0x9af765d811209d39bd35ff1d75f5cf0cf46663cfd7a5455a948266db188d67f3",
+            move_resource:
+              '{"type":"0x1::collection::Collection","data":{"creator":"0xe7ddea46e6bd763c1610f0544f5cf9dc8c623b5c","description":"Good places to visit in Thailand - Explore beautiful destinations and cultural landmarks","name":"Thailand places","nfts":{"handle":"0xe3210c74b22ebdafced7554325b6d380d4a6ac938f838378911bdee546ff0872","length":"7"},"uri":"https://nft-rho-ten.vercel.app/thailand"}}',
+            raw_bytes:
+              "AAAAAAAAAAAAAAAA593qRua9djwWEPBUT1z53IxiO1xYR29vZCBwbGFjZXMgdG8gdmlzaXQgaW4gVGhhaWxhbmQgLSBFeHBsb3JlIGJlYXV0aWZ1bCBkZXN0aW5hdGlvbnMgYW5kIGN1bHR1cmFsIGxhbmRtYXJrcw9UaGFpbGFuZCBwbGFjZXMnaHR0cHM6Ly9uZnQtcmhvLXRlbi52ZXJjZWwuYXBwL3RoYWlsYW5k4yEMdLIuva/O11VDJbbTgNSmrJOPg4N4kRve5Ub/CHIHAAAAAAAAAA==",
+            struct_tag: "0x1::collection::Collection",
+          },
+          {
+            address:
+              "0x9af765d811209d39bd35ff1d75f5cf0cf46663cfd7a5455a948266db188d67f3",
+            move_resource:
+              '{"type":"0x1::collection::FixedSupply","data":{"current_supply":"7","max_supply":"100","total_minted":"7"}}',
+            raw_bytes: "BwAAAAAAAABkAAAAAAAAAAcAAAAAAAAA",
+            struct_tag: "0x1::collection::FixedSupply",
+          },
+          {
+            address:
+              "0x9af765d811209d39bd35ff1d75f5cf0cf46663cfd7a5455a948266db188d67f3",
+            move_resource:
+              '{"type":"0x1::initia_nft::InitiaNftCollection","data":{"mutable_description":true,"mutable_nft_description":true,"mutable_nft_uri":true,"mutable_uri":true,"mutator_ref":{"self":"0x9af765d811209d39bd35ff1d75f5cf0cf46663cfd7a5455a948266db188d67f3"},"royalty_mutator_ref":{"inner":{"self":"0x9af765d811209d39bd35ff1d75f5cf0cf46663cfd7a5455a948266db188d67f3","version":"1"}}}}',
+            raw_bytes:
+              "AZr3ZdgRIJ05vTX/HXX1zwz0ZmPP16VFWpSCZtsYjWfzAZr3ZdgRIJ05vTX/HXX1zwz0ZmPP16VFWpSCZtsYjWfzAQAAAAAAAAABAQEB",
+            struct_tag: "0x1::initia_nft::InitiaNftCollection",
+          },
+          {
+            address:
+              "0x9af765d811209d39bd35ff1d75f5cf0cf46663cfd7a5455a948266db188d67f3",
+            move_resource:
+              '{"type":"0x1::simple_nft::SimpleNftCollection","data":{"mutable_nft_properties":true}}',
+            raw_bytes: "AQ==",
+            struct_tag: "0x1::simple_nft::SimpleNftCollection",
+          },
+        ],
+      },
+  },
+  POST: {},
+};
+
+export const mockApiResponsesForIbcReceiveNftRemoteToken = {
+  GET: {
     "/initia/move/v1/accounts/0x5eab800f87ca40210f6905ac31341352575a44246302c5b27f438e978071bf73/resources":
       {
         pagination: { next_key: null, total: "0" },
@@ -1645,6 +1709,53 @@ export const mockApiResponsesForIbcReceiveNft = {
           },
         ],
       },
+    "/initia/move/v1/accounts/0xfa4e6b1a87f3acefcf070ecee04eb1e0ce4c6c5c89b87fe026b99c6ac47b010c/resources":
+      {
+        pagination: { next_key: null, total: "0" },
+        resources: [
+          {
+            address:
+              "0xfa4e6b1a87f3acefcf070ecee04eb1e0ce4c6c5c89b87fe026b99c6ac47b010c",
+            move_resource:
+              '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":true,"owner":"0x1","version":"1"}}',
+            raw_bytes:
+              "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEBAQAAAAAAAAA=",
+            struct_tag: "0x1::object::ObjectCore",
+          },
+          {
+            address:
+              "0xfa4e6b1a87f3acefcf070ecee04eb1e0ce4c6c5c89b87fe026b99c6ac47b010c",
+            move_resource:
+              '{"type":"0x1::royalty::Royalty","data":{"payee_address":"0x1","royalty":"0"}}',
+            raw_bytes: "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB",
+            struct_tag: "0x1::royalty::Royalty",
+          },
+          {
+            address:
+              "0xfa4e6b1a87f3acefcf070ecee04eb1e0ce4c6c5c89b87fe026b99c6ac47b010c",
+            move_resource:
+              '{"type":"0x1::collection::Collection","data":{"creator":"0x1","description":"eyJvd25lciI6ImluaXQxd2M1M3U5c21uenV3cGt6NzA4a3dqNXMzeGV2cXN4MjYzajAwaGx1N25jbXNja3oyZ2NmczVqeDJtayIsImNvbnRyYWN0X2luZm8iOnsiY29kZV9pZCI6MTIsImNyZWF0b3IiOiJpbml0MXdjNTN1OXNtbnp1d3BrejcwOGt3ajVzM3hldnFzeDI2M2owMGhsdTduY21zY2t6MmdjZnM1angybWsiLCJhZG1pbiI6ImluaXQxcDV3N3h3OXA2c2pheWMybjN2djA1NnU1MGM1azdxYWU3YXBhazkiLCJwaW5uZWQiOmZhbHNlLCJpYmNfcG9ydCI6bnVsbH0sIm51bV90b2tlbnMiOjM0ODEsIm5hbWUiOiJUVVpJIiwic3ltYm9sIjoiVFVaSSIsImV4dGVuc2lvbiI6bnVsbH0=","name":"ibc/0A1FFECF8C217E1630E58ABF7BF857FD7CC762D165DF018D94DACBC8881209E2","nfts":{"handle":"0xc9ec49b8f59cd8ca969a0fcb424b906255c223a284c5a21be13cb0926afb06f0","length":"1"},"uri":""}}',
+            raw_bytes:
+              "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAG8A2V5SnZkMjVsY2lJNkltbHVhWFF4ZDJNMU0zVTVjMjF1ZW5WM2NHdDZOekE0YTNkcU5YTXplR1YyY1hONE1qWXphakF3YUd4MU4yNWpiWE5qYTNveVoyTm1jelZxZURKdGF5SXNJbU52Ym5SeVlXTjBYMmx1Wm04aU9uc2lZMjlrWlY5cFpDSTZNVElzSW1OeVpXRjBiM0lpT2lKcGJtbDBNWGRqTlROMU9YTnRibnAxZDNCcmVqY3dPR3QzYWpWek0zaGxkbkZ6ZURJMk0yb3dNR2hzZFRkdVkyMXpZMnQ2TW1kalpuTTFhbmd5YldzaUxDSmhaRzFwYmlJNkltbHVhWFF4Y0RWM04zaDNPWEEyYzJwaGVXTXliak4yZGpBMU5uVTFNR00xYXpkeFlXVTNZWEJoYXpraUxDSndhVzV1WldRaU9tWmhiSE5sTENKcFltTmZjRzl5ZENJNmJuVnNiSDBzSW01MWJWOTBiMnRsYm5NaU9qTTBPREVzSW01aGJXVWlPaUpVVlZwSklpd2ljM2x0WW05c0lqb2lWRlZhU1NJc0ltVjRkR1Z1YzJsdmJpSTZiblZzYkgwPURpYmMvMEExRkZFQ0Y4QzIxN0UxNjMwRTU4QUJGN0JGODU3RkQ3Q0M3NjJEMTY1REYwMThEOTREQUNCQzg4ODEyMDlFMgDJ7Em49ZzYypaaD8tCS5BiVcIjooTFohvhPLCSavsG8AEAAAAAAAAA",
+            struct_tag: "0x1::collection::Collection",
+          },
+          {
+            address:
+              "0xfa4e6b1a87f3acefcf070ecee04eb1e0ce4c6c5c89b87fe026b99c6ac47b010c",
+            move_resource:
+              '{"type":"0x1::collection::UnlimitedSupply","data":{"current_supply":"1","total_minted":"2"}}',
+            raw_bytes: "AQAAAAAAAAACAAAAAAAAAA==",
+            struct_tag: "0x1::collection::UnlimitedSupply",
+          },
+          {
+            address:
+              "0xfa4e6b1a87f3acefcf070ecee04eb1e0ce4c6c5c89b87fe026b99c6ac47b010c",
+            move_resource:
+              '{"type":"0x1::initia_nft::InitiaNftCollection","data":{"mutable_description":false,"mutable_nft_description":false,"mutable_nft_uri":false,"mutable_uri":false,"mutator_ref":null,"royalty_mutator_ref":null}}',
+            raw_bytes: "AAAAAAAA",
+            struct_tag: "0x1::initia_nft::InitiaNftCollection",
+          },
+        ],
+      },
   },
-  POST: {},
 };
