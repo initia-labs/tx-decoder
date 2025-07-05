@@ -431,6 +431,27 @@ export const mockMsgIbcSendNft = {
 
 export const mockApiResponsesForIbcSendNft = {
   GET: {
+    "/chains.json": [
+      {
+        chain_id: "interwoven-1",
+        chain_name: "initia",
+        metadata: {
+          ibc_channels: [
+            {
+              chain_id: "civitia-1",
+              channel_id: "channel-28",
+              port_id: "nft-transfer",
+              version: "ics721-1",
+            },
+          ],
+        },
+      },
+    ],
+    "/cosmos/base/tendermint/v1beta1/node_info": {
+      default_node_info: {
+        network: "interwoven-1",
+      },
+    },
     "/initia/move/v1/accounts/0x4b224b3b82140614fbe0706b421d887f4532ea91d4ad0cf2b99a1251c06dfa9a/resources":
       {
         pagination: { next_key: null, total: "0" },

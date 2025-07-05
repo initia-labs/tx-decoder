@@ -11,6 +11,7 @@ import {
   zCollectionResource,
   zMoveViewResponse,
   zNftResource,
+  zNodeInfo,
   zObjectCoreResource,
   zRegistries,
   zValidator,
@@ -57,6 +58,33 @@ export class ApiClient {
     );
 
     return z.string().parse(response);
+  }
+
+  public async findIbcCounterPartyChainId(
+    chainId: string,
+    portId: string,
+    channelId: string
+  ): Promise<string | null> {
+    await this._getRegistries();
+
+    const registry = this.registries.find(
+      (registry) => registry.chain_id === chainId
+    );
+
+    if (!registry) {
+      return null;
+    }
+
+    const channel = registry.metadata.ibc_channels.find(
+      (channel) =>
+        channel.port_id === portId && channel.channel_id === channelId
+    );
+
+    if (!channel) {
+      return null;
+    }
+
+    return channel.chain_id;
   }
 
   public async findNftFromTokenAddr(
@@ -111,6 +139,18 @@ export class ApiClient {
       return zValidator.parse(response.data);
     } catch {
       return null;
+    }
+  }
+
+  public async getChainId(): Promise<string> {
+    try {
+      const response = await axios.get(
+        `${this.restUrl}/cosmos/base/tendermint/v1beta1/node_info`
+      );
+      return zNodeInfo.parse(response.data).default_node_info.network;
+    } catch (error) {
+      console.error("Failed to fetch chain ID:", error);
+      throw new Error("Unable to retrieve chain ID from node info");
     }
   }
 

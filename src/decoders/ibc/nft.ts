@@ -49,6 +49,31 @@ export const ibcSendNftDecoder: MessageDecoder = {
       );
     }
 
+    const srcChainId = await apiClient.getChainId();
+
+    const dstPort = event.attributes.find(
+      (attr) => attr.key === "packet_dst_port"
+    )?.value;
+    if (!dstPort) {
+      throw new Error("IBC NFT Send packet dst port attribute not found");
+    }
+
+    const dstChannel = event.attributes.find(
+      (attr) => attr.key === "packet_dst_channel"
+    )?.value;
+    if (!dstChannel) {
+      throw new Error("IBC NFT Send packet dst channel attribute not found");
+    }
+
+    const dstChainId = await apiClient.findIbcCounterPartyChainId(
+      srcChainId,
+      source_port,
+      source_channel
+    );
+    if (!dstChainId) {
+      throw new Error("IBC NFT Send packet dst chain id not found");
+    }
+
     return {
       action: "ibc_nft_send",
       data: {
@@ -59,10 +84,14 @@ export const ibcSendNftDecoder: MessageDecoder = {
           uri: collection.data.uri || parsedData.data.classUri,
         },
         collectionId: toBech32(denomToHex(class_id)),
+        dstChainId,
+        dstChannel,
+        dstPort,
         receiver,
         sender,
-        sourceChannel: source_channel,
-        sourcePort: source_port,
+        srcChainId,
+        srcChannel: source_channel,
+        srcPort: source_port,
         tokenIds: parsedData.data.tokenIds,
         tokenUris: parsedData.data.tokenUris,
       },
@@ -125,6 +154,31 @@ export const ibcReceiveNftDecoder: MessageDecoder = {
       );
     }
 
+    const dstChainId = await apiClient.getChainId();
+
+    const srcPort = event.attributes.find(
+      (attr) => attr.key === "packet_src_port"
+    )?.value;
+    if (!srcPort) {
+      throw new Error("IBC NFT Receive packet src port attribute not found");
+    }
+
+    const srcChannel = event.attributes.find(
+      (attr) => attr.key === "packet_src_channel"
+    )?.value;
+    if (!srcChannel) {
+      throw new Error("IBC NFT Receive packet src channel attribute not found");
+    }
+
+    const srcChainId = await apiClient.findIbcCounterPartyChainId(
+      dstChainId,
+      destination_port,
+      destination_channel
+    );
+    if (!srcChainId) {
+      throw new Error("IBC NFT Receive packet src chain id not found");
+    }
+
     return {
       action: "ibc_nft_receive",
       data: {
@@ -135,10 +189,14 @@ export const ibcReceiveNftDecoder: MessageDecoder = {
           uri: collection.data.uri || parsedData.data.classUri,
         },
         collectionId: toBech32(collection_id),
-        destinationChannel: destination_channel,
-        destinationPort: destination_port,
+        dstChainId,
+        dstChannel: destination_channel,
+        dstPort: destination_port,
         receiver: parsedData.data.receiver,
         sender: parsedData.data.sender,
+        srcChainId,
+        srcChannel,
+        srcPort,
         tokenIds: parsedData.data.tokenIds,
         tokenUris: parsedData.data.tokenUris,
       },

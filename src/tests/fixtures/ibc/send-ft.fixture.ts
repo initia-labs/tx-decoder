@@ -542,6 +542,48 @@ export const mockMsgIbcSendFt = {
 
 export const mockApiResponsesForMsgIbcSend = {
   GET: {
+    "/chains.json": [
+      {
+        chain_id: "interwoven-1",
+        chain_name: "initia",
+        metadata: {
+          ibc_channels: [
+            {
+              chain_id: "moo-1",
+              channel_id: "channel-29",
+              port_id: "transfer",
+              version: "ics20-1",
+            },
+          ],
+        },
+      },
+      {
+        chain_id: "moo-1",
+        chain_name: "moo",
+        metadata: {
+          ibc_channels: [
+            {
+              chain_id: "interwoven-1",
+              channel_id: "channel-0",
+              port_id: "transfer",
+              version: "ics20-1",
+            },
+            {
+              chain_id: "interwoven-1",
+              channel_id: "channel-1",
+              port_id:
+                "wasm.init1wug8sewp6cedgkmrmvhl3lf3tulagm9hnvy8p0rppz9yjw0g4wtq7947m6",
+              version: "ics721-1",
+            },
+          ],
+        },
+      },
+    ],
+    "/cosmos/base/tendermint/v1beta1/node_info": {
+      default_node_info: {
+        network: "interwoven-1",
+      },
+    },
     "/initia/move/v1/accounts/0x873cbc9d221091c5711ca3341776caa29a9e8a51ed31bc6791c98e3298f6a10b/resources":
       {
         pagination: { next_key: null, total: "0" },
