@@ -1,6 +1,6 @@
 {
   "name": "@initia/tx-decoder",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A pluggable library to decode Cosmos-based blockchain transactions.",
   "type": "module",
   "main": "./dist/index.cjs",
