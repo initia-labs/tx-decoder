@@ -1,4 +1,7 @@
-import { mockMsgIbcFtReceive } from "../fixtures/ibc/receive-ft.fixture";
+import {
+  mockApiResponsesForMsgIbcRecvPacket,
+  mockMsgIbcFtReceive,
+} from "../fixtures/ibc/receive-ft.fixture";
 import {
   mockApiResponsesForMsgIbcSend,
   mockMsgIbcSendFt,
@@ -29,12 +32,14 @@ describe("IBC Transfer Decoder", () => {
       data: {
         amount: "200000",
         denom: "uinit",
-        destinationChannel: "channel-0",
-        destinationPort: "transfer",
+        dstChainId: "moo-1",
+        dstChannel: "channel-0",
+        dstPort: "transfer",
         receiver: "init1kw2unuhgfa6mz6r0ehrzlr9k9ftjk7pql8u5fm",
         sender: "init1kw2unuhgfa6mz6r0ehrzlr9k9ftjk7pql8u5fm",
-        sourceChannel: "channel-29",
-        sourcePort: "transfer",
+        srcChainId: "interwoven-1",
+        srcChannel: "channel-29",
+        srcPort: "transfer",
       },
       isIbc: true,
       isOp: false,
@@ -64,7 +69,7 @@ describe("IBC Transfer Decoder", () => {
   });
 
   it("should decode IBC transfer receive message", async () => {
-    setupMockApi(mockedAxios, mockApiResponsesForMsgIbcSend);
+    setupMockApi(mockedAxios, mockApiResponsesForMsgIbcRecvPacket);
 
     const decoded = await decoder.decodeTransaction(mockMsgIbcFtReceive);
 
@@ -74,12 +79,14 @@ describe("IBC Transfer Decoder", () => {
       data: {
         amount: "200000",
         denom: "uinit",
-        destinationChannel: "channel-0",
-        destinationPort: "transfer",
+        dstChainId: "moo-1",
+        dstChannel: "channel-0",
+        dstPort: "transfer",
         receiver: "init1kw2unuhgfa6mz6r0ehrzlr9k9ftjk7pql8u5fm",
         sender: "init1kw2unuhgfa6mz6r0ehrzlr9k9ftjk7pql8u5fm",
-        sourceChannel: "channel-29",
-        sourcePort: "transfer",
+        srcChainId: "interwoven-1",
+        srcChannel: "channel-29",
+        srcPort: "transfer",
       },
       isIbc: true,
       isOp: false,

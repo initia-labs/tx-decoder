@@ -465,6 +465,7 @@ export const mockApiResponsesForFinalizeTokenWithdrawal = {
         chain_id: "civitia-1",
         chain_name: "civitia",
         metadata: {
+          ibc_channels: [],
           op_bridge_id: "12",
           op_denoms: ["uinit"],
         },

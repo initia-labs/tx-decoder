@@ -1794,3 +1794,50 @@ export const mockMsgIbcFtReceive = {
   },
   txhash: "D0A4E774CE1909EAE66C1BB828F2A10687DD6C38198E6D9FB687D9DBD50704C2",
 };
+
+export const mockApiResponsesForMsgIbcRecvPacket = {
+  GET: {
+    "/chains.json": [
+      {
+        chain_id: "interwoven-1",
+        chain_name: "initia",
+        metadata: {
+          ibc_channels: [
+            {
+              chain_id: "moo-1",
+              channel_id: "channel-29",
+              port_id: "transfer",
+              version: "ics20-1",
+            },
+          ],
+        },
+      },
+      {
+        chain_id: "moo-1",
+        chain_name: "moo",
+        metadata: {
+          ibc_channels: [
+            {
+              chain_id: "interwoven-1",
+              channel_id: "channel-0",
+              port_id: "transfer",
+              version: "ics20-1",
+            },
+            {
+              chain_id: "interwoven-1",
+              channel_id: "channel-1",
+              port_id:
+                "wasm.init1wug8sewp6cedgkmrmvhl3lf3tulagm9hnvy8p0rppz9yjw0g4wtq7947m6",
+              version: "ics721-1",
+            },
+          ],
+        },
+      },
+    ],
+    "/cosmos/base/tendermint/v1beta1/node_info": {
+      default_node_info: {
+        network: "moo-1",
+      },
+    },
+  },
+};

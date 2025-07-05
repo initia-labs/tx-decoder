@@ -40,12 +40,14 @@ interface DecodedIbcFtSendMessage extends DecodedMessageBase {
   data: {
     amount: string;
     denom: string;
-    destinationChannel: string;
-    destinationPort: string;
+    dstChainId: string;
+    dstChannel: string;
+    dstPort: string;
     receiver: string;
     sender: string;
-    sourceChannel: string;
-    sourcePort: string;
+    srcChainId: string;
+    srcChannel: string;
+    srcPort: string;
   };
 }
 
@@ -54,12 +56,14 @@ interface DecodedIbcFtReceiveMessage extends DecodedMessageBase {
   data: {
     amount: string;
     denom: string;
-    destinationChannel: string;
-    destinationPort: string;
+    dstChainId: string;
+    dstChannel: string;
+    dstPort: string;
     receiver: string;
     sender: string;
-    sourceChannel: string;
-    sourcePort: string;
+    srcChainId: string;
+    srcChannel: string;
+    srcPort: string;
   };
 }
 
@@ -190,10 +194,14 @@ interface DecodedIbcNftSendMessage extends DecodedMessageBase {
       uri: string | null;
     };
     collectionId: string;
+    dstChainId: string;
+    dstChannel: string;
+    dstPort: string;
     receiver: string;
     sender: string;
-    sourceChannel: string;
-    sourcePort: string;
+    srcChainId: string;
+    srcChannel: string;
+    srcPort: string;
     tokenIds: string[];
     tokenUris: string[];
   };
@@ -209,10 +217,14 @@ interface DecodedIbcNftReceiveMessage extends DecodedMessageBase {
       uri: string | null;
     };
     collectionId: string;
-    destinationChannel: string;
-    destinationPort: string;
+    dstChainId: string;
+    dstChannel: string;
+    dstPort: string;
     receiver: string;
     sender: string;
+    srcChainId: string;
+    srcChannel: string;
+    srcPort: string;
     tokenIds: string[];
     tokenUris: string[];
   };

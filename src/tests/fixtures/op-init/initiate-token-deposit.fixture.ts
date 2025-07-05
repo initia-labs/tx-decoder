@@ -457,6 +457,7 @@ export const mockApiResponsesForInitiateTokenDeposit = {
         chain_id: "rena-nuwa-1",
         chain_name: "rena",
         metadata: {
+          ibc_channels: [],
           op_bridge_id: "30",
           op_denoms: ["uinit"],
         },

@@ -15,10 +15,10 @@ const decoder = initialize();
 describe("IBC Send NFT Message", () => {
   beforeEach(() => {
     resetMockApi(mockedAxios);
+    setupMockApi(mockedAxios, mockApiResponsesForIbcSendNft);
   });
 
   it("should decode an IBC NFT send message correctly", async () => {
-    setupMockApi(mockedAxios, mockApiResponsesForIbcSendNft);
     const decoded = await decoder.decodeTransaction(mockMsgIbcSendNft);
 
     expect(decoded.messages).toHaveLength(1);
@@ -35,10 +35,14 @@ describe("IBC Send NFT Message", () => {
         },
         collectionId:
           "init1fv3ykwuzzsrpf7lqwp45y8vg0azn96536jkseu4engf9rsrdl2dqzkhn6h",
+        dstChainId: "civitia-1",
+        dstChannel: "channel-1",
+        dstPort: "nft-transfer",
         receiver: "init1ulw753hxh4mrc9ss7p2y7h8emjxxyw6uce0hk9",
         sender: "init1dw49mn7s2r5mskjdmus5hth80zz8wwaywycq06",
-        sourceChannel: "channel-28",
-        sourcePort: "nft-transfer",
+        srcChainId: "interwoven-1",
+        srcChannel: "channel-28",
+        srcPort: "nft-transfer",
         tokenIds: ["1"],
         tokenUris: ["https://jennie.initia.xyz/data/9_4.json"],
       },
@@ -123,8 +127,12 @@ describe("IBC Send NFT Message", () => {
     // Type guard to ensure we have the correct message type
     expect(decodedMessage.action).toBe("ibc_nft_send");
     if (decodedMessage.action === "ibc_nft_send") {
-      expect(decodedMessage.data.sourcePort).toBe("nft-transfer");
-      expect(decodedMessage.data.sourceChannel).toBe("channel-28");
+      expect(decodedMessage.data.srcChainId).toBe("interwoven-1");
+      expect(decodedMessage.data.srcChannel).toBe("channel-28");
+      expect(decodedMessage.data.srcPort).toBe("nft-transfer");
+      expect(decodedMessage.data.dstChainId).toBe("civitia-1");
+      expect(decodedMessage.data.dstChannel).toBe("channel-1");
+      expect(decodedMessage.data.dstPort).toBe("nft-transfer");
     }
   });
 
