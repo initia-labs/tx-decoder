@@ -15,7 +15,15 @@ export const ibcSendFtDecoder: MessageDecoder = {
   },
   decode: async (message: Message, log: Log, apiClient: ApiClient) => {
     const parsed = zMsgIbcTransfer.parse(message);
-    const { receiver, sender, source_channel, source_port, token } = parsed;
+    const {
+      receiver,
+      sender,
+      source_channel,
+      source_port,
+      timeout_height,
+      timeout_timestamp,
+      token,
+    } = parsed;
 
     const event = log.events.find((event) => event.type === "send_packet");
 
@@ -53,6 +61,8 @@ export const ibcSendFtDecoder: MessageDecoder = {
         srcChainId,
         srcChannel: source_channel,
         srcPort: source_port,
+        timeoutHeight: timeout_height.revision_height,
+        timeoutTimestamp: timeout_timestamp,
       },
       isIbc: true,
       isOp: false,
@@ -74,6 +84,8 @@ export const ibcReceiveFtDecoder: MessageDecoder = {
         destination_port,
         source_channel,
         source_port,
+        timeout_height,
+        timeout_timestamp,
       },
     } = parsed;
 
@@ -103,6 +115,8 @@ export const ibcReceiveFtDecoder: MessageDecoder = {
         srcChainId,
         srcChannel: source_channel,
         srcPort: source_port,
+        timeoutHeight: timeout_height.revision_height,
+        timeoutTimestamp: timeout_timestamp,
       },
       isIbc: true,
       isOp: false,

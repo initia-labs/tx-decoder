@@ -43,6 +43,10 @@ describe("IBC Send NFT Message", () => {
         srcChainId: "interwoven-1",
         srcChannel: "channel-28",
         srcPort: "nft-transfer",
+        timeoutHeight: "0",
+        timeoutTimestamp: "1749471966170000000",
+        tokenAddress:
+          "init1v2xnnl08y508ec6q4q4hxqr2avdeyu3cew5rxghwnn5t3y4jhd2smmah7n",
         tokenIds: ["1"],
         tokenUris: ["https://jennie.initia.xyz/data/9_4.json"],
       },

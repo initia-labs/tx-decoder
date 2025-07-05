@@ -202,6 +202,9 @@ interface DecodedIbcNftSendMessage extends DecodedMessageBase {
     srcChainId: string;
     srcChannel: string;
     srcPort: string;
+    timeoutHeight: string;
+    timeoutTimestamp: string;
+    tokenAddress: string;
     tokenIds: string[];
     tokenUris: string[];
   };
@@ -225,6 +228,9 @@ interface DecodedIbcNftReceiveMessage extends DecodedMessageBase {
     srcChainId: string;
     srcChannel: string;
     srcPort: string;
+    timeoutHeight: string;
+    timeoutTimestamp: string;
+    tokenAddress: string;
     tokenIds: string[];
     tokenUris: string[];
   };

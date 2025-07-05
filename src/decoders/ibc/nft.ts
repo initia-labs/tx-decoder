@@ -7,6 +7,7 @@ import {
   zMsgIbcRecvPacket,
   zMsgIbcSendNft,
   zMsgMoveCreateCollectionEvent,
+  zMsgMoveObjectTransferEvent,
 } from "@/schema";
 import { denomToHex, findMoveEvent, toBech32, toHex } from "@/utils";
 
@@ -17,7 +18,15 @@ export const ibcSendNftDecoder: MessageDecoder = {
   },
   decode: async (message: Message, log: Log, apiClient: ApiClient) => {
     const parsed = zMsgIbcSendNft.parse(message);
-    const { class_id, receiver, sender, source_channel, source_port } = parsed;
+    const {
+      class_id,
+      receiver,
+      sender,
+      source_channel,
+      source_port,
+      timeout_height,
+      timeout_timestamp,
+    } = parsed;
 
     const event = log.events.find((event) => event.type === "send_packet");
 
@@ -74,6 +83,15 @@ export const ibcSendNftDecoder: MessageDecoder = {
       throw new Error("IBC NFT Send packet dst chain id not found");
     }
 
+    const tokenAddress = findMoveEvent(
+      log.events,
+      "0x1::object::TransferEvent",
+      zMsgMoveObjectTransferEvent
+    )?.object;
+    if (!tokenAddress) {
+      throw new Error("IBC NFT Send packet token address not found");
+    }
+
     return {
       action: "ibc_nft_send",
       data: {
@@ -92,6 +110,9 @@ export const ibcSendNftDecoder: MessageDecoder = {
         srcChainId,
         srcChannel: source_channel,
         srcPort: source_port,
+        timeoutHeight: timeout_height.revision_height,
+        timeoutTimestamp: timeout_timestamp,
+        tokenAddress: toBech32(tokenAddress),
         tokenIds: parsedData.data.tokenIds,
         tokenUris: parsedData.data.tokenUris,
       },
@@ -110,7 +131,12 @@ export const ibcReceiveNftDecoder: MessageDecoder = {
   },
   decode: async (message: Message, log: Log, apiClient: ApiClient) => {
     const parsed = zMsgIbcRecvPacket.parse(message);
-    const { destination_channel, destination_port } = parsed.packet;
+    const {
+      destination_channel,
+      destination_port,
+      timeout_height,
+      timeout_timestamp,
+    } = parsed.packet;
 
     const event = log.events.find((event) => event.type === "recv_packet");
 
@@ -179,6 +205,15 @@ export const ibcReceiveNftDecoder: MessageDecoder = {
       throw new Error("IBC NFT Receive packet src chain id not found");
     }
 
+    const tokenAddress = findMoveEvent(
+      log.events,
+      "0x1::object::TransferEvent",
+      zMsgMoveObjectTransferEvent
+    )?.object;
+    if (!tokenAddress) {
+      throw new Error("IBC NFT Receive packet token address not found");
+    }
+
     return {
       action: "ibc_nft_receive",
       data: {
@@ -197,6 +232,9 @@ export const ibcReceiveNftDecoder: MessageDecoder = {
         srcChainId,
         srcChannel,
         srcPort,
+        timeoutHeight: timeout_height.revision_height,
+        timeoutTimestamp: timeout_timestamp,
+        tokenAddress: toBech32(tokenAddress),
         tokenIds: parsedData.data.tokenIds,
         tokenUris: parsedData.data.tokenUris,
       },
