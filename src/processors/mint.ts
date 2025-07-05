@@ -1,12 +1,12 @@
 import { DEFAULT_BALANCE_CHANGES } from "@/constants";
 import { BalanceEventProcessor } from "@/interfaces";
-import { zMintNftEvent } from "@/schema";
+import { zCreateEvent, zMintNftEvent } from "@/schema";
 import { toBech32 } from "@/utils";
 
 export const mintEventProcessor: BalanceEventProcessor = {
-  async process(event, apiClient) {
+  async process(currentEvent, allEvents, _apiClient) {
     try {
-      const dataAttribute = event.attributes.find(
+      const dataAttribute = currentEvent.attributes.find(
         (attr) => attr.key === "data"
       );
       if (!dataAttribute) {
@@ -14,7 +14,28 @@ export const mintEventProcessor: BalanceEventProcessor = {
       }
 
       const mintEvent = zMintNftEvent.parse(dataAttribute.value);
-      const owner = await apiClient.findOwnerFromStoreAddr(mintEvent.nft);
+
+      const createEvents = allEvents.filter((event) => {
+        if (event.type !== "move") return false;
+
+        const typeTag = event.attributes.find(
+          (attr) => attr.key === "type_tag"
+        )?.value;
+        if (typeTag !== "0x1::object::CreateEvent") return false;
+
+        const data = event.attributes.find(
+          (attr) => attr.key === "data"
+        )?.value;
+        const createEvent = zCreateEvent.safeParse(data);
+
+        return createEvent.success && createEvent.data.object === mintEvent.nft;
+      });
+
+      if (createEvents.length > 1) throw new Error("Multiple create events");
+
+      const owner = zCreateEvent.parse(
+        createEvents[0].attributes.find((attr) => attr.key === "data")?.value
+      ).owner;
 
       if (!owner) {
         throw new Error(`Owner not found for NFT: ${mintEvent.nft}`);
@@ -23,7 +44,7 @@ export const mintEventProcessor: BalanceEventProcessor = {
       return {
         ft: {},
         object: {
-          [owner]: { [toBech32(mintEvent.nft)]: "1" },
+          [toBech32(owner)]: { [toBech32(mintEvent.nft)]: "1" },
         },
       };
     } catch (error) {

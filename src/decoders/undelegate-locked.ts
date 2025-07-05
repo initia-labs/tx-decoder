@@ -24,9 +24,19 @@ export const undelegateLockedDecoder: MessageDecoder = {
       throw new Error("Undelegate locked event not found");
     }
 
+    const denom = await apiClient.findDenomFromMetadataAddr(
+      undelegateLockedEvent.metadata
+    );
+
+    if (!denom) {
+      throw new Error(
+        `Denom not found in undelegate locked event from metadata address: ${undelegateLockedEvent.metadata}`
+      );
+    }
+
     const undelegateLockedCoin = {
       amount: undelegateLockedEvent.locked_share,
-      denom: `move/${undelegateLockedEvent.metadata.slice(2)}`,
+      denom,
     };
 
     const validator = await apiClient.findValidator(

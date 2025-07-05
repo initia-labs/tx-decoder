@@ -29,7 +29,9 @@ export const delegateLockedDecoder: MessageDecoder = {
     );
 
     if (!denom) {
-      throw new Error("Denom not found for delegate locked event");
+      throw new Error(
+        `Denom not found for delegate locked event from metadata address: ${delegateLockedEvent.metadata}`
+      );
     }
 
     const delegateLockedCoin = {

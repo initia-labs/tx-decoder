@@ -1,21 +1,21 @@
-import axios from "axios";
-
 import {
-  mockApiResponseUndelegate,
-  mockApiResponseUndelegateLocked,
+  mockApiResponseForUndelegate,
+  mockApiResponseForUndelegateLocked,
   mockMsgUndelegate,
   mockMsgUndelegateLocked,
 } from "./fixtures/undelegate.fixture";
-import { createMockApiHandler, initialize } from "./helpers";
+import { initialize, mockedAxios, resetMockApi, setupMockApi } from "./helpers";
 
 jest.mock("axios");
 const decoder = initialize();
-const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 describe("Undelegate Message", () => {
+  beforeEach(() => {
+    resetMockApi(mockedAxios);
+  });
+
   it("should decode an undelegate message correctly", async () => {
-    const mockApiHandler = createMockApiHandler(mockApiResponseUndelegate);
-    mockedAxios.get.mockImplementation(mockApiHandler);
+    setupMockApi(mockedAxios, mockApiResponseForUndelegate);
 
     const { messages, totalBalanceChanges } = await decoder.decodeTransaction(
       mockMsgUndelegate
@@ -57,10 +57,14 @@ describe("Undelegate Message", () => {
     expect(balanceChanges).toEqual({
       ft: {
         init1fl48vsnmsdzcv85q5d2q4z5ajdha8yu3mdfuj4: {
-          "USDC-INIT": "-7618096",
+          "move/543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1":
+            "-7618096",
         },
         init1jv65s3grqf6v6jl3dp4t6c9t9rk99cd8ffy0za: { uinit: "-776583" },
-        init1tygms3xhhs3yv487phx3dw4a95jn7t7l0d4dyp: { "USDC-INIT": "7618096" },
+        init1tygms3xhhs3yv487phx3dw4a95jn7t7l0d4dyp: {
+          "move/543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1":
+            "7618096",
+        },
         init15elwv4zlwas7zz8mw7lhlcfc3j64uea0dzkew0: { uinit: "776583" },
       },
       object: {},
@@ -69,10 +73,14 @@ describe("Undelegate Message", () => {
     expect(totalBalanceChanges).toEqual({
       ft: {
         init1fl48vsnmsdzcv85q5d2q4z5ajdha8yu3mdfuj4: {
-          "USDC-INIT": "-7618096",
+          "move/543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1":
+            "-7618096",
         },
         init1jv65s3grqf6v6jl3dp4t6c9t9rk99cd8ffy0za: { uinit: "-776583" },
-        init1tygms3xhhs3yv487phx3dw4a95jn7t7l0d4dyp: { "USDC-INIT": "7618096" },
+        init1tygms3xhhs3yv487phx3dw4a95jn7t7l0d4dyp: {
+          "move/543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1":
+            "7618096",
+        },
         init15elwv4zlwas7zz8mw7lhlcfc3j64uea0dzkew0: { uinit: "776583" },
       },
       object: {},
@@ -80,10 +88,7 @@ describe("Undelegate Message", () => {
   });
 
   it("should decode an undelegate locked message correctly", async () => {
-    const mockApiHandler = createMockApiHandler(
-      mockApiResponseUndelegateLocked
-    );
-    mockedAxios.get.mockImplementation(mockApiHandler);
+    setupMockApi(mockedAxios, mockApiResponseForUndelegateLocked);
 
     const { messages, totalBalanceChanges } = await decoder.decodeTransaction(
       mockMsgUndelegateLocked
@@ -129,11 +134,13 @@ describe("Undelegate Message", () => {
           uinit: "0",
         },
         init1fl48vsnmsdzcv85q5d2q4z5ajdha8yu3mdfuj4: {
-          "USDC-INIT": "-3508258915",
+          "move/543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1":
+            "-3508258915",
         },
         init1jv65s3grqf6v6jl3dp4t6c9t9rk99cd8ffy0za: { uinit: "-10169" },
         init1tygms3xhhs3yv487phx3dw4a95jn7t7l0d4dyp: {
-          "USDC-INIT": "3508258915",
+          "move/543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1":
+            "3508258915",
         },
         init1xqrvfuga56m4alc7lz0rhnkwy5z8d5pefg8vz9: { uinit: "10169" },
       },
@@ -146,11 +153,13 @@ describe("Undelegate Message", () => {
           uinit: "0",
         },
         init1fl48vsnmsdzcv85q5d2q4z5ajdha8yu3mdfuj4: {
-          "USDC-INIT": "-3508258915",
+          "move/543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1":
+            "-3508258915",
         },
         init1jv65s3grqf6v6jl3dp4t6c9t9rk99cd8ffy0za: { uinit: "-10169" },
         init1tygms3xhhs3yv487phx3dw4a95jn7t7l0d4dyp: {
-          "USDC-INIT": "3508258915",
+          "move/543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1":
+            "3508258915",
         },
         init1xqrvfuga56m4alc7lz0rhnkwy5z8d5pefg8vz9: { uinit: "10169" },
       },

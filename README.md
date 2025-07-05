@@ -34,6 +34,10 @@ import { TxDecoder } from "@initia/tx-decoder";
 
 // Decode a transaction
 const decoder = new TxDecoder({
+  registryUrls: [
+    "https://registry.initia.xyz/",
+    "https://registry.testnet.initia.xyz/",
+  ],
   restUrl: "https://rest.initia.xyz",
 });
 const decodedTx = await decoder.decodeTransaction(txResponse);
@@ -88,10 +92,11 @@ Currently supported message types:
 - `/initia.mstaking.v1.MsgUndelegate`
 - `/initia.mstaking.v1.MsgBeginRedelegate`
 - `/initia.move.v1.MsgExecute` or `/initia.move.v1.MsgExecuteJSON`
+  - `0x1::stableswap::swap_script`
   - `0x1::dex::swap_script`
   - `0x1::simple_nft::mint`
   - `<module_address>::usernames::register_domain`
-  - `0x1::stableswap::swap_script`
+  - `<module_address>::lock_staking`
 - `/opinit.ophost.v1.MsgInitiateTokenDeposit`
 - `/opinit.ophost.v1.MsgFinalizeTokenWithdrawal`
 - `/ibc.applications.nft_transfer.v1.MsgTransfer`
@@ -110,10 +115,8 @@ tx-decoder/
 │   ├── processors/               # Event processor
 │   ├── schema/                   # Zod schemas for validation
 │   ├── utils/                    # Utility functions
-│   ├── fixtures/                 # Mock data for tests
-│   │   ├── move/                 # Move-specific fixtures
-│   │   └── withdraw-delegator-reward.fixture.ts
 │   └── tests/                    # Unit tests
+│       ├── fixtures/             # Mock data for tests
 │       └── withdraw-delegator-reward.test.ts
 ├── package.json                  # Project metadata and dependencies
 ├── README.md                     # Project documentation

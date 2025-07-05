@@ -1,11 +1,25 @@
-import { mockMsgObjectTransfer } from "../fixtures/move/object-transfer.fixture";
-import { initialize } from "../helpers";
+import {
+  mockApiResponsesForObjectTransfer,
+  mockMsgObjectTransfer,
+} from "../fixtures/move/object-transfer.fixture";
+import {
+  initialize,
+  mockedAxios,
+  resetMockApi,
+  setupMockApi,
+} from "../helpers";
 
 jest.mock("axios");
+
 const decoder = initialize();
 
 describe("Object Transfer Message", () => {
+  beforeEach(() => {
+    resetMockApi(mockedAxios);
+  });
+
   it("should decode an object transfer message correctly", async () => {
+    setupMockApi(mockedAxios, mockApiResponsesForObjectTransfer);
     const decoded = await decoder.decodeTransaction(mockMsgObjectTransfer);
 
     expect(decoded.messages).toHaveLength(1);
@@ -14,7 +28,7 @@ describe("Object Transfer Message", () => {
       data: {
         from: "init1ulw753hxh4mrc9ss7p2y7h8emjxxyw6uce0hk9",
         object:
-          "0x481b5e2a539721bfa9f9b35e702adb667c059d0a8e1a030be483178abd928235",
+          "init1fqd4u2jnjusml20ekd08q2kmve7qt8g23cdqxzlysvtc40vjsg6sk4p0kn",
         to: "init1t9k78msywte6jx4zrxkp94pa9u9laa9pqfpytk",
       },
       isIbc: false,
@@ -41,6 +55,23 @@ describe("Object Transfer Message", () => {
         init1ulw753hxh4mrc9ss7p2y7h8emjxxyw6uce0hk9: {
           init1fqd4u2jnjusml20ekd08q2kmve7qt8g23cdqxzlysvtc40vjsg6sk4p0kn: "-1",
         },
+      },
+    });
+
+    expect(decoded.metadata).toEqual({
+      init1fqd4u2jnjusml20ekd08q2kmve7qt8g23cdqxzlysvtc40vjsg6sk4p0kn: {
+        collection: {
+          creator: "init1ulw753hxh4mrc9ss7p2y7h8emjxxyw6uce0hk9",
+          description:
+            "Food collection that I suggest - Discover amazing dishes and culinary experiences from around the world",
+          name: "Favorite food",
+          uri: "https://nft-rho-ten.vercel.app/favoritefood",
+        },
+        collectionAddress:
+          "init1qktu60eh7g04n3m3wvdrr6f2cys57u45lz5x2sdffdg0qvy0fcsqk9gvt9",
+        tokenId: "3",
+        tokenUri: "https://nft-rho-ten.vercel.app/favoritefood/3",
+        type: "nft",
       },
     });
   });

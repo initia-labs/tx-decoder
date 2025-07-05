@@ -4,9 +4,9 @@ import { zMsgMoveObjectTransferEvent } from "@/schema";
 import { toBech32 } from "@/utils";
 
 export const objectTransferEventProcessor: BalanceEventProcessor = {
-  async process(event, _apiClient) {
+  async process(currentEvent, _allEvents, _apiClient) {
     try {
-      const dataAttribute = event.attributes.find(
+      const dataAttribute = currentEvent.attributes.find(
         (attr) => attr.key === "data"
       );
       if (!dataAttribute) {

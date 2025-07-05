@@ -1,25 +1,26 @@
-import axios from "axios";
-
 import {
-  mockApiResponsesSwap,
+  mockApiResponsesForDexSwap,
+  mockApiResponsesForStableSwap,
   mockMsgDexSwap,
   mockMsgStableSwap,
 } from "../fixtures/move/swap.fixture";
-import { createMockApiHandler, initialize } from "../helpers";
+import {
+  initialize,
+  mockedAxios,
+  resetMockApi,
+  setupMockApi,
+} from "../helpers";
 
 jest.mock("axios");
 const decoder = initialize();
-const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 describe("Swap Message", () => {
   beforeEach(() => {
-    mockedAxios.get.mockReset();
+    resetMockApi(mockedAxios);
   });
 
   it("should decode a dex swap move message correctly", async () => {
-    mockedAxios.get.mockImplementation(
-      createMockApiHandler(mockApiResponsesSwap)
-    );
+    setupMockApi(mockedAxios, mockApiResponsesForDexSwap);
 
     const decoded = await decoder.decodeTransaction(mockMsgDexSwap);
 
@@ -29,10 +30,9 @@ describe("Swap Message", () => {
       data: {
         amountIn: "7100000000",
         amountOut: "3563468757",
-        denomIn:
-          "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
+        denomIn: "uinit",
         denomOut:
-          "0xe0e9394b24e53775d6af87934ac02d73536ad58b7894f6ccff3f5e7c0d548e55",
+          "ibc/6490A7EAB61059BFC1CDDEB05917DD70BDF3A611654162A1A47DB930D40D8AF4",
         from: "init13fuh9r5qea5wh6n0pv6807y62srtmlv246mqgv",
       },
       isIbc: false,
@@ -72,9 +72,8 @@ describe("Swap Message", () => {
   });
 
   it("should decode a stable swap move message correctly", async () => {
-    mockedAxios.get.mockImplementation(
-      createMockApiHandler(mockApiResponsesSwap)
-    );
+    setupMockApi(mockedAxios, mockApiResponsesForStableSwap);
+
     const decoded = await decoder.decodeTransaction(mockMsgStableSwap);
 
     expect(decoded.messages).toHaveLength(1);
@@ -84,9 +83,8 @@ describe("Swap Message", () => {
         amountIn: "1000000000",
         amountOut: "1016957925",
         denomIn:
-          "0x47111f2a0a2e58e3ec0837938fe97b5cae5cf4872505d9c03e077422fea4b162",
-        denomOut:
-          "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
+          "ibc/39B55F22F15FB09189045A993817CDF0D388D3FF8773B2E22B6DE7B222636EEA",
+        denomOut: "uinit",
         from: "init1gu7n5gq9fxfsrhp48taf6ryutxqt2xyvedujpk",
       },
       isIbc: false,

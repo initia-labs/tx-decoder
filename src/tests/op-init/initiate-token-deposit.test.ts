@@ -1,25 +1,25 @@
-import axios from "axios";
-
 import {
-  mockApiResponsesInitiateTokenDeposit,
+  mockApiResponsesForInitiateTokenDeposit,
   mockMsgInitiateTokenDeposit,
 } from "../fixtures/op-init/initiate-token-deposit.fixture";
-import { createMockApiHandler, initialize } from "../helpers";
+import {
+  initialize,
+  mockedAxios,
+  resetMockApi,
+  setupMockApi,
+} from "../helpers";
 
 jest.mock("axios");
 
 const decoder = initialize();
-const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 describe("Initiate Token Deposit Message", () => {
   beforeEach(() => {
-    mockedAxios.get.mockReset();
+    resetMockApi(mockedAxios);
   });
 
   it("should decode an initiate token deposit message correctly", async () => {
-    mockedAxios.get.mockImplementation(
-      createMockApiHandler(mockApiResponsesInitiateTokenDeposit)
-    );
+    setupMockApi(mockedAxios, mockApiResponsesForInitiateTokenDeposit);
 
     const decoded = await decoder.decodeTransaction(
       mockMsgInitiateTokenDeposit
@@ -32,6 +32,7 @@ describe("Initiate Token Deposit Message", () => {
         amount: "360000000",
         bridgeId: "30",
         denom: "uinit",
+        dstChainId: "rena-nuwa-1",
         from: "init1s3qauqxfmtqhmvpwpfgrka9944me2s0jn52qfe",
         to: "init1s3qauqxfmtqhmvpwpfgrka9944me2s0jn52qfe",
       },

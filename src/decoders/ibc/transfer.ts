@@ -3,16 +3,17 @@ import { MessageDecoder } from "@/interfaces";
 import {
   Log,
   Message,
+  zIbcTransferRecvPacket,
+  zMsgIbcRecvPacket,
   zMsgIbcTransfer,
-  zMsgIbcTransferSendPacketEvent,
 } from "@/schema";
 
-export const ibcTransferDecoder: MessageDecoder = {
+export const ibcSendFtDecoder: MessageDecoder = {
   check: (message: Message, _log: Log) => {
     const parsed = zMsgIbcTransfer.safeParse(message);
     return parsed.success && parsed.data.source_port === "transfer";
   },
-  decode: async (message: Message, log: Log, _apiClient: ApiClient) => {
+  decode: async (message: Message, log: Log, apiClient: ApiClient) => {
     const parsed = zMsgIbcTransfer.parse(message);
     const { receiver, sender, source_channel, source_port, token } = parsed;
 
@@ -20,36 +21,88 @@ export const ibcTransferDecoder: MessageDecoder = {
 
     if (!event) throw new Error("IBC Transfer send packet event not found");
 
-    const dataAttribute = event.attributes.find(
-      (attr) => attr.key === "packet_data"
-    );
+    const dstChannel = event.attributes.find(
+      (attr) => attr.key === "packet_dst_channel"
+    )?.value;
+    if (!dstChannel) throw new Error(`IBC Transfer dst channel not found`);
 
-    if (!dataAttribute) {
-      throw new Error("IBC Transfer send packet data attribute not found");
-    }
+    const dstPort = event.attributes.find(
+      (attr) => attr.key === "packet_dst_port"
+    )?.value;
+    if (!dstPort) throw new Error(`IBC Transfer dst port not found`);
 
-    const parsedData = zMsgIbcTransferSendPacketEvent.safeParse(
-      dataAttribute.value
+    const srcChainId = await apiClient.getChainId();
+
+    const dstChainId = await apiClient.findIbcCounterPartyChainId(
+      srcChainId,
+      source_port,
+      source_channel
     );
-    if (!parsedData.success) {
-      throw new Error("IBC Transfer send packet data attribute not found");
-    }
+    if (!dstChainId) throw new Error(`IBC Transfer dst chain id not found`);
 
     return {
-      action: "ibc_transfer",
+      action: "ibc_ft_send",
       data: {
         amount: token.amount,
         denom: token.denom,
-        destinationChannel:
-          event.attributes.find((attr) => attr.key === "packet_dst_channel")
-            ?.value ?? "",
-        destinationPort:
-          event.attributes.find((attr) => attr.key === "packet_dst_port")
-            ?.value ?? "",
+        dstChainId,
+        dstChannel,
+        dstPort,
         receiver,
         sender,
-        sourceChannel: source_channel,
-        sourcePort: source_port,
+        srcChainId,
+        srcChannel: source_channel,
+        srcPort: source_port,
+      },
+      isIbc: true,
+      isOp: false,
+    };
+  },
+};
+
+export const ibcReceiveFtDecoder: MessageDecoder = {
+  check: (message: Message, _log: Log) => {
+    const parsed = zMsgIbcRecvPacket.safeParse(message);
+    return parsed.success && parsed.data.packet.source_port === "transfer";
+  },
+  decode: async (message: Message, _log: Log, apiClient: ApiClient) => {
+    const parsed = zMsgIbcRecvPacket.parse(message);
+    const {
+      packet: {
+        data,
+        destination_channel,
+        destination_port,
+        source_channel,
+        source_port,
+      },
+    } = parsed;
+
+    const parsedPacket = zIbcTransferRecvPacket.parse(
+      Buffer.from(data, "base64").toString()
+    );
+
+    const dstChainId = await apiClient.getChainId();
+
+    const srcChainId = await apiClient.findIbcCounterPartyChainId(
+      dstChainId,
+      destination_port,
+      destination_channel
+    );
+    if (!srcChainId) throw new Error(`IBC Transfer src chain id not found`);
+
+    return {
+      action: "ibc_ft_receive",
+      data: {
+        amount: parsedPacket.amount,
+        denom: parsedPacket.denom,
+        dstChainId,
+        dstChannel: destination_channel,
+        dstPort: destination_port,
+        receiver: parsedPacket.receiver,
+        sender: parsedPacket.sender,
+        srcChainId,
+        srcChannel: source_channel,
+        srcPort: source_port,
       },
       isIbc: true,
       isOp: false,

@@ -1,4 +1,4 @@
-import { Coin, Validator } from "@/schema";
+import { Coin, CollectionResource, Validator } from "@/schema";
 
 interface DecodedMessageBase {
   isIbc: boolean;
@@ -8,9 +8,10 @@ interface DecodedMessageBase {
 export type DecodedMessage =
   | DecodedDelegateMessage
   | DecodedFinalizeTokenWithdrawalMessage
+  | DecodedIbcFtReceiveMessage
+  | DecodedIbcFtSendMessage
   | DecodedIbcNftReceiveMessage
   | DecodedIbcNftSendMessage
-  | DecodedIbcTransferMessage
   | DecodedInitiateTokenDepositMessage
   | DecodedNftBurnMessage
   | DecodedNftMintMessage
@@ -34,17 +35,35 @@ interface DecodedSendMessage extends DecodedMessageBase {
   };
 }
 
-interface DecodedIbcTransferMessage extends DecodedMessageBase {
-  action: "ibc_transfer";
+interface DecodedIbcFtSendMessage extends DecodedMessageBase {
+  action: "ibc_ft_send";
   data: {
     amount: string;
     denom: string;
-    destinationChannel: string;
-    destinationPort: string;
+    dstChainId: string;
+    dstChannel: string;
+    dstPort: string;
     receiver: string;
     sender: string;
-    sourceChannel: string;
-    sourcePort: string;
+    srcChainId: string;
+    srcChannel: string;
+    srcPort: string;
+  };
+}
+
+interface DecodedIbcFtReceiveMessage extends DecodedMessageBase {
+  action: "ibc_ft_receive";
+  data: {
+    amount: string;
+    denom: string;
+    dstChainId: string;
+    dstChannel: string;
+    dstPort: string;
+    receiver: string;
+    sender: string;
+    srcChainId: string;
+    srcChannel: string;
+    srcPort: string;
   };
 }
 
@@ -109,6 +128,7 @@ interface DecodedInitiateTokenDepositMessage extends DecodedMessageBase {
     amount: string;
     bridgeId: string;
     denom: string;
+    dstChainId: string;
     from: string;
     to: string;
   };
@@ -121,6 +141,7 @@ interface DecodedFinalizeTokenWithdrawalMessage extends DecodedMessageBase {
     bridgeId: string;
     denom: string;
     from: string;
+    srcChainId: string;
     to: string;
   };
 }
@@ -135,7 +156,9 @@ interface DecodedNotSupportedMessage extends DecodedMessageBase {
 interface DecodedNftMintMessage extends DecodedMessageBase {
   action: "nft_mint";
   data: {
+    collection: CollectionResource["data"];
     collectionAddress: string;
+    from: string;
     tokenAddress: string;
     tokenId: string;
     tokenUri?: string;
@@ -155,6 +178,7 @@ interface DecodedNftBurnMessage extends DecodedMessageBase {
   action: "nft_burn";
   data: {
     collectionAddress: string;
+    from: string;
     tokenAddress: string;
     tokenId: string;
   };
@@ -163,12 +187,21 @@ interface DecodedNftBurnMessage extends DecodedMessageBase {
 interface DecodedIbcNftSendMessage extends DecodedMessageBase {
   action: "ibc_nft_send";
   data: {
+    collection: {
+      creator: string;
+      description: string;
+      name: string;
+      uri: string | null;
+    };
     collectionId: string;
-    collectionUri: string | null;
+    dstChainId: string;
+    dstChannel: string;
+    dstPort: string;
     receiver: string;
     sender: string;
-    sourceChannel: string;
-    sourcePort: string;
+    srcChainId: string;
+    srcChannel: string;
+    srcPort: string;
     tokenIds: string[];
     tokenUris: string[];
   };
@@ -177,12 +210,21 @@ interface DecodedIbcNftSendMessage extends DecodedMessageBase {
 interface DecodedIbcNftReceiveMessage extends DecodedMessageBase {
   action: "ibc_nft_receive";
   data: {
+    collection: {
+      creator: string;
+      description: string;
+      name: string;
+      uri: string | null;
+    };
     collectionId: string;
-    collectionUri: string | null;
-    destinationChannel: string;
-    destinationPort: string;
+    dstChainId: string;
+    dstChannel: string;
+    dstPort: string;
     receiver: string;
     sender: string;
+    srcChainId: string;
+    srcChannel: string;
+    srcPort: string;
     tokenIds: string[];
     tokenUris: string[];
   };

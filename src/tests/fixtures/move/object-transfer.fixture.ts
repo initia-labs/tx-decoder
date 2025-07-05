@@ -296,3 +296,116 @@ export const mockMsgObjectTransfer = {
   },
   txhash: "E8A6497B081C9CEF0BF88371857D5BFA465CF6C1F7C070E4C8C803AA3AF397A0",
 };
+
+export const mockApiResponsesForObjectTransfer = {
+  GET: {
+    "/initia/move/v1/accounts/0x481b5e2a539721bfa9f9b35e702adb667c059d0a8e1a030be483178abd928235/resources":
+      {
+        pagination: { next_key: null, total: "0" },
+        resources: [
+          {
+            address:
+              "0x481b5e2a539721bfa9f9b35e702adb667c059d0a8e1a030be483178abd928235",
+            move_resource:
+              '{"type":"0x1::nft::Nft","data":{"collection":{"inner":"0x597cd3f37f21f59c771731a31e92ac1214f72b4f8a86541a94b50f0308f4e20"},"description":"Greek Souvlaki - Traditional grilled meat skewers marinated in olive oil and herbs, served with pita bread, tzatziki sauce and fresh vegetables","token_id":"3","uri":"https://nft-rho-ten.vercel.app/favoritefood/3"}}',
+            raw_bytes:
+              "BZfNPzfyH1nHcXMaMekqwSFPcrT4qGVBqUtQ8DCPTiCPAUdyZWVrIFNvdXZsYWtpIC0gVHJhZGl0aW9uYWwgZ3JpbGxlZCBtZWF0IHNrZXdlcnMgbWFyaW5hdGVkIGluIG9saXZlIG9pbCBhbmQgaGVyYnMsIHNlcnZlZCB3aXRoIHBpdGEgYnJlYWQsIHR6YXR6aWtpIHNhdWNlIGFuZCBmcmVzaCB2ZWdldGFibGVzATMtaHR0cHM6Ly9uZnQtcmhvLXRlbi52ZXJjZWwuYXBwL2Zhdm9yaXRlZm9vZC8z",
+            struct_tag: "0x1::nft::Nft",
+          },
+          {
+            address:
+              "0x481b5e2a539721bfa9f9b35e702adb667c059d0a8e1a030be483178abd928235",
+            move_resource:
+              '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":true,"owner":"0x596de3ee0472f3a91aa219ac12d43d2f0bfef4a1","version":"1"}}',
+            raw_bytes:
+              "AAAAAAAAAAAAAAAAWW3j7gRy86kaohmsEtQ9Lwv+9KEBAQAAAAAAAAA=",
+            struct_tag: "0x1::object::ObjectCore",
+          },
+          {
+            address:
+              "0x481b5e2a539721bfa9f9b35e702adb667c059d0a8e1a030be483178abd928235",
+            move_resource:
+              '{"type":"0x1::initia_nft::InitiaNft","data":{"burn_ref":{"delete_ref":{"self":"0x481b5e2a539721bfa9f9b35e702adb667c059d0a8e1a030be483178abd928235","version":"1"}},"mutator_ref":{"self":"0x481b5e2a539721bfa9f9b35e702adb667c059d0a8e1a030be483178abd928235"}}}',
+            raw_bytes:
+              "AUgbXipTlyG/qfmzXnAq22Z8BZ0KjhoDC+SDF4q9koI1AQAAAAAAAAABSBteKlOXIb+p+bNecCrbZnwFnQqOGgML5IMXir2SgjU=",
+            struct_tag: "0x1::initia_nft::InitiaNft",
+          },
+          {
+            address:
+              "0x481b5e2a539721bfa9f9b35e702adb667c059d0a8e1a030be483178abd928235",
+            move_resource:
+              '{"type":"0x1::simple_nft::SimpleNft","data":{"property_mutator_ref":{"self":"0x481b5e2a539721bfa9f9b35e702adb667c059d0a8e1a030be483178abd928235"}}}',
+            raw_bytes: "SBteKlOXIb+p+bNecCrbZnwFnQqOGgML5IMXir2SgjU=",
+            struct_tag: "0x1::simple_nft::SimpleNft",
+          },
+          {
+            address:
+              "0x481b5e2a539721bfa9f9b35e702adb667c059d0a8e1a030be483178abd928235",
+            move_resource:
+              '{"type":"0x1::property_map::PropertyMap","data":{"inner":{"data":[]}}}',
+            raw_bytes: "AA==",
+            struct_tag: "0x1::property_map::PropertyMap",
+          },
+        ],
+      },
+    "/initia/move/v1/accounts/0x597cd3f37f21f59c771731a31e92ac1214f72b4f8a86541a94b50f0308f4e20/resources":
+      {
+        pagination: { next_key: null, total: "0" },
+        resources: [
+          {
+            address:
+              "0x597cd3f37f21f59c771731a31e92ac1214f72b4f8a86541a94b50f0308f4e20",
+            move_resource:
+              '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":true,"owner":"0xe7ddea46e6bd763c1610f0544f5cf9dc8c623b5c","version":"1"}}',
+            raw_bytes:
+              "AAAAAAAAAAAAAAAA593qRua9djwWEPBUT1z53IxiO1wBAQAAAAAAAAA=",
+            struct_tag: "0x1::object::ObjectCore",
+          },
+          {
+            address:
+              "0x597cd3f37f21f59c771731a31e92ac1214f72b4f8a86541a94b50f0308f4e20",
+            move_resource:
+              '{"type":"0x1::royalty::Royalty","data":{"payee_address":"0xe7ddea46e6bd763c1610f0544f5cf9dc8c623b5c","royalty":"0.05"}}',
+            raw_bytes:
+              "BwAAxS68orEAAAAAAAAAAAAAAADn3epG5r12PBYQ8FRPXPncjGI7XA==",
+            struct_tag: "0x1::royalty::Royalty",
+          },
+          {
+            address:
+              "0x597cd3f37f21f59c771731a31e92ac1214f72b4f8a86541a94b50f0308f4e20",
+            move_resource:
+              '{"type":"0x1::collection::Collection","data":{"creator":"0xe7ddea46e6bd763c1610f0544f5cf9dc8c623b5c","description":"Food collection that I suggest - Discover amazing dishes and culinary experiences from around the world","name":"Favorite food","nfts":{"handle":"0xbf4463da1c576eaf1543d528e8dc7b37db5bb996acddfd62a2f5504996496712","length":"5"},"uri":"https://nft-rho-ten.vercel.app/favoritefood"}}',
+            raw_bytes:
+              "AAAAAAAAAAAAAAAA593qRua9djwWEPBUT1z53IxiO1xnRm9vZCBjb2xsZWN0aW9uIHRoYXQgSSBzdWdnZXN0IC0gRGlzY292ZXIgYW1hemluZyBkaXNoZXMgYW5kIGN1bGluYXJ5IGV4cGVyaWVuY2VzIGZyb20gYXJvdW5kIHRoZSB3b3JsZA1GYXZvcml0ZSBmb29kK2h0dHBzOi8vbmZ0LXJoby10ZW4udmVyY2VsLmFwcC9mYXZvcml0ZWZvb2S/RGPaHFdurxVD1Sjo3Hs321u5lqzd/WKi9VBJlklnEgUAAAAAAAAA",
+            struct_tag: "0x1::collection::Collection",
+          },
+          {
+            address:
+              "0x597cd3f37f21f59c771731a31e92ac1214f72b4f8a86541a94b50f0308f4e20",
+            move_resource:
+              '{"type":"0x1::collection::FixedSupply","data":{"current_supply":"5","max_supply":"100","total_minted":"5"}}',
+            raw_bytes: "BQAAAAAAAABkAAAAAAAAAAUAAAAAAAAA",
+            struct_tag: "0x1::collection::FixedSupply",
+          },
+          {
+            address:
+              "0x597cd3f37f21f59c771731a31e92ac1214f72b4f8a86541a94b50f0308f4e20",
+            move_resource:
+              '{"type":"0x1::initia_nft::InitiaNftCollection","data":{"mutable_description":true,"mutable_nft_description":true,"mutable_nft_uri":true,"mutable_uri":true,"mutator_ref":{"self":"0x597cd3f37f21f59c771731a31e92ac1214f72b4f8a86541a94b50f0308f4e20"},"royalty_mutator_ref":{"inner":{"self":"0x597cd3f37f21f59c771731a31e92ac1214f72b4f8a86541a94b50f0308f4e20","version":"1"}}}}',
+            raw_bytes:
+              "AQWXzT838h9Zx3FzGjHpKsEhT3K0+KhlQalLUPAwj04gAQWXzT838h9Zx3FzGjHpKsEhT3K0+KhlQalLUPAwj04gAQAAAAAAAAABAQEB",
+            struct_tag: "0x1::initia_nft::InitiaNftCollection",
+          },
+          {
+            address:
+              "0x597cd3f37f21f59c771731a31e92ac1214f72b4f8a86541a94b50f0308f4e20",
+            move_resource:
+              '{"type":"0x1::simple_nft::SimpleNftCollection","data":{"mutable_nft_properties":true}}',
+            raw_bytes: "AQ==",
+            struct_tag: "0x1::simple_nft::SimpleNftCollection",
+          },
+        ],
+      },
+  },
+  POST: {},
+};

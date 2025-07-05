@@ -300,3 +300,67 @@ export const mockMsgNftBurn = {
   },
   txhash: "2CD6B210462AC8A86E8F545E5F691096290406C9AEC81478F1B89A22C5F97C02",
 };
+
+export const mockApiResponsesForNftBurn = {
+  GET: {
+    "/initia/move/v1/accounts/0x6490737f36898086529ecc342f6abe7846d12d40d7df2a4f392e6df9b57af0f4/resources":
+      {
+        pagination: { next_key: null, total: "0" },
+        resources: [
+          {
+            address:
+              "0x6490737f36898086529ecc342f6abe7846d12d40d7df2a4f392e6df9b57af0f4",
+            move_resource:
+              '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":true,"owner":"0xe7ddea46e6bd763c1610f0544f5cf9dc8c623b5c","version":"1"}}',
+            raw_bytes:
+              "AAAAAAAAAAAAAAAA593qRua9djwWEPBUT1z53IxiO1wBAQAAAAAAAAA=",
+            struct_tag: "0x1::object::ObjectCore",
+          },
+          {
+            address:
+              "0x6490737f36898086529ecc342f6abe7846d12d40d7df2a4f392e6df9b57af0f4",
+            move_resource:
+              '{"type":"0x1::royalty::Royalty","data":{"payee_address":"0xe7ddea46e6bd763c1610f0544f5cf9dc8c623b5c","royalty":"0.05"}}',
+            raw_bytes:
+              "BwAAxS68orEAAAAAAAAAAAAAAADn3epG5r12PBYQ8FRPXPncjGI7XA==",
+            struct_tag: "0x1::royalty::Royalty",
+          },
+          {
+            address:
+              "0x6490737f36898086529ecc342f6abe7846d12d40d7df2a4f392e6df9b57af0f4",
+            move_resource:
+              '{"type":"0x1::collection::Collection","data":{"creator":"0xe7ddea46e6bd763c1610f0544f5cf9dc8c623b5c","description":"Saint Seiya - Knights of the Zodiac NFT Collection. Burn your Cosmos and fight for justice! Each NFT represents a legendary Bronze Saint.","name":"Saint Seiya - Knights of the Zodiac","nfts":{"handle":"0x216d92fa05c1e9621a4ce949682e780b30ee650b0c1f0c0807510fd6343553c4","length":"7"},"uri":"https://nft-rho-ten.vercel.app/saint_seiya"}}',
+            raw_bytes:
+              "AAAAAAAAAAAAAAAA593qRua9djwWEPBUT1z53IxiO1yJAVNhaW50IFNlaXlhIC0gS25pZ2h0cyBvZiB0aGUgWm9kaWFjIE5GVCBDb2xsZWN0aW9uLiBCdXJuIHlvdXIgQ29zbW9zIGFuZCBmaWdodCBmb3IganVzdGljZSEgRWFjaCBORlQgcmVwcmVzZW50cyBhIGxlZ2VuZGFyeSBCcm9uemUgU2FpbnQuI1NhaW50IFNlaXlhIC0gS25pZ2h0cyBvZiB0aGUgWm9kaWFjKmh0dHBzOi8vbmZ0LXJoby10ZW4udmVyY2VsLmFwcC9zYWludF9zZWl5YSFtkvoFweliGkzpSWgueAsw7mULDB8MCAdRD9Y0NVPEBwAAAAAAAAA=",
+            struct_tag: "0x1::collection::Collection",
+          },
+          {
+            address:
+              "0x6490737f36898086529ecc342f6abe7846d12d40d7df2a4f392e6df9b57af0f4",
+            move_resource:
+              '{"type":"0x1::collection::FixedSupply","data":{"current_supply":"7","max_supply":"100","total_minted":"9"}}',
+            raw_bytes: "BwAAAAAAAABkAAAAAAAAAAkAAAAAAAAA",
+            struct_tag: "0x1::collection::FixedSupply",
+          },
+          {
+            address:
+              "0x6490737f36898086529ecc342f6abe7846d12d40d7df2a4f392e6df9b57af0f4",
+            move_resource:
+              '{"type":"0x1::initia_nft::InitiaNftCollection","data":{"mutable_description":true,"mutable_nft_description":true,"mutable_nft_uri":true,"mutable_uri":true,"mutator_ref":{"self":"0x6490737f36898086529ecc342f6abe7846d12d40d7df2a4f392e6df9b57af0f4"},"royalty_mutator_ref":{"inner":{"self":"0x6490737f36898086529ecc342f6abe7846d12d40d7df2a4f392e6df9b57af0f4","version":"1"}}}}',
+            raw_bytes:
+              "AWSQc382iYCGUp7MNC9qvnhG0S1A198qTzkubfm1evD0AWSQc382iYCGUp7MNC9qvnhG0S1A198qTzkubfm1evD0AQAAAAAAAAABAQEB",
+            struct_tag: "0x1::initia_nft::InitiaNftCollection",
+          },
+          {
+            address:
+              "0x6490737f36898086529ecc342f6abe7846d12d40d7df2a4f392e6df9b57af0f4",
+            move_resource:
+              '{"type":"0x1::simple_nft::SimpleNftCollection","data":{"mutable_nft_properties":true}}',
+            raw_bytes: "AQ==",
+            struct_tag: "0x1::simple_nft::SimpleNftCollection",
+          },
+        ],
+      },
+  },
+  POST: {},
+};

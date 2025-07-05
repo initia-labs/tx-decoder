@@ -2,12 +2,13 @@ import { z } from "zod";
 
 import { zJsonString } from "./common";
 
-const zAccountResource = z.object({
+export const zAccountResource = z.object({
   address: z.string(),
   move_resource: z.string(),
   raw_bytes: z.string(),
   struct_tag: z.string(),
 });
+export type AccountResource = z.infer<typeof zAccountResource>;
 
 export const zAccountResources = z.object({
   pagination: z.object({
@@ -49,3 +50,16 @@ export const zNftResource = zJsonString.pipe(
   })
 );
 export type NftResource = z.infer<typeof zNftResource>;
+
+export const zCollectionResource = zJsonString.pipe(
+  z.object({
+    data: z.object({
+      creator: z.string(),
+      description: z.string(),
+      name: z.string(),
+      uri: z.string(),
+    }),
+    type: z.literal("0x1::collection::Collection"),
+  })
+);
+export type CollectionResource = z.infer<typeof zCollectionResource>;

@@ -1,24 +1,25 @@
-import axios from "axios";
-
 import {
-  mockApiResponsesNftMint,
+  mockApiResponsesForNftMint,
   mockMsgNftMint,
 } from "../fixtures/move/nft-mint.fixture";
-import { createMockApiHandler, initialize } from "../helpers";
+import {
+  initialize,
+  mockedAxios,
+  resetMockApi,
+  setupMockApi,
+} from "../helpers";
 
 jest.mock("axios");
+
 const decoder = initialize();
-const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 describe("NFT Mint Message", () => {
   beforeEach(() => {
-    mockedAxios.get.mockReset();
+    resetMockApi(mockedAxios);
   });
 
   it("should decode an NFT mint message correctly", async () => {
-    mockedAxios.get.mockImplementation(
-      createMockApiHandler(mockApiResponsesNftMint)
-    );
+    setupMockApi(mockedAxios, mockApiResponsesForNftMint);
 
     const decoded = await decoder.decodeTransaction(mockMsgNftMint);
 
@@ -26,11 +27,20 @@ describe("NFT Mint Message", () => {
     expect(decoded.messages[0].decodedMessage).toEqual({
       action: "nft_mint",
       data: {
+        collection: {
+          creator: "init1ulw753hxh4mrc9ss7p2y7h8emjxxyw6uce0hk9",
+          description:
+            "Food collection that I suggest - Discover amazing dishes and culinary experiences from around the world",
+          name: "Favorite food",
+          uri: "https://nft-rho-ten.vercel.app/favoritefood",
+        },
         collectionAddress:
-          "0x597cd3f37f21f59c771731a31e92ac1214f72b4f8a86541a94b50f0308f4e20",
+          "init1qktu60eh7g04n3m3wvdrr6f2cys57u45lz5x2sdffdg0qvy0fcsqk9gvt9",
+        from: "init1ulw753hxh4mrc9ss7p2y7h8emjxxyw6uce0hk9",
         tokenAddress:
-          "0xeafbe62f2441e2ecce99db4cfbab294f7542d78ce2d82ca28de13da0a9d41b86",
+          "init1ata7vteyg83wen5emdx0h2effa6594uvutvzeg5duy76p2w5rwrqy2y24c",
         tokenId: "1",
+        tokenUri: "https://nft-rho-ten.vercel.app/favoritefood/1",
       },
       isIbc: false,
       isOp: false,
@@ -50,6 +60,23 @@ describe("NFT Mint Message", () => {
         init1ulw753hxh4mrc9ss7p2y7h8emjxxyw6uce0hk9: {
           init1ata7vteyg83wen5emdx0h2effa6594uvutvzeg5duy76p2w5rwrqy2y24c: "1",
         },
+      },
+    });
+
+    expect(decoded.metadata).toEqual({
+      init1ata7vteyg83wen5emdx0h2effa6594uvutvzeg5duy76p2w5rwrqy2y24c: {
+        collection: {
+          creator: "init1ulw753hxh4mrc9ss7p2y7h8emjxxyw6uce0hk9",
+          description:
+            "Food collection that I suggest - Discover amazing dishes and culinary experiences from around the world",
+          name: "Favorite food",
+          uri: "https://nft-rho-ten.vercel.app/favoritefood",
+        },
+        collectionAddress:
+          "init1qktu60eh7g04n3m3wvdrr6f2cys57u45lz5x2sdffdg0qvy0fcsqk9gvt9",
+        tokenId: "1",
+        tokenUri: "https://nft-rho-ten.vercel.app/favoritefood/1",
+        type: "nft",
       },
     });
   });

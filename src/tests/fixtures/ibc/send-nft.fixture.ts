@@ -428,3 +428,85 @@ export const mockMsgIbcSendNft = {
   },
   txhash: "799FE662461D38A08D617C4E60025ED373177B9912B6C3468FDDE2B1825CD4AC",
 };
+
+export const mockApiResponsesForIbcSendNft = {
+  GET: {
+    "/chains.json": [
+      {
+        chain_id: "interwoven-1",
+        chain_name: "initia",
+        metadata: {
+          ibc_channels: [
+            {
+              chain_id: "civitia-1",
+              channel_id: "channel-28",
+              port_id: "nft-transfer",
+              version: "ics721-1",
+            },
+          ],
+        },
+      },
+    ],
+    "/cosmos/base/tendermint/v1beta1/node_info": {
+      default_node_info: {
+        network: "interwoven-1",
+      },
+    },
+    "/initia/move/v1/accounts/0x4b224b3b82140614fbe0706b421d887f4532ea91d4ad0cf2b99a1251c06dfa9a/resources":
+      {
+        pagination: { next_key: null, total: "0" },
+        resources: [
+          {
+            address:
+              "0x4b224b3b82140614fbe0706b421d887f4532ea91d4ad0cf2b99a1251c06dfa9a",
+            move_resource:
+              '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":true,"owner":"0x8a662b087dc53e629b3ca6d6778d4e7aeffac0b387b99414539d733b90354907","version":"1"}}',
+            raw_bytes:
+              "imYrCH3FPmKbPKbWd41Oeu/6wLOHuZQUU51zO5A1SQcBAQAAAAAAAAA=",
+            struct_tag: "0x1::object::ObjectCore",
+          },
+          {
+            address:
+              "0x4b224b3b82140614fbe0706b421d887f4532ea91d4ad0cf2b99a1251c06dfa9a",
+            move_resource:
+              '{"type":"0x1::collection::Collection","data":{"creator":"0x8a662b087dc53e629b3ca6d6778d4e7aeffac0b387b99414539d733b90354907","description":"Jennie you know and love, now living rent-free in your wallet. She\'ll accompany you wherever you go.","name":"Jennie","nfts":{"handle":"0x58eedf73fc03d68e013a695a722170f9df5764f0d08c001d4053f0aecf6ae0b2","length":"212663"},"uri":"https://jennie.initia.xyz/data/collection.json"}}',
+            raw_bytes:
+              "imYrCH3FPmKbPKbWd41Oeu/6wLOHuZQUU51zO5A1SQdkSmVubmllIHlvdSBrbm93IGFuZCBsb3ZlLCBub3cgbGl2aW5nIHJlbnQtZnJlZSBpbiB5b3VyIHdhbGxldC4gU2hlJ2xsIGFjY29tcGFueSB5b3Ugd2hlcmV2ZXIgeW91IGdvLgZKZW5uaWUuaHR0cHM6Ly9qZW5uaWUuaW5pdGlhLnh5ei9kYXRhL2NvbGxlY3Rpb24uanNvblju33P8A9aOATppWnIhcPnfV2Tw0IwAHUBT8K7PauCytz4DAAAAAAA=",
+            struct_tag: "0x1::collection::Collection",
+          },
+          {
+            address:
+              "0x4b224b3b82140614fbe0706b421d887f4532ea91d4ad0cf2b99a1251c06dfa9a",
+            move_resource:
+              '{"type":"0x1::collection::UnlimitedSupply","data":{"current_supply":"212663","total_minted":"212663"}}',
+            raw_bytes: "tz4DAAAAAAC3PgMAAAAAAA==",
+            struct_tag: "0x1::collection::UnlimitedSupply",
+          },
+        ],
+      },
+    "/initia/move/v1/accounts/0x628d39fde7251e7ce340a82b73006aeb1b927238cba83322ee9ce8b892b2bb55/resources":
+      {
+        pagination: { next_key: null, total: "0" },
+        resources: [
+          {
+            address:
+              "0x628d39fde7251e7ce340a82b73006aeb1b927238cba83322ee9ce8b892b2bb55",
+            move_resource:
+              '{"type":"0x1::nft::Nft","data":{"collection":{"inner":"0x4b224b3b82140614fbe0706b421d887f4532ea91d4ad0cf2b99a1251c06dfa9a"},"description":"Avatar Jennie, the master of all elements. An unparalleled Sigma, and a force to be reckoned with.","token_id":"1","uri":"https://jennie.initia.xyz/data/9_4.json"}}',
+            raw_bytes:
+              "SyJLO4IUBhT74HBrQh2If0Uy6pHUrQzyuZoSUcBt+ppiQXZhdGFyIEplbm5pZSwgdGhlIG1hc3RlciBvZiBhbGwgZWxlbWVudHMuIEFuIHVucGFyYWxsZWxlZCBTaWdtYSwgYW5kIGEgZm9yY2UgdG8gYmUgcmVja29uZWQgd2l0aC4BMSdodHRwczovL2plbm5pZS5pbml0aWEueHl6L2RhdGEvOV80Lmpzb24=",
+            struct_tag: "0x1::nft::Nft",
+          },
+          {
+            address:
+              "0x628d39fde7251e7ce340a82b73006aeb1b927238cba83322ee9ce8b892b2bb55",
+            move_resource:
+              '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":true,"owner":"0x6baa5dcfd050e9b85a4ddf214baee77884773ba4","version":"1"}}',
+            raw_bytes:
+              "AAAAAAAAAAAAAAAAa6pdz9BQ6bhaTd8hS67neIR3O6QBAQAAAAAAAAA=",
+            struct_tag: "0x1::object::ObjectCore",
+          },
+        ],
+      },
+  },
+};

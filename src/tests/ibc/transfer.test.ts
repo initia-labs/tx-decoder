@@ -1,34 +1,45 @@
-import axios from "axios";
-
 import {
-  mockApiResponseMsgTransfer,
-  mockMsgTransfer,
-} from "../fixtures/ibc/transfer.fixture";
-import { createMockApiHandler, initialize } from "../helpers";
+  mockApiResponsesForMsgIbcRecvPacket,
+  mockMsgIbcFtReceive,
+} from "../fixtures/ibc/receive-ft.fixture";
+import {
+  mockApiResponsesForMsgIbcSend,
+  mockMsgIbcSendFt,
+} from "../fixtures/ibc/send-ft.fixture";
+import {
+  initialize,
+  mockedAxios,
+  resetMockApi,
+  setupMockApi,
+} from "../helpers";
 
 jest.mock("axios");
 const decoder = initialize();
-const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 describe("IBC Transfer Decoder", () => {
-  it("should decode IBC transfer message", async () => {
-    const mockApiHandler = createMockApiHandler(mockApiResponseMsgTransfer);
-    mockedAxios.get.mockImplementation(mockApiHandler);
+  beforeEach(() => {
+    resetMockApi(mockedAxios);
+  });
 
-    const decoded = await decoder.decodeTransaction(mockMsgTransfer);
+  it("should decode IBC transfer message", async () => {
+    setupMockApi(mockedAxios, mockApiResponsesForMsgIbcSend);
+
+    const decoded = await decoder.decodeTransaction(mockMsgIbcSendFt);
 
     expect(decoded.messages).toHaveLength(1);
     expect(decoded.messages[0].decodedMessage).toEqual({
-      action: "ibc_transfer",
+      action: "ibc_ft_send",
       data: {
         amount: "200000",
         denom: "uinit",
-        destinationChannel: "channel-0",
-        destinationPort: "transfer",
+        dstChainId: "moo-1",
+        dstChannel: "channel-0",
+        dstPort: "transfer",
         receiver: "init1kw2unuhgfa6mz6r0ehrzlr9k9ftjk7pql8u5fm",
         sender: "init1kw2unuhgfa6mz6r0ehrzlr9k9ftjk7pql8u5fm",
-        sourceChannel: "channel-29",
-        sourcePort: "transfer",
+        srcChainId: "interwoven-1",
+        srcChannel: "channel-29",
+        srcPort: "transfer",
       },
       isIbc: true,
       isOp: false,
@@ -54,6 +65,31 @@ describe("IBC Transfer Decoder", () => {
         },
       },
       object: {},
+    });
+  });
+
+  it("should decode IBC transfer receive message", async () => {
+    setupMockApi(mockedAxios, mockApiResponsesForMsgIbcRecvPacket);
+
+    const decoded = await decoder.decodeTransaction(mockMsgIbcFtReceive);
+
+    expect(decoded.messages).toHaveLength(2);
+    expect(decoded.messages[1].decodedMessage).toEqual({
+      action: "ibc_ft_receive",
+      data: {
+        amount: "200000",
+        denom: "uinit",
+        dstChainId: "moo-1",
+        dstChannel: "channel-0",
+        dstPort: "transfer",
+        receiver: "init1kw2unuhgfa6mz6r0ehrzlr9k9ftjk7pql8u5fm",
+        sender: "init1kw2unuhgfa6mz6r0ehrzlr9k9ftjk7pql8u5fm",
+        srcChainId: "interwoven-1",
+        srcChannel: "channel-29",
+        srcPort: "transfer",
+      },
+      isIbc: true,
+      isOp: false,
     });
   });
 });

@@ -1,9 +1,12 @@
 import { ApiClient } from "@/api";
+import { BalanceChanges } from "@/interfaces";
 import { Event } from "@/schema";
 
-import { BalanceChanges } from "./common";
-
 export interface BalanceEventProcessor {
-  process: (event: Event, apiClient: ApiClient) => Promise<BalanceChanges>;
+  process: (
+    currentEvent: Event,
+    allEvents: Event[],
+    apiClient: ApiClient
+  ) => Promise<BalanceChanges>;
   type_tag: string;
 }

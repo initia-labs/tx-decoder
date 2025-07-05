@@ -978,269 +978,207 @@ export const mockMsgWithdrawDelegatorRewardLocked = {
   txhash: "76DB015E749065A102C2D7108B3912EF138EE702454F144A14C5781B37F95A97",
 };
 
-export const mockApiResponsesWithdrawDelegatorReward = {
-  "/initia/move/v1/accounts/0x1f4590c6fe1596a76c2d3414bc1ab4e8b4c4a5a25853625abff6684e580a634f/resources":
-    {
-      pagination: {
-        next_key: null,
-        total: "0",
+export const mockApiResponsesForWithdrawDelegatorReward = {
+  GET: {
+    "/initia/move/v1/accounts/0x1f4590c6fe1596a76c2d3414bc1ab4e8b4c4a5a25853625abff6684e580a634f/resources":
+      {
+        pagination: {
+          next_key: null,
+          total: "0",
+        },
+        resources: [
+          {
+            address:
+              "0x1f4590c6fe1596a76c2d3414bc1ab4e8b4c4a5a25853625abff6684e580a634f",
+            move_resource:
+              '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0x8aef69782640e3fd5c44ddbe9c84777a6dd3cf5b","version":"1"}}',
+            raw_bytes:
+              "AAAAAAAAAAAAAAAAiu9peCZA4/1cRN2+nIR3em3Tz1sAAQAAAAAAAAA=",
+            struct_tag: "0x1::object::ObjectCore",
+          },
+          {
+            address:
+              "0x1f4590c6fe1596a76c2d3414bc1ab4e8b4c4a5a25853625abff6684e580a634f",
+            move_resource:
+              '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"109337339","frozen":false,"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}',
+            raw_bytes:
+              "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdn7WoQGAAAAAAA=",
+            struct_tag: "0x1::fungible_asset::FungibleStore",
+          },
+        ],
       },
-      resources: [
-        {
-          address:
-            "0x1f4590c6fe1596a76c2d3414bc1ab4e8b4c4a5a25853625abff6684e580a634f",
-          move_resource:
-            '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0x8aef69782640e3fd5c44ddbe9c84777a6dd3cf5b","version":"1"}}',
-          raw_bytes: "AAAAAAAAAAAAAAAAiu9peCZA4/1cRN2+nIR3em3Tz1sAAQAAAAAAAAA=",
-          struct_tag: "0x1::object::ObjectCore",
+    "/initia/move/v1/accounts/0xba2a23251eb06923fadb03ea9856c66510fefc4dfa9abe92cfb2961c9145cfb3/resources":
+      {
+        pagination: {
+          next_key: null,
+          total: "0",
         },
-        {
-          address:
-            "0x1f4590c6fe1596a76c2d3414bc1ab4e8b4c4a5a25853625abff6684e580a634f",
-          move_resource:
-            '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"109337339","frozen":false,"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}',
-          raw_bytes: "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdn7WoQGAAAAAAA=",
-          struct_tag: "0x1::fungible_asset::FungibleStore",
-        },
-      ],
-    },
-  "/initia/move/v1/accounts/0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9/resources":
-    {
-      pagination: {
-        next_key: null,
-        total: "0",
+        resources: [
+          {
+            address:
+              "0xba2a23251eb06923fadb03ea9856c66510fefc4dfa9abe92cfb2961c9145cfb3",
+            move_resource:
+              '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0x93354845030274cd4bf1686abd60ab28ec52e1a7","version":"1"}}',
+            raw_bytes:
+              "AAAAAAAAAAAAAAAAkzVIRQMCdM1L8WhqvWCrKOxS4acAAQAAAAAAAAA=",
+            struct_tag: "0x1::object::ObjectCore",
+          },
+          {
+            address:
+              "0xba2a23251eb06923fadb03ea9856c66510fefc4dfa9abe92cfb2961c9145cfb3",
+            move_resource:
+              '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"1561829929769","frozen":false,"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}',
+            raw_bytes:
+              "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdkpc1GkawEAAAA=",
+            struct_tag: "0x1::fungible_asset::FungibleStore",
+          },
+        ],
       },
-      resources: [
-        {
-          address:
-            "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
-          move_resource:
-            '{"type":"0x1::coin::ManagingRefs","data":{"burn_ref":{"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}},"mint_ref":{"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}},"transfer_ref":{"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}}',
-          raw_bytes:
-            "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdmORzO9q899Svw9FPDdRsm/UvsPzp5LmWyTnhlbi8iR2Y5HM72rz31K/D0U8N1Gyb9S+w/OnkuZbJOeGVuLyJHZ",
-          struct_tag: "0x1::coin::ManagingRefs",
+    "/initia/mstaking/v1/validators/initvaloper1gs7kwd5jm8ghnvx4z973aqcenfcej6ykpuydc4":
+      {
+        validator: {
+          description: {
+            details: "",
+            identity: "1F41B95A84CFA4B6",
+            moniker: "Inertia Foundation | 🎁 Delegation Drop 🎁",
+            security_contact: "",
+            website: "https://inrt.fi",
+          },
+          operator_address:
+            "initvaloper1gs7kwd5jm8ghnvx4z973aqcenfcej6ykpuydc4",
         },
-        {
-          address:
-            "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
-          move_resource:
-            '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":true,"owner":"0x1","version":"1"}}',
-          raw_bytes: "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEBAQAAAAAAAAA=",
-          struct_tag: "0x1::object::ObjectCore",
-        },
-        {
-          address:
-            "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
-          move_resource:
-            '{"type":"0x1::managed_coin::Capabilities","data":{"burn_cap":{"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}},"freeze_cap":{"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}},"mint_cap":{"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}}',
-          raw_bytes:
-            "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdmORzO9q899Svw9FPDdRsm/UvsPzp5LmWyTnhlbi8iR2Y5HM72rz31K/D0U8N1Gyb9S+w/OnkuZbJOeGVuLyJHZ",
-          struct_tag: "0x1::managed_coin::Capabilities",
-        },
-        {
-          address:
-            "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
-          move_resource:
-            '{"type":"0x1::fungible_asset::Supply","data":{"current":"1000000000000000","maximum":null}}',
-          raw_bytes: "AIDGpH6NAwAAAAAAAAAAAAA=",
-          struct_tag: "0x1::fungible_asset::Supply",
-        },
-        {
-          address:
-            "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
-          move_resource:
-            '{"type":"0x1::fungible_asset::Metadata","data":{"decimals":0,"icon_uri":"","name":"uinit Coin","project_uri":"","symbol":"uinit"}}',
-          raw_bytes: "CnVpbml0IENvaW4FdWluaXQAAAA=",
-          struct_tag: "0x1::fungible_asset::Metadata",
-        },
-        {
-          address:
-            "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
-          move_resource:
-            '{"type":"0x1::primary_fungible_store::DeriveRefPod","data":{"metadata_derive_ref":{"self":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9","version":"1"}}}',
-          raw_bytes: "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdkBAAAAAAAAAA==",
-          struct_tag: "0x1::primary_fungible_store::DeriveRefPod",
-        },
-      ],
-    },
-  "/initia/move/v1/accounts/0xba2a23251eb06923fadb03ea9856c66510fefc4dfa9abe92cfb2961c9145cfb3/resources":
-    {
-      pagination: {
-        next_key: null,
-        total: "0",
       },
-      resources: [
-        {
-          address:
-            "0xba2a23251eb06923fadb03ea9856c66510fefc4dfa9abe92cfb2961c9145cfb3",
-          move_resource:
-            '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0x93354845030274cd4bf1686abd60ab28ec52e1a7","version":"1"}}',
-          raw_bytes: "AAAAAAAAAAAAAAAAkzVIRQMCdM1L8WhqvWCrKOxS4acAAQAAAAAAAAA=",
-          struct_tag: "0x1::object::ObjectCore",
+  },
+  POST: {
+    "/initia/move/v1/view/json": [
+      {
+        payload: {
+          address: "0x1",
+          args: [
+            '"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"',
+          ],
+          function_name: "metadata_to_denom",
+          module_name: "coin",
+          typeArgs: [],
         },
-        {
-          address:
-            "0xba2a23251eb06923fadb03ea9856c66510fefc4dfa9abe92cfb2961c9145cfb3",
-          move_resource:
-            '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"1561829929769","frozen":false,"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}',
-          raw_bytes: "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdkpc1GkawEAAAA=",
-          struct_tag: "0x1::fungible_asset::FungibleStore",
+        response: {
+          data: '"uinit"',
+          events: [],
+          gas_used: "6507",
         },
-      ],
-    },
-  "/initia/mstaking/v1/validators/initvaloper1gs7kwd5jm8ghnvx4z973aqcenfcej6ykpuydc4":
-    {
-      validator: {
-        description: {
-          details: "",
-          identity: "1F41B95A84CFA4B6",
-          moniker: "Inertia Foundation | 🎁 Delegation Drop 🎁",
-          security_contact: "",
-          website: "https://inrt.fi",
-        },
-        operator_address: "initvaloper1gs7kwd5jm8ghnvx4z973aqcenfcej6ykpuydc4",
       },
-    },
+    ],
+  },
 };
 
-export const mockApiResponsesWithdrawDelegatorRewardLocked = {
-  "/initia/move/v1/accounts/0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9/resources":
-    {
-      pagination: {
-        next_key: null,
-        total: "0",
+export const mockApiResponsesForWithdrawDelegatorRewardLocked = {
+  GET: {
+    "/initia/move/v1/accounts/0xb772c2923fb732fd75a2a263ef56910da3ec7e235ef83c536db5c6f1c2ab7b5b/resources":
+      {
+        pagination: { next_key: null, total: "0" },
+        resources: [
+          {
+            address:
+              "0xb772c2923fb732fd75a2a263ef56910da3ec7e235ef83c536db5c6f1c2ab7b5b",
+            move_resource:
+              '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0x554038dbae948427b9b7d818a9808e36675c8267644b28da5e37a4c630daac9","version":"1"}}',
+            raw_bytes:
+              "BVQDjbrpSEJ7m32BipgI42Z1yCZ2RLKNpeN6TGMNqskAAQAAAAAAAAA=",
+            struct_tag: "0x1::object::ObjectCore",
+          },
+          {
+            address:
+              "0xb772c2923fb732fd75a2a263ef56910da3ec7e235ef83c536db5c6f1c2ab7b5b",
+            move_resource:
+              '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"0","frozen":false,"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}',
+            raw_bytes:
+              "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdkAAAAAAAAAAAA=",
+            struct_tag: "0x1::fungible_asset::FungibleStore",
+          },
+        ],
       },
-      resources: [
-        {
-          address:
-            "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
-          move_resource:
-            '{"type":"0x1::coin::ManagingRefs","data":{"burn_ref":{"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}},"mint_ref":{"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}},"transfer_ref":{"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}}',
-          raw_bytes:
-            "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdmORzO9q899Svw9FPDdRsm/UvsPzp5LmWyTnhlbi8iR2Y5HM72rz31K/D0U8N1Gyb9S+w/OnkuZbJOeGVuLyJHZ",
-          struct_tag: "0x1::coin::ManagingRefs",
-        },
-        {
-          address:
-            "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
-          move_resource:
-            '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":true,"owner":"0x1","version":"1"}}',
-          raw_bytes: "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEBAQAAAAAAAAA=",
-          struct_tag: "0x1::object::ObjectCore",
-        },
-        {
-          address:
-            "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
-          move_resource:
-            '{"type":"0x1::managed_coin::Capabilities","data":{"burn_cap":{"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}},"freeze_cap":{"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}},"mint_cap":{"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}}',
-          raw_bytes:
-            "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdmORzO9q899Svw9FPDdRsm/UvsPzp5LmWyTnhlbi8iR2Y5HM72rz31K/D0U8N1Gyb9S+w/OnkuZbJOeGVuLyJHZ",
-          struct_tag: "0x1::managed_coin::Capabilities",
-        },
-        {
-          address:
-            "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
-          move_resource:
-            '{"type":"0x1::fungible_asset::Supply","data":{"current":"1000000000000000","maximum":null}}',
-          raw_bytes: "AIDGpH6NAwAAAAAAAAAAAAA=",
-          struct_tag: "0x1::fungible_asset::Supply",
-        },
-        {
-          address:
-            "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
-          move_resource:
-            '{"type":"0x1::fungible_asset::Metadata","data":{"decimals":0,"icon_uri":"","name":"uinit Coin","project_uri":"","symbol":"uinit"}}',
-          raw_bytes: "CnVpbml0IENvaW4FdWluaXQAAAA=",
-          struct_tag: "0x1::fungible_asset::Metadata",
-        },
-        {
-          address:
-            "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9",
-          move_resource:
-            '{"type":"0x1::primary_fungible_store::DeriveRefPod","data":{"metadata_derive_ref":{"self":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9","version":"1"}}}',
-          raw_bytes: "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdkBAAAAAAAAAA==",
-          struct_tag: "0x1::primary_fungible_store::DeriveRefPod",
-        },
-      ],
-    },
-  "/initia/move/v1/accounts/0xb772c2923fb732fd75a2a263ef56910da3ec7e235ef83c536db5c6f1c2ab7b5b/resources":
-    {
-      pagination: { next_key: null, total: "0" },
-      resources: [
-        {
-          address:
-            "0xb772c2923fb732fd75a2a263ef56910da3ec7e235ef83c536db5c6f1c2ab7b5b",
-          move_resource:
-            '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0x554038dbae948427b9b7d818a9808e36675c8267644b28da5e37a4c630daac9","version":"1"}}',
-          raw_bytes: "BVQDjbrpSEJ7m32BipgI42Z1yCZ2RLKNpeN6TGMNqskAAQAAAAAAAAA=",
-          struct_tag: "0x1::object::ObjectCore",
-        },
-        {
-          address:
-            "0xb772c2923fb732fd75a2a263ef56910da3ec7e235ef83c536db5c6f1c2ab7b5b",
-          move_resource:
-            '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"0","frozen":false,"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}',
-          raw_bytes: "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdkAAAAAAAAAAAA=",
-          struct_tag: "0x1::fungible_asset::FungibleStore",
-        },
-      ],
-    },
-  "/initia/move/v1/accounts/0xba2a23251eb06923fadb03ea9856c66510fefc4dfa9abe92cfb2961c9145cfb3/resources":
-    {
-      pagination: { next_key: null, total: "0" },
-      resources: [
-        {
-          address:
-            "0xba2a23251eb06923fadb03ea9856c66510fefc4dfa9abe92cfb2961c9145cfb3",
-          move_resource:
-            '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0x93354845030274cd4bf1686abd60ab28ec52e1a7","version":"1"}}',
-          raw_bytes: "AAAAAAAAAAAAAAAAkzVIRQMCdM1L8WhqvWCrKOxS4acAAQAAAAAAAAA=",
-          struct_tag: "0x1::object::ObjectCore",
-        },
-        {
-          address:
-            "0xba2a23251eb06923fadb03ea9856c66510fefc4dfa9abe92cfb2961c9145cfb3",
-          move_resource:
-            '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"1550326500987","frozen":false,"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}',
-          raw_bytes: "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdl7Dqn2aAEAAAA=",
-          struct_tag: "0x1::fungible_asset::FungibleStore",
-        },
-      ],
-    },
-  "/initia/move/v1/accounts/0xe2d99fcea59da8da2d4095cc11cb83e6ff80cf2e41522c678b8f152233d1b65e/resources":
-    {
-      pagination: { next_key: null, total: "0" },
-      resources: [
-        {
-          address:
-            "0xe2d99fcea59da8da2d4095cc11cb83e6ff80cf2e41522c678b8f152233d1b65e",
-          move_resource:
-            '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0xb395c9f2e84f75b1686fcdc62f8cb62a572b7820","version":"1"}}',
-          raw_bytes: "AAAAAAAAAAAAAAAAs5XJ8uhPdbFob83GL4y2KlcreCAAAQAAAAAAAAA=",
-          struct_tag: "0x1::object::ObjectCore",
-        },
-        {
-          address:
-            "0xe2d99fcea59da8da2d4095cc11cb83e6ff80cf2e41522c678b8f152233d1b65e",
-          move_resource:
-            '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"4727161","frozen":false,"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}',
-          raw_bytes: "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdl5IUgAAAAAAAA=",
-          struct_tag: "0x1::fungible_asset::FungibleStore",
-        },
-      ],
-    },
-  "/initia/mstaking/v1/validators/initvaloper1qx6ghyv83caecuxgl77lvlnha9d9y6fntryc8a":
-    {
-      validator: {
-        description: {
-          details:
-            "Secure, enterprise-grade validator committed to investing heavily in educating, promoting, and expanding the Initia community and ecosystem.",
-          identity: "A2879F08F59FB0AF",
-          moniker: "Orbital Command",
-          security_contact: "",
-          website: "https://orbitalcommand.io",
-        },
-        operator_address: "initvaloper1qx6ghyv83caecuxgl77lvlnha9d9y6fntryc8a",
+    "/initia/move/v1/accounts/0xba2a23251eb06923fadb03ea9856c66510fefc4dfa9abe92cfb2961c9145cfb3/resources":
+      {
+        pagination: { next_key: null, total: "0" },
+        resources: [
+          {
+            address:
+              "0xba2a23251eb06923fadb03ea9856c66510fefc4dfa9abe92cfb2961c9145cfb3",
+            move_resource:
+              '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0x93354845030274cd4bf1686abd60ab28ec52e1a7","version":"1"}}',
+            raw_bytes:
+              "AAAAAAAAAAAAAAAAkzVIRQMCdM1L8WhqvWCrKOxS4acAAQAAAAAAAAA=",
+            struct_tag: "0x1::object::ObjectCore",
+          },
+          {
+            address:
+              "0xba2a23251eb06923fadb03ea9856c66510fefc4dfa9abe92cfb2961c9145cfb3",
+            move_resource:
+              '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"1550326500987","frozen":false,"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}',
+            raw_bytes:
+              "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdl7Dqn2aAEAAAA=",
+            struct_tag: "0x1::fungible_asset::FungibleStore",
+          },
+        ],
       },
-    },
+    "/initia/move/v1/accounts/0xe2d99fcea59da8da2d4095cc11cb83e6ff80cf2e41522c678b8f152233d1b65e/resources":
+      {
+        pagination: { next_key: null, total: "0" },
+        resources: [
+          {
+            address:
+              "0xe2d99fcea59da8da2d4095cc11cb83e6ff80cf2e41522c678b8f152233d1b65e",
+            move_resource:
+              '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0xb395c9f2e84f75b1686fcdc62f8cb62a572b7820","version":"1"}}',
+            raw_bytes:
+              "AAAAAAAAAAAAAAAAs5XJ8uhPdbFob83GL4y2KlcreCAAAQAAAAAAAAA=",
+            struct_tag: "0x1::object::ObjectCore",
+          },
+          {
+            address:
+              "0xe2d99fcea59da8da2d4095cc11cb83e6ff80cf2e41522c678b8f152233d1b65e",
+            move_resource:
+              '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"4727161","frozen":false,"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}',
+            raw_bytes:
+              "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdl5IUgAAAAAAAA=",
+            struct_tag: "0x1::fungible_asset::FungibleStore",
+          },
+        ],
+      },
+    "/initia/mstaking/v1/validators/initvaloper1qx6ghyv83caecuxgl77lvlnha9d9y6fntryc8a":
+      {
+        validator: {
+          description: {
+            details:
+              "Secure, enterprise-grade validator committed to investing heavily in educating, promoting, and expanding the Initia community and ecosystem.",
+            identity: "A2879F08F59FB0AF",
+            moniker: "Orbital Command",
+            security_contact: "",
+            website: "https://orbitalcommand.io",
+          },
+          operator_address:
+            "initvaloper1qx6ghyv83caecuxgl77lvlnha9d9y6fntryc8a",
+        },
+      },
+  },
+  POST: {
+    "/initia/move/v1/view/json": [
+      {
+        payload: {
+          address: "0x1",
+          args: [
+            '"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"',
+          ],
+          function_name: "metadata_to_denom",
+          module_name: "coin",
+          typeArgs: [],
+        },
+        response: {
+          data: '"uinit"',
+          events: [],
+          gas_used: "6507",
+        },
+      },
+    ],
+  },
 };

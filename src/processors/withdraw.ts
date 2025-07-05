@@ -3,9 +3,9 @@ import { BalanceEventProcessor } from "@/interfaces";
 import { zWithdrawEvent } from "@/schema";
 
 export const withdrawEventProcessor: BalanceEventProcessor = {
-  async process(event, apiClient) {
+  async process(currentEvent, _allEvents, apiClient) {
     try {
-      const dataAttribute = event.attributes.find(
+      const dataAttribute = currentEvent.attributes.find(
         (attr) => attr.key === "data"
       );
       if (!dataAttribute) {
@@ -25,7 +25,7 @@ export const withdrawEventProcessor: BalanceEventProcessor = {
       }
       if (!denom) {
         throw new Error(
-          `Denom not found for metadata address: ${data.metadata_addr}`
+          `Denom not found for withdraw event from metadata address: ${data.metadata_addr}`
         );
       }
 
