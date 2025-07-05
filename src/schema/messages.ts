@@ -81,6 +81,10 @@ export const zMsgIbcTransfer = z.object({
   sender: z.string(),
   source_channel: z.string(),
   source_port: z.string(),
+  timeout_height: z.object({
+    revision_height: z.string(),
+    revision_number: z.string(),
+  }),
   timeout_timestamp: z.string(),
   token: zCoin,
 });
