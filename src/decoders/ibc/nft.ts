@@ -15,7 +15,7 @@ export const ibcSendNftDecoder: MessageDecoder = {
     const parsed = zMsgIbcSendNft.safeParse(message);
     return parsed.success && parsed.data.source_port === "nft-transfer";
   },
-  decode: async (message: Message, log: Log, _apiClient: ApiClient) => {
+  decode: async (message: Message, log: Log, apiClient: ApiClient) => {
     const parsed = zMsgIbcSendNft.parse(message);
     const { class_id, receiver, sender, source_channel, source_port } = parsed;
 
@@ -38,11 +38,27 @@ export const ibcSendNftDecoder: MessageDecoder = {
       throw new Error("IBC NFT Send packet data attribute not found");
     }
 
+    const collection = await apiClient.findCollectionFromCollectionAddr(
+      toBech32(denomToHex(class_id))
+    );
+    if (!collection) {
+      throw new Error(
+        `Collection data not found for collection address ${toBech32(
+          denomToHex(class_id)
+        )}`
+      );
+    }
+
     return {
       action: "ibc_nft_send",
       data: {
+        collection: {
+          creator: toBech32(collection.data.creator),
+          description: collection.data.description,
+          name: collection.data.name,
+          uri: collection.data.uri || parsedData.data.classUri,
+        },
         collectionId: toBech32(denomToHex(class_id)),
-        collectionUri: parsedData.data.classUri,
         receiver,
         sender,
         sourceChannel: source_channel,
@@ -63,7 +79,7 @@ export const ibcReceiveNftDecoder: MessageDecoder = {
       parsed.success && parsed.data.packet.destination_port === "nft-transfer"
     );
   },
-  decode: async (message: Message, log: Log, _apiClient: ApiClient) => {
+  decode: async (message: Message, log: Log, apiClient: ApiClient) => {
     const parsed = zMsgIbcRecvPacket.parse(message);
     const { destination_channel, destination_port } = parsed.packet;
 
@@ -100,11 +116,25 @@ export const ibcReceiveNftDecoder: MessageDecoder = {
         : toHex(parsedData.data.classId);
     }
 
+    const collection = await apiClient.findCollectionFromCollectionAddr(
+      collection_id
+    );
+    if (!collection) {
+      throw new Error(
+        `Collection data not found for collection address ${collection_id}`
+      );
+    }
+
     return {
       action: "ibc_nft_receive",
       data: {
+        collection: {
+          creator: toBech32(collection.data.creator),
+          description: collection.data.description,
+          name: collection.data.name,
+          uri: collection.data.uri || parsedData.data.classUri,
+        },
         collectionId: toBech32(collection_id),
-        collectionUri: parsedData.data.classUri,
         destinationChannel: destination_channel,
         destinationPort: destination_port,
         receiver: parsedData.data.receiver,

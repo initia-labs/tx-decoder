@@ -11,23 +11,47 @@ export const resolveMetadata = async (
     (innerObject) => Object.keys(innerObject)
   );
 
-  const promises = await Promise.allSettled(
-    tokenAddresses.map((address) => apiClient.findNftFromTokenAddr(address))
+  const nftMetadata = await Promise.allSettled(
+    tokenAddresses.map(async (address) => {
+      const nft = await apiClient.findNftFromTokenAddr(address);
+      if (nft === null) {
+        return { collection: null, nft: null };
+      }
+      const collection = await apiClient.findCollectionFromCollectionAddr(
+        nft.data.collection.inner
+      );
+      return { collection, nft };
+    })
   );
 
-  const metadata = promises.reduce<Metadata>((acc, promise, index) => {
+  const metadata = nftMetadata.reduce<Metadata>((acc, promise, index) => {
     if (promise.status === "fulfilled") {
-      if (promise.value === null) {
+      if (promise.value.nft === null) {
         console.error(
           `No NFT metadata found for object address ${tokenAddresses[index]}`
         );
         return acc;
       }
 
+      if (promise.value.collection === null) {
+        console.error(
+          `No collection metadata found for object address ${tokenAddresses[index]}`
+        );
+        return acc;
+      }
+
+      const { collection, nft } = promise.value;
+
       acc[tokenAddresses[index]] = {
-        collectionAddress: toBech32(promise.value.data.collection.inner),
-        tokenId: promise.value.data.token_id,
-        tokenUri: promise.value.data.uri,
+        collection: {
+          creator: toBech32(collection.data.creator),
+          description: collection.data.description,
+          name: collection.data.name,
+          uri: collection.data.uri,
+        },
+        collectionAddress: toBech32(nft.data.collection.inner),
+        tokenId: nft.data.token_id,
+        tokenUri: nft.data.uri,
         type: "nft",
       };
     }

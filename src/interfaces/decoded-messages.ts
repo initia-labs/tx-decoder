@@ -1,4 +1,4 @@
-import { Coin, Validator } from "@/schema";
+import { Coin, CollectionResource, Validator } from "@/schema";
 
 interface DecodedMessageBase {
   isIbc: boolean;
@@ -152,6 +152,7 @@ interface DecodedNotSupportedMessage extends DecodedMessageBase {
 interface DecodedNftMintMessage extends DecodedMessageBase {
   action: "nft_mint";
   data: {
+    collection: CollectionResource["data"];
     collectionAddress: string;
     from: string;
     tokenAddress: string;
@@ -182,8 +183,13 @@ interface DecodedNftBurnMessage extends DecodedMessageBase {
 interface DecodedIbcNftSendMessage extends DecodedMessageBase {
   action: "ibc_nft_send";
   data: {
+    collection: {
+      creator: string;
+      description: string;
+      name: string;
+      uri: string | null;
+    };
     collectionId: string;
-    collectionUri: string | null;
     receiver: string;
     sender: string;
     sourceChannel: string;
@@ -196,8 +202,13 @@ interface DecodedIbcNftSendMessage extends DecodedMessageBase {
 interface DecodedIbcNftReceiveMessage extends DecodedMessageBase {
   action: "ibc_nft_receive";
   data: {
+    collection: {
+      creator: string;
+      description: string;
+      name: string;
+      uri: string | null;
+    };
     collectionId: string;
-    collectionUri: string | null;
     destinationChannel: string;
     destinationPort: string;
     receiver: string;
