@@ -48,6 +48,11 @@ interface DecodedIbcFtSendMessage extends DecodedMessageBase {
     srcChainId: string;
     srcChannel: string;
     srcPort: string;
+    timeoutHeight: {
+      revision_height: string;
+      revision_number: string;
+    };
+    timeoutTimestamp: string;
   };
 }
 
@@ -64,6 +69,11 @@ interface DecodedIbcFtReceiveMessage extends DecodedMessageBase {
     srcChainId: string;
     srcChannel: string;
     srcPort: string;
+    timeoutHeight: {
+      revision_height: string;
+      revision_number: string;
+    };
+    timeoutTimestamp: string;
   };
 }
 
@@ -202,7 +212,10 @@ interface DecodedIbcNftSendMessage extends DecodedMessageBase {
     srcChainId: string;
     srcChannel: string;
     srcPort: string;
-    timeoutHeight: string;
+    timeoutHeight: {
+      revision_height: string;
+      revision_number: string;
+    };
     timeoutTimestamp: string;
     tokenAddress: string;
     tokenIds: string[];
@@ -228,7 +241,10 @@ interface DecodedIbcNftReceiveMessage extends DecodedMessageBase {
     srcChainId: string;
     srcChannel: string;
     srcPort: string;
-    timeoutHeight: string;
+    timeoutHeight: {
+      revision_height: string;
+      revision_number: string;
+    };
     timeoutTimestamp: string;
     tokenAddress: string;
     tokenIds: string[];

@@ -40,7 +40,10 @@ describe("IBC Transfer Decoder", () => {
         srcChainId: "interwoven-1",
         srcChannel: "channel-29",
         srcPort: "transfer",
-        timeoutHeight: "0",
+        timeoutHeight: {
+          revision_height: "0",
+          revision_number: "0",
+        },
         timeoutTimestamp: "1751257396110677500",
       },
       isIbc: true,
@@ -89,7 +92,10 @@ describe("IBC Transfer Decoder", () => {
         srcChainId: "interwoven-1",
         srcChannel: "channel-29",
         srcPort: "transfer",
-        timeoutHeight: "0",
+        timeoutHeight: {
+          revision_height: "0",
+          revision_number: "0",
+        },
         timeoutTimestamp: "1751257396110677500",
       },
       isIbc: true,

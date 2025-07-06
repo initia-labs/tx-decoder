@@ -53,7 +53,10 @@ describe("IBC Receive NFT Message", () => {
           srcChainId: "civitia-1",
           srcChannel: "channel-1",
           srcPort: "nft-transfer",
-          timeoutHeight: "0",
+          timeoutHeight: {
+            revision_height: "0",
+            revision_number: "0",
+          },
           timeoutTimestamp: "1750418571134000000",
           tokenAddress:
             "init1rf9acg4cee5welf4jqqhrwx3pv4f695ae0jtaze2tksxywsg76msp3qj9a",
@@ -131,7 +134,10 @@ describe("IBC Receive NFT Message", () => {
           srcChannel: "channel-1",
           srcPort:
             "wasm.init1wug8sewp6cedgkmrmvhl3lf3tulagm9hnvy8p0rppz9yjw0g4wtq7947m6",
-          timeoutHeight: "0",
+          timeoutHeight: {
+            revision_height: "0",
+            revision_number: "0",
+          },
           timeoutTimestamp: "1746042009484000000",
           tokenAddress:
             "init1t64cqru8efqzzrmfqkkrzdqn2ft453pyvvpvtvnlgw8f0qr3haeslr0899",
