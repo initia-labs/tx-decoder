@@ -61,7 +61,10 @@ export class TxDecoder {
       };
     }
 
-    if (txResponse.logs.length !== txResponse.tx.body.messages.length) {
+    if (
+      txResponse.code === 0 &&
+      txResponse.logs.length !== txResponse.tx.body.messages.length
+    ) {
       throw new Error(
         `Invalid tx response: ${txResponse.logs.length} logs found for ${txResponse.tx.body.messages.length} messages`
       );
@@ -85,13 +88,18 @@ export class TxDecoder {
 
   private async _decodeMessage(
     message: Message,
-    log: Log
+    log: Log | undefined
   ): ReturnType<MessageDecoder["decode"]> {
     const notSupportedMessage = createNotSupportedMessage(message["@type"]);
 
-    const decoder = this._findDecoderForMessage(message, log);
-    if (!decoder) return notSupportedMessage;
+    if (!log) {
+      return notSupportedMessage;
+    }
+
     try {
+      const decoder = this._findDecoderForMessage(message, log);
+      if (!decoder) return notSupportedMessage;
+
       return await decoder.decode(message, log, this.apiClient);
     } catch (e) {
       console.error(e);
@@ -113,10 +121,9 @@ export class TxDecoder {
       const log = txResponse.logs[index];
 
       const decodedMessage = await this._decodeMessage(message, log);
-      const balanceChanges = await processLogForBalanceChanges(
-        log,
-        this.apiClient
-      );
+      const balanceChanges = log
+        ? await processLogForBalanceChanges(log, this.apiClient)
+        : DEFAULT_BALANCE_CHANGES;
 
       return { balanceChanges, decodedMessage };
     });
