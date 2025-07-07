@@ -1150,6 +1150,10 @@ export const mockApiResponsesForRedelegate = {
           },
         ],
       },
+    "/initia/move/v1/denom?metadata=0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9":
+      {
+        denom: "uinit",
+      },
     "/initia/mstaking/v1/validators/initvaloper1cmlx2pqfgt2kpshe2fmc40epzvg699eqv3ax66":
       {
         validator: {
@@ -1180,26 +1184,7 @@ export const mockApiResponsesForRedelegate = {
         },
       },
   },
-  POST: {
-    "/initia/move/v1/view/json": [
-      {
-        payload: {
-          address: "0x1",
-          args: [
-            '"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"',
-          ],
-          function_name: "metadata_to_denom",
-          module_name: "coin",
-          typeArgs: [],
-        },
-        response: {
-          data: '"uinit"',
-          events: [],
-          gas_used: "6507",
-        },
-      },
-    ],
-  },
+  POST: {},
 };
 
 export const mockApiResponsesForRedelegateLocked = {
@@ -1276,6 +1261,15 @@ export const mockApiResponsesForRedelegateLocked = {
           },
         ],
       },
+    "/initia/move/v1/denom?metadata=0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9":
+      {
+        denom: "uinit",
+      },
+    "/initia/move/v1/denom?metadata=0x543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1":
+      {
+        denom:
+          "move/543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1",
+      },
     "/initia/mstaking/v1/validators/initvaloper1qgje6dgazcruzsashpqektp2yaf47x2wyysjqx":
       {
         validator: {
@@ -1307,40 +1301,5 @@ export const mockApiResponsesForRedelegateLocked = {
         },
       },
   },
-  POST: {
-    "/initia/move/v1/view/json": [
-      {
-        payload: {
-          address: "0x1",
-          args: [
-            '"0x543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1"',
-          ],
-          function_name: "metadata_to_denom",
-          module_name: "coin",
-          typeArgs: [],
-        },
-        response: {
-          data: '"move/543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1"',
-          events: [],
-          gas_used: "6507",
-        },
-      },
-      {
-        payload: {
-          address: "0x1",
-          args: [
-            '"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"',
-          ],
-          function_name: "metadata_to_denom",
-          module_name: "coin",
-          typeArgs: [],
-        },
-        response: {
-          data: '"uinit"',
-          events: [],
-          gas_used: "6507",
-        },
-      },
-    ],
-  },
+  POST: {},
 };

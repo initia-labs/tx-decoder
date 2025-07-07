@@ -1255,6 +1255,20 @@ export const mockApiResponsesForVipLockStake = {
           },
         ],
       },
+    "/initia/move/v1/denom?metadata=0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9":
+      {
+        denom: "uinit",
+      },
+    "/initia/move/v1/denom?metadata=0x543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1":
+      {
+        denom:
+          "move/543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1",
+      },
+    "/initia/move/v1/denom?metadata=0xe0e9394b24e53775d6af87934ac02d73536ad58b7894f6ccff3f5e7c0d548e55":
+      {
+        denom:
+          "ibc/6490A7EAB61059BFC1CDDEB05917DD70BDF3A611654162A1A47DB930D40D8AF4",
+      },
     "/initia/mstaking/v1/validators/initvaloper1qgje6dgazcruzsashpqektp2yaf47x2wyysjqx":
       {
         validator: {
@@ -1271,56 +1285,5 @@ export const mockApiResponsesForVipLockStake = {
         },
       },
   },
-  POST: {
-    "/initia/move/v1/view/json": [
-      {
-        payload: {
-          address: "0x1",
-          args: [
-            '"0x543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1"',
-          ],
-          function_name: "metadata_to_denom",
-          module_name: "coin",
-          typeArgs: [],
-        },
-        response: {
-          data: '"move/543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1"',
-          events: [],
-          gas_used: "6507",
-        },
-      },
-      {
-        payload: {
-          address: "0x1",
-          args: [
-            '"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"',
-          ],
-          function_name: "metadata_to_denom",
-          module_name: "coin",
-          typeArgs: [],
-        },
-        response: {
-          data: '"uinit"',
-          events: [],
-          gas_used: "6507",
-        },
-      },
-      {
-        payload: {
-          address: "0x1",
-          args: [
-            '"0xe0e9394b24e53775d6af87934ac02d73536ad58b7894f6ccff3f5e7c0d548e55"',
-          ],
-          function_name: "metadata_to_denom",
-          module_name: "coin",
-          typeArgs: [],
-        },
-        response: {
-          data: '"ibc/6490A7EAB61059BFC1CDDEB05917DD70BDF3A611654162A1A47DB930D40D8AF4"',
-          events: [],
-          gas_used: "6507",
-        },
-      },
-    ],
-  },
+  POST: {},
 };

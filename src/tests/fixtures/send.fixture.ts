@@ -2129,23 +2129,12 @@ export const mockApiResponsesForSingleCoin = {
           },
         ],
       },
-  },
-  POST: {
-    "/initia/move/v1/view/json": [
+    "/initia/move/v1/denom?metadata=0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9":
       {
-        payload: {
-          address: "0x1",
-          args: [
-            '"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"',
-          ],
-          function_name: "metadata_to_denom",
-          module_name: "coin",
-          typeArgs: [],
-        },
-        response: { data: '"uinit"', events: [], gas_used: "6507" },
+        denom: "uinit",
       },
-    ],
   },
+  POST: {},
 };
 
 export const mockApiResponsesForMultipleCoins = {
@@ -2294,47 +2283,20 @@ export const mockApiResponsesForMultipleCoins = {
           },
         ],
       },
+    "/initia/move/v1/denom?metadata=0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9":
+      {
+        denom: "uinit",
+      },
+    "/initia/move/v1/denom?metadata=0x29824d952e035490fae7567deea5f15b504a68fa73610063c160ab1fa87dd609":
+      {
+        denom: "uusdc",
+      },
+    "/initia/move/v1/denom?metadata=0xbe0ef849e425ca89830c1ff0f984f5b0b512b70cab6a5ae294c6255c3ee4cd0c":
+      {
+        denom: "ueth",
+      },
   },
-  POST: {
-    "/initia/move/v1/view/json": [
-      {
-        payload: {
-          address: "0x1",
-          args: [
-            '"0x29824d952e035490fae7567deea5f15b504a68fa73610063c160ab1fa87dd609"',
-          ],
-          function_name: "metadata_to_denom",
-          module_name: "coin",
-          typeArgs: [],
-        },
-        response: { data: '"uusdc"', events: [], gas_used: "6184" },
-      },
-      {
-        payload: {
-          address: "0x1",
-          args: [
-            '"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"',
-          ],
-          function_name: "metadata_to_denom",
-          module_name: "coin",
-          typeArgs: [],
-        },
-        response: { data: '"uinit"', events: [], gas_used: "6507" },
-      },
-      {
-        payload: {
-          address: "0x1",
-          args: [
-            '"0xbe0ef849e425ca89830c1ff0f984f5b0b512b70cab6a5ae294c6255c3ee4cd0c"',
-          ],
-          function_name: "metadata_to_denom",
-          module_name: "coin",
-          typeArgs: [],
-        },
-        response: { data: '"ueth"', events: [], gas_used: "6184" },
-      },
-    ],
-  },
+  POST: {},
 };
 
 export const mockApiResponsesForMultipleMessages = {
@@ -2387,21 +2349,10 @@ export const mockApiResponsesForMultipleMessages = {
           },
         ],
       },
-  },
-  POST: {
-    "/initia/move/v1/view/json": [
+    "/initia/move/v1/denom?metadata=0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9":
       {
-        payload: {
-          address: "0x1",
-          args: [
-            '"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"',
-          ],
-          function_name: "metadata_to_denom",
-          module_name: "coin",
-          typeArgs: [],
-        },
-        response: { data: '"uinit"', events: [], gas_used: "6507" },
+        denom: "uinit",
       },
-    ],
   },
+  POST: {},
 };
