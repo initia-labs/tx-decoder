@@ -632,21 +632,10 @@ export const mockApiResponsesForMsgIbcSend = {
           },
         ],
       },
-  },
-  POST: {
-    "/initia/move/v1/view/json": [
+    "/initia/move/v1/denom?metadata=0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9":
       {
-        payload: {
-          address: "0x1",
-          args: [
-            '"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"',
-          ],
-          function_name: "metadata_to_denom",
-          module_name: "coin",
-          typeArgs: [],
-        },
-        response: { data: '"uinit"', events: [], gas_used: "6507" },
+        denom: "uinit",
       },
-    ],
   },
+  POST: {},
 };

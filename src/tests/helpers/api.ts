@@ -26,7 +26,7 @@ export const resetMockApi = (mockedAxios: MockedAxios) => {
 export const createMockApiHandlers = (responses: MockApiResponses) => {
   const getPath = (url: string) => {
     const urlObject = new URL(url);
-    return urlObject.pathname;
+    return urlObject.pathname + urlObject.search;
   };
 
   const getHandler = (url: string) => {

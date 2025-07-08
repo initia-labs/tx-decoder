@@ -1054,6 +1054,10 @@ export const mockApiResponsesForDelegate = {
           },
         ],
       },
+    "/initia/move/v1/denom?metadata=0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9":
+      {
+        denom: "uinit",
+      },
     "/initia/mstaking/v1/validators/initvaloper1cmlx2pqfgt2kpshe2fmc40epzvg699eqv3ax66":
       {
         validator: {
@@ -1069,22 +1073,7 @@ export const mockApiResponsesForDelegate = {
         },
       },
   },
-  POST: {
-    "/initia/move/v1/view/json": [
-      {
-        payload: {
-          address: "0x1",
-          args: [
-            '"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"',
-          ],
-          function_name: "metadata_to_denom",
-          module_name: "coin",
-          typeArgs: [],
-        },
-        response: { data: '"uinit"', events: [], gas_used: "6507" },
-      },
-    ],
-  },
+  POST: {},
 };
 
 export const mockApiResponsesForDelegateLocked = {
@@ -1161,6 +1150,10 @@ export const mockApiResponsesForDelegateLocked = {
           },
         ],
       },
+    "/initia/move/v1/denom?metadata=0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9":
+      {
+        denom: "uinit",
+      },
     "/initia/mstaking/v1/validators/initvaloper1qx6ghyv83caecuxgl77lvlnha9d9y6fntryc8a":
       {
         validator: {
@@ -1177,20 +1170,5 @@ export const mockApiResponsesForDelegateLocked = {
         },
       },
   },
-  POST: {
-    "/initia/move/v1/view/json": [
-      {
-        payload: {
-          address: "0x1",
-          args: [
-            '"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"',
-          ],
-          function_name: "metadata_to_denom",
-          module_name: "coin",
-          typeArgs: [],
-        },
-        response: { data: '"uinit"', events: [], gas_used: "6507" },
-      },
-    ],
-  },
+  POST: {},
 };

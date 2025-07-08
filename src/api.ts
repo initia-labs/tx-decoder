@@ -49,15 +49,19 @@ export class ApiClient {
   public async findDenomFromMetadataAddr(
     metadataAddr: string
   ): Promise<string | null> {
-    const response = await this._viewMoveContract(
-      "0x1",
-      "metadata_to_denom",
-      "coin",
-      [`"${metadataAddr}"`],
-      []
-    );
+    const url = `${this.restUrl}/initia/move/v1/denom?metadata=${metadataAddr}`;
+    const cached = this.cache.get(url);
+    if (cached) return z.string().parse(cached);
 
-    return z.string().parse(response);
+    try {
+      const response = await axios.get(url);
+      const parsedDenom = z.string().parse(response.data.denom);
+
+      this.cache.set(url, parsedDenom);
+      return parsedDenom;
+    } catch {
+      return null;
+    }
   }
 
   public async findIbcCounterPartyChainId(
@@ -237,16 +241,13 @@ export class ApiClient {
     }
 
     try {
-      const response = await axios.post(
-        `${this.restUrl}/initia/move/v1/view/json`,
-        {
-          address,
-          args,
-          function_name: functionName,
-          module_name: moduleName,
-          typeArgs,
-        }
-      );
+      const response = await axios.post(url, {
+        address,
+        args,
+        function_name: functionName,
+        module_name: moduleName,
+        typeArgs,
+      });
 
       const result = zMoveViewResponse.parse(response.data);
       this.cache.set(cacheKey, result);

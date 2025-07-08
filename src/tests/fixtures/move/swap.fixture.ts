@@ -867,43 +867,17 @@ export const mockApiResponsesForDexSwap = {
           },
         ],
       },
-  },
-  POST: {
-    "/initia/move/v1/view/json": [
+    "/initia/move/v1/denom?metadata=0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9":
       {
-        payload: {
-          address: "0x1",
-          args: [
-            '"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"',
-          ],
-          function_name: "metadata_to_denom",
-          module_name: "coin",
-          typeArgs: [],
-        },
-        response: {
-          data: '"uinit"',
-          events: [],
-          gas_used: "6507",
-        },
+        denom: "uinit",
       },
+    "/initia/move/v1/denom?metadata=0xe0e9394b24e53775d6af87934ac02d73536ad58b7894f6ccff3f5e7c0d548e55":
       {
-        payload: {
-          address: "0x1",
-          args: [
-            '"0xe0e9394b24e53775d6af87934ac02d73536ad58b7894f6ccff3f5e7c0d548e55"',
-          ],
-          function_name: "metadata_to_denom",
-          module_name: "coin",
-          typeArgs: [],
-        },
-        response: {
-          data: '"ibc/6490A7EAB61059BFC1CDDEB05917DD70BDF3A611654162A1A47DB930D40D8AF4"',
-          events: [],
-          gas_used: "6507",
-        },
+        denom:
+          "ibc/6490A7EAB61059BFC1CDDEB05917DD70BDF3A611654162A1A47DB930D40D8AF4",
       },
-    ],
   },
+  POST: {},
 };
 
 export const mockApiResponsesForStableSwap = {
@@ -1004,41 +978,15 @@ export const mockApiResponsesForStableSwap = {
           },
         ],
       },
-  },
-  POST: {
-    "/initia/move/v1/view/json": [
+    "/initia/move/v1/denom?metadata=0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9":
       {
-        payload: {
-          address: "0x1",
-          args: [
-            '"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"',
-          ],
-          function_name: "metadata_to_denom",
-          module_name: "coin",
-          typeArgs: [],
-        },
-        response: {
-          data: '"uinit"',
-          events: [],
-          gas_used: "6507",
-        },
+        denom: "uinit",
       },
+    "/initia/move/v1/denom?metadata=0x47111f2a0a2e58e3ec0837938fe97b5cae5cf4872505d9c03e077422fea4b162":
       {
-        payload: {
-          address: "0x1",
-          args: [
-            '"0x47111f2a0a2e58e3ec0837938fe97b5cae5cf4872505d9c03e077422fea4b162"',
-          ],
-          function_name: "metadata_to_denom",
-          module_name: "coin",
-          typeArgs: [],
-        },
-        response: {
-          data: '"ibc/39B55F22F15FB09189045A993817CDF0D388D3FF8773B2E22B6DE7B222636EEA"',
-          events: [],
-          gas_used: "6507",
-        },
+        denom:
+          "ibc/39B55F22F15FB09189045A993817CDF0D388D3FF8773B2E22B6DE7B222636EEA",
       },
-    ],
   },
+  POST: {},
 };

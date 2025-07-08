@@ -1034,6 +1034,10 @@ export const mockApiResponsesForWithdrawDelegatorReward = {
           },
         ],
       },
+    "/initia/move/v1/denom?metadata=0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9":
+      {
+        denom: "uinit",
+      },
     "/initia/mstaking/v1/validators/initvaloper1gs7kwd5jm8ghnvx4z973aqcenfcej6ykpuydc4":
       {
         validator: {
@@ -1049,26 +1053,7 @@ export const mockApiResponsesForWithdrawDelegatorReward = {
         },
       },
   },
-  POST: {
-    "/initia/move/v1/view/json": [
-      {
-        payload: {
-          address: "0x1",
-          args: [
-            '"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"',
-          ],
-          function_name: "metadata_to_denom",
-          module_name: "coin",
-          typeArgs: [],
-        },
-        response: {
-          data: '"uinit"',
-          events: [],
-          gas_used: "6507",
-        },
-      },
-    ],
-  },
+  POST: {},
 };
 
 export const mockApiResponsesForWithdrawDelegatorRewardLocked = {
@@ -1145,6 +1130,10 @@ export const mockApiResponsesForWithdrawDelegatorRewardLocked = {
           },
         ],
       },
+    "/initia/move/v1/denom?metadata=0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9":
+      {
+        denom: "uinit",
+      },
     "/initia/mstaking/v1/validators/initvaloper1qx6ghyv83caecuxgl77lvlnha9d9y6fntryc8a":
       {
         validator: {
@@ -1161,24 +1150,5 @@ export const mockApiResponsesForWithdrawDelegatorRewardLocked = {
         },
       },
   },
-  POST: {
-    "/initia/move/v1/view/json": [
-      {
-        payload: {
-          address: "0x1",
-          args: [
-            '"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"',
-          ],
-          function_name: "metadata_to_denom",
-          module_name: "coin",
-          typeArgs: [],
-        },
-        response: {
-          data: '"uinit"',
-          events: [],
-          gas_used: "6507",
-        },
-      },
-    ],
-  },
+  POST: {},
 };
