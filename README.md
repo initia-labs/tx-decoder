@@ -1,4 +1,4 @@
-# Cosmos Transaction Decoder
+# Transaction Decoder
 
 [![npm version](https://badge.fury.io/js/%40initia%2Ftx-decoder.svg)](https://badge.fury.io/js/%40initia%2Ftx-decoder)
 [![Bundle Size](https://img.shields.io/bundlephobia/minzip/@initia/tx-decoder)](https://bundlephobia.com/package/@initia/tx-decoder)
