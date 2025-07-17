@@ -5,7 +5,6 @@
 [![npm downloads](https://img.shields.io/npm/dm/@initia/tx-decoder)](https://www.npmjs.com/package/@initia/tx-decoder)
 [![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Unit Tests](https://img.shields.io/badge/tests-passing-brightgreen.svg)](https://github.com/initia-labs/tx-decoder/actions)
-[![CI](https://github.com/initia-labs/tx-decoder/workflows/CI/badge.svg)](https://github.com/initia-labs/tx-decoder/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 A TypeScript library for decoding Cosmos SDK transactions, providing human-readable message decoding and balance change tracking.
