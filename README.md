@@ -95,12 +95,21 @@ Currently supported message types:
   - `0x1::stableswap::swap_script`
   - `0x1::dex::swap_script`
   - `0x1::simple_nft::mint`
+  - `0x1::simple_nft::burn`
+  - `0x1::object::transfer_call`
   - `<module_address>::usernames::register_domain`
-  - `<module_address>::lock_staking`
+  - `<module_address>::lock_staking::delegate`
+  - `<module_address>::lock_staking::undelegate`
+  - `<module_address>::lock_staking::redelegate`
+  - `<module_address>::lock_staking::withdraw_delegator_reward`
+  - `<module_address>::vip::batch_lock_stake_script`
 - `/opinit.ophost.v1.MsgInitiateTokenDeposit`
 - `/opinit.ophost.v1.MsgFinalizeTokenWithdrawal`
+- `/ibc.applications.transfer.v1.MsgTransfer`
 - `/ibc.applications.nft_transfer.v1.MsgTransfer`
 - `/ibc.core.channel.v1.MsgRecvPacket`
+  - `transfer`
+  - `nft-transfer`
 
 ## 📁 Folder Structure
 
@@ -110,6 +119,8 @@ tx-decoder/
 │   ├── constants.ts              # Application constants and configuration
 │   ├── decoder.ts                # Main transaction decoding logic
 │   ├── index.ts                  # Entry point for exports
+│   ├── message-types.ts          # Supported message types
+│   ├── metadata-resolver.ts      # Resolves and fetches NFT metadata for token addresses
 │   ├── decoders/                 # Message decoder
 │   ├── interfaces/               # TypeScript interfaces and types
 │   ├── processors/               # Event processor
@@ -135,6 +146,62 @@ pnpm test
 # Build
 pnpm build
 ```
+
+## 🛠️ How to Add Support for a New Message Type
+
+Adding a decoder for a new message type is the most common way to contribute. Here’s how to do it:
+
+### 1. Create a Message Fixture
+
+Find a real transaction containing the message you want to support. Add the JSON response for that transaction to a new file in `/src/tests/fixtures`. Using real data is crucial for accurate testing.
+
+### 2. Register the Message Type (If Needed)
+
+If the message has a unique type URL (e.g., `"/initia.mstaking.v1.MsgDelegate"`), add it to the `SUPPORTED_MESSAGE_TYPES` array in `src/message-types.ts`.
+
+> You can skip this step for generic messages like Move scripts, which are identified by their function name instead of the message type URL.
+
+### 3. Implement the Decoder
+
+Create a new file in the `/src/decoders` directory for your message.
+A decoder is an object that contains two functions:
+
+- `check(message, log)`: Returns `true` if the decoder should handle the message. It typically checks the message's `@type` but may also validate its structure for complex cases.
+- `decode(message, log, apiClient)`: Transforms a raw message into a normalized `DecodedMessage`. This function validates the message, extracts data, and returns a promise that resolves with the result.
+
+See existing decoders in `/src/decoders` for examples of how to implement both `check` and `decode` functions.
+
+### 4. Add Type Validation and Interfaces
+
+**Validation**: Define a Zod schema for your message's expected structure in the `/src/schema` directory. This ensures the data is valid before processing.
+
+**Interfaces**: Add or update TypeScript interfaces in `/src/interfaces` if your new message introduces new data shapes.
+
+### 5. Integrate the Decoder
+
+In `src/decoder.ts`, import your new decoder function and add it to the list of handlers. The `TxDecoder` will now use it when it encounters the corresponding message type.
+
+### 6. Write a Unit Test
+
+Create a new test file in `/src/tests`. Import the fixture you created in step 1 and write a test case that asserts:
+
+- The `decodedMessage` output matches the expected format.
+- The `balanceChanges` are calculated correctly.
+
+### Best Practices
+
+- **Keep Decoders Small**: Each decoder should focus on a single message type.
+
+- **Use Real Data**: Always prefer real transaction data for fixtures.
+
+- **Update Documentation**: If you add a major feature, mention it in the README.
+
+- **Run All Tests**: Before submitting your contribution, run `pnpm test` to ensure you haven't introduced any regressions.
+
+If you have questions, feel free to open an issue!
+If you have questions or need help, check the existing decoders and tests for examples, or open an issue!
+
+---
 
 ## 📄 License
 
