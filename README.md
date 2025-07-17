@@ -19,7 +19,7 @@ A TypeScript library for decoding Cosmos SDK transactions, providing human-reada
 - [Development](#development)
 - [License](#license)
 
-## ✨ Features
+## ✨ [Features](#features)
 
 - **Human-Readable Output**: Decodes Cosmos SDK transaction messages into a clear, human-readable JSON format.
 - **Balance Tracking**: Automatically tracks changes in fungible (FT) and non-fungible tokens (NFT) for any given transaction.
@@ -27,7 +27,7 @@ A TypeScript library for decoding Cosmos SDK transactions, providing human-reada
 - **Extensible**: Features a flexible handler system that can be easily extended to support new message types.
 - **Immutable State**: Uses Immer for safe and predictable state management.
 
-## 📦 Installation
+## 📦 [Installation](#installation)
 
 ```bash
 # npm
@@ -38,9 +38,12 @@ yarn add @initia/tx-decoder
 
 # pnpm
 pnpm add @initia/tx-decoder
+
+# bun
+bun add @initia/tx-decoder
 ```
 
-## 🚀 Quick Start
+## 🚀 [Quick Start](#quick-start)
 
 ```typescript
 import { TxDecoder } from "@initia/tx-decoder";
@@ -59,7 +62,7 @@ const decodedTx = await decoder.decodeTransaction(txResponse);
 console.log(decodedTx);
 ```
 
-## 📖 API Reference
+## 📖 [API Reference](#api-reference)
 
 ### `TxDecoder`
 
@@ -166,7 +169,7 @@ The decoder returns a structured object with the following format:
 }
 ```
 
-## 📝 Supported Message Types
+## 📝 [Supported Message Types](#supported-message-types)
 
 ### Bank Messages
 
@@ -214,12 +217,12 @@ The decoder returns a structured object with the following format:
   - `transfer`
   - `nft-transfer`
 
-## 💻 Development
+## 💻 [Development](#development)
 
 ### Prerequisites
 
 - Node.js 20
-- pnpm (recommended) or npm/yarn
+- pnpm
 
 ```bash
 # Clone the repository
@@ -315,6 +318,6 @@ If you have questions or need help, check the existing decoders and tests for ex
 
 ---
 
-## 📄 License
+## 📄 [License](#license)
 
 MIT
