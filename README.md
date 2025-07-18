@@ -221,7 +221,7 @@ The decoder returns a structured object with the following format:
 
 ### Prerequisites
 
-- Node.js 20
+- Node.js >= 20
 - pnpm
 
 ```bash
