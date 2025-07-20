@@ -1795,6 +1795,1120 @@ export const mockMsgIbcFtReceive = {
   txhash: "D0A4E774CE1909EAE66C1BB828F2A10687DD6C38198E6D9FB687D9DBD50704C2",
 };
 
+export const mockMsgIbcFtReceiveFromL2 = {
+  code: 0,
+  codespace: "",
+  data: "122D0A2B2F6962632E636F72652E636C69656E742E76312E4D7367557064617465436C69656E74526573706F6E736512300A2A2F6962632E636F72652E6368616E6E656C2E76312E4D7367526563765061636B6574526573706F6E736512020802",
+  events: [
+    {
+      attributes: [
+        {
+          index: true,
+          key: "sender",
+          value: "0x1,0xc0e7a50f114895331aa16fda36a973e06d6788b",
+        },
+        {
+          index: true,
+          key: "module_addr",
+          value: "0x1",
+        },
+        {
+          index: true,
+          key: "module_name",
+          value: "coin",
+        },
+        {
+          index: true,
+          key: "function_name",
+          value: "sudo_transfer",
+        },
+      ],
+      type: "execute",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "type_tag",
+          value: "0x1::fungible_asset::WithdrawEvent",
+        },
+        {
+          index: true,
+          key: "data",
+          value:
+            '{"store_addr":"0xe49b3dcc6b7f5354cedebb5264528c1c1fc3d26b30add9e26b2a5251c6415123","metadata_addr":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9","amount":"14174"}',
+        },
+      ],
+      type: "move",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "type_tag",
+          value: "0x1::fungible_asset::DepositEvent",
+        },
+        {
+          index: true,
+          key: "data",
+          value:
+            '{"store_addr":"0x66a8cb0bfb991610dcffb8a6543ac0887c7c5405b8f985ebed6d628fe50c4686","metadata_addr":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9","amount":"14174"}',
+        },
+      ],
+      type: "move",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "spender",
+          value: "init1ps885583zjy4xvd2zm76x65h8crdv7yt484vws",
+        },
+        {
+          index: true,
+          key: "amount",
+          value: "14174uinit",
+        },
+      ],
+      type: "coin_spent",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "receiver",
+          value: "init17xpfvakm2amg962yls6f84z3kell8c5l70rnql",
+        },
+        {
+          index: true,
+          key: "amount",
+          value: "14174uinit",
+        },
+      ],
+      type: "coin_received",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "recipient",
+          value: "init17xpfvakm2amg962yls6f84z3kell8c5l70rnql",
+        },
+        {
+          index: true,
+          key: "sender",
+          value: "init1ps885583zjy4xvd2zm76x65h8crdv7yt484vws",
+        },
+        {
+          index: true,
+          key: "amount",
+          value: "14174uinit",
+        },
+      ],
+      type: "transfer",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "sender",
+          value: "init1ps885583zjy4xvd2zm76x65h8crdv7yt484vws",
+        },
+      ],
+      type: "message",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "fee",
+          value: "14174uinit",
+        },
+        {
+          index: true,
+          key: "fee_payer",
+          value: "init1ps885583zjy4xvd2zm76x65h8crdv7yt484vws",
+        },
+      ],
+      type: "tx",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "acc_seq",
+          value: "init1ps885583zjy4xvd2zm76x65h8crdv7yt484vws/5274",
+        },
+      ],
+      type: "tx",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "signature",
+          value:
+            "MLSSTksZ0e9OP+pygtYjZimRj4lvPKCxuahLihcbv8Mkmlm25IqnycVkis5AxR7a1U9ddG0rcEb7slfoIoYP2w==",
+        },
+      ],
+      type: "tx",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "action",
+          value: "/ibc.core.client.v1.MsgUpdateClient",
+        },
+        {
+          index: true,
+          key: "sender",
+          value: "init1ps885583zjy4xvd2zm76x65h8crdv7yt484vws",
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "0",
+        },
+      ],
+      type: "message",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "client_id",
+          value: "07-tendermint-15",
+        },
+        {
+          index: true,
+          key: "client_type",
+          value: "07-tendermint",
+        },
+        {
+          index: true,
+          key: "consensus_height",
+          value: "1-580926",
+        },
+        {
+          index: true,
+          key: "consensus_heights",
+          value: "1-580926",
+        },
+        {
+          index: true,
+          key: "header",
+          value:
+            "0a262f6962632e6c69676874636c69656e74732e74656e6465726d696e742e76312e48656164657212d9060ace040a91030a02080b1209636976697469612d3118beba23220c08cfa69ec30610cba8a5ea012a480a20051a62492319237e8c0d9a2f0968180cddb4f48f902443a8d3f02833085b5b541224080112209a3342d34715e17c0433ddb6d4b3b8d414a4116740e16d4763027c2e5abdc21532207fab755c7f091b45ece90d1fa74ab78dac739c50f2343c589c6e82d1eaa9c1943a20e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855422026d9c00cd24725276918fa7e4ffd5b14c227a8e559e517f96e494095e4c594dc4a2026d9c00cd24725276918fa7e4ffd5b14c227a8e559e517f96e494095e4c594dc52201bf2556ca5d5d7effb540f34cb0ffc77a3202e32275557afbd219882a9e42acf5a209e226f21198b7a4b7854d31e9fa27535b785658eebca61451b2002eb4009a0d06220e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b8556a20e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b85572148d612667cffd7ac56b2e6eecd26d5c1948f7da8912b70108beba231a480a20cd26f1979176fc31cd408b62945e9cc612e05d3c53b85934c04c35022fdcd34a122408011220be03047c39eb8f23be359505803745fbd35b61347b24841f6e1d1855ad0be6e42267080212148d612667cffd7ac56b2e6eecd26d5c1948f7da891a0b08d0a69ec30610b0ffb92b224060768bf525f6d64f439b2d2939978eb03d0cb6af982ad18f091f27c9305402e1f9ebe658cc2bb2105dc73ce51c6d3be45b5fcec58ad60c3644399b6cff8dd906127e0a3c0a148d612667cffd7ac56b2e6eecd26d5c1948f7da8912220a206f9b5484cb92e8e9a366f0d8ea19cdbe028bbbbc60474a9f97d594033a06cbf61801123c0a148d612667cffd7ac56b2e6eecd26d5c1948f7da8912220a206f9b5484cb92e8e9a366f0d8ea19cdbe028bbbbc60474a9f97d594033a06cbf6180118011a06080110a6ba23227e0a3c0a148d612667cffd7ac56b2e6eecd26d5c1948f7da8912220a206f9b5484cb92e8e9a366f0d8ea19cdbe028bbbbc60474a9f97d594033a06cbf61801123c0a148d612667cffd7ac56b2e6eecd26d5c1948f7da8912220a206f9b5484cb92e8e9a366f0d8ea19cdbe028bbbbc60474a9f97d594033a06cbf618011801",
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "0",
+        },
+      ],
+      type: "update_client",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "module",
+          value: "ibc_client",
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "0",
+        },
+      ],
+      type: "message",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "action",
+          value: "/ibc.core.channel.v1.MsgRecvPacket",
+        },
+        {
+          index: true,
+          key: "sender",
+          value: "init1ps885583zjy4xvd2zm76x65h8crdv7yt484vws",
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "1",
+        },
+      ],
+      type: "message",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "packet_data",
+          value:
+            '{"amount":"41000000","denom":"l2/2b2d36f666e98b9eecf70d6ec24b882b79f2c8e2af73f54f97b8b670dbb87605","memo":"{\\"move\\":{\\"message\\":{\\"args\\":[\\"AQI=\\",\\"AA==\\",\\"QJxxAgAAAAA=\\",\\"j1loAgAAAAA=\\",\\"AQFEaWJjLzkwNTVENzg0RTQ2OTI2OTUxRDFGRjk1QUE0MTI0NUIyOTFGQTlBQUZGQUU1QzlEMEQ1MTU4NzdGNjQ3RDUyMjY=\\",\\"AQJEaWJjLzkwNTVENzg0RTQ2OTI2OTUxRDFGRjk1QUE0MTI0NUIyOTFGQTlBQUZGQUU1QzlEMEQ1MTU4NzdGNjQ3RDUyMjYFdWluaXQ=\\",\\"AA==\\",\\"0NLYreH/Thg=\\",\\"K2luaXQxNGRzajM3cmQ1NjkwZGxhNjRqbDBtem51eWhrcWVqaHV5eGM2c3g=\\",\\"ASwraW5pdDE0ZHNqMzdyZDU2OTBkbGE2NGpsMG16bnV5aGtxZWpodXl4YzZzeA==\\"],\\"function_name\\":\\"swap_and_action\\",\\"module_address\\":\\"0xd921c61c7e7d2eead33bdff4c5c2941e66d488f0a15fe7fbc432565dc04b3710\\",\\"module_name\\":\\"entry_point\\",\\"type_args\\":[]}}}","receiver":"init1222ugqjstnx03xg48c49hf3eau2e592wpkp8ag0x59gsjugemuvs65u8jh","sender":"init14dsj37rd5690dla64jl0mznuyhkqejhuyxc6sx"}',
+        },
+        {
+          index: true,
+          key: "packet_data_hex",
+          value:
+            "7b22616d6f756e74223a223431303030303030222c2264656e6f6d223a226c322f32623264333666363636653938623965656366373064366563323462383832623739663263386532616637336635346639376238623637306462623837363035222c226d656d6f223a227b5c226d6f76655c223a7b5c226d6573736167655c223a7b5c22617267735c223a5b5c224151493d5c222c5c2241413d3d5c222c5c22514a7878416741414141413d5c222c5c226a316c6f416741414141413d5c222c5c224151464561574a6a4c7a6b774e5456454e7a6730525451324f5449324f54557852444647526a6b31515545304d5449304e5549794f54464751546c4251555a4751555531517a6c454d4551314d5455344e7a64474e6a5133524455794d6a593d5c222c5c2241514a4561574a6a4c7a6b774e5456454e7a6730525451324f5449324f54557852444647526a6b31515545304d5449304e5549794f54464751546c4251555a4751555531517a6c454d4551314d5455344e7a64474e6a5133524455794d6a594664576c756158513d5c222c5c2241413d3d5c222c5c22304e4c597265482f5468673d5c222c5c224b326c75615851784e47527a616a4d33636d51314e6a6b775a4778684e6a527162444274656d353165576872635756716148563565474d326333673d5c222c5c224153777261573570644445305a484e714d7a64795a4455324f54426b624745324e4770734d473136626e5635614774785a57706f64586c34597a5a7a65413d3d5c225d2c5c2266756e6374696f6e5f6e616d655c223a5c22737761705f616e645f616374696f6e5c222c5c226d6f64756c655f616464726573735c223a5c223078643932316336316337653764326565616433336264666634633563323934316536366434383866306131356665376662633433323536356463303462333731305c222c5c226d6f64756c655f6e616d655c223a5c22656e7472795f706f696e745c222c5c22747970655f617267735c223a5b5d7d7d7d222c227265636569766572223a22696e6974313232327567716a73746e78303378673438633439686633656175326535393277706b703861673078353967736a7567656d757673363575386a68222c2273656e646572223a22696e6974313464736a3337726435363930646c6136346a6c306d7a6e7579686b71656a6875797863367378227d",
+        },
+        {
+          index: true,
+          key: "packet_timeout_height",
+          value: "0-0",
+        },
+        {
+          index: true,
+          key: "packet_timeout_timestamp",
+          value: "1751618649843083000",
+        },
+        {
+          index: true,
+          key: "packet_sequence",
+          value: "4599",
+        },
+        {
+          index: true,
+          key: "packet_src_port",
+          value: "transfer",
+        },
+        {
+          index: true,
+          key: "packet_src_channel",
+          value: "channel-0",
+        },
+        {
+          index: true,
+          key: "packet_dst_port",
+          value: "transfer",
+        },
+        {
+          index: true,
+          key: "packet_dst_channel",
+          value: "channel-27",
+        },
+        {
+          index: true,
+          key: "packet_channel_ordering",
+          value: "ORDER_UNORDERED",
+        },
+        {
+          index: true,
+          key: "packet_connection",
+          value: "connection-15",
+        },
+        {
+          index: true,
+          key: "connection_id",
+          value: "connection-15",
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "1",
+        },
+      ],
+      type: "recv_packet",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "module",
+          value: "ibc_channel",
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "1",
+        },
+      ],
+      type: "message",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "trace_hash",
+          value:
+            "9055D784E46926951D1FF95AA41245B291FA9AAFFAE5C9D0D515877F647D5226",
+        },
+        {
+          index: true,
+          key: "denom",
+          value:
+            "ibc/9055D784E46926951D1FF95AA41245B291FA9AAFFAE5C9D0D515877F647D5226",
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "1",
+        },
+      ],
+      type: "denomination_trace",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "sender",
+          value: "0x1",
+        },
+        {
+          index: true,
+          key: "module_addr",
+          value: "0x1",
+        },
+        {
+          index: true,
+          key: "module_name",
+          value: "managed_coin",
+        },
+        {
+          index: true,
+          key: "function_name",
+          value: "sudo_mint",
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "1",
+        },
+      ],
+      type: "execute",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "type_tag",
+          value: "0x1::fungible_asset::MintEvent",
+        },
+        {
+          index: true,
+          key: "data",
+          value:
+            '{"metadata_addr":"0x644236449579e7d4e6bd08a88e4c39cebe904b8b33da1a1af90db3a8c4bee163","amount":"41000000"}',
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "1",
+        },
+      ],
+      type: "move",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "type_tag",
+          value: "0x1::fungible_asset::DepositEvent",
+        },
+        {
+          index: true,
+          key: "data",
+          value:
+            '{"store_addr":"0x6ca5b00b161079fbb4adae6696cc0bb1822fdfddb913c5ad0f72b43642d0b1ca","metadata_addr":"0x644236449579e7d4e6bd08a88e4c39cebe904b8b33da1a1af90db3a8c4bee163","amount":"41000000"}',
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "1",
+        },
+      ],
+      type: "move",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "minter",
+          value: "init1yl6hdjhmkf37639730gffanpzndzdpmhqfk6up",
+        },
+        {
+          index: true,
+          key: "amount",
+          value:
+            "41000000ibc/9055D784E46926951D1FF95AA41245B291FA9AAFFAE5C9D0D515877F647D5226",
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "1",
+        },
+      ],
+      type: "coinbase",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "sender",
+          value: "0x1,0x27f576cafbb263ed44be8bd094f66114da268777",
+        },
+        {
+          index: true,
+          key: "module_addr",
+          value: "0x1",
+        },
+        {
+          index: true,
+          key: "module_name",
+          value: "coin",
+        },
+        {
+          index: true,
+          key: "function_name",
+          value: "sudo_transfer",
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "1",
+        },
+      ],
+      type: "execute",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "type_tag",
+          value: "0x1::fungible_asset::WithdrawEvent",
+        },
+        {
+          index: true,
+          key: "data",
+          value:
+            '{"store_addr":"0x6ca5b00b161079fbb4adae6696cc0bb1822fdfddb913c5ad0f72b43642d0b1ca","metadata_addr":"0x644236449579e7d4e6bd08a88e4c39cebe904b8b33da1a1af90db3a8c4bee163","amount":"41000000"}',
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "1",
+        },
+      ],
+      type: "move",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "type_tag",
+          value: "0x1::fungible_asset::DepositEvent",
+        },
+        {
+          index: true,
+          key: "data",
+          value:
+            '{"store_addr":"0xffa8d14422904cf8613fc7c772b3b41ccd8fdcc9a33c8a4721997ee23475dcf5","metadata_addr":"0x644236449579e7d4e6bd08a88e4c39cebe904b8b33da1a1af90db3a8c4bee163","amount":"41000000"}',
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "1",
+        },
+      ],
+      type: "move",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "spender",
+          value: "init1yl6hdjhmkf37639730gffanpzndzdpmhqfk6up",
+        },
+        {
+          index: true,
+          key: "amount",
+          value:
+            "41000000ibc/9055D784E46926951D1FF95AA41245B291FA9AAFFAE5C9D0D515877F647D5226",
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "1",
+        },
+      ],
+      type: "coin_spent",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "receiver",
+          value:
+            "init1ylyfh69ndjq5uz6xrmaxffva546t4aeaek8vpn2lq3qzw9n7lw0qn9nzhl",
+        },
+        {
+          index: true,
+          key: "amount",
+          value:
+            "41000000ibc/9055D784E46926951D1FF95AA41245B291FA9AAFFAE5C9D0D515877F647D5226",
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "1",
+        },
+      ],
+      type: "coin_received",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "recipient",
+          value:
+            "init1ylyfh69ndjq5uz6xrmaxffva546t4aeaek8vpn2lq3qzw9n7lw0qn9nzhl",
+        },
+        {
+          index: true,
+          key: "sender",
+          value: "init1yl6hdjhmkf37639730gffanpzndzdpmhqfk6up",
+        },
+        {
+          index: true,
+          key: "amount",
+          value:
+            "41000000ibc/9055D784E46926951D1FF95AA41245B291FA9AAFFAE5C9D0D515877F647D5226",
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "1",
+        },
+      ],
+      type: "transfer",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "sender",
+          value: "init1yl6hdjhmkf37639730gffanpzndzdpmhqfk6up",
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "1",
+        },
+      ],
+      type: "message",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "module",
+          value: "transfer",
+        },
+        {
+          index: true,
+          key: "sender",
+          value: "init14dsj37rd5690dla64jl0mznuyhkqejhuyxc6sx",
+        },
+        {
+          index: true,
+          key: "receiver",
+          value:
+            "init1ylyfh69ndjq5uz6xrmaxffva546t4aeaek8vpn2lq3qzw9n7lw0qn9nzhl",
+        },
+        {
+          index: true,
+          key: "denom",
+          value:
+            "l2/2b2d36f666e98b9eecf70d6ec24b882b79f2c8e2af73f54f97b8b670dbb87605",
+        },
+        {
+          index: true,
+          key: "amount",
+          value: "41000000",
+        },
+        {
+          index: true,
+          key: "memo",
+          value:
+            '{"move":{"message":{"args":["AQI=","AA==","QJxxAgAAAAA=","j1loAgAAAAA=","AQFEaWJjLzkwNTVENzg0RTQ2OTI2OTUxRDFGRjk1QUE0MTI0NUIyOTFGQTlBQUZGQUU1QzlEMEQ1MTU4NzdGNjQ3RDUyMjY=","AQJEaWJjLzkwNTVENzg0RTQ2OTI2OTUxRDFGRjk1QUE0MTI0NUIyOTFGQTlBQUZGQUU1QzlEMEQ1MTU4NzdGNjQ3RDUyMjYFdWluaXQ=","AA==","0NLYreH/Thg=","K2luaXQxNGRzajM3cmQ1NjkwZGxhNjRqbDBtem51eWhrcWVqaHV5eGM2c3g=","ASwraW5pdDE0ZHNqMzdyZDU2OTBkbGE2NGpsMG16bnV5aGtxZWpodXl4YzZzeA=="],"function_name":"swap_and_action","module_address":"0xd921c61c7e7d2eead33bdff4c5c2941e66d488f0a15fe7fbc432565dc04b3710","module_name":"entry_point","type_args":[]}}}',
+        },
+        {
+          index: true,
+          key: "success",
+          value: "true",
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "1",
+        },
+      ],
+      type: "fungible_token_packet",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "sender",
+          value:
+            "0x27c89be8b36c814e0b461efa64a59da574baf73dcd8ec0cd5f044027167efb9e",
+        },
+        {
+          index: true,
+          key: "module_addr",
+          value:
+            "0xd921c61c7e7d2eead33bdff4c5c2941e66d488f0a15fe7fbc432565dc04b3710",
+        },
+        {
+          index: true,
+          key: "module_name",
+          value: "entry_point",
+        },
+        {
+          index: true,
+          key: "function_name",
+          value: "swap_and_action",
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "1",
+        },
+      ],
+      type: "execute",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "type_tag",
+          value: "0x1::fungible_asset::WithdrawEvent",
+        },
+        {
+          index: true,
+          key: "data",
+          value:
+            '{"store_addr":"0xffa8d14422904cf8613fc7c772b3b41ccd8fdcc9a33c8a4721997ee23475dcf5","metadata_addr":"0x644236449579e7d4e6bd08a88e4c39cebe904b8b33da1a1af90db3a8c4bee163","amount":"41000000"}',
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "1",
+        },
+      ],
+      type: "move",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "type_tag",
+          value: "0x1::fungible_asset::DepositEvent",
+        },
+        {
+          index: true,
+          key: "data",
+          value:
+            '{"store_addr":"0xf4485b28bfdf5587defb7423e6b80b3ea27d0731ea165cd868f9f357600a7545","metadata_addr":"0x644236449579e7d4e6bd08a88e4c39cebe904b8b33da1a1af90db3a8c4bee163","amount":"41000000"}',
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "1",
+        },
+      ],
+      type: "move",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "type_tag",
+          value: "0x1::fungible_asset::WithdrawEvent",
+        },
+        {
+          index: true,
+          key: "data",
+          value:
+            '{"store_addr":"0x7d0c81750b50bb4d2fd3efbbbb91ab44646c18717794bd2e75778b351ee5e5e1","metadata_addr":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9","amount":"40801114"}',
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "1",
+        },
+      ],
+      type: "move",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "type_tag",
+          value: "0x1::minitswap::SwapEvent",
+        },
+        {
+          index: true,
+          key: "data",
+          value:
+            '{"offer_coin":"0x644236449579e7d4e6bd08a88e4c39cebe904b8b33da1a1af90db3a8c4bee163","return_coin":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9","peg_keeper_offer_amount":"0","peg_keeper_return_amount":"0","offer_amount":"41000000","return_amount":"40801114","init_swap_fee_amount":"12245","init_arb_fee_amount":"0","ibc_op_init_swap_fee_amount":"0","ibc_op_init_arb_fee_amount":"0"}',
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "1",
+        },
+      ],
+      type: "move",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "type_tag",
+          value: "0x1::fungible_asset::DepositEvent",
+        },
+        {
+          index: true,
+          key: "data",
+          value:
+            '{"store_addr":"0x2a409912c899386b847d360abcee9f13c62a3a938021f023c69f6eb09762f0d1","metadata_addr":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9","amount":"40801114"}',
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "1",
+        },
+      ],
+      type: "move",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "type_tag",
+          value: "0x1::fungible_asset::WithdrawEvent",
+        },
+        {
+          index: true,
+          key: "data",
+          value:
+            '{"store_addr":"0x2a409912c899386b847d360abcee9f13c62a3a938021f023c69f6eb09762f0d1","metadata_addr":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9","amount":"40801114"}',
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "1",
+        },
+      ],
+      type: "move",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "type_tag",
+          value: "0x1::fungible_asset::DepositEvent",
+        },
+        {
+          index: true,
+          key: "data",
+          value:
+            '{"store_addr":"0x8779c33fcfcce0c38cd7cec4f1345b94ca8afa5b357955ab385f4ef247844839","metadata_addr":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9","amount":"40801114"}',
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "1",
+        },
+      ],
+      type: "move",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "packet_data",
+          value:
+            '{"amount":"41000000","denom":"l2/2b2d36f666e98b9eecf70d6ec24b882b79f2c8e2af73f54f97b8b670dbb87605","memo":"{\\"move\\":{\\"message\\":{\\"args\\":[\\"AQI=\\",\\"AA==\\",\\"QJxxAgAAAAA=\\",\\"j1loAgAAAAA=\\",\\"AQFEaWJjLzkwNTVENzg0RTQ2OTI2OTUxRDFGRjk1QUE0MTI0NUIyOTFGQTlBQUZGQUU1QzlEMEQ1MTU4NzdGNjQ3RDUyMjY=\\",\\"AQJEaWJjLzkwNTVENzg0RTQ2OTI2OTUxRDFGRjk1QUE0MTI0NUIyOTFGQTlBQUZGQUU1QzlEMEQ1MTU4NzdGNjQ3RDUyMjYFdWluaXQ=\\",\\"AA==\\",\\"0NLYreH/Thg=\\",\\"K2luaXQxNGRzajM3cmQ1NjkwZGxhNjRqbDBtem51eWhrcWVqaHV5eGM2c3g=\\",\\"ASwraW5pdDE0ZHNqMzdyZDU2OTBkbGE2NGpsMG16bnV5aGtxZWpodXl4YzZzeA==\\"],\\"function_name\\":\\"swap_and_action\\",\\"module_address\\":\\"0xd921c61c7e7d2eead33bdff4c5c2941e66d488f0a15fe7fbc432565dc04b3710\\",\\"module_name\\":\\"entry_point\\",\\"type_args\\":[]}}}","receiver":"init1222ugqjstnx03xg48c49hf3eau2e592wpkp8ag0x59gsjugemuvs65u8jh","sender":"init14dsj37rd5690dla64jl0mznuyhkqejhuyxc6sx"}',
+        },
+        {
+          index: true,
+          key: "packet_data_hex",
+          value:
+            "7b22616d6f756e74223a223431303030303030222c2264656e6f6d223a226c322f32623264333666363636653938623965656366373064366563323462383832623739663263386532616637336635346639376238623637306462623837363035222c226d656d6f223a227b5c226d6f76655c223a7b5c226d6573736167655c223a7b5c22617267735c223a5b5c224151493d5c222c5c2241413d3d5c222c5c22514a7878416741414141413d5c222c5c226a316c6f416741414141413d5c222c5c224151464561574a6a4c7a6b774e5456454e7a6730525451324f5449324f54557852444647526a6b31515545304d5449304e5549794f54464751546c4251555a4751555531517a6c454d4551314d5455344e7a64474e6a5133524455794d6a593d5c222c5c2241514a4561574a6a4c7a6b774e5456454e7a6730525451324f5449324f54557852444647526a6b31515545304d5449304e5549794f54464751546c4251555a4751555531517a6c454d4551314d5455344e7a64474e6a5133524455794d6a594664576c756158513d5c222c5c2241413d3d5c222c5c22304e4c597265482f5468673d5c222c5c224b326c75615851784e47527a616a4d33636d51314e6a6b775a4778684e6a527162444274656d353165576872635756716148563565474d326333673d5c222c5c224153777261573570644445305a484e714d7a64795a4455324f54426b624745324e4770734d473136626e5635614774785a57706f64586c34597a5a7a65413d3d5c225d2c5c2266756e6374696f6e5f6e616d655c223a5c22737761705f616e645f616374696f6e5c222c5c226d6f64756c655f616464726573735c223a5c223078643932316336316337653764326565616433336264666634633563323934316536366434383866306131356665376662633433323536356463303462333731305c222c5c226d6f64756c655f6e616d655c223a5c22656e7472795f706f696e745c222c5c22747970655f617267735c223a5b5d7d7d7d222c227265636569766572223a22696e6974313232327567716a73746e78303378673438633439686633656175326535393277706b703861673078353967736a7567656d757673363575386a68222c2273656e646572223a22696e6974313464736a3337726435363930646c6136346a6c306d7a6e7579686b71656a6875797863367378227d",
+        },
+        {
+          index: true,
+          key: "packet_timeout_height",
+          value: "0-0",
+        },
+        {
+          index: true,
+          key: "packet_timeout_timestamp",
+          value: "1751618649843083000",
+        },
+        {
+          index: true,
+          key: "packet_sequence",
+          value: "4599",
+        },
+        {
+          index: true,
+          key: "packet_src_port",
+          value: "transfer",
+        },
+        {
+          index: true,
+          key: "packet_src_channel",
+          value: "channel-0",
+        },
+        {
+          index: true,
+          key: "packet_dst_port",
+          value: "transfer",
+        },
+        {
+          index: true,
+          key: "packet_dst_channel",
+          value: "channel-27",
+        },
+        {
+          index: true,
+          key: "packet_ack",
+          value:
+            '{"app_acknowledgement":"eyJyZXN1bHQiOiJBUT09In0=","forward_relayer_address":"","underlying_app_success":true}',
+        },
+        {
+          index: true,
+          key: "packet_ack_hex",
+          value:
+            "7b226170705f61636b6e6f776c656467656d656e74223a2265794a795a584e31624851694f694a4255543039496e303d222c22666f72776172645f72656c617965725f61646472657373223a22222c22756e6465726c79696e675f6170705f73756363657373223a747275657d",
+        },
+        {
+          index: true,
+          key: "packet_channel_ordering",
+          value: "ORDER_UNORDERED",
+        },
+        {
+          index: true,
+          key: "packet_connection",
+          value: "connection-15",
+        },
+        {
+          index: true,
+          key: "connection_id",
+          value: "connection-15",
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "1",
+        },
+      ],
+      type: "write_acknowledgement",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "module",
+          value: "ibc_channel",
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "1",
+        },
+      ],
+      type: "message",
+    },
+  ],
+  gas_used: "534847",
+  gas_wanted: "944868",
+  height: "4593407",
+  info: "",
+  logs: [],
+  raw_log: "",
+  timestamp: "2025-07-04T08:39:45Z",
+  tx: {
+    "@type": "/cosmos.tx.v1beta1.Tx",
+    auth_info: {
+      fee: {
+        amount: [
+          {
+            amount: "14174",
+            denom: "uinit",
+          },
+        ],
+        gas_limit: "944868",
+        granter: "",
+        payer: "",
+      },
+      signer_infos: [
+        {
+          mode_info: {
+            single: {
+              mode: "SIGN_MODE_DIRECT",
+            },
+          },
+          public_key: {
+            "@type": "/cosmos.crypto.secp256k1.PubKey",
+            key: "AoCLmT5KcPY3Ha5t2ojDJM4S7A73QhJ2T2oOX5gBpZTQ",
+          },
+          sequence: "5274",
+        },
+      ],
+      tip: null,
+    },
+    body: {
+      extension_options: [],
+      memo: "",
+      messages: [
+        {
+          "@type": "/ibc.core.client.v1.MsgUpdateClient",
+          client_id: "07-tendermint-15",
+          client_message: {
+            "@type": "/ibc.lightclients.tendermint.v1.Header",
+            signed_header: {
+              commit: {
+                block_id: {
+                  hash: "zSbxl5F2/DHNQItilF6cxhLgXTxTuFk0wEw1Ai/c00o=",
+                  part_set_header: {
+                    hash: "vgMEfDnrjyO+NZUFgDdF+9NbYTR7JIQfbh0YVa0L5uQ=",
+                    total: 1,
+                  },
+                },
+                height: "580926",
+                round: 0,
+                signatures: [
+                  {
+                    block_id_flag: "BLOCK_ID_FLAG_COMMIT",
+                    signature:
+                      "YHaL9SX21k9Dmy0pOZeOsD0Mtq+YKtGPCR8nyTBUAuH56+ZYzCuyEF3HPOUcbTvkW1/OxYrWDDZEOZts/43ZBg==",
+                    timestamp: "2025-07-04T08:39:44.091127728Z",
+                    validator_address: "jWEmZ8/9esVrLm7s0m1cGUj32ok=",
+                  },
+                ],
+              },
+              header: {
+                app_hash: "niJvIRmLekt4VNMen6J1NbeFZY7rymFFGyAC60AJoNA=",
+                chain_id: "civitia-1",
+                consensus_hash: "G/JVbKXV1+/7VA80yw/8d6MgLjInVVevvSGYgqnkKs8=",
+                data_hash: "47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=",
+                evidence_hash: "47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=",
+                height: "580926",
+                last_block_id: {
+                  hash: "BRpiSSMZI36MDZovCWgYDN209I+QJEOo0/AoMwhbW1Q=",
+                  part_set_header: {
+                    hash: "mjNC00cV4XwEM9221LO41BSkEWdA4W1HYwJ8Llq9whU=",
+                    total: 1,
+                  },
+                },
+                last_commit_hash:
+                  "f6t1XH8JG0Xs6Q0fp0q3jaxznFDyNDxYnG6C0eqpwZQ=",
+                last_results_hash:
+                  "47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=",
+                next_validators_hash:
+                  "JtnADNJHJSdpGPp+T/1bFMInqOVZ5Rf5bklAleTFlNw=",
+                proposer_address: "jWEmZ8/9esVrLm7s0m1cGUj32ok=",
+                time: "2025-07-04T08:39:43.491344971Z",
+                validators_hash: "JtnADNJHJSdpGPp+T/1bFMInqOVZ5Rf5bklAleTFlNw=",
+                version: {
+                  app: "0",
+                  block: "11",
+                },
+              },
+            },
+            trusted_height: {
+              revision_height: "580902",
+              revision_number: "1",
+            },
+            trusted_validators: {
+              proposer: {
+                address: "jWEmZ8/9esVrLm7s0m1cGUj32ok=",
+                proposer_priority: "0",
+                pub_key: {
+                  ed25519: "b5tUhMuS6OmjZvDY6hnNvgKLu7xgR0qfl9WUAzoGy/Y=",
+                },
+                voting_power: "1",
+              },
+              total_voting_power: "1",
+              validators: [
+                {
+                  address: "jWEmZ8/9esVrLm7s0m1cGUj32ok=",
+                  proposer_priority: "0",
+                  pub_key: {
+                    ed25519: "b5tUhMuS6OmjZvDY6hnNvgKLu7xgR0qfl9WUAzoGy/Y=",
+                  },
+                  voting_power: "1",
+                },
+              ],
+            },
+            validator_set: {
+              proposer: {
+                address: "jWEmZ8/9esVrLm7s0m1cGUj32ok=",
+                proposer_priority: "0",
+                pub_key: {
+                  ed25519: "b5tUhMuS6OmjZvDY6hnNvgKLu7xgR0qfl9WUAzoGy/Y=",
+                },
+                voting_power: "1",
+              },
+              total_voting_power: "1",
+              validators: [
+                {
+                  address: "jWEmZ8/9esVrLm7s0m1cGUj32ok=",
+                  proposer_priority: "0",
+                  pub_key: {
+                    ed25519: "b5tUhMuS6OmjZvDY6hnNvgKLu7xgR0qfl9WUAzoGy/Y=",
+                  },
+                  voting_power: "1",
+                },
+              ],
+            },
+          },
+          signer: "init1ps885583zjy4xvd2zm76x65h8crdv7yt484vws",
+        },
+        {
+          "@type": "/ibc.core.channel.v1.MsgRecvPacket",
+          packet: {
+            data: "eyJhbW91bnQiOiI0MTAwMDAwMCIsImRlbm9tIjoibDIvMmIyZDM2ZjY2NmU5OGI5ZWVjZjcwZDZlYzI0Yjg4MmI3OWYyYzhlMmFmNzNmNTRmOTdiOGI2NzBkYmI4NzYwNSIsIm1lbW8iOiJ7XCJtb3ZlXCI6e1wibWVzc2FnZVwiOntcImFyZ3NcIjpbXCJBUUk9XCIsXCJBQT09XCIsXCJRSnh4QWdBQUFBQT1cIixcImoxbG9BZ0FBQUFBPVwiLFwiQVFGRWFXSmpMemt3TlRWRU56ZzBSVFEyT1RJMk9UVXhSREZHUmprMVFVRTBNVEkwTlVJeU9URkdRVGxCUVVaR1FVVTFRemxFTUVRMU1UVTROemRHTmpRM1JEVXlNalk9XCIsXCJBUUpFYVdKakx6a3dOVFZFTnpnMFJUUTJPVEkyT1RVeFJERkdSamsxUVVFME1USTBOVUl5T1RGR1FUbEJRVVpHUVVVMVF6bEVNRVExTVRVNE56ZEdOalEzUkRVeU1qWUZkV2x1YVhRPVwiLFwiQUE9PVwiLFwiME5MWXJlSC9UaGc9XCIsXCJLMmx1YVhReE5HUnphak0zY21RMU5qa3daR3hoTmpScWJEQnRlbTUxZVdocmNXVnFhSFY1ZUdNMmMzZz1cIixcIkFTd3JhVzVwZERFMFpITnFNemR5WkRVMk9UQmtiR0UyTkdwc01HMTZiblY1YUd0eFpXcG9kWGw0WXpaemVBPT1cIl0sXCJmdW5jdGlvbl9uYW1lXCI6XCJzd2FwX2FuZF9hY3Rpb25cIixcIm1vZHVsZV9hZGRyZXNzXCI6XCIweGQ5MjFjNjFjN2U3ZDJlZWFkMzNiZGZmNGM1YzI5NDFlNjZkNDg4ZjBhMTVmZTdmYmM0MzI1NjVkYzA0YjM3MTBcIixcIm1vZHVsZV9uYW1lXCI6XCJlbnRyeV9wb2ludFwiLFwidHlwZV9hcmdzXCI6W119fX0iLCJyZWNlaXZlciI6ImluaXQxMjIydWdxanN0bngwM3hnNDhjNDloZjNlYXUyZTU5Mndwa3A4YWcweDU5Z3NqdWdlbXV2czY1dThqaCIsInNlbmRlciI6ImluaXQxNGRzajM3cmQ1NjkwZGxhNjRqbDBtem51eWhrcWVqaHV5eGM2c3gifQ==",
+            destination_channel: "channel-27",
+            destination_port: "transfer",
+            sequence: "4599",
+            source_channel: "channel-0",
+            source_port: "transfer",
+            timeout_height: {
+              revision_height: "0",
+              revision_number: "0",
+            },
+            timeout_timestamp: "1751618649843083000",
+          },
+          proof_commitment:
+            "CoYGCoMGCjxjb21taXRtZW50cy9wb3J0cy90cmFuc2Zlci9jaGFubmVscy9jaGFubmVsLTAvc2VxdWVuY2VzLzQ1OTkSIChIBi0f97gwyWNg/RQMml3v1PjcCaLAr8ZUUUuoN5y4Gg0IARgBIAEqBQAC+PRGIisIARInAgT69EYgbuSXHgdI8xk0ZWlZPwbRVqNpt8cq5toe6ifQpNG++wMgIi0IARIGBAj69EYgGiEg4POZCn8oBa3OcwXJsVOBOogviczvoFjhOsb6FErlVxMiLQgBEgYGDPr0RiAaISCqCrKCmHxUQ4lCuljSpnTlIUPX297XNh98kn1BvgrJKyItCAESBgga+vRGIBohIDy1UGc1O5SEXAgXpdtS6wmqi/sn6UgNm4Shh2t6oVRYIi0IARIGDET69EYgGiEgIUF0ifZ8vIwpZAfyocrRKYy+pEtLdvhrZmO6IxCa1tMiLQgBEgYOavr0RiAaISD+dmlMkeiBnkm4jhVHk7n7ASgNT+0Lr8vgxO16g2/WhyIuCAESBxD6Afr0RiAaISA073Trhj87oqWDLSlwYSQ14+Ij/GRykj95oHy15uuZFiIuCAESBxL4A/r0RiAaISDPnpJsw0MbJDPlWKXe+12eVo1iT9EQ0uw5sBdDq0+v5SIuCAESBxTiB/r0RiAaISAvnJZSUuYG2yubJGm6XHniEjwPHsjGwowQAyeo7ce9IyIuCAESBxjmEfr0RiAaISD6gwahwyxLhHIRnXM0ByNlYlM9DbC7SqTF08C6crvCryIsCAESKBqqMvr0RiBTMJbiUAcYD4qFvAdf3DcUIF1LTVaOoTxtQRlELl6P6iAiLAgBEigc+nn69EYgDHCTuK7ZnPCm5KlgXviOI2wzIlzC6xxchcwlxgM8qNggIi8IARIIHvLJAfr0RiAaISAwAqRykYOAiAnbZy48w5iZb0rKbjymBxK8iom8NgRDciItCAESKSL84wT69EYgu4L3nzM7fnra9znQA6Sg/xgSp6xpK30PLtfcBFiaG3MgCv4BCvsBCgNpYmMSIIJ83zMVNfeyWT1izvBf5/aBtjy2rRslO8whnzObmUwKGgkIARgBIAEqAQAiJwgBEgEBGiAs2LUHAJUFRhgK2XkTWocIwuogmP/2reMbfkDrXc98BSInCAESAQEaIA6WCyYlVTdGLvPa9qvTte0VBmBq4BCx+I6VTo6u830iIiUIARIhAbx4iHsaZvPfnix1t5MZTzEZDGjpBScRs/dFAY7E9d5cIiUIARIhARnaecr8y+mYfPvuypyEGrJIEI12Pf643U8HYtjzkfF0IicIARIBARogO6HTiLJ2XsP32obKdqb6O/Pler8e0eYhdOAsKpIvZ90=",
+          proof_height: {
+            revision_height: "580926",
+            revision_number: "1",
+          },
+          signer: "init1ps885583zjy4xvd2zm76x65h8crdv7yt484vws",
+        },
+      ],
+      non_critical_extension_options: [],
+      timeout_height: "0",
+    },
+    signatures: [
+      "MLSSTksZ0e9OP+pygtYjZimRj4lvPKCxuahLihcbv8Mkmlm25IqnycVkis5AxR7a1U9ddG0rcEb7slfoIoYP2w==",
+    ],
+  },
+  txhash: "562A25B8FE28E74B2F59823059ABC6002E58ADD81E11A3A0FBAF710E9D4ADE73",
+};
+
 export const mockApiResponsesForMsgIbcRecvPacket = {
   GET: {
     "/chains.json": [
@@ -1839,5 +2953,199 @@ export const mockApiResponsesForMsgIbcRecvPacket = {
         network: "moo-1",
       },
     },
+  },
+};
+
+export const mockApiResponsesForMsgIbcRecvPacketFromL2 = {
+  GET: {
+    "/chains.json": [
+      {
+        chain_id: "interwoven-1",
+        chain_name: "initia",
+        metadata: {
+          ibc_channels: [
+            {
+              chain_id: "civitia-1",
+              channel_id: "channel-27",
+              port_id: "transfer",
+              version: "ics20-1",
+            },
+          ],
+        },
+      },
+      {
+        chain_id: "civitia-1",
+        chain_name: "civitia",
+        metadata: {
+          ibc_channels: [
+            {
+              chain_id: "interwoven-1",
+              channel_id: "channel-0",
+              port_id: "transfer",
+              version: "ics20-1",
+            },
+          ],
+        },
+      },
+    ],
+    "/cosmos/base/tendermint/v1beta1/node_info": {
+      default_node_info: {
+        network: "interwoven-1",
+      },
+    },
+    "/initia/move/v1/accounts/0x2a409912c899386b847d360abcee9f13c62a3a938021f023c69f6eb09762f0d1/resources":
+      {
+        pagination: { next_key: null, total: "0" },
+        resources: [
+          {
+            address:
+              "0x2a409912c899386b847d360abcee9f13c62a3a938021f023c69f6eb09762f0d1",
+            move_resource:
+              '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0x27c89be8b36c814e0b461efa64a59da574baf73dcd8ec0cd5f044027167efb9e","version":"1"}}',
+            raw_bytes:
+              "J8ib6LNsgU4LRh76ZKWdpXS69z3NjsDNXwRAJxZ++54AAQAAAAAAAAA=",
+            struct_tag: "0x1::object::ObjectCore",
+          },
+          {
+            address:
+              "0x2a409912c899386b847d360abcee9f13c62a3a938021f023c69f6eb09762f0d1",
+            move_resource:
+              '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"0","frozen":false,"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}',
+            raw_bytes:
+              "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdkAAAAAAAAAAAA=",
+            struct_tag: "0x1::fungible_asset::FungibleStore",
+          },
+        ],
+      },
+    "/initia/move/v1/accounts/0x6ca5b00b161079fbb4adae6696cc0bb1822fdfddb913c5ad0f72b43642d0b1ca/resources":
+      {
+        pagination: { next_key: null, total: "0" },
+        resources: [
+          {
+            address:
+              "0x6ca5b00b161079fbb4adae6696cc0bb1822fdfddb913c5ad0f72b43642d0b1ca",
+            move_resource:
+              '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0x27f576cafbb263ed44be8bd094f66114da268777","version":"1"}}',
+            raw_bytes:
+              "AAAAAAAAAAAAAAAAJ/V2yvuyY+1EvovQlPZhFNomh3cAAQAAAAAAAAA=",
+            struct_tag: "0x1::object::ObjectCore",
+          },
+          {
+            address:
+              "0x6ca5b00b161079fbb4adae6696cc0bb1822fdfddb913c5ad0f72b43642d0b1ca",
+            move_resource:
+              '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"0","frozen":false,"metadata":{"inner":"0x644236449579e7d4e6bd08a88e4c39cebe904b8b33da1a1af90db3a8c4bee163"}}}',
+            raw_bytes:
+              "ZEI2RJV559TmvQiojkw5zr6QS4sz2hoa+Q2zqMS+4WMAAAAAAAAAAAA=",
+            struct_tag: "0x1::fungible_asset::FungibleStore",
+          },
+        ],
+      },
+    "/initia/move/v1/accounts/0x7d0c81750b50bb4d2fd3efbbbb91ab44646c18717794bd2e75778b351ee5e5e1/resources":
+      {
+        pagination: { next_key: null, total: "0" },
+        resources: [
+          {
+            address:
+              "0x7d0c81750b50bb4d2fd3efbbbb91ab44646c18717794bd2e75778b351ee5e5e1",
+            move_resource:
+              '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0x330bc49b50284d84a71394e30e7a3af2cf2ef9ef4b50a4baac6c7c628378dd23","version":"1"}}',
+            raw_bytes:
+              "MwvEm1AoTYSnE5TjDno68s8u+e9LUKS6rGx8YoN43SMAAQAAAAAAAAA=",
+            struct_tag: "0x1::object::ObjectCore",
+          },
+          {
+            address:
+              "0x7d0c81750b50bb4d2fd3efbbbb91ab44646c18717794bd2e75778b351ee5e5e1",
+            move_resource:
+              '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"2538054060223","frozen":false,"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}',
+            raw_bytes:
+              "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdm/iM/vTgIAAAA=",
+            struct_tag: "0x1::fungible_asset::FungibleStore",
+          },
+        ],
+      },
+    "/initia/move/v1/accounts/0x8779c33fcfcce0c38cd7cec4f1345b94ca8afa5b357955ab385f4ef247844839/resources":
+      {
+        pagination: { next_key: null, total: "0" },
+        resources: [
+          {
+            address:
+              "0x8779c33fcfcce0c38cd7cec4f1345b94ca8afa5b357955ab385f4ef247844839",
+            move_resource:
+              '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0xab6128f86da68af6ffbaacbefd8a7c25ec0ccafc","version":"1"}}',
+            raw_bytes:
+              "AAAAAAAAAAAAAAAAq2Eo+G2mivb/uqy+/Yp8JewMyvwAAQAAAAAAAAA=",
+            struct_tag: "0x1::object::ObjectCore",
+          },
+          {
+            address:
+              "0x8779c33fcfcce0c38cd7cec4f1345b94ca8afa5b357955ab385f4ef247844839",
+            move_resource:
+              '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"58490520","frozen":false,"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}',
+            raw_bytes:
+              "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdmYfnwDAAAAAAA=",
+            struct_tag: "0x1::fungible_asset::FungibleStore",
+          },
+        ],
+      },
+    "/initia/move/v1/accounts/0xf4485b28bfdf5587defb7423e6b80b3ea27d0731ea165cd868f9f357600a7545/resources":
+      {
+        pagination: { next_key: null, total: "0" },
+        resources: [
+          {
+            address:
+              "0xf4485b28bfdf5587defb7423e6b80b3ea27d0731ea165cd868f9f357600a7545",
+            move_resource:
+              '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0xfa0e9115ea5718b33191a07ce8c84d25c48660d1acfd5eb03fa504ad6301ec76","version":"1"}}',
+            raw_bytes:
+              "+g6RFepXGLMxkaB86MhNJcSGYNGs/V6wP6UErWMB7HYAAQAAAAAAAAA=",
+            struct_tag: "0x1::object::ObjectCore",
+          },
+          {
+            address:
+              "0xf4485b28bfdf5587defb7423e6b80b3ea27d0731ea165cd868f9f357600a7545",
+            move_resource:
+              '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"24521941915","frozen":false,"metadata":{"inner":"0x644236449579e7d4e6bd08a88e4c39cebe904b8b33da1a1af90db3a8c4bee163"}}}',
+            raw_bytes:
+              "ZEI2RJV559TmvQiojkw5zr6QS4sz2hoa+Q2zqMS+4WObI5+1BQAAAAA=",
+            struct_tag: "0x1::fungible_asset::FungibleStore",
+          },
+        ],
+      },
+    "/initia/move/v1/accounts/0xffa8d14422904cf8613fc7c772b3b41ccd8fdcc9a33c8a4721997ee23475dcf5/resources":
+      {
+        pagination: { next_key: null, total: "0" },
+        resources: [
+          {
+            address:
+              "0xffa8d14422904cf8613fc7c772b3b41ccd8fdcc9a33c8a4721997ee23475dcf5",
+            move_resource:
+              '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0x27c89be8b36c814e0b461efa64a59da574baf73dcd8ec0cd5f044027167efb9e","version":"1"}}',
+            raw_bytes:
+              "J8ib6LNsgU4LRh76ZKWdpXS69z3NjsDNXwRAJxZ++54AAQAAAAAAAAA=",
+            struct_tag: "0x1::object::ObjectCore",
+          },
+          {
+            address:
+              "0xffa8d14422904cf8613fc7c772b3b41ccd8fdcc9a33c8a4721997ee23475dcf5",
+            move_resource:
+              '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"0","frozen":false,"metadata":{"inner":"0x644236449579e7d4e6bd08a88e4c39cebe904b8b33da1a1af90db3a8c4bee163"}}}',
+            raw_bytes:
+              "ZEI2RJV559TmvQiojkw5zr6QS4sz2hoa+Q2zqMS+4WMAAAAAAAAAAAA=",
+            struct_tag: "0x1::fungible_asset::FungibleStore",
+          },
+        ],
+      },
+    "/initia/move/v1/denom?metadata=0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9":
+      {
+        denom: "uinit",
+      },
+
+    "/initia/move/v1/denom?metadata=0x644236449579e7d4e6bd08a88e4c39cebe904b8b33da1a1af90db3a8c4bee163":
+      {
+        denom:
+          "ibc/9055D784E46926951D1FF95AA41245B291FA9AAFFAE5C9D0D515877F647D5226",
+      },
   },
 };

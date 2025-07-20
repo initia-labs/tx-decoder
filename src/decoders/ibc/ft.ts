@@ -7,6 +7,7 @@ import {
   zMsgIbcRecvPacket,
   zMsgIbcTransfer,
 } from "@/schema";
+import { ibcDenom } from "@/utils";
 
 export const ibcSendFtDecoder: MessageDecoder = {
   check: (message: Message, _log: Log) => {
@@ -102,11 +103,13 @@ export const ibcReceiveFtDecoder: MessageDecoder = {
     );
     if (!srcChainId) throw new Error(`IBC Transfer src chain id not found`);
 
+    const denom = ibcDenom(destination_channel, parsedPacket.denom);
+
     return {
       action: "ibc_ft_receive",
       data: {
         amount: parsedPacket.amount,
-        denom: parsedPacket.denom,
+        denom,
         dstChainId,
         dstChannel: destination_channel,
         dstPort: destination_port,
