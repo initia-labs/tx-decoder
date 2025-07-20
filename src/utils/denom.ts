@@ -5,7 +5,7 @@ export const denomToHex = (denom: string) => {
   return `0x${denom.split("/").pop()}`;
 };
 
-export function ibcDenom(channelId: string, denom: string) {
+export function getIbcDenom(channelId: string, denom: string) {
   const fullTrace = `transfer/${channelId}/${denom}`;
   const shaSum = sha256(Buffer.from(fullTrace));
   const hash = Buffer.from(shaSum).toString("hex").toUpperCase();
@@ -25,7 +25,7 @@ function be(num: bigint): number[] {
   return num ? be(num >> 8n).concat([Number(num % 256n)]) : [];
 }
 
-export function opdenom(id: bigint, l1Denom: string) {
+export function getOpDenom(id: bigint, l1Denom: string) {
   const hash = crypto.createHash("SHA3-256");
 
   const sum = hash
