@@ -1,4 +1,4 @@
-import { fromBase64 } from "@cosmjs/encoding";
+import { fromBase64, fromUtf8 } from "@cosmjs/encoding";
 
 import { ApiClient } from "@/api";
 import { MessageDecoder } from "@/interfaces";
@@ -93,7 +93,7 @@ export const ibcReceiveFtDecoder: MessageDecoder = {
     } = parsed;
 
     const parsedPacket = zIbcTransferRecvPacket.parse(
-      fromBase64(data).toString()
+      fromUtf8(fromBase64(data))
     );
 
     const dstChainId = await apiClient.getChainId();
