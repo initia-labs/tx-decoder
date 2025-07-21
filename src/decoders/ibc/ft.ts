@@ -1,3 +1,5 @@
+import { fromBase64, fromUtf8 } from "@cosmjs/encoding";
+
 import { ApiClient } from "@/api";
 import { MessageDecoder } from "@/interfaces";
 import {
@@ -7,6 +9,7 @@ import {
   zMsgIbcRecvPacket,
   zMsgIbcTransfer,
 } from "@/schema";
+import { getIbcDenom } from "@/utils";
 
 export const ibcSendFtDecoder: MessageDecoder = {
   check: (message: Message, _log: Log) => {
@@ -90,7 +93,7 @@ export const ibcReceiveFtDecoder: MessageDecoder = {
     } = parsed;
 
     const parsedPacket = zIbcTransferRecvPacket.parse(
-      Buffer.from(data, "base64").toString()
+      fromUtf8(fromBase64(data))
     );
 
     const dstChainId = await apiClient.getChainId();
@@ -102,11 +105,13 @@ export const ibcReceiveFtDecoder: MessageDecoder = {
     );
     if (!srcChainId) throw new Error(`IBC Transfer src chain id not found`);
 
+    const denom = getIbcDenom(destination_channel, parsedPacket.denom);
+
     return {
       action: "ibc_ft_receive",
       data: {
         amount: parsedPacket.amount,
-        denom: parsedPacket.denom,
+        denom,
         dstChainId,
         dstChannel: destination_channel,
         dstPort: destination_port,
