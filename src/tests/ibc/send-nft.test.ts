@@ -40,6 +40,7 @@ describe("IBC Send NFT Message", () => {
         dstPort: "nft-transfer",
         receiver: "init1ulw753hxh4mrc9ss7p2y7h8emjxxyw6uce0hk9",
         sender: "init1dw49mn7s2r5mskjdmus5hth80zz8wwaywycq06",
+        sequence: "13",
         srcChainId: "interwoven-1",
         srcChannel: "channel-28",
         srcPort: "nft-transfer",

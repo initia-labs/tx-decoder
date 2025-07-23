@@ -50,6 +50,7 @@ describe("IBC Receive NFT Message", () => {
           dstPort: "nft-transfer",
           receiver: "init1t9k78msywte6jx4zrxkp94pa9u9laa9pqfpytk",
           sender: "init1t9k78msywte6jx4zrxkp94pa9u9laa9pqfpytk",
+          sequence: "15",
           srcChainId: "civitia-1",
           srcChannel: "channel-1",
           srcPort: "nft-transfer",
@@ -130,6 +131,7 @@ describe("IBC Receive NFT Message", () => {
           dstPort: "nft-transfer",
           receiver: "init18cd6ufdufm4crr4tjr23uwhn26qz6ndea57aya",
           sender: "init18cd6ufdufm4crr4tjr23uwhn26qz6ndea57aya",
+          sequence: "1",
           srcChainId: "intergaze-1",
           srcChannel: "channel-1",
           srcPort:

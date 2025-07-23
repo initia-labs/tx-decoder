@@ -33,6 +33,7 @@ describe("IBC Send FT Message", () => {
         dstPort: "transfer",
         receiver: "init1kw2unuhgfa6mz6r0ehrzlr9k9ftjk7pql8u5fm",
         sender: "init1kw2unuhgfa6mz6r0ehrzlr9k9ftjk7pql8u5fm",
+        sequence: "2898",
         srcChainId: "interwoven-1",
         srcChannel: "channel-29",
         srcPort: "transfer",

@@ -39,6 +39,7 @@ describe("IBC Receive FT Message", () => {
         dstPort: "transfer",
         receiver: "init1kw2unuhgfa6mz6r0ehrzlr9k9ftjk7pql8u5fm",
         sender: "init1kw2unuhgfa6mz6r0ehrzlr9k9ftjk7pql8u5fm",
+        sequence: "2898",
         srcChainId: "interwoven-1",
         srcChannel: "channel-29",
         srcPort: "transfer",
@@ -74,6 +75,7 @@ describe("IBC Receive FT Message", () => {
         receiver:
           "init1222ugqjstnx03xg48c49hf3eau2e592wpkp8ag0x59gsjugemuvs65u8jh",
         sender: "init14dsj37rd5690dla64jl0mznuyhkqejhuyxc6sx",
+        sequence: "4599",
         srcChainId: "civitia-1",
         srcChannel: "channel-0",
         srcPort: "transfer",

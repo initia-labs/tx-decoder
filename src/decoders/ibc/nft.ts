@@ -83,6 +83,11 @@ export const ibcSendNftDecoder: MessageDecoder = {
       throw new Error("IBC NFT Send packet dst chain id not found");
     }
 
+    const sequence = event.attributes.find(
+      (attr) => attr.key === "packet_sequence"
+    )?.value;
+    if (!sequence) throw new Error(`IBC NFT Transfer sequence not found`);
+
     const tokenAddress = findMoveEvent(
       log.events,
       "0x1::object::TransferEvent",
@@ -107,6 +112,7 @@ export const ibcSendNftDecoder: MessageDecoder = {
         dstPort,
         receiver,
         sender,
+        sequence,
         srcChainId,
         srcChannel: source_channel,
         srcPort: source_port,
@@ -134,6 +140,7 @@ export const ibcReceiveNftDecoder: MessageDecoder = {
     const {
       destination_channel,
       destination_port,
+      sequence,
       timeout_height,
       timeout_timestamp,
     } = parsed.packet;
@@ -229,6 +236,7 @@ export const ibcReceiveNftDecoder: MessageDecoder = {
         dstPort: destination_port,
         receiver: parsedData.data.receiver,
         sender: parsedData.data.sender,
+        sequence,
         srcChainId,
         srcChannel,
         srcPort,
