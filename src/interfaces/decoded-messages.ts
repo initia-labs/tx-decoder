@@ -187,6 +187,7 @@ interface DecodedObjectTransferMessage extends DecodedMessageBase {
 interface DecodedNftBurnMessage extends DecodedMessageBase {
   action: "nft_burn";
   data: {
+    collection: CollectionResource["data"];
     collectionAddress: string;
     from: string;
     tokenAddress: string;
