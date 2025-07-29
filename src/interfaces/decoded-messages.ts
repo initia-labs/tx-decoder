@@ -9,6 +9,7 @@ export type DecodedMessage =
   | DecodedDelegateMessage
   | DecodedDepositLiquidityMessage
   | DecodedDepositStakeLiquidityMessage
+  | DecodedDepositStakeLockLiquidityMessage
   | DecodedFinalizeTokenWithdrawalMessage
   | DecodedIbcFtReceiveMessage
   | DecodedIbcFtSendMessage
@@ -282,6 +283,22 @@ interface DecodedDepositStakeLiquidityMessage extends DecodedMessageBase {
     from: string;
     liquidity: string;
     liquidityDenom: string;
+    validator: Validator | null;
+    validatorAddress: string;
+  };
+}
+
+interface DecodedDepositStakeLockLiquidityMessage extends DecodedMessageBase {
+  action: "deposit_stake_lock_liquidity";
+  data: {
+    amountA: string;
+    amountB: string;
+    denomA: string;
+    denomB: string;
+    from: string;
+    liquidity: string;
+    liquidityDenom: string;
+    releaseTimestamp: string;
     validator: Validator | null;
     validatorAddress: string;
   };

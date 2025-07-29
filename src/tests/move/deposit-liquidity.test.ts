@@ -7,6 +7,10 @@ import {
   mockMsgDepositStakeLiquidity,
 } from "../fixtures/move/deposit-stake-liquidity.fixture";
 import {
+  mockApiResponsesForDepositStakeLockLiquidity,
+  mockMsgDepositStakeLockLiquidity,
+} from "../fixtures/move/deposit-stake-lock-liquidity.fixture";
+import {
   initialize,
   mockedAxios,
   resetMockApi,
@@ -59,6 +63,40 @@ describe("Deposit Liquidity Message", () => {
         from: "init15j9nswsatns09fnru6ww9jjljg07r87kr56mdc",
         liquidity: "836813",
         liquidityDenom: "move/543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1",
+        validator: {
+          description: {
+            moniker: "Orbital Command",
+            identity: "A2879F08F59FB0AF",
+            website: "https://orbitalcommand.io",
+            security_contact: "",
+            details: ""
+          },
+          operator_address: "initvaloper1qx6ghyv83caecuxgl77lvlnha9d9y6fntryc8a",
+        },
+        validatorAddress: "initvaloper1qx6ghyv83caecuxgl77lvlnha9d9y6fntryc8a",
+      },
+      isIbc: false,
+      isOp: false,
+    });
+  });
+
+  it("should decode a deposit stake lock liquidity move message correctly", async () => {
+    setupMockApi(mockedAxios, mockApiResponsesForDepositStakeLockLiquidity);
+
+    const decoded = await decoder.decodeTransaction(mockMsgDepositStakeLockLiquidity);
+
+    expect(decoded.messages).toHaveLength(1);
+    expect(decoded.messages[0].decodedMessage).toEqual({
+      action: "deposit_stake_lock_liquidity",
+      data: {
+        amountA: "995524",
+        amountB: "8449282",
+        denomA: "ibc/6490A7EAB61059BFC1CDDEB05917DD70BDF3A611654162A1A47DB930D40D8AF4",
+        denomB: "uinit",
+        from: "init15j9nswsatns09fnru6ww9jjljg07r87kr56mdc",
+        liquidity: "8391799",
+        liquidityDenom: "move/543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1",
+        releaseTimestamp: "1755418211",
         validator: {
           description: {
             moniker: "Orbital Command",
