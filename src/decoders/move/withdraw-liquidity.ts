@@ -6,7 +6,7 @@ import { findMoveEvent } from "@/utils";
 export const withdrawLiquidityDecoder: MessageDecoder = {
   check: (message: Message, _log: Log) => {
     if (!zMsgMoveExecute.safeParse(message).success) return false;
-    
+
     const parsed = zMsgMoveExecute.parse(message);
     return (
       parsed.function_name === "withdraw_liquidity_script" &&
@@ -33,15 +33,11 @@ export const withdrawLiquidityDecoder: MessageDecoder = {
     ]);
 
     if (!denomA) {
-      throw new Error(
-        `Denom A not found for coin ${withdrawEvent.coin_a}`
-      );
+      throw new Error(`Denom A not found for coin ${withdrawEvent.coin_a}`);
     }
 
     if (!denomB) {
-      throw new Error(
-        `Denom B not found for coin ${withdrawEvent.coin_b}`
-      );
+      throw new Error(`Denom B not found for coin ${withdrawEvent.coin_b}`);
     }
 
     if (!liquidityDenom) {
