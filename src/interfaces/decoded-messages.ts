@@ -7,6 +7,7 @@ interface DecodedMessageBase {
 
 export type DecodedMessage =
   | DecodedDelegateMessage
+  | DecodedDepositMinitswapMessage
   | DecodedFinalizeTokenWithdrawalMessage
   | DecodedIbcFtReceiveMessage
   | DecodedIbcFtSendMessage
@@ -237,22 +238,25 @@ interface DecodedIbcNftReceiveMessage extends DecodedMessageBase {
       uri: string | null;
     };
     collectionId: string;
-    dstChainId: string;
-    dstChannel: string;
-    dstPort: string;
     receiver: string;
     sender: string;
     sequence: string;
     srcChainId: string;
     srcChannel: string;
     srcPort: string;
-    timeoutHeight: {
-      revision_height: string;
-      revision_number: string;
-    };
-    timeoutTimestamp: string;
     tokenAddress: string;
     tokenIds: string[];
     tokenUris: string[];
+  };
+}
+
+interface DecodedDepositMinitswapMessage extends DecodedMessageBase {
+  action: "deposit_minitswap";
+  data: {
+    amountDeposited: string;
+    amountReceived: string;
+    denomDeposited: string;
+    denomReceived: string;
+    from: string;
   };
 }

@@ -1,4 +1,5 @@
 export * from "./delegate-locked";
+export * from "./deposit-minitswap";
 export * from "./dex-swap";
 export * from "./nft";
 export * from "./object-transfer";

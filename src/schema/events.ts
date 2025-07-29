@@ -116,3 +116,17 @@ export const zMsgIbcTransferSendPacketEvent = zJsonString.pipe(
     sender: z.string(),
   })
 );
+
+export const zMinitswapProvideEvent = zJsonString.pipe(
+  z.object({
+    provide_amount: z.string(),
+    share_amount: z.string(),
+  })
+);
+
+export const zMintEvent = zJsonString.pipe(
+  z.object({
+    amount: z.string(),
+    metadata_addr: z.string(),
+  })
+);
