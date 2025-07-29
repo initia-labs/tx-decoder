@@ -1,14 +1,21 @@
 import { ApiClient } from "@/api";
 import { DecodedMessage, MessageDecoder } from "@/interfaces";
-import { Log, Message, zMsgMoveExecute, zProvideEvent, zDepositDelegationEvent } from "@/schema";
+import {
+  Log,
+  Message,
+  zDepositDelegationEvent,
+  zMsgMoveExecute,
+  zProvideEvent,
+} from "@/schema";
 import { findMoveEvent } from "@/utils";
 
-const LOCK_STAKING_MODULE_ADDRESS = "0x3a886b32a802582f2e446e74d4a24d1d7ed01adf46d2a8f65c5723887e708789";
+const LOCK_STAKING_MODULE_ADDRESS =
+  "0x3a886b32a802582f2e446e74d4a24d1d7ed01adf46d2a8f65c5723887e708789";
 
 export const depositStakeLockLiquidityDecoder: MessageDecoder = {
   check: (message: Message, _log: Log) => {
     if (!zMsgMoveExecute.safeParse(message).success) return false;
-    
+
     const parsed = zMsgMoveExecute.parse(message);
     return (
       parsed.function_name === "unproportional_provide_lock_stake" &&
@@ -29,10 +36,8 @@ export const depositStakeLockLiquidityDecoder: MessageDecoder = {
     }
 
     // Find the delegate event to extract validator information
-    const delegateEvent = log.events.find(
-      (event) => event.type === "delegate"
-    );
-    
+    const delegateEvent = log.events.find((event) => event.type === "delegate");
+
     let validatorAddress = "";
     if (delegateEvent) {
       const validatorAttr = delegateEvent.attributes.find(
@@ -61,15 +66,11 @@ export const depositStakeLockLiquidityDecoder: MessageDecoder = {
     ]);
 
     if (!denomA) {
-      throw new Error(
-        `Denom A not found for coin ${provideEvent.coin_a}`
-      );
+      throw new Error(`Denom A not found for coin ${provideEvent.coin_a}`);
     }
 
     if (!denomB) {
-      throw new Error(
-        `Denom B not found for coin ${provideEvent.coin_b}`
-      );
+      throw new Error(`Denom B not found for coin ${provideEvent.coin_b}`);
     }
 
     if (!liquidityDenom) {
@@ -90,7 +91,7 @@ export const depositStakeLockLiquidityDecoder: MessageDecoder = {
         liquidityDenom,
         releaseTimestamp: depositDelegationEvent.release_time,
         validator: validatorData,
-        validatorAddress: validatorAddress,
+        validatorAddress,
       },
       isIbc: false,
       isOp: false,

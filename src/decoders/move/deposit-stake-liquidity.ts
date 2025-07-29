@@ -6,7 +6,7 @@ import { findMoveEvent } from "@/utils";
 export const depositStakeLiquidityDecoder: MessageDecoder = {
   check: (message: Message, _log: Log) => {
     if (!zMsgMoveExecute.safeParse(message).success) return false;
-    
+
     const parsed = zMsgMoveExecute.parse(message);
     return (
       parsed.function_name === "unproportional_provide_stake" &&
@@ -27,10 +27,8 @@ export const depositStakeLiquidityDecoder: MessageDecoder = {
     }
 
     // Find the delegate event to extract validator information
-    const delegateEvent = log.events.find(
-      (event) => event.type === "delegate"
-    );
-    
+    const delegateEvent = log.events.find((event) => event.type === "delegate");
+
     let validatorAddress = "";
     if (delegateEvent) {
       const validatorAttr = delegateEvent.attributes.find(
@@ -49,15 +47,11 @@ export const depositStakeLiquidityDecoder: MessageDecoder = {
     ]);
 
     if (!denomA) {
-      throw new Error(
-        `Denom A not found for coin ${provideEvent.coin_a}`
-      );
+      throw new Error(`Denom A not found for coin ${provideEvent.coin_a}`);
     }
 
     if (!denomB) {
-      throw new Error(
-        `Denom B not found for coin ${provideEvent.coin_b}`
-      );
+      throw new Error(`Denom B not found for coin ${provideEvent.coin_b}`);
     }
 
     if (!liquidityDenom) {
@@ -77,7 +71,7 @@ export const depositStakeLiquidityDecoder: MessageDecoder = {
         liquidity: provideEvent.liquidity,
         liquidityDenom,
         validator: validatorData,
-        validatorAddress: validatorAddress,
+        validatorAddress,
       },
       isIbc: false,
       isOp: false,

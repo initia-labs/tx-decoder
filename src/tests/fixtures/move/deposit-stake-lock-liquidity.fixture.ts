@@ -963,219 +963,297 @@ export const mockMsgDepositStakeLockLiquidity = {
 
 export const mockApiResponsesForDepositStakeLockLiquidity = {
   GET: {
-    "/initia/move/v1/accounts/0x84f9cc0aeed221dc8f39caf1bb8b79803e073493bf017514156e41d46060fb04/resources": {
-      pagination: { next_key: null, total: "0" },
-      resources: [
-        {
-          address: "0x84f9cc0aeed221dc8f39caf1bb8b79803e073493bf017514156e41d46060fb04",
-          struct_tag: "0x1::object::ObjectCore",
-          move_resource: '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0x48a642ebc654e13aef01d2fdd17c66aecd32f84dcfd02fa66e896188698375f0","version":"1"}}',
-          raw_bytes: "AAAAAAAAAAAAAAASH6ZC68ZU4Trv4dL90XxmrsyjL4TPz6L6ZuiWGIaYN18AAQAAAAAAAAA=",
-        },
-        {
-          address: "0x84f9cc0aeed221dc8f39caf1bb8b79803e073493bf017514156e41d46060fb04",
-          struct_tag: "0x1::fungible_asset::FungibleStore",
-          move_resource: '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"0","frozen":false,"metadata":{"inner":"0x543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1"}}}',
-          raw_bytes: "VDs1o5z62tPaPCMknEdEVdFe/S+U+ElHMibe6KPHqeEAAAAAAAAAAAA=",
-        },
-      ],
-    },
-    "/initia/move/v1/accounts/0xba2a23251eb06923fadb03ea9856c66510fefc4dfa9abe92cfb2961c9145cfb3/resources": {
-      pagination: { next_key: null, total: "0" },
-      resources: [
-        {
-          address: "0xba2a23251eb06923fadb03ea9856c66510fefc4dfa9abe92cfb2961c9145cfb3",
-          struct_tag: "0x1::object::ObjectCore",
-          move_resource: '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0x93354845030274cd4bf1686abd60ab28ec52e1a7","version":"1"}}',
-          raw_bytes: "AAAAAAAAAAAAAAAAAJNVSEUDAidNS/FoarvWCrKOxS4X8AAQAAAAAAAAA=",
-        },
-        {
-          address: "0xba2a23251eb06923fadb03ea9856c66510fefc4dfa9abe92cfb2961c9145cfb3",
-          struct_tag: "0x1::fungible_asset::FungibleStore",
-          move_resource: '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"0","frozen":false,"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}',
-          raw_bytes: "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdkAAAAAAAAAAAA=",
-        },
-      ],
-    },
-    "/initia/move/v1/accounts/0x1e2141f755b89422e8fc4b348e7a2f4b43a06cc3356f643fde7ccc6f6d7f1cb4/resources": {
-      pagination: { next_key: null, total: "0" },
-      resources: [
-        {
-          address: "0x1e2141f755b89422e8fc4b348e7a2f4b43a06cc3356f643fde7ccc6f6d7f1cb4",
-          struct_tag: "0x1::object::ObjectCore",
-          move_resource: '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0x93354845030274cd4bf1686abd60ab28ec52e1a7","version":"1"}}',
-          raw_bytes: "AAAAAAAAAAAAAAAAAJNVSEUDAidNS/FoarvWCrKOxS4X8AAQAAAAAAAAA=",
-        },
-        {
-          address: "0x1e2141f755b89422e8fc4b348e7a2f4b43a06cc3356f643fde7ccc6f6d7f1cb4",
-          struct_tag: "0x1::fungible_asset::FungibleStore",
-          move_resource: '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"0","frozen":false,"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}',
-          raw_bytes: "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdkAAAAAAAAAAAA=",
-        },
-      ],
-    },
-    "/initia/move/v1/accounts/0x31a358ffa5db08ee9d97b9837247eb1cbb66c1943b323d074d3e241d358edc1e/resources": {
-      pagination: { next_key: null, total: "0" },
-      resources: [
-        {
-          address: "0x31a358ffa5db08ee9d97b9837247eb1cbb66c1943b323d074d3e241d358edc1e",
-          struct_tag: "0x1::object::ObjectCore",
-          move_resource: '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0xa48b383a1d5ce0f2a663e69ce2ca5f921fe19fd6","version":"1"}}',
-          raw_bytes: "AAAAAAAAAAAAAAAApIs4Oh1c4PKmY+ac4spfkh/hn9YAAQAAAAAAAAA=",
-        },
-        {
-          address: "0x31a358ffa5db08ee9d97b9837247eb1cbb66c1943b323d074d3e241d358edc1e",
-          struct_tag: "0x1::fungible_asset::FungibleStore",
-          move_resource: '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"583195695","frozen":false,"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}',
-          raw_bytes: "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdkv3MIiAAAAAAA=",
-        },
-      ],
-    },
-    "/initia/move/v1/accounts/0x39e454a8b7b1b71b2c0c27bf4ce1fbe234652f2c40f1fc209b023beaa7ece013/resources": {
-      pagination: { next_key: null, total: "0" },
-      resources: [
-        {
-          address: "0x39e454a8b7b1b71b2c0c27bf4ce1fbe234652f2c40f1fc209b023beaa7ece013",
-          struct_tag: "0x1::object::ObjectCore",
-          move_resource: '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0x543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1","version":"1"}}',
-          raw_bytes: "VDs1o5z62tPaPCMknEdEVdFe/S+U+ElHMibe6KPHqeEAAQAAAAAAAAA=",
-        },
-        {
-          address: "0x39e454a8b7b1b71b2c0c27bf4ce1fbe234652f2c40f1fc209b023beaa7ece013",
-          struct_tag: "0x1::fungible_asset::FungibleStore",
-          move_resource: '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"2300487677883","frozen":false,"metadata":{"inner":"0xe0e9394b24e53775d6af87934ac02d73536ad58b7894f6ccff3f5e7c0d548e55"}}}',
-          raw_bytes: "4Ok5SyTlN3XWr4eTSsAtc1Nq1Yd4lPbM/z9efA1UjlW7N8CfFwIAAAA=",
-        },
-      ],
-    },
-    "/initia/move/v1/accounts/0x4f73485a3e840d0d3baa691a6432e1f31c91e4f97cdc0dff465ab7d28e75379e/resources": {
-      pagination: { next_key: null, total: "0" },
-      resources: [
-        {
-          address: "0x4f73485a3e840d0d3baa691a6432e1f31c91e4f97cdc0dff465ab7d28e75379e",
-          struct_tag: "0x1::object::ObjectCore",
-          move_resource: '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0xa48b383a1d5ce0f2a663e69ce2ca5f921fe19fd6","version":"1"}}',
-          raw_bytes: "AAAAAAAAAAAAAAAApIs4Oh1c4PKmY+ac4spfkh/hn9YAAQAAAAAAAAA=",
-        },
-        {
-          address: "0x4f73485a3e840d0d3baa691a6432e1f31c91e4f97cdc0dff465ab7d28e75379e",
-          struct_tag: "0x1::fungible_asset::FungibleStore",
-          move_resource: '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"25356075","frozen":false,"metadata":{"inner":"0x543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1"}}}',
-          raw_bytes: "VDs1o5z62tPaPCMknEdEVdFe/S+U+ElHMibe6KPHqeEr54IBAAAAAAA=",
-        },
-      ],
-    },
-    "/initia/move/v1/accounts/0x66a8cb0bfb991610dcffb8a6543ac0887c7c5405b8f985ebed6d628fe50c4686/resources": {
-      pagination: { next_key: null, total: "0" },
-      resources: [
-        {
-          address: "0x66a8cb0bfb991610dcffb8a6543ac0887c7c5405b8f985ebed6d628fe50c4686",
-          struct_tag: "0x1::object::ObjectCore",
-          move_resource: '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0xf1829676db577682e944fc3493d451b67ff3e29f","version":"1"}}',
-          raw_bytes: "AAAAAAAAAAAAAAAA8YKWdttXdoLpRPw0k9RRtn/z4p8AAQAAAAAAAAA=",
-        },
-        {
-          address: "0x66a8cb0bfb991610dcffb8a6543ac0887c7c5405b8f985ebed6d628fe50c4686",
-          struct_tag: "0x1::fungible_asset::FungibleStore",
-          move_resource: '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"0","frozen":false,"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}',
-          raw_bytes: "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdkAAAAAAAAAAAA=",
-        },
-      ],
-    },
-    "/initia/move/v1/accounts/0xbae31176bdad6a44f2a660d73fd95e48d914c7ae5bd52f3f99eb2833579ce51c/resources": {
-      pagination: { next_key: null, total: "0" },
-      resources: [
-        {
-          address: "0xbae31176bdad6a44f2a660d73fd95e48d914c7ae5bd52f3f99eb2833579ce51c",
-          struct_tag: "0x1::object::ObjectCore",
-          move_resource: '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0xa48b383a1d5ce0f2a663e69ce2ca5f921fe19fd6","version":"1"}}',
-          raw_bytes: "AAAAAAAAAAAAAAAApIs4Oh1c4PKmY+ac4spfkh/hn9YAAQAAAAAAAAA=",
-        },
-        {
-          address: "0xbae31176bdad6a44f2a660d73fd95e48d914c7ae5bd52f3f99eb2833579ce51c",
-          struct_tag: "0x1::fungible_asset::FungibleStore",
-          move_resource: '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"5229099","frozen":false,"metadata":{"inner":"0xe0e9394b24e53775d6af87934ac02d73536ad58b7894f6ccff3f5e7c0d548e55"}}}',
-          raw_bytes: "4Ok5SyTlN3XWr4eTSsAtc1Nq1Yd4lPbM/z9efA1UjlUryk8AAAAAAAA=",
-        },
-      ],
-    },
-    "/initia/move/v1/accounts/0xd8d20f9cd225d52f126bd3f973cbb83de3212b1b3dae547f13dd01f593d537b3/resources": {
-      pagination: { next_key: null, total: "0" },
-      resources: [
-        {
-          address: "0xd8d20f9cd225d52f126bd3f973cbb83de3212b1b3dae547f13dd01f593d537b3",
-          struct_tag: "0x1::object::ObjectCore",
-          move_resource: '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0x543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1","version":"1"}}',
-          raw_bytes: "VDs1o5z62tPaPCMknEdEVdFe/S+U+ElHMibe6KPHqeEAAQAAAAAAAAA=",
-        },
-        {
-          address: "0xd8d20f9cd225d52f126bd3f973cbb83de3212b1b3dae547f13dd01f593d537b3",
-          struct_tag: "0x1::fungible_asset::FungibleStore",
-          move_resource: '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"20997773153743","frozen":false,"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}',
-          raw_bytes: "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdnPVc/sGBMAAAA=",
-        },
-      ],
-    },
-    "/initia/move/v1/accounts/0xeae8f912db9acfb4901766874adc7f6dbb1d5fea4785a423671ba5afc59a710f/resources": {
-      pagination: { next_key: null, total: "0" },
-      resources: [
-        {
-          address: "0xeae8f912db9acfb4901766874adc7f6dbb1d5fea4785a423671ba5afc59a710f",
-          struct_tag: "0x1::object::ObjectCore",
-          move_resource: '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0x4fea76427b8345861e80a3540a8a9d936fd39391","version":"1"}}',
-          raw_bytes: "AAAAAAAAAAAAAAAAT+p2QnuDRYYegKNUCoqdk2/Tk5EAAQAAAAAAAAA=",
-        },
-        {
-          address: "0xeae8f912db9acfb4901766874adc7f6dbb1d5fea4785a423671ba5afc59a710f",
-          struct_tag: "0x1::fungible_asset::FungibleStore",
-          move_resource: '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"19165899045508","frozen":false,"metadata":{"inner":"0x543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1"}}}',
-          raw_bytes: "VDs1o5z62tPaPCMknEdEVdFe/S+U+ElHMibe6KPHqeGEuppobhEAAAA=",
-        },
-      ],
-    },
-    "/initia/move/v1/denom?metadata=0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9": {
-      denom: "uinit",
-    },
-    "/initia/move/v1/denom?metadata=0x543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1": {
-      denom: "move/543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1",
-    },
-    "/initia/move/v1/denom?metadata=0xe0e9394b24e53775d6af87934ac02d73536ad58b7894f6ccff3f5e7c0d548e55": {
-      denom: "ibc/6490A7EAB61059BFC1CDDEB05917DD70BDF3A611654162A1A47DB930D40D8AF4",
-    },
-    "/initia/mstaking/v1/validators/initvaloper1qx6ghyv83caecuxgl77lvlnha9d9y6fntryc8a": {
-      validator: {
-        operator_address: "initvaloper1qx6ghyv83caecuxgl77lvlnha9d9y6fntryc8a",
-        consensus_pubkey: {
-          "@type": "/cosmos.crypto.ed25519.PubKey",
-          key: "example_key"
-        },
-        jailed: false,
-        status: "BOND_STATUS_BONDED",
-        tokens: {
-          "move/543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1": "606012699156",
-          "uinit": "578509960082"
-        },
-        delegator_shares: "1204902178007.000000000000000000",
-        description: {
-          moniker: "Orbital Command",
-          identity: "A2879F08F59FB0AF",
-          website: "https://orbitalcommand.io",
-          security_contact: "",
-          details: ""
-        },
-        unbonding_height: "0",
-        unbonding_time: "1970-01-01T00:00:00Z",
-        commission: {
-          commission_rates: {
-            rate: "0.050000000000000000",
-            max_rate: "0.200000000000000000",
-            max_change_rate: "0.010000000000000000"
+    "/initia/move/v1/accounts/0x1e2141f755b89422e8fc4b348e7a2f4b43a06cc3356f643fde7ccc6f6d7f1cb4/resources":
+      {
+        pagination: { next_key: null, total: "0" },
+        resources: [
+          {
+            address:
+              "0x1e2141f755b89422e8fc4b348e7a2f4b43a06cc3356f643fde7ccc6f6d7f1cb4",
+            move_resource:
+              '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0x93354845030274cd4bf1686abd60ab28ec52e1a7","version":"1"}}',
+            raw_bytes:
+              "AAAAAAAAAAAAAAAAAJNVSEUDAidNS/FoarvWCrKOxS4X8AAQAAAAAAAAA=",
+            struct_tag: "0x1::object::ObjectCore",
           },
-          update_time: "2023-05-15T07:00:00Z"
+          {
+            address:
+              "0x1e2141f755b89422e8fc4b348e7a2f4b43a06cc3356f643fde7ccc6f6d7f1cb4",
+            move_resource:
+              '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"0","frozen":false,"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}',
+            raw_bytes:
+              "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdkAAAAAAAAAAAA=",
+            struct_tag: "0x1::fungible_asset::FungibleStore",
+          },
+        ],
+      },
+    "/initia/move/v1/accounts/0x4f73485a3e840d0d3baa691a6432e1f31c91e4f97cdc0dff465ab7d28e75379e/resources":
+      {
+        pagination: { next_key: null, total: "0" },
+        resources: [
+          {
+            address:
+              "0x4f73485a3e840d0d3baa691a6432e1f31c91e4f97cdc0dff465ab7d28e75379e",
+            move_resource:
+              '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0xa48b383a1d5ce0f2a663e69ce2ca5f921fe19fd6","version":"1"}}',
+            raw_bytes:
+              "AAAAAAAAAAAAAAAApIs4Oh1c4PKmY+ac4spfkh/hn9YAAQAAAAAAAAA=",
+            struct_tag: "0x1::object::ObjectCore",
+          },
+          {
+            address:
+              "0x4f73485a3e840d0d3baa691a6432e1f31c91e4f97cdc0dff465ab7d28e75379e",
+            move_resource:
+              '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"25356075","frozen":false,"metadata":{"inner":"0x543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1"}}}',
+            raw_bytes:
+              "VDs1o5z62tPaPCMknEdEVdFe/S+U+ElHMibe6KPHqeEr54IBAAAAAAA=",
+            struct_tag: "0x1::fungible_asset::FungibleStore",
+          },
+        ],
+      },
+    "/initia/move/v1/accounts/0x31a358ffa5db08ee9d97b9837247eb1cbb66c1943b323d074d3e241d358edc1e/resources":
+      {
+        pagination: { next_key: null, total: "0" },
+        resources: [
+          {
+            address:
+              "0x31a358ffa5db08ee9d97b9837247eb1cbb66c1943b323d074d3e241d358edc1e",
+            move_resource:
+              '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0xa48b383a1d5ce0f2a663e69ce2ca5f921fe19fd6","version":"1"}}',
+            raw_bytes:
+              "AAAAAAAAAAAAAAAApIs4Oh1c4PKmY+ac4spfkh/hn9YAAQAAAAAAAAA=",
+            struct_tag: "0x1::object::ObjectCore",
+          },
+          {
+            address:
+              "0x31a358ffa5db08ee9d97b9837247eb1cbb66c1943b323d074d3e241d358edc1e",
+            move_resource:
+              '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"583195695","frozen":false,"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}',
+            raw_bytes:
+              "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdkv3MIiAAAAAAA=",
+            struct_tag: "0x1::fungible_asset::FungibleStore",
+          },
+        ],
+      },
+    "/initia/move/v1/accounts/0x39e454a8b7b1b71b2c0c27bf4ce1fbe234652f2c40f1fc209b023beaa7ece013/resources":
+      {
+        pagination: { next_key: null, total: "0" },
+        resources: [
+          {
+            address:
+              "0x39e454a8b7b1b71b2c0c27bf4ce1fbe234652f2c40f1fc209b023beaa7ece013",
+            move_resource:
+              '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0x543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1","version":"1"}}',
+            raw_bytes:
+              "VDs1o5z62tPaPCMknEdEVdFe/S+U+ElHMibe6KPHqeEAAQAAAAAAAAA=",
+            struct_tag: "0x1::object::ObjectCore",
+          },
+          {
+            address:
+              "0x39e454a8b7b1b71b2c0c27bf4ce1fbe234652f2c40f1fc209b023beaa7ece013",
+            move_resource:
+              '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"2300487677883","frozen":false,"metadata":{"inner":"0xe0e9394b24e53775d6af87934ac02d73536ad58b7894f6ccff3f5e7c0d548e55"}}}',
+            raw_bytes:
+              "4Ok5SyTlN3XWr4eTSsAtc1Nq1Yd4lPbM/z9efA1UjlW7N8CfFwIAAAA=",
+            struct_tag: "0x1::fungible_asset::FungibleStore",
+          },
+        ],
+      },
+    "/initia/move/v1/accounts/0x66a8cb0bfb991610dcffb8a6543ac0887c7c5405b8f985ebed6d628fe50c4686/resources":
+      {
+        pagination: { next_key: null, total: "0" },
+        resources: [
+          {
+            address:
+              "0x66a8cb0bfb991610dcffb8a6543ac0887c7c5405b8f985ebed6d628fe50c4686",
+            move_resource:
+              '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0xf1829676db577682e944fc3493d451b67ff3e29f","version":"1"}}',
+            raw_bytes:
+              "AAAAAAAAAAAAAAAA8YKWdttXdoLpRPw0k9RRtn/z4p8AAQAAAAAAAAA=",
+            struct_tag: "0x1::object::ObjectCore",
+          },
+          {
+            address:
+              "0x66a8cb0bfb991610dcffb8a6543ac0887c7c5405b8f985ebed6d628fe50c4686",
+            move_resource:
+              '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"0","frozen":false,"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}',
+            raw_bytes:
+              "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdkAAAAAAAAAAAA=",
+            struct_tag: "0x1::fungible_asset::FungibleStore",
+          },
+        ],
+      },
+    "/initia/move/v1/accounts/0x84f9cc0aeed221dc8f39caf1bb8b79803e073493bf017514156e41d46060fb04/resources":
+      {
+        pagination: { next_key: null, total: "0" },
+        resources: [
+          {
+            address:
+              "0x84f9cc0aeed221dc8f39caf1bb8b79803e073493bf017514156e41d46060fb04",
+            move_resource:
+              '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0x48a642ebc654e13aef01d2fdd17c66aecd32f84dcfd02fa66e896188698375f0","version":"1"}}',
+            raw_bytes:
+              "AAAAAAAAAAAAAAASH6ZC68ZU4Trv4dL90XxmrsyjL4TPz6L6ZuiWGIaYN18AAQAAAAAAAAA=",
+            struct_tag: "0x1::object::ObjectCore",
+          },
+          {
+            address:
+              "0x84f9cc0aeed221dc8f39caf1bb8b79803e073493bf017514156e41d46060fb04",
+            move_resource:
+              '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"0","frozen":false,"metadata":{"inner":"0x543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1"}}}',
+            raw_bytes:
+              "VDs1o5z62tPaPCMknEdEVdFe/S+U+ElHMibe6KPHqeEAAAAAAAAAAAA=",
+            struct_tag: "0x1::fungible_asset::FungibleStore",
+          },
+        ],
+      },
+    "/initia/move/v1/accounts/0xba2a23251eb06923fadb03ea9856c66510fefc4dfa9abe92cfb2961c9145cfb3/resources":
+      {
+        pagination: { next_key: null, total: "0" },
+        resources: [
+          {
+            address:
+              "0xba2a23251eb06923fadb03ea9856c66510fefc4dfa9abe92cfb2961c9145cfb3",
+            move_resource:
+              '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0x93354845030274cd4bf1686abd60ab28ec52e1a7","version":"1"}}',
+            raw_bytes:
+              "AAAAAAAAAAAAAAAAAJNVSEUDAidNS/FoarvWCrKOxS4X8AAQAAAAAAAAA=",
+            struct_tag: "0x1::object::ObjectCore",
+          },
+          {
+            address:
+              "0xba2a23251eb06923fadb03ea9856c66510fefc4dfa9abe92cfb2961c9145cfb3",
+            move_resource:
+              '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"0","frozen":false,"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}',
+            raw_bytes:
+              "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdkAAAAAAAAAAAA=",
+            struct_tag: "0x1::fungible_asset::FungibleStore",
+          },
+        ],
+      },
+    "/initia/move/v1/accounts/0xbae31176bdad6a44f2a660d73fd95e48d914c7ae5bd52f3f99eb2833579ce51c/resources":
+      {
+        pagination: { next_key: null, total: "0" },
+        resources: [
+          {
+            address:
+              "0xbae31176bdad6a44f2a660d73fd95e48d914c7ae5bd52f3f99eb2833579ce51c",
+            move_resource:
+              '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0xa48b383a1d5ce0f2a663e69ce2ca5f921fe19fd6","version":"1"}}',
+            raw_bytes:
+              "AAAAAAAAAAAAAAAApIs4Oh1c4PKmY+ac4spfkh/hn9YAAQAAAAAAAAA=",
+            struct_tag: "0x1::object::ObjectCore",
+          },
+          {
+            address:
+              "0xbae31176bdad6a44f2a660d73fd95e48d914c7ae5bd52f3f99eb2833579ce51c",
+            move_resource:
+              '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"5229099","frozen":false,"metadata":{"inner":"0xe0e9394b24e53775d6af87934ac02d73536ad58b7894f6ccff3f5e7c0d548e55"}}}',
+            raw_bytes:
+              "4Ok5SyTlN3XWr4eTSsAtc1Nq1Yd4lPbM/z9efA1UjlUryk8AAAAAAAA=",
+            struct_tag: "0x1::fungible_asset::FungibleStore",
+          },
+        ],
+      },
+    "/initia/move/v1/accounts/0xd8d20f9cd225d52f126bd3f973cbb83de3212b1b3dae547f13dd01f593d537b3/resources":
+      {
+        pagination: { next_key: null, total: "0" },
+        resources: [
+          {
+            address:
+              "0xd8d20f9cd225d52f126bd3f973cbb83de3212b1b3dae547f13dd01f593d537b3",
+            move_resource:
+              '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0x543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1","version":"1"}}',
+            raw_bytes:
+              "VDs1o5z62tPaPCMknEdEVdFe/S+U+ElHMibe6KPHqeEAAQAAAAAAAAA=",
+            struct_tag: "0x1::object::ObjectCore",
+          },
+          {
+            address:
+              "0xd8d20f9cd225d52f126bd3f973cbb83de3212b1b3dae547f13dd01f593d537b3",
+            move_resource:
+              '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"20997773153743","frozen":false,"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}',
+            raw_bytes:
+              "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdnPVc/sGBMAAAA=",
+            struct_tag: "0x1::fungible_asset::FungibleStore",
+          },
+        ],
+      },
+    "/initia/move/v1/accounts/0xeae8f912db9acfb4901766874adc7f6dbb1d5fea4785a423671ba5afc59a710f/resources":
+      {
+        pagination: { next_key: null, total: "0" },
+        resources: [
+          {
+            address:
+              "0xeae8f912db9acfb4901766874adc7f6dbb1d5fea4785a423671ba5afc59a710f",
+            move_resource:
+              '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0x4fea76427b8345861e80a3540a8a9d936fd39391","version":"1"}}',
+            raw_bytes:
+              "AAAAAAAAAAAAAAAAT+p2QnuDRYYegKNUCoqdk2/Tk5EAAQAAAAAAAAA=",
+            struct_tag: "0x1::object::ObjectCore",
+          },
+          {
+            address:
+              "0xeae8f912db9acfb4901766874adc7f6dbb1d5fea4785a423671ba5afc59a710f",
+            move_resource:
+              '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"19165899045508","frozen":false,"metadata":{"inner":"0x543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1"}}}',
+            raw_bytes:
+              "VDs1o5z62tPaPCMknEdEVdFe/S+U+ElHMibe6KPHqeGEuppobhEAAAA=",
+            struct_tag: "0x1::fungible_asset::FungibleStore",
+          },
+        ],
+      },
+    "/initia/move/v1/denom?metadata=0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9":
+      {
+        denom: "uinit",
+      },
+    "/initia/move/v1/denom?metadata=0x543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1":
+      {
+        denom:
+          "move/543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1",
+      },
+    "/initia/move/v1/denom?metadata=0xe0e9394b24e53775d6af87934ac02d73536ad58b7894f6ccff3f5e7c0d548e55":
+      {
+        denom:
+          "ibc/6490A7EAB61059BFC1CDDEB05917DD70BDF3A611654162A1A47DB930D40D8AF4",
+      },
+    "/initia/mstaking/v1/validators/initvaloper1qx6ghyv83caecuxgl77lvlnha9d9y6fntryc8a":
+      {
+        validator: {
+          commission: {
+            commission_rates: {
+              max_change_rate: "0.010000000000000000",
+              max_rate: "0.200000000000000000",
+              rate: "0.050000000000000000",
+            },
+            update_time: "2023-05-15T07:00:00Z",
+          },
+          consensus_pubkey: {
+            "@type": "/cosmos.crypto.ed25519.PubKey",
+            key: "example_key",
+          },
+          delegator_shares: "1204902178007.000000000000000000",
+          description: {
+            details: "",
+            identity: "A2879F08F59FB0AF",
+            moniker: "Orbital Command",
+            security_contact: "",
+            website: "https://orbitalcommand.io",
+          },
+          jailed: false,
+          min_self_delegation: "1",
+          operator_address:
+            "initvaloper1qx6ghyv83caecuxgl77lvlnha9d9y6fntryc8a",
+          status: "BOND_STATUS_BONDED",
+          tokens: {
+            "move/543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1":
+              "606012699156",
+            uinit: "578509960082",
+          },
+          unbonding_height: "0",
+          unbonding_time: "1970-01-01T00:00:00Z",
         },
-        min_self_delegation: "1"
-      }
-    },
+      },
   },
   POST: {},
 };
