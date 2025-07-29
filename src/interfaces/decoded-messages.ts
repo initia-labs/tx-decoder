@@ -21,7 +21,8 @@ export type DecodedMessage =
   | DecodedSendMessage
   | DecodedSwapMessage
   | DecodedUndelegateMessage
-  | DecodedWithdrawDelegatorRewardMessage;
+  | DecodedWithdrawDelegatorRewardMessage
+  | DecodedWithdrawLiquidityMessage;
 
 interface DecodedSendMessage extends DecodedMessageBase {
   action: "send";
@@ -254,5 +255,18 @@ interface DecodedIbcNftReceiveMessage extends DecodedMessageBase {
     tokenAddress: string;
     tokenIds: string[];
     tokenUris: string[];
+  };
+}
+
+interface DecodedWithdrawLiquidityMessage extends DecodedMessageBase {
+  action: "withdraw_liquidity";
+  data: {
+    amountA: string;
+    amountB: string;
+    denomA: string;
+    denomB: string;
+    from: string;
+    liquidity: string;
+    liquidityDenom: string;
   };
 }

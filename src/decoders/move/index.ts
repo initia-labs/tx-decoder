@@ -7,3 +7,4 @@ export * from "./stable-swap";
 export * from "./undelegate-locked";
 export * from "./vip-lock-stake";
 export * from "./withdraw-delegator-reward-locked";
+export * from "./withdraw-liquidity";

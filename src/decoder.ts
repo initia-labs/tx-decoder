@@ -36,6 +36,7 @@ const messageDecoders: MessageDecoder[] = [
   Decoders.vipLockStakeDecoder,
   Decoders.withdrawDelegatorRewardDecoder,
   Decoders.withdrawDelegatorRewardLockedDecoder,
+  Decoders.withdrawLiquidityDecoder,
   // Add more decoders here in order of priority
 ];
 
