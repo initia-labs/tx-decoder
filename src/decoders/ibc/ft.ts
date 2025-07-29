@@ -42,6 +42,11 @@ export const ibcSendFtDecoder: MessageDecoder = {
     )?.value;
     if (!dstPort) throw new Error(`IBC Transfer dst port not found`);
 
+    const sequence = event.attributes.find(
+      (attr) => attr.key === "packet_sequence"
+    )?.value;
+    if (!sequence) throw new Error(`IBC Transfer sequence not found`);
+
     const srcChainId = await apiClient.getChainId();
 
     const dstChainId = await apiClient.findIbcCounterPartyChainId(
@@ -61,6 +66,7 @@ export const ibcSendFtDecoder: MessageDecoder = {
         dstPort,
         receiver,
         sender,
+        sequence,
         srcChainId,
         srcChannel: source_channel,
         srcPort: source_port,
@@ -85,6 +91,7 @@ export const ibcReceiveFtDecoder: MessageDecoder = {
         data,
         destination_channel,
         destination_port,
+        sequence,
         source_channel,
         source_port,
         timeout_height,
@@ -117,6 +124,7 @@ export const ibcReceiveFtDecoder: MessageDecoder = {
         dstPort: destination_port,
         receiver: parsedPacket.receiver,
         sender: parsedPacket.sender,
+        sequence,
         srcChainId,
         srcChannel: source_channel,
         srcPort: source_port,

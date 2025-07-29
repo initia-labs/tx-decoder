@@ -45,6 +45,7 @@ interface DecodedIbcFtSendMessage extends DecodedMessageBase {
     dstPort: string;
     receiver: string;
     sender: string;
+    sequence: string;
     srcChainId: string;
     srcChannel: string;
     srcPort: string;
@@ -66,6 +67,7 @@ interface DecodedIbcFtReceiveMessage extends DecodedMessageBase {
     dstPort: string;
     receiver: string;
     sender: string;
+    sequence: string;
     srcChainId: string;
     srcChannel: string;
     srcPort: string;
@@ -210,6 +212,7 @@ interface DecodedIbcNftSendMessage extends DecodedMessageBase {
     dstPort: string;
     receiver: string;
     sender: string;
+    sequence: string;
     srcChainId: string;
     srcChannel: string;
     srcPort: string;
@@ -239,6 +242,7 @@ interface DecodedIbcNftReceiveMessage extends DecodedMessageBase {
     dstPort: string;
     receiver: string;
     sender: string;
+    sequence: string;
     srcChainId: string;
     srcChannel: string;
     srcPort: string;
