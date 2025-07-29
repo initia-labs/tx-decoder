@@ -17,6 +17,7 @@ import { createNotSupportedMessage } from "./utils";
 const messageDecoders: MessageDecoder[] = [
   Decoders.delegateDecoder,
   Decoders.delegateLockedDecoder,
+  Decoders.depositLiquidityDecoder,
   Decoders.dexSwapDecoder,
   Decoders.finalizeTokenWithdrawalDecoder,
   Decoders.ibcReceiveNftDecoder,

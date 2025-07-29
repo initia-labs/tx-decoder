@@ -7,6 +7,7 @@ interface DecodedMessageBase {
 
 export type DecodedMessage =
   | DecodedDelegateMessage
+  | DecodedDepositLiquidityMessage
   | DecodedFinalizeTokenWithdrawalMessage
   | DecodedIbcFtReceiveMessage
   | DecodedIbcFtSendMessage
@@ -254,5 +255,18 @@ interface DecodedIbcNftReceiveMessage extends DecodedMessageBase {
     tokenAddress: string;
     tokenIds: string[];
     tokenUris: string[];
+  };
+}
+
+interface DecodedDepositLiquidityMessage extends DecodedMessageBase {
+  action: "deposit_liquidity";
+  data: {
+    amountA: string;
+    amountB: string;
+    denomA: string;
+    denomB: string;
+    from: string;
+    liquidity: string;
+    liquidityDenom: string;
   };
 }
