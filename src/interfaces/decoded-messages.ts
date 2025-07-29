@@ -8,6 +8,7 @@ interface DecodedMessageBase {
 export type DecodedMessage =
   | DecodedDelegateMessage
   | DecodedDepositLiquidityMessage
+  | DecodedDepositStakeLiquidityMessage
   | DecodedFinalizeTokenWithdrawalMessage
   | DecodedIbcFtReceiveMessage
   | DecodedIbcFtSendMessage
@@ -268,5 +269,20 @@ interface DecodedDepositLiquidityMessage extends DecodedMessageBase {
     from: string;
     liquidity: string;
     liquidityDenom: string;
+  };
+}
+
+interface DecodedDepositStakeLiquidityMessage extends DecodedMessageBase {
+  action: "deposit_stake_liquidity";
+  data: {
+    amountA: string;
+    amountB: string;
+    denomA: string;
+    denomB: string;
+    from: string;
+    liquidity: string;
+    liquidityDenom: string;
+    validator: Validator | null;
+    validatorAddress: string;
   };
 }

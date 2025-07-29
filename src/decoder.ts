@@ -18,6 +18,7 @@ const messageDecoders: MessageDecoder[] = [
   Decoders.delegateDecoder,
   Decoders.delegateLockedDecoder,
   Decoders.depositLiquidityDecoder,
+  Decoders.depositStakeLiquidityDecoder,
   Decoders.dexSwapDecoder,
   Decoders.finalizeTokenWithdrawalDecoder,
   Decoders.ibcReceiveNftDecoder,
