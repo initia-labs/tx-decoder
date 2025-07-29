@@ -43,9 +43,12 @@ export const depositStakeLockLiquidityDecoder: MessageDecoder = {
       const validatorAttr = delegateEvent.attributes.find(
         (attr) => attr.key === "validator"
       );
-      if (validatorAttr) {
-        validatorAddress = validatorAttr.value;
+
+      if (!validatorAttr) {
+        throw new Error("Validator is missing from the delegate event");
       }
+
+      validatorAddress = validatorAttr.value;
     }
 
     // Find the DepositDelegationEvent to extract release time

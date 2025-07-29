@@ -34,9 +34,12 @@ export const depositStakeLiquidityDecoder: MessageDecoder = {
       const validatorAttr = delegateEvent.attributes.find(
         (attr) => attr.key === "validator"
       );
-      if (validatorAttr) {
-        validatorAddress = validatorAttr.value;
+
+      if (!validatorAttr) {
+        throw new Error("Validator is missing from the delegate event");
       }
+
+      validatorAddress = validatorAttr.value;
     }
 
     const [denomA, denomB, liquidityDenom, validatorData] = await Promise.all([
