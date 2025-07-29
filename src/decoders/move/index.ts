@@ -1,6 +1,7 @@
 export * from "./delegate-locked";
 export * from "./dex-swap";
 export * from "./extend-liquidity";
+export * from "./merge-liquidity";
 export * from "./nft";
 export * from "./object-transfer";
 export * from "./redelegate-locked";

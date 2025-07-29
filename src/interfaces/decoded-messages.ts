@@ -23,7 +23,8 @@ export type DecodedMessage =
   | DecodedUndelegateMessage
   | DecodedWithdrawDelegatorRewardMessage
   | DecodedWithdrawLiquidityMessage
-  | DecodedExtendLiquidityMessage;
+  | DecodedExtendLiquidityMessage
+  | DecodedMergeLiquidityMessage;
 
 interface DecodedSendMessage extends DecodedMessageBase {
   action: "send";
@@ -274,6 +275,19 @@ interface DecodedWithdrawLiquidityMessage extends DecodedMessageBase {
 
 interface DecodedExtendLiquidityMessage extends DecodedMessageBase {
   action: "extend_liquidity";
+  data: {
+    from: string;
+    liquidity: string;
+    liquidityDenom: string;
+    initialReleaseTimestamp: string;
+    newReleaseTimestamp: string;
+    validator: Validator | null;
+    validatorAddress: string;
+  };
+}
+
+interface DecodedMergeLiquidityMessage extends DecodedMessageBase {
+  action: "merge_liquidity";
   data: {
     from: string;
     liquidity: string;
