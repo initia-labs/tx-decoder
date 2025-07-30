@@ -127,7 +127,6 @@ export const zProvideEvent = zJsonString.pipe(
     liquidity_token: z.string(),
   })
 );
-
 export const zDexWithdrawEvent = zJsonString.pipe(
   z.object({
     coin_a: z.string(),

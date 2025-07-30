@@ -304,19 +304,6 @@ interface DecodedDepositStakeLiquidityMessage extends DecodedMessageBase {
   };
 }
 
-interface DecodedExtendLiquidityMessage extends DecodedMessageBase {
-  action: "extend_liquidity";
-  data: {
-    from: string;
-    initialReleaseTimestamp: string;
-    liquidity: string;
-    liquidityDenom: string;
-    newReleaseTimestamp: string;
-    validator: Validator | null;
-    validatorAddress: string;
-  };
-}
-
 interface DecodedDepositStakeLockLiquidityMessage extends DecodedMessageBase {
   action: "deposit_stake_lock_liquidity";
   data: {
@@ -332,7 +319,18 @@ interface DecodedDepositStakeLockLiquidityMessage extends DecodedMessageBase {
     validatorAddress: string;
   };
 }
-
+interface DecodedExtendLiquidityMessage extends DecodedMessageBase {
+  action: "extend_liquidity";
+  data: {
+    from: string;
+    initialReleaseTimestamp: string;
+    liquidity: string;
+    liquidityDenom: string;
+    newReleaseTimestamp: string;
+    validator: Validator | null;
+    validatorAddress: string;
+  };
+}
 interface DecodedMergeLiquidityMessage extends DecodedMessageBase {
   action: "merge_liquidity";
   data: {
