@@ -15,6 +15,7 @@ import { createNotSupportedMessage } from "./utils";
 
 // Array of decoders ordered by priority
 const messageDecoders: MessageDecoder[] = [
+  Decoders.claimMinitswapDecoder,
   Decoders.delegateDecoder,
   Decoders.delegateLockedDecoder,
   Decoders.depositMinitswapDecoder,

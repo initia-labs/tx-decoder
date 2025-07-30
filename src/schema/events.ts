@@ -157,3 +157,12 @@ export const zBurnEvent = zJsonString.pipe(
     amount: z.string(),
   })
 );
+
+export const zMinitswapWithdrawUnbondEvent = zJsonString.pipe(
+  z.object({
+    account: z.string(),
+    share_amount: z.string(),
+    withdraw_amount: z.string(),
+    release_time: z.string(),
+  })
+);

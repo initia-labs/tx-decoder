@@ -6,6 +6,7 @@ interface DecodedMessageBase {
 }
 
 export type DecodedMessage =
+  | DecodedClaimMinitswapMessage
   | DecodedDelegateMessage
   | DecodedDepositMinitswapMessage
   | DecodedDepositLiquidityMessage
@@ -273,6 +274,15 @@ interface DecodedWithdrawMinitswapMessage extends DecodedMessageBase {
     denomWithdrawn: string;
     from: string;
     releaseTime: string;
+  };
+}
+
+interface DecodedClaimMinitswapMessage extends DecodedMessageBase {
+  action: "claim_minitswap";
+  data: {
+    amount: string;
+    denom: string;
+    from: string;
   };
 }
 

@@ -1,3 +1,4 @@
+export * from "./claim-minitswap";
 export * from "./delegate-locked";
 export * from "./deposit-minitswap";
 export * from "./deposit-liquidity";
