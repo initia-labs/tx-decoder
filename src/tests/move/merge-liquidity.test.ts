@@ -48,5 +48,15 @@ describe("Merge Liquidity Message", () => {
       isIbc: false,
       isOp: false,
     });
+
+    expect(decoded.messages[0].balanceChanges).toEqual({
+      ft: {},
+      object: {},
+    });
+
+    expect(decoded.totalBalanceChanges).toEqual({
+      ft: {},
+      object: {},
+    });
   });
 });
