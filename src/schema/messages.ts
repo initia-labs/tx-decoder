@@ -4,6 +4,7 @@ import {
   DEX_UTILS_MODULE_ADDRESS,
   LOCK_STAKING_MODULE_ADDRESS,
   USERNAME_MODULE_ADDRESSES,
+  VIP_MODULE_ADDRESS,
 } from "@/constants";
 
 import { SUPPORTED_MESSAGE_TYPES } from "../message-types";
@@ -112,6 +113,12 @@ export const zMsgDelegateLocked = zMsgMoveExecute.extend({
 export const zMsgVipLockStake = zMsgMoveExecute.extend({
   function_name: z.literal("batch_lock_stake_script"),
   module_address: z.literal(LOCK_STAKING_MODULE_ADDRESS),
+  module_name: z.literal("vip"),
+});
+
+export const zMsgVipClaimEsinit = zMsgMoveExecute.extend({
+  function_name: z.literal("batch_claim_user_reward_script"),
+  module_address: z.literal(VIP_MODULE_ADDRESS),
   module_name: z.literal("vip"),
 });
 

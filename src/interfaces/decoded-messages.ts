@@ -24,6 +24,7 @@ export type DecodedMessage =
   | DecodedSendMessage
   | DecodedSwapMessage
   | DecodedUndelegateMessage
+  | DecodedVipClaimEsinitMessage
   | DecodedWithdrawDelegatorRewardMessage;
 
 interface DecodedSendMessage extends DecodedMessageBase {
@@ -301,5 +302,14 @@ interface DecodedDepositStakeLockLiquidityMessage extends DecodedMessageBase {
     releaseTimestamp: string;
     validator: Validator | null;
     validatorAddress: string;
+  };
+}
+
+interface DecodedVipClaimEsinitMessage extends DecodedMessageBase {
+  action: "vip_claim_esinit";
+  data: {
+    amount: string;
+    denom: string;
+    from: string;
   };
 }
