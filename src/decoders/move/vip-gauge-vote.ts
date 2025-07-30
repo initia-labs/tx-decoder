@@ -31,8 +31,8 @@ export const vipGaugeVoteDecoder: MessageDecoder = {
       voteEvent.weights.map(async (weight) => {
         const rollup = await apiClient.findRollupChainId(weight.bridge_id);
         return {
-          rollup: rollup || `bridge-${weight.bridge_id}`,
           amount: parseFloat(weight.weight),
+          rollup: rollup || `bridge-${weight.bridge_id}`,
         };
       })
     );

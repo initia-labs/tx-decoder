@@ -320,8 +320,8 @@ interface DecodedVipGaugeVoteMessage extends DecodedMessageBase {
   data: {
     from: string;
     votes: Array<{
-      rollup: string;
       amount: number;
+      rollup: string;
     }>;
   };
 }

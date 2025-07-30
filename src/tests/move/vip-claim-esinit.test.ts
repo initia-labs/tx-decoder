@@ -35,11 +35,11 @@ describe("VIP Claim Esinit Message", () => {
 
     expect(decoded.messages[0].balanceChanges).toEqual({
       ft: {
-        init15j9nswsatns09fnru6ww9jjljg07r87kr56mdc: {
-          uinit: "321024551",
-        },
         init1pr4sze93xvpt5gqevaswmvswjavpjaxwjz6gp7rm6yxsgctk5mqqzc0nz5: {
           uinit: "-321024551",
+        },
+        init15j9nswsatns09fnru6ww9jjljg07r87kr56mdc: {
+          uinit: "321024551",
         },
       },
       object: {},
@@ -47,11 +47,11 @@ describe("VIP Claim Esinit Message", () => {
 
     expect(decoded.totalBalanceChanges).toEqual({
       ft: {
-        init15j9nswsatns09fnru6ww9jjljg07r87kr56mdc: {
-          uinit: "321024551",
-        },
         init1pr4sze93xvpt5gqevaswmvswjavpjaxwjz6gp7rm6yxsgctk5mqqzc0nz5: {
           uinit: "-321024551",
+        },
+        init15j9nswsatns09fnru6ww9jjljg07r87kr56mdc: {
+          uinit: "321024551",
         },
       },
       object: {},

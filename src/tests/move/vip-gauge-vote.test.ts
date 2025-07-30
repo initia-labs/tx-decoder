@@ -28,8 +28,8 @@ describe("VIP Gauge Vote Message", () => {
         from: "init15j9nswsatns09fnru6ww9jjljg07r87kr56mdc",
         votes: [
           {
-            rollup: "minimove-1",
             amount: 0.1,
+            rollup: "minimove-1",
           },
         ],
       },
