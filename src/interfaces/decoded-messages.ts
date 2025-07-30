@@ -25,6 +25,7 @@ export type DecodedMessage =
   | DecodedSwapMessage
   | DecodedUndelegateMessage
   | DecodedVipClaimEsinitMessage
+  | DecodedVipGaugeVoteMessage
   | DecodedWithdrawDelegatorRewardMessage;
 
 interface DecodedSendMessage extends DecodedMessageBase {
@@ -311,5 +312,16 @@ interface DecodedVipClaimEsinitMessage extends DecodedMessageBase {
     amount: string;
     denom: string;
     from: string;
+  };
+}
+
+interface DecodedVipGaugeVoteMessage extends DecodedMessageBase {
+  action: "vip_gauge_vote";
+  data: {
+    from: string;
+    votes: Array<{
+      rollup: string;
+      amount: number;
+    }>;
   };
 }

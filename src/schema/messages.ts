@@ -122,6 +122,12 @@ export const zMsgVipClaimEsinit = zMsgMoveExecute.extend({
   module_name: z.literal("vip"),
 });
 
+export const zMsgVipGaugeVote = zMsgMoveExecute.extend({
+  function_name: z.literal("vote"),
+  module_address: z.literal(VIP_MODULE_ADDRESS),
+  module_name: z.literal("weight_vote"),
+});
+
 export const zMsgUndelegateLocked = zMsgMoveExecute.extend({
   function_name: z.literal("undelegate"),
   module_address: z.literal(LOCK_STAKING_MODULE_ADDRESS),
