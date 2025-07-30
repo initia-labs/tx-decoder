@@ -8,6 +8,9 @@ interface DecodedMessageBase {
 export type DecodedMessage =
   | DecodedDelegateMessage
   | DecodedDepositMinitswapMessage
+  | DecodedDepositLiquidityMessage
+  | DecodedDepositStakeLiquidityMessage
+  | DecodedDepositStakeLockLiquidityMessage
   | DecodedFinalizeTokenWithdrawalMessage
   | DecodedIbcFtReceiveMessage
   | DecodedIbcFtSendMessage
@@ -258,5 +261,49 @@ interface DecodedDepositMinitswapMessage extends DecodedMessageBase {
     denomDeposited: string;
     denomReceived: string;
     from: string;
+  };
+}
+
+interface DecodedDepositLiquidityMessage extends DecodedMessageBase {
+  action: "deposit_liquidity";
+  data: {
+    amountA: string;
+    amountB: string;
+    denomA: string;
+    denomB: string;
+    from: string;
+    liquidity: string;
+    liquidityDenom: string;
+  };
+}
+
+interface DecodedDepositStakeLiquidityMessage extends DecodedMessageBase {
+  action: "deposit_stake_liquidity";
+  data: {
+    amountA: string;
+    amountB: string;
+    denomA: string;
+    denomB: string;
+    from: string;
+    liquidity: string;
+    liquidityDenom: string;
+    validator: Validator | null;
+    validatorAddress: string;
+  };
+}
+
+interface DecodedDepositStakeLockLiquidityMessage extends DecodedMessageBase {
+  action: "deposit_stake_lock_liquidity";
+  data: {
+    amountA: string;
+    amountB: string;
+    denomA: string;
+    denomB: string;
+    from: string;
+    liquidity: string;
+    liquidityDenom: string;
+    releaseTimestamp: string;
+    validator: Validator | null;
+    validatorAddress: string;
   };
 }
