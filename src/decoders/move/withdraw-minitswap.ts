@@ -4,9 +4,9 @@ import type { Log, Message } from "@/schema";
 import { ApiClient } from "@/api";
 import { zMsgWithdrawMinitswap } from "@/schema";
 import {
+  zBurnEvent,
   zMinitswapUnbondEvent,
   zWithdrawEvent,
-  zBurnEvent,
 } from "@/schema/events";
 import { findMoveEvent } from "@/utils";
 
@@ -62,8 +62,8 @@ export const withdrawMinitswapDecoder: MessageDecoder = {
     const decodedMessage: DecodedMessage = {
       action: "withdraw_minitswap",
       data: {
-        amountWithdrawn: unbondEvent.share_amount,
         amountReceived: unbondEvent.withdraw_amount,
+        amountWithdrawn: unbondEvent.share_amount,
         denomWithdrawn: shareTokenDenom,
         from: sender,
         releaseTime: unbondEvent.release_time,

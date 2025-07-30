@@ -338,32 +338,32 @@ export const mockMsgWithdrawMinitswap = {
 
 export const mockApiResponsesForDepositMinitswap = {
   GET: {
-    "/initia/move/v1/denom?metadata=0x3ae46e9923ea036dcd788b81ae81b5a1e6dd768cca41a1b18370f858dea883ca":
-      {
-        denom: "uoinit",
-      },
     "/initia/move/v1/accounts/0x355c88ca14d35a7a4cb45588ab78889ce9e4396c49b786278e8587654e37956/resources":
       {
+        pagination: { next_key: null, total: "0" },
         resources: [
           {
             address:
               "0x355c88ca14d35a7a4cb45588ab78889ce9e4396c49b786278e8587654e37956",
-            struct_tag: "0x1::object::ObjectCore",
             move_resource:
               '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0xa48b383a1d5ce0f2a663e69ce2ca5f921fe19fd6","version":"1"}}',
             raw_bytes:
               "AAAAAAAAAAAAAAAApIs4Oh1c4PKmY+ac4spfkh/hn9YAAQAAAAAAAAA=",
+            struct_tag: "0x1::object::ObjectCore",
           },
           {
             address:
               "0x355c88ca14d35a7a4cb45588ab78889ce9e4396c49b786278e8587654e37956",
-            struct_tag: "0x1::fungible_asset::FungibleStore",
             move_resource:
               '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"1000000","frozen":false,"metadata":{"inner":"0x3ae46e9923ea036dcd788b81ae81b5a1e6dd768cca41a1b18370f858dea883ca"}}}',
             raw_bytes: "Ouko6SPqA23N2LuBruS1oebdnNsjBOhBs3D+DKiNj77ONQAAAAAAA=",
+            struct_tag: "0x1::fungible_asset::FungibleStore",
           },
         ],
-        pagination: { next_key: null, total: "0" },
+      },
+    "/initia/move/v1/denom?metadata=0x3ae46e9923ea036dcd788b81ae81b5a1e6dd768cca41a1b18370f858dea883ca":
+      {
+        denom: "uoinit",
       },
   },
 };

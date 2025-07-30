@@ -35,11 +35,11 @@ describe("Claim Minitswap Message", () => {
 
     expect(decoded.messages[0].balanceChanges).toEqual({
       ft: {
-        init15j9nswsatns09fnru6ww9jjljg07r87kr56mdc: {
-          uinit: "103338",
-        },
         init1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqpqr5e3d: {
           uinit: "-103338",
+        },
+        init15j9nswsatns09fnru6ww9jjljg07r87kr56mdc: {
+          uinit: "103338",
         },
       },
       object: {},
@@ -47,11 +47,11 @@ describe("Claim Minitswap Message", () => {
 
     expect(decoded.totalBalanceChanges).toEqual({
       ft: {
-        init15j9nswsatns09fnru6ww9jjljg07r87kr56mdc: {
-          uinit: "103338",
-        },
         init1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqpqr5e3d: {
           uinit: "-103338",
+        },
+        init15j9nswsatns09fnru6ww9jjljg07r87kr56mdc: {
+          uinit: "103338",
         },
       },
       object: {},

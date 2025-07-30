@@ -5,8 +5,8 @@ import { ApiClient } from "@/api";
 import { zMsgDepositMinitswap } from "@/schema";
 import {
   zMinitswapProvideEvent,
-  zWithdrawEvent,
   zMintEvent,
+  zWithdrawEvent,
 } from "@/schema/events";
 import { findMoveEvent } from "@/utils";
 

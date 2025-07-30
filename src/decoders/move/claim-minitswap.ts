@@ -4,9 +4,9 @@ import type { Log, Message } from "@/schema";
 import { ApiClient } from "@/api";
 import { zMsgClaimMinitswap } from "@/schema";
 import {
+  zDepositEvent,
   zMinitswapWithdrawUnbondEvent,
   zWithdrawEvent,
-  zDepositEvent,
 } from "@/schema/events";
 import { findMoveEvent } from "@/utils";
 

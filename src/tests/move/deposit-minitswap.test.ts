@@ -1,6 +1,6 @@
 import {
-  mockMsgDepositMinitswap,
   mockApiResponsesForDepositMinitswap,
+  mockMsgDepositMinitswap,
 } from "../fixtures/move/deposit-minitswap.fixture";
 import {
   initialize,
@@ -38,12 +38,12 @@ describe("Deposit Minitswap Message", () => {
 
     expect(decoded.messages[0].balanceChanges).toEqual({
       ft: {
+        init1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqpqr5e3d: {
+          uinit: "1000000",
+        },
         init15j9nswsatns09fnru6ww9jjljg07r87kr56mdc: {
           uinit: "-1000000",
           uoinit: "967693",
-        },
-        init1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqpqr5e3d: {
-          uinit: "1000000",
         },
       },
       object: {},
@@ -51,12 +51,12 @@ describe("Deposit Minitswap Message", () => {
 
     expect(decoded.totalBalanceChanges).toEqual({
       ft: {
+        init1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqpqr5e3d: {
+          uinit: "1000000",
+        },
         init15j9nswsatns09fnru6ww9jjljg07r87kr56mdc: {
           uinit: "-1000000",
           uoinit: "967693",
-        },
-        init1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqpqr5e3d: {
-          uinit: "1000000",
         },
       },
       object: {},

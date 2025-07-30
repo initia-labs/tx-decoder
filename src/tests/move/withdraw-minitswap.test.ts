@@ -25,8 +25,8 @@ describe("Withdraw Minitswap Message", () => {
     expect(decoded.messages[0].decodedMessage).toEqual({
       action: "withdraw_minitswap",
       data: {
-        amountWithdrawn: "1000000",
         amountReceived: "1033384",
+        amountWithdrawn: "1000000",
         denomWithdrawn: "uoinit",
         from: "init15j9nswsatns09fnru6ww9jjljg07r87kr56mdc",
         releaseTime: "1753430669",
