@@ -7,6 +7,9 @@ interface DecodedMessageBase {
 
 export type DecodedMessage =
   | DecodedDelegateMessage
+  | DecodedDepositLiquidityMessage
+  | DecodedDepositStakeLiquidityMessage
+  | DecodedDepositStakeLockLiquidityMessage
   | DecodedFinalizeTokenWithdrawalMessage
   | DecodedIbcFtReceiveMessage
   | DecodedIbcFtSendMessage
@@ -260,6 +263,19 @@ interface DecodedIbcNftReceiveMessage extends DecodedMessageBase {
   };
 }
 
+interface DecodedDepositLiquidityMessage extends DecodedMessageBase {
+  action: "deposit_liquidity";
+  data: {
+    amountA: string;
+    amountB: string;
+    denomA: string;
+    denomB: string;
+    from: string;
+    liquidity: string;
+    liquidityDenom: string;
+  };
+}
+
 interface DecodedWithdrawLiquidityMessage extends DecodedMessageBase {
   action: "withdraw_liquidity";
   data: {
@@ -273,6 +289,21 @@ interface DecodedWithdrawLiquidityMessage extends DecodedMessageBase {
   };
 }
 
+interface DecodedDepositStakeLiquidityMessage extends DecodedMessageBase {
+  action: "deposit_stake_liquidity";
+  data: {
+    amountA: string;
+    amountB: string;
+    denomA: string;
+    denomB: string;
+    from: string;
+    liquidity: string;
+    liquidityDenom: string;
+    validator: Validator | null;
+    validatorAddress: string;
+  };
+}
+
 interface DecodedExtendLiquidityMessage extends DecodedMessageBase {
   action: "extend_liquidity";
   data: {
@@ -281,6 +312,22 @@ interface DecodedExtendLiquidityMessage extends DecodedMessageBase {
     liquidityDenom: string;
     initialReleaseTimestamp: string;
     newReleaseTimestamp: string;
+    validator: Validator | null;
+    validatorAddress: string;
+  };
+}
+
+interface DecodedDepositStakeLockLiquidityMessage extends DecodedMessageBase {
+  action: "deposit_stake_lock_liquidity";
+  data: {
+    amountA: string;
+    amountB: string;
+    denomA: string;
+    denomB: string;
+    from: string;
+    liquidity: string;
+    liquidityDenom: string;
+    releaseTimestamp: string;
     validator: Validator | null;
     validatorAddress: string;
   };
