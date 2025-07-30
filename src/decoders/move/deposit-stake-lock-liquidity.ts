@@ -1,29 +1,19 @@
 import { ApiClient } from "@/api";
+import { LOCK_STAKING_MODULE_ADDRESS } from "@/constants";
 import { DecodedMessage, MessageDecoder } from "@/interfaces";
 import {
   Log,
   Message,
   zDepositDelegationEvent,
-  zMsgMoveExecute,
+  zMsgDepositStakeLockLiquidity,
   zProvideEvent,
 } from "@/schema";
 import { findMoveEvent } from "@/utils";
 
-const LOCK_STAKING_MODULE_ADDRESS =
-  "0x3a886b32a802582f2e446e74d4a24d1d7ed01adf46d2a8f65c5723887e708789";
-
 export const depositStakeLockLiquidityDecoder: MessageDecoder = {
-  check: (message: Message, _log: Log) => {
-    if (!zMsgMoveExecute.safeParse(message).success) return false;
-
-    const parsed = zMsgMoveExecute.parse(message);
-    return (
-      parsed.function_name === "unproportional_provide_lock_stake" &&
-      parsed.module_name === "dex_utils"
-    );
-  },
+  check: (message: Message, _log: Log) => zMsgDepositStakeLockLiquidity.safeParse(message).success,
   decode: async (message: Message, log: Log, apiClient: ApiClient) => {
-    const parsed = zMsgMoveExecute.parse(message);
+    const parsed = zMsgDepositStakeLockLiquidity.parse(message);
     const { sender } = parsed;
 
     const provideEvent = findMoveEvent(
@@ -38,17 +28,12 @@ export const depositStakeLockLiquidityDecoder: MessageDecoder = {
     // Find the delegate event to extract validator information
     const delegateEvent = log.events.find((event) => event.type === "delegate");
 
-    let validatorAddress = "";
-    if (delegateEvent) {
-      const validatorAttr = delegateEvent.attributes.find(
-        (attr) => attr.key === "validator"
-      );
+    const validatorAddress = delegateEvent?.attributes.find(
+      (attr) => attr.key === "validator"
+    )?.value;
 
-      if (!validatorAttr) {
-        throw new Error("Validator is missing from the delegate event");
-      }
-
-      validatorAddress = validatorAttr.value;
+    if (!validatorAddress) {
+      throw new Error("Validator is missing from the delegate event");
     }
 
     // Find the DepositDelegationEvent to extract release time
@@ -65,7 +50,7 @@ export const depositStakeLockLiquidityDecoder: MessageDecoder = {
       apiClient.findDenomFromMetadataAddr(provideEvent.coin_a),
       apiClient.findDenomFromMetadataAddr(provideEvent.coin_b),
       apiClient.findDenomFromMetadataAddr(provideEvent.liquidity_token),
-      validatorAddress ? apiClient.findValidator(validatorAddress) : null,
+      apiClient.findValidator(validatorAddress),
     ]);
 
     if (!denomA) {

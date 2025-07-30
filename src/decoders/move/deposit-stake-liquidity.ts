@@ -1,20 +1,12 @@
 import { ApiClient } from "@/api";
 import { DecodedMessage, MessageDecoder } from "@/interfaces";
-import { Log, Message, zMsgMoveExecute, zProvideEvent } from "@/schema";
+import { Log, Message, zMsgDepositStakeLiquidity, zProvideEvent } from "@/schema";
 import { findMoveEvent } from "@/utils";
 
 export const depositStakeLiquidityDecoder: MessageDecoder = {
-  check: (message: Message, _log: Log) => {
-    if (!zMsgMoveExecute.safeParse(message).success) return false;
-
-    const parsed = zMsgMoveExecute.parse(message);
-    return (
-      parsed.function_name === "unproportional_provide_stake" &&
-      parsed.module_name === "dex_utils"
-    );
-  },
+  check: (message: Message, _log: Log) => zMsgDepositStakeLiquidity.safeParse(message).success,
   decode: async (message: Message, log: Log, apiClient: ApiClient) => {
-    const parsed = zMsgMoveExecute.parse(message);
+    const parsed = zMsgDepositStakeLiquidity.parse(message);
     const { sender } = parsed;
 
     const provideEvent = findMoveEvent(
@@ -29,24 +21,19 @@ export const depositStakeLiquidityDecoder: MessageDecoder = {
     // Find the delegate event to extract validator information
     const delegateEvent = log.events.find((event) => event.type === "delegate");
 
-    let validatorAddress = "";
-    if (delegateEvent) {
-      const validatorAttr = delegateEvent.attributes.find(
-        (attr) => attr.key === "validator"
-      );
+    const validatorAddress = delegateEvent?.attributes.find(
+      (attr) => attr.key === "validator"
+    )?.value;
 
-      if (!validatorAttr) {
-        throw new Error("Validator is missing from the delegate event");
-      }
-
-      validatorAddress = validatorAttr.value;
+    if (!validatorAddress) {
+      throw new Error("Validator is missing from the delegate event");
     }
 
     const [denomA, denomB, liquidityDenom, validatorData] = await Promise.all([
       apiClient.findDenomFromMetadataAddr(provideEvent.coin_a),
       apiClient.findDenomFromMetadataAddr(provideEvent.coin_b),
       apiClient.findDenomFromMetadataAddr(provideEvent.liquidity_token),
-      validatorAddress ? apiClient.findValidator(validatorAddress) : null,
+      apiClient.findValidator(validatorAddress),
     ]);
 
     if (!denomA) {

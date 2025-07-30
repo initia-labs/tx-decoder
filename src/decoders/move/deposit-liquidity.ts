@@ -1,20 +1,12 @@
 import { ApiClient } from "@/api";
 import { DecodedMessage, MessageDecoder } from "@/interfaces";
-import { Log, Message, zMsgMoveExecute, zProvideEvent } from "@/schema";
+import { Log, Message, zMsgDepositLiquidity, zProvideEvent } from "@/schema";
 import { findMoveEvent } from "@/utils";
 
 export const depositLiquidityDecoder: MessageDecoder = {
-  check: (message: Message, _log: Log) => {
-    if (!zMsgMoveExecute.safeParse(message).success) return false;
-
-    const parsed = zMsgMoveExecute.parse(message);
-    return (
-      parsed.function_name === "unproportional_provide" &&
-      parsed.module_name === "dex_utils"
-    );
-  },
+  check: (message: Message, _log: Log) => zMsgDepositLiquidity.safeParse(message).success,
   decode: async (message: Message, log: Log, apiClient: ApiClient) => {
-    const parsed = zMsgMoveExecute.parse(message);
+    const parsed = zMsgDepositLiquidity.parse(message);
     const { sender } = parsed;
 
     const provideEvent = findMoveEvent(

@@ -207,3 +207,21 @@ export const zMsgIbcRecvPacket = z.object({
   }),
   signer: z.string(),
 });
+
+export const zMsgDepositStakeLiquidity = zMsgMoveExecute.extend({
+  function_name: z.literal("unproportional_provide_stake"),
+  module_address: z.literal("0xb6bf50aa9d5f827458a5424d41ef81a4ef8d7fd0"),
+  module_name: z.literal("dex_utils"),
+});
+
+export const zMsgDepositLiquidity = zMsgMoveExecute.extend({
+  function_name: z.literal("unproportional_provide"),
+  module_address: z.literal("0xb6bf50aa9d5f827458a5424d41ef81a4ef8d7fd0"),
+  module_name: z.literal("dex_utils"),
+});
+
+export const zMsgDepositStakeLockLiquidity = zMsgMoveExecute.extend({
+  function_name: z.literal("unproportional_provide_lock_stake"),
+  module_address: z.literal("0xb6bf50aa9d5f827458a5424d41ef81a4ef8d7fd0"),
+  module_name: z.literal("dex_utils"),
+});
