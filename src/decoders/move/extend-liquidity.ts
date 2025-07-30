@@ -4,25 +4,16 @@ import { DecodedMessage, MessageDecoder } from "@/interfaces";
 import {
   Log,
   Message,
-  zMsgMoveExecute,
+  zMsgExtendLiquidity,
   zDepositDelegationEvent,
   zWithdrawDelegationEvent,
 } from "@/schema";
 import { findMoveEvent } from "@/utils";
 
 export const extendLiquidityDecoder: MessageDecoder = {
-  check: (message: Message, _log: Log) => {
-    if (!zMsgMoveExecute.safeParse(message).success) return false;
-
-    const parsed = zMsgMoveExecute.parse(message);
-    return (
-      parsed.function_name === "extend" &&
-      parsed.module_name === "lock_staking" &&
-      parsed.module_address === LOCK_STAKING_MODULE_ADDRESS
-    );
-  },
+  check: (message: Message, _log: Log) => zMsgExtendLiquidity.safeParse(message).success,
   decode: async (message: Message, log: Log, apiClient: ApiClient) => {
-    const parsed = zMsgMoveExecute.parse(message);
+    const parsed = zMsgExtendLiquidity.parse(message);
     const { sender } = parsed;
 
     // Find the WithdrawDelegationEvent to get initial release time

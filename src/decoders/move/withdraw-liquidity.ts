@@ -1,20 +1,12 @@
 import { ApiClient } from "@/api";
 import { DecodedMessage, MessageDecoder } from "@/interfaces";
-import { Log, Message, zMsgMoveExecute, zDexWithdrawEvent } from "@/schema";
+import { Log, Message, zMsgWithdrawLiquidity, zDexWithdrawEvent } from "@/schema";
 import { findMoveEvent } from "@/utils";
 
 export const withdrawLiquidityDecoder: MessageDecoder = {
-  check: (message: Message, _log: Log) => {
-    if (!zMsgMoveExecute.safeParse(message).success) return false;
-
-    const parsed = zMsgMoveExecute.parse(message);
-    return (
-      parsed.function_name === "withdraw_liquidity_script" &&
-      parsed.module_name === "dex"
-    );
-  },
+  check: (message: Message, _log: Log) => zMsgWithdrawLiquidity.safeParse(message).success,
   decode: async (message: Message, log: Log, apiClient: ApiClient) => {
-    const parsed = zMsgMoveExecute.parse(message);
+    const parsed = zMsgWithdrawLiquidity.parse(message);
     const { sender } = parsed;
 
     const withdrawEvent = findMoveEvent(
