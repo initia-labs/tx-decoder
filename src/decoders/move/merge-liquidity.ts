@@ -1,4 +1,5 @@
 import { ApiClient } from "@/api";
+import { LOCK_STAKING_MODULE_ADDRESS } from "@/constants";
 import { DecodedMessage, MessageDecoder } from "@/interfaces";
 import {
   Log,
@@ -8,9 +9,6 @@ import {
   zWithdrawDelegationEvent,
 } from "@/schema";
 import { findMoveEvent } from "@/utils";
-
-const LOCK_STAKING_MODULE_ADDRESS =
-  "0x3a886b32a802582f2e446e74d4a24d1d7ed01adf46d2a8f65c5723887e708789";
 
 export const mergeLiquidityDecoder: MessageDecoder = {
   check: (message: Message, _log: Log) => {
