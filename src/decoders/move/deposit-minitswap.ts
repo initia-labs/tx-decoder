@@ -2,7 +2,7 @@ import type { DecodedMessage, MessageDecoder } from "@/interfaces";
 import type { Log, Message } from "@/schema";
 
 import { ApiClient } from "@/api";
-import { zMsgMoveExecute } from "@/schema";
+import { zMsgDepositMinitswap } from "@/schema";
 import {
   zMinitswapProvideEvent,
   zWithdrawEvent,
@@ -11,23 +11,11 @@ import {
 import { findMoveEvent } from "@/utils";
 
 export const depositMinitswapDecoder: MessageDecoder = {
-  check: (message: Message, _log: Log) => {
-    const parsed = zMsgMoveExecute.safeParse(message);
-    if (!parsed.success) return false;
-    return (
-      parsed.data.function_name === "provide" &&
-      parsed.data.module_name === "minitswap" &&
-      parsed.data.module_address === "0x1"
-    );
-  },
+  check: (message: Message, _log: Log) => zMsgDepositMinitswap.safeParse(message).success,
 
   decode: async (message: Message, log: Log, apiClient: ApiClient) => {
-    const parsed = zMsgMoveExecute.safeParse(message);
-    if (!parsed.success) {
-      throw new Error("Invalid move execute message");
-    }
-
-    const { sender } = parsed.data;
+    const parsed = zMsgDepositMinitswap.parse(message);
+    const { sender } = parsed;
 
     // Find the ProvideEvent to get the amounts
     const provideEvent = findMoveEvent(
@@ -65,13 +53,21 @@ export const depositMinitswapDecoder: MessageDecoder = {
       apiClient.findDenomFromMetadataAddr(mintEvent.metadata_addr),
     ]);
 
+    if (!depositedDenom) {
+      throw new Error(`Deposited denom not found for metadata ${withdrawEvent.metadata_addr}`);
+    }
+
+    if (!receivedDenom) {
+      throw new Error(`Received denom not found for metadata ${mintEvent.metadata_addr}`);
+    }
+
     const decodedMessage: DecodedMessage = {
       action: "deposit_minitswap",
       data: {
         amountDeposited: provideEvent.provide_amount,
         amountReceived: provideEvent.share_amount,
-        denomDeposited: depositedDenom || withdrawEvent.metadata_addr,
-        denomReceived: receivedDenom || mintEvent.metadata_addr,
+        denomDeposited: depositedDenom,
+        denomReceived: receivedDenom,
         from: sender,
       },
       isIbc: false,
