@@ -1,6 +1,6 @@
 import { ApiClient } from "@/api";
 import { DecodedMessage, MessageDecoder } from "@/interfaces";
-import { Log, Message, zMsgWithdrawLiquidity, zDexWithdrawEvent } from "@/schema";
+import { Log, Message, zDexWithdrawEvent, zMsgWithdrawLiquidity } from "@/schema";
 import { findMoveEvent } from "@/utils";
 
 export const withdrawLiquidityDecoder: MessageDecoder = {

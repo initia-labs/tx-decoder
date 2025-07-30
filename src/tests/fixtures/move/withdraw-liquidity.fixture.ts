@@ -427,20 +427,6 @@ export const mockMsgWithdrawLiquidity = {
 
 export const mockApiResponsesForWithdrawLiquidity = {
   GET: {
-    "/initia/move/v1/denom?metadata=0xe0e9394b24e53775d6af87934ac02d73536ad58b7894f6ccff3f5e7c0d548e55":
-      {
-        denom:
-          "ibc/6490A7EAB61059BFC1CDDEB05917DD70BDF3A611654162A1A47DB930D40D8AF4",
-      },
-    "/initia/move/v1/denom?metadata=0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9":
-      {
-        denom: "uinit",
-      },
-    "/initia/move/v1/denom?metadata=0x543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1":
-      {
-        denom:
-          "move/543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1",
-      },
     "/initia/move/v1/accounts/0x4f73485a3e840d0d3baa691a6432e1f31c91e4f97cdc0dff465ab7d28e75379e/resources":
       {
         pagination: { next_key: null, total: "0" },
@@ -461,78 +447,6 @@ export const mockApiResponsesForWithdrawLiquidity = {
               '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"25356075","frozen":false,"metadata":{"inner":"0x543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1"}}}',
             raw_bytes:
               "VDs1o5z62tPaPCMknEdEVdFe/S+U+ElHMibe6KPHqeEr54IBAAAAAAA=",
-            struct_tag: "0x1::fungible_asset::FungibleStore",
-          },
-        ],
-      },
-    "/initia/move/v1/accounts/0x39e454a8b7b1b71b2c0c27bf4ce1fbe234652f2c40f1fc209b023beaa7ece013/resources":
-      {
-        pagination: { next_key: null, total: "0" },
-        resources: [
-          {
-            address:
-              "0x39e454a8b7b1b71b2c0c27bf4ce1fbe234652f2c40f1fc209b023beaa7ece013",
-            move_resource:
-              '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0x543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1","version":"1"}}',
-            raw_bytes:
-              "VDs1o5z62tPaPCMknEdEVdFe/S+U+ElHMibe6KPHqeEAAQAAAAAAAAA=",
-            struct_tag: "0x1::object::ObjectCore",
-          },
-          {
-            address:
-              "0x39e454a8b7b1b71b2c0c27bf4ce1fbe234652f2c40f1fc209b023beaa7ece013",
-            move_resource:
-              '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"2151895310062","frozen":false,"metadata":{"inner":"0xe0e9394b24e53775d6af87934ac02d73536ad58b7894f6ccff3f5e7c0d548e55"}}}',
-            raw_bytes:
-              "4Ok5SyTlN3XWr4eTSsAtc1Nq1Yd4lPbM/z9efA1UjlW+6DyGJAIAAAA=",
-            struct_tag: "0x1::fungible_asset::FungibleStore",
-          },
-        ],
-      },
-    "/initia/move/v1/accounts/0xd8d20f9cd225d52f126bd3f973cbb83de3212b1b3dae547f13dd01f593d537b3/resources":
-      {
-        pagination: { next_key: null, total: "0" },
-        resources: [
-          {
-            address:
-              "0xd8d20f9cd225d52f126bd3f973cbb83de3212b1b3dae547f13dd01f593d537b3",
-            move_resource:
-              '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0x543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1","version":"1"}}',
-            raw_bytes:
-              "VDs1o5z62tPaPCMknEdEVdFe/S+U+ElHMibe6KPHqeEAAQAAAAAAAAA=",
-            struct_tag: "0x1::object::ObjectCore",
-          },
-          {
-            address:
-              "0xd8d20f9cd225d52f126bd3f973cbb83de3212b1b3dae547f13dd01f593d537b3",
-            move_resource:
-              '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"21373397484215","frozen":false,"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}',
-            raw_bytes:
-              "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdnHcMdSFxMAAAA=",
-            struct_tag: "0x1::fungible_asset::FungibleStore",
-          },
-        ],
-      },
-    "/initia/move/v1/accounts/0xbae31176bdad6a44f2a660d73fd95e48d914c7ae5bd52f3f99eb2833579ce51c/resources":
-      {
-        pagination: { next_key: null, total: "0" },
-        resources: [
-          {
-            address:
-              "0xbae31176bdad6a44f2a660d73fd95e48d914c7ae5bd52f3f99eb2833579ce51c",
-            move_resource:
-              '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0xa48b383a1d5ce0f2a663e69ce2ca5f921fe19fd6","version":"1"}}',
-            raw_bytes:
-              "AAAAAAAAAAAAAAAApIs4Oh1c4PKmY+ac4spfkh/hn9YAAQAAAAAAAAA=",
-            struct_tag: "0x1::object::ObjectCore",
-          },
-          {
-            address:
-              "0xbae31176bdad6a44f2a660d73fd95e48d914c7ae5bd52f3f99eb2833579ce51c",
-            move_resource:
-              '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"5229099","frozen":false,"metadata":{"inner":"0xe0e9394b24e53775d6af87934ac02d73536ad58b7894f6ccff3f5e7c0d548e55"}}}',
-            raw_bytes:
-              "4Ok5SyTlN3XWr4eTSsAtc1Nq1Yd4lPbM/z9efA1UjlUryk8AAAAAAAA=",
             struct_tag: "0x1::fungible_asset::FungibleStore",
           },
         ],
@@ -561,6 +475,30 @@ export const mockApiResponsesForWithdrawLiquidity = {
           },
         ],
       },
+    "/initia/move/v1/accounts/0x39e454a8b7b1b71b2c0c27bf4ce1fbe234652f2c40f1fc209b023beaa7ece013/resources":
+      {
+        pagination: { next_key: null, total: "0" },
+        resources: [
+          {
+            address:
+              "0x39e454a8b7b1b71b2c0c27bf4ce1fbe234652f2c40f1fc209b023beaa7ece013",
+            move_resource:
+              '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0x543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1","version":"1"}}',
+            raw_bytes:
+              "VDs1o5z62tPaPCMknEdEVdFe/S+U+ElHMibe6KPHqeEAAQAAAAAAAAA=",
+            struct_tag: "0x1::object::ObjectCore",
+          },
+          {
+            address:
+              "0x39e454a8b7b1b71b2c0c27bf4ce1fbe234652f2c40f1fc209b023beaa7ece013",
+            move_resource:
+              '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"2151895310062","frozen":false,"metadata":{"inner":"0xe0e9394b24e53775d6af87934ac02d73536ad58b7894f6ccff3f5e7c0d548e55"}}}',
+            raw_bytes:
+              "4Ok5SyTlN3XWr4eTSsAtc1Nq1Yd4lPbM/z9efA1UjlW+6DyGJAIAAAA=",
+            struct_tag: "0x1::fungible_asset::FungibleStore",
+          },
+        ],
+      },
     "/initia/move/v1/accounts/0x66a8cb0bfb991610dcffb8a6543ac0887c7c5405b8f985ebed6d628fe50c4686/resources":
       {
         pagination: { next_key: null, total: "0" },
@@ -584,6 +522,68 @@ export const mockApiResponsesForWithdrawLiquidity = {
             struct_tag: "0x1::fungible_asset::FungibleStore",
           },
         ],
+      },
+    "/initia/move/v1/accounts/0xbae31176bdad6a44f2a660d73fd95e48d914c7ae5bd52f3f99eb2833579ce51c/resources":
+      {
+        pagination: { next_key: null, total: "0" },
+        resources: [
+          {
+            address:
+              "0xbae31176bdad6a44f2a660d73fd95e48d914c7ae5bd52f3f99eb2833579ce51c",
+            move_resource:
+              '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0xa48b383a1d5ce0f2a663e69ce2ca5f921fe19fd6","version":"1"}}',
+            raw_bytes:
+              "AAAAAAAAAAAAAAAApIs4Oh1c4PKmY+ac4spfkh/hn9YAAQAAAAAAAAA=",
+            struct_tag: "0x1::object::ObjectCore",
+          },
+          {
+            address:
+              "0xbae31176bdad6a44f2a660d73fd95e48d914c7ae5bd52f3f99eb2833579ce51c",
+            move_resource:
+              '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"5229099","frozen":false,"metadata":{"inner":"0xe0e9394b24e53775d6af87934ac02d73536ad58b7894f6ccff3f5e7c0d548e55"}}}',
+            raw_bytes:
+              "4Ok5SyTlN3XWr4eTSsAtc1Nq1Yd4lPbM/z9efA1UjlUryk8AAAAAAAA=",
+            struct_tag: "0x1::fungible_asset::FungibleStore",
+          },
+        ],
+      },
+    "/initia/move/v1/accounts/0xd8d20f9cd225d52f126bd3f973cbb83de3212b1b3dae547f13dd01f593d537b3/resources":
+      {
+        pagination: { next_key: null, total: "0" },
+        resources: [
+          {
+            address:
+              "0xd8d20f9cd225d52f126bd3f973cbb83de3212b1b3dae547f13dd01f593d537b3",
+            move_resource:
+              '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0x543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1","version":"1"}}',
+            raw_bytes:
+              "VDs1o5z62tPaPCMknEdEVdFe/S+U+ElHMibe6KPHqeEAAQAAAAAAAAA=",
+            struct_tag: "0x1::object::ObjectCore",
+          },
+          {
+            address:
+              "0xd8d20f9cd225d52f126bd3f973cbb83de3212b1b3dae547f13dd01f593d537b3",
+            move_resource:
+              '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"21373397484215","frozen":false,"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}',
+            raw_bytes:
+              "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdnHcMdSFxMAAAA=",
+            struct_tag: "0x1::fungible_asset::FungibleStore",
+          },
+        ],
+      },
+    "/initia/move/v1/denom?metadata=0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9":
+      {
+        denom: "uinit",
+      },
+    "/initia/move/v1/denom?metadata=0x543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1":
+      {
+        denom:
+          "move/543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1",
+      },
+    "/initia/move/v1/denom?metadata=0xe0e9394b24e53775d6af87934ac02d73536ad58b7894f6ccff3f5e7c0d548e55":
+      {
+        denom:
+          "ibc/6490A7EAB61059BFC1CDDEB05917DD70BDF3A611654162A1A47DB930D40D8AF4",
       },
   },
 };

@@ -4,8 +4,8 @@ import { DecodedMessage, MessageDecoder } from "@/interfaces";
 import {
   Log,
   Message,
-  zMsgMergeLiquidity,
   zDepositDelegationEvent,
+  zMsgMergeLiquidity,
   zWithdrawDelegationEvent,
 } from "@/schema";
 import { findMoveEvent } from "@/utils";
@@ -51,9 +51,9 @@ export const mergeLiquidityDecoder: MessageDecoder = {
       action: "merge_liquidity",
       data: {
         from: sender,
+        initialReleaseTimestamp: withdrawDelegationEvent.release_time,
         liquidity: depositDelegationEvent.locked_share,
         liquidityDenom,
-        initialReleaseTimestamp: withdrawDelegationEvent.release_time,
         newReleaseTimestamp: depositDelegationEvent.release_time,
         validator: validatorData,
         validatorAddress: depositDelegationEvent.validator,

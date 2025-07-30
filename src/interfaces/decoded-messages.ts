@@ -10,12 +10,14 @@ export type DecodedMessage =
   | DecodedDepositLiquidityMessage
   | DecodedDepositStakeLiquidityMessage
   | DecodedDepositStakeLockLiquidityMessage
+  | DecodedExtendLiquidityMessage
   | DecodedFinalizeTokenWithdrawalMessage
   | DecodedIbcFtReceiveMessage
   | DecodedIbcFtSendMessage
   | DecodedIbcNftReceiveMessage
   | DecodedIbcNftSendMessage
   | DecodedInitiateTokenDepositMessage
+  | DecodedMergeLiquidityMessage
   | DecodedNftBurnMessage
   | DecodedNftMintMessage
   | DecodedNotSupportedMessage
@@ -25,9 +27,7 @@ export type DecodedMessage =
   | DecodedSwapMessage
   | DecodedUndelegateMessage
   | DecodedWithdrawDelegatorRewardMessage
-  | DecodedWithdrawLiquidityMessage
-  | DecodedExtendLiquidityMessage
-  | DecodedMergeLiquidityMessage;
+  | DecodedWithdrawLiquidityMessage;
 
 interface DecodedSendMessage extends DecodedMessageBase {
   action: "send";
@@ -308,9 +308,9 @@ interface DecodedExtendLiquidityMessage extends DecodedMessageBase {
   action: "extend_liquidity";
   data: {
     from: string;
+    initialReleaseTimestamp: string;
     liquidity: string;
     liquidityDenom: string;
-    initialReleaseTimestamp: string;
     newReleaseTimestamp: string;
     validator: Validator | null;
     validatorAddress: string;
@@ -337,9 +337,9 @@ interface DecodedMergeLiquidityMessage extends DecodedMessageBase {
   action: "merge_liquidity";
   data: {
     from: string;
+    initialReleaseTimestamp: string;
     liquidity: string;
     liquidityDenom: string;
-    initialReleaseTimestamp: string;
     newReleaseTimestamp: string;
     validator: Validator | null;
     validatorAddress: string;

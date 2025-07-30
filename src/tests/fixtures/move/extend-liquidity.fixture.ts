@@ -327,29 +327,6 @@ export const mockMsgExtendLiquidity = {
 
 export const mockApiResponsesForExtendLiquidity = {
   GET: {
-    "/initia/move/v1/denom?metadata=0x543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1":
-      {
-        denom:
-          "move/543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1",
-      },
-    "/initia/move/v1/denom?metadata=0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9":
-      {
-        denom: "uinit",
-      },
-    "/initia/mstaking/v1/validators/initvaloper1qx6ghyv83caecuxgl77lvlnha9d9y6fntryc8a":
-      {
-        validator: {
-          operator_address:
-            "initvaloper1qx6ghyv83caecuxgl77lvlnha9d9y6fntryc8a",
-          description: {
-            moniker: "Orbital Command",
-            identity: "A2879F08F59FB0AF",
-            website: "https://orbitalcommand.io",
-            security_contact: "",
-            details: "",
-          },
-        },
-      },
     "/initia/move/v1/accounts/0x31a358ffa5db08ee9d97b9837247eb1cbb66c1943b323d074d3e241d358edc1e/resources":
       {
         pagination: { next_key: null, total: "0" },
@@ -397,6 +374,29 @@ export const mockApiResponsesForExtendLiquidity = {
             struct_tag: "0x1::fungible_asset::FungibleStore",
           },
         ],
+      },
+    "/initia/move/v1/denom?metadata=0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9":
+      {
+        denom: "uinit",
+      },
+    "/initia/move/v1/denom?metadata=0x543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1":
+      {
+        denom:
+          "move/543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1",
+      },
+    "/initia/mstaking/v1/validators/initvaloper1qx6ghyv83caecuxgl77lvlnha9d9y6fntryc8a":
+      {
+        validator: {
+          description: {
+            details: "",
+            identity: "A2879F08F59FB0AF",
+            moniker: "Orbital Command",
+            security_contact: "",
+            website: "https://orbitalcommand.io",
+          },
+          operator_address:
+            "initvaloper1qx6ghyv83caecuxgl77lvlnha9d9y6fntryc8a",
+        },
       },
   },
 };

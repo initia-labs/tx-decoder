@@ -27,18 +27,18 @@ describe("Extend Liquidity Message", () => {
       action: "extend_liquidity",
       data: {
         from: "init15j9nswsatns09fnru6ww9jjljg07r87kr56mdc",
+        initialReleaseTimestamp: "1754562899",
         liquidity: "80000",
         liquidityDenom:
           "move/543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1",
-        initialReleaseTimestamp: "1754562899",
         newReleaseTimestamp: "1755426899",
         validator: {
           description: {
-            moniker: "Orbital Command",
-            identity: "A2879F08F59FB0AF",
-            website: "https://orbitalcommand.io",
-            security_contact: "",
             details: "",
+            identity: "A2879F08F59FB0AF",
+            moniker: "Orbital Command",
+            security_contact: "",
+            website: "https://orbitalcommand.io",
           },
           operator_address:
             "initvaloper1qx6ghyv83caecuxgl77lvlnha9d9y6fntryc8a",
