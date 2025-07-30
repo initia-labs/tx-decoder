@@ -130,7 +130,6 @@ export const zMintEvent = zJsonString.pipe(
     metadata_addr: z.string(),
   })
 );
-
 export const zProvideEvent = zJsonString.pipe(
   z.object({
     coin_a: z.string(),
@@ -141,7 +140,6 @@ export const zProvideEvent = zJsonString.pipe(
     liquidity_token: z.string(),
   })
 );
-
 export const zMinitswapUnbondEvent = zJsonString.pipe(
   z.object({
     account: z.string(),
