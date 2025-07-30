@@ -25,7 +25,8 @@ export type DecodedMessage =
   | DecodedSendMessage
   | DecodedSwapMessage
   | DecodedUndelegateMessage
-  | DecodedWithdrawDelegatorRewardMessage;
+  | DecodedWithdrawDelegatorRewardMessage
+  | DecodedWithdrawMinitswapMessage;
 
 interface DecodedSendMessage extends DecodedMessageBase {
   action: "send";
@@ -261,6 +262,17 @@ interface DecodedDepositMinitswapMessage extends DecodedMessageBase {
     denomDeposited: string;
     denomReceived: string;
     from: string;
+  };
+}
+
+interface DecodedWithdrawMinitswapMessage extends DecodedMessageBase {
+  action: "withdraw_minitswap";
+  data: {
+    amountWithdrawn: string;
+    amountReceived: string;
+    denomWithdrawn: string;
+    from: string;
+    releaseTime: string;
   };
 }
 

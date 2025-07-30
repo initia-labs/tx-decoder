@@ -141,3 +141,19 @@ export const zProvideEvent = zJsonString.pipe(
     liquidity_token: z.string(),
   })
 );
+
+export const zMinitswapUnbondEvent = zJsonString.pipe(
+  z.object({
+    account: z.string(),
+    share_amount: z.string(),
+    withdraw_amount: z.string(),
+    release_time: z.string(),
+  })
+);
+
+export const zBurnEvent = zJsonString.pipe(
+  z.object({
+    metadata_addr: z.string(),
+    amount: z.string(),
+  })
+);
