@@ -25,8 +25,10 @@ describe("Claim Minitswap Message", () => {
     expect(decoded.messages[0].decodedMessage).toEqual({
       action: "claim_minitswap",
       data: {
-        amount: "103338",
-        denom: "uinit",
+        amountReceived: "103338",
+        amountWithdrawn: "100000",
+        denomReceived: "uinit",
+        denomWithdrawn: "uoinit",
         from: "init15j9nswsatns09fnru6ww9jjljg07r87kr56mdc",
       },
       isIbc: false,

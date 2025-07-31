@@ -62,8 +62,10 @@ export const claimMinitswapDecoder: MessageDecoder = {
     const decodedMessage: DecodedMessage = {
       action: "claim_minitswap",
       data: {
-        amount: withdrawUnbondEvent.withdraw_amount,
-        denom: receivedDenom,
+        amountReceived: withdrawUnbondEvent.withdraw_amount,
+        amountWithdrawn: withdrawUnbondEvent.share_amount,
+        denomReceived: receivedDenom,
+        denomWithdrawn: "uoinit",
         from: sender,
       },
       isIbc: false,

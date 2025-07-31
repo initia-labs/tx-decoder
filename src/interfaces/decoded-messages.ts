@@ -292,8 +292,10 @@ interface DecodedWithdrawMinitswapMessage extends DecodedMessageBase {
 interface DecodedClaimMinitswapMessage extends DecodedMessageBase {
   action: "claim_minitswap";
   data: {
-    amount: string;
-    denom: string;
+    amountReceived: string;
+    amountWithdrawn: string;
+    denomReceived: string;
+    denomWithdrawn: string;
     from: string;
   };
 }
