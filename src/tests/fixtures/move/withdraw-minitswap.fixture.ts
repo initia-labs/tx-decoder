@@ -336,7 +336,7 @@ export const mockMsgWithdrawMinitswap = {
   txhash: "2563F8DC425F3E4639294EFD4EB1EE3DCC3D7A8B293C07106AA1BBC0A1EA2F1F",
 };
 
-export const mockApiResponsesForDepositMinitswap = {
+export const mockApiResponsesForWithdrawMinitswap = {
   GET: {
     "/initia/move/v1/accounts/0x355c88ca14d35a7a4cb45588ab78889ce9e4396c49b786278e8587654e37956/resources":
       {

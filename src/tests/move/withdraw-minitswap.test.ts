@@ -1,5 +1,5 @@
 import {
-  mockApiResponsesForDepositMinitswap,
+  mockApiResponsesForWithdrawMinitswap,
   mockMsgWithdrawMinitswap,
 } from "../fixtures/move/withdraw-minitswap.fixture";
 import {
@@ -18,7 +18,7 @@ describe("Withdraw Minitswap Message", () => {
   });
 
   it("should decode a withdraw minitswap message correctly", async () => {
-    setupMockApi(mockedAxios, mockApiResponsesForDepositMinitswap);
+    setupMockApi(mockedAxios, mockApiResponsesForWithdrawMinitswap);
     const decoded = await decoder.decodeTransaction(mockMsgWithdrawMinitswap);
 
     expect(decoded.messages).toHaveLength(1);
