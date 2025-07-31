@@ -21,7 +21,9 @@ const messageDecoders: MessageDecoder[] = [
   Decoders.depositStakeLiquidityDecoder,
   Decoders.depositStakeLockLiquidityDecoder,
   Decoders.dexSwapDecoder,
+  Decoders.extendLiquidityDecoder,
   Decoders.finalizeTokenWithdrawalDecoder,
+  Decoders.mergeLiquidityDecoder,
   Decoders.ibcReceiveNftDecoder,
   Decoders.ibcSendNftDecoder,
   Decoders.ibcSendFtDecoder,
@@ -41,6 +43,7 @@ const messageDecoders: MessageDecoder[] = [
   Decoders.vipLockStakeDecoder,
   Decoders.withdrawDelegatorRewardDecoder,
   Decoders.withdrawDelegatorRewardLockedDecoder,
+  Decoders.withdrawLiquidityDecoder,
   // Add more decoders here in order of priority
 ];
 
