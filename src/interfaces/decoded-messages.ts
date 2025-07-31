@@ -10,12 +10,14 @@ export type DecodedMessage =
   | DecodedDepositLiquidityMessage
   | DecodedDepositStakeLiquidityMessage
   | DecodedDepositStakeLockLiquidityMessage
+  | DecodedExtendLiquidityMessage
   | DecodedFinalizeTokenWithdrawalMessage
   | DecodedIbcFtReceiveMessage
   | DecodedIbcFtSendMessage
   | DecodedIbcNftReceiveMessage
   | DecodedIbcNftSendMessage
   | DecodedInitiateTokenDepositMessage
+  | DecodedMergeLiquidityMessage
   | DecodedNftBurnMessage
   | DecodedNftMintMessage
   | DecodedNotSupportedMessage
@@ -24,7 +26,8 @@ export type DecodedMessage =
   | DecodedSendMessage
   | DecodedSwapMessage
   | DecodedUndelegateMessage
-  | DecodedWithdrawDelegatorRewardMessage;
+  | DecodedWithdrawDelegatorRewardMessage
+  | DecodedWithdrawLiquidityMessage;
 
 interface DecodedSendMessage extends DecodedMessageBase {
   action: "send";
@@ -273,6 +276,19 @@ interface DecodedDepositLiquidityMessage extends DecodedMessageBase {
   };
 }
 
+interface DecodedWithdrawLiquidityMessage extends DecodedMessageBase {
+  action: "withdraw_liquidity";
+  data: {
+    amountA: string;
+    amountB: string;
+    denomA: string;
+    denomB: string;
+    from: string;
+    liquidity: string;
+    liquidityDenom: string;
+  };
+}
+
 interface DecodedDepositStakeLiquidityMessage extends DecodedMessageBase {
   action: "deposit_stake_liquidity";
   data: {
@@ -299,6 +315,30 @@ interface DecodedDepositStakeLockLiquidityMessage extends DecodedMessageBase {
     liquidity: string;
     liquidityDenom: string;
     releaseTimestamp: string;
+    validator: Validator | null;
+    validatorAddress: string;
+  };
+}
+interface DecodedExtendLiquidityMessage extends DecodedMessageBase {
+  action: "extend_liquidity";
+  data: {
+    from: string;
+    initialReleaseTimestamp: string;
+    liquidity: string;
+    liquidityDenom: string;
+    newReleaseTimestamp: string;
+    validator: Validator | null;
+    validatorAddress: string;
+  };
+}
+interface DecodedMergeLiquidityMessage extends DecodedMessageBase {
+  action: "merge_liquidity";
+  data: {
+    from: string;
+    initialReleaseTimestamp: string;
+    liquidity: string;
+    liquidityDenom: string;
+    newReleaseTimestamp: string;
     validator: Validator | null;
     validatorAddress: string;
   };
