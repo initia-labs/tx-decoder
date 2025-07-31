@@ -246,12 +246,20 @@ interface DecodedIbcNftReceiveMessage extends DecodedMessageBase {
       uri: string | null;
     };
     collectionId: string;
+    dstChainId: string;
+    dstChannel: string;
+    dstPort: string;
     receiver: string;
     sender: string;
     sequence: string;
     srcChainId: string;
     srcChannel: string;
     srcPort: string;
+    timeoutHeight: {
+      revision_height: string;
+      revision_number: string;
+    };
+    timeoutTimestamp: string;
     tokenAddress: string;
     tokenIds: string[];
     tokenUris: string[];
@@ -274,6 +282,7 @@ interface DecodedWithdrawMinitswapMessage extends DecodedMessageBase {
   data: {
     amountReceived: string;
     amountWithdrawn: string;
+    denomReceived: string;
     denomWithdrawn: string;
     from: string;
     releaseTime: string;

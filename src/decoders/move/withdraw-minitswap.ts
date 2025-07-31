@@ -3,11 +3,7 @@ import type { Log, Message } from "@/schema";
 
 import { ApiClient } from "@/api";
 import { zMsgWithdrawMinitswap } from "@/schema";
-import {
-  zBurnEvent,
-  zMinitswapUnbondEvent,
-  zWithdrawEvent,
-} from "@/schema/events";
+import { zBurnEvent, zMinitswapUnbondEvent } from "@/schema/events";
 import { findMoveEvent } from "@/utils";
 
 export const withdrawMinitswapDecoder: MessageDecoder = {
@@ -26,16 +22,6 @@ export const withdrawMinitswapDecoder: MessageDecoder = {
     );
     if (!unbondEvent) {
       throw new Error("UnbondEvent not found");
-    }
-
-    // Find the WithdrawEvent to get the share token being withdrawn
-    const withdrawEvent = findMoveEvent(
-      log.events,
-      "0x1::fungible_asset::WithdrawEvent",
-      zWithdrawEvent
-    );
-    if (!withdrawEvent) {
-      throw new Error("WithdrawEvent not found");
     }
 
     // Find the BurnEvent to get the burned share token metadata
@@ -64,6 +50,7 @@ export const withdrawMinitswapDecoder: MessageDecoder = {
       data: {
         amountReceived: unbondEvent.withdraw_amount,
         amountWithdrawn: unbondEvent.share_amount,
+        denomReceived: "uinit",
         denomWithdrawn: shareTokenDenom,
         from: sender,
         releaseTime: unbondEvent.release_time,
