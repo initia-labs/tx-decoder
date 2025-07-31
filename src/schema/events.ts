@@ -164,3 +164,14 @@ export const zMinitswapWithdrawUnbondEvent = zJsonString.pipe(
     withdraw_amount: z.string(),
   })
 );
+
+export const zDexWithdrawEvent = zJsonString.pipe(
+  z.object({
+    coin_a: z.string(),
+    coin_a_amount: z.string(),
+    coin_b: z.string(),
+    coin_b_amount: z.string(),
+    liquidity: z.string(),
+    liquidity_token: z.string(),
+  })
+);
