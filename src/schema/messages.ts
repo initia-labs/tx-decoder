@@ -183,6 +183,24 @@ export const zMsgMoveObjectTransfer = zMsgMoveExecute.extend({
   module_name: z.literal("object"),
 });
 
+export const zMsgDepositMinitswap = zMsgMoveExecute.extend({
+  function_name: z.literal("provide"),
+  module_address: z.literal("0x1"),
+  module_name: z.literal("minitswap"),
+});
+
+export const zMsgWithdrawMinitswap = zMsgMoveExecute.extend({
+  function_name: z.literal("unbond"),
+  module_address: z.literal("0x1"),
+  module_name: z.literal("minitswap"),
+});
+
+export const zMsgClaimMinitswap = zMsgMoveExecute.extend({
+  function_name: z.literal("withdraw_unbond"),
+  module_address: z.literal("0x1"),
+  module_name: z.literal("minitswap"),
+});
+
 export const zMsgIbcSendNft = z.object({
   "@type": z.literal(SUPPORTED_MESSAGE_TYPES.MsgIbcNftTransfer),
   class_id: z.string(),

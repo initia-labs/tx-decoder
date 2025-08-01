@@ -6,8 +6,10 @@ interface DecodedMessageBase {
 }
 
 export type DecodedMessage =
+  | DecodedClaimMinitswapMessage
   | DecodedDelegateMessage
   | DecodedDepositLiquidityMessage
+  | DecodedDepositMinitswapMessage
   | DecodedDepositStakeLiquidityMessage
   | DecodedDepositStakeLockLiquidityMessage
   | DecodedExtendLiquidityMessage
@@ -29,7 +31,8 @@ export type DecodedMessage =
   | DecodedVipClaimEsinitMessage
   | DecodedVipGaugeVoteMessage
   | DecodedWithdrawDelegatorRewardMessage
-  | DecodedWithdrawLiquidityMessage;
+  | DecodedWithdrawLiquidityMessage
+  | DecodedWithdrawMinitswapMessage;
 
 interface DecodedSendMessage extends DecodedMessageBase {
   action: "send";
@@ -262,6 +265,40 @@ interface DecodedIbcNftReceiveMessage extends DecodedMessageBase {
     tokenAddress: string;
     tokenIds: string[];
     tokenUris: string[];
+  };
+}
+
+interface DecodedDepositMinitswapMessage extends DecodedMessageBase {
+  action: "deposit_minitswap";
+  data: {
+    amountDeposited: string;
+    amountReceived: string;
+    denomDeposited: string;
+    denomReceived: string;
+    from: string;
+  };
+}
+
+interface DecodedWithdrawMinitswapMessage extends DecodedMessageBase {
+  action: "withdraw_minitswap";
+  data: {
+    amountReceived: string;
+    amountWithdrawn: string;
+    denomReceived: string;
+    denomWithdrawn: string;
+    from: string;
+    releaseTime: string;
+  };
+}
+
+interface DecodedClaimMinitswapMessage extends DecodedMessageBase {
+  action: "claim_minitswap";
+  data: {
+    amountReceived: string;
+    amountWithdrawn: string;
+    denomReceived: string;
+    denomWithdrawn: string;
+    from: string;
   };
 }
 
