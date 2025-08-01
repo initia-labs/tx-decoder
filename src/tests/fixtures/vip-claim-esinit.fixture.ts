@@ -763,8 +763,1086 @@ export const mockMsgVipClaimEsinit = {
   txhash: "0B32D5143E4E763940501CC9BA4ED7F1A29E3F42E5DB00BBF13C3CC4D780CBE4",
 };
 
+export const mockMsgVipClaimEsinitZero = {
+  code: 0,
+  codespace: "",
+  data: "12240A222F696E697469612E6D6F76652E76312E4D736745786563757465526573706F6E736512240A222F696E697469612E6D6F76652E76312E4D736745786563757465526573706F6E7365",
+  events: [
+    {
+      attributes: [
+        {
+          index: true,
+          key: "sender",
+          value: "0x1,0xf990ff98af796c66fbc0af09252f478a636672ed",
+        },
+        {
+          index: true,
+          key: "module_addr",
+          value: "0x1",
+        },
+        {
+          index: true,
+          key: "module_name",
+          value: "coin",
+        },
+        {
+          index: true,
+          key: "function_name",
+          value: "sudo_transfer",
+        },
+      ],
+      type: "execute",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "type_tag",
+          value: "0x1::fungible_asset::WithdrawEvent",
+        },
+        {
+          index: true,
+          key: "data",
+          value:
+            '{"store_addr":"0x363088eba325d34d3f5c4beb84cf82cff074a6624dfeec6905417c3f83fac148","metadata_addr":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9","amount":"25527"}',
+        },
+      ],
+      type: "move",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "type_tag",
+          value: "0x1::fungible_asset::DepositEvent",
+        },
+        {
+          index: true,
+          key: "data",
+          value:
+            '{"store_addr":"0x66a8cb0bfb991610dcffb8a6543ac0887c7c5405b8f985ebed6d628fe50c4686","metadata_addr":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9","amount":"25527"}',
+        },
+      ],
+      type: "move",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "spender",
+          value: "init1lxg0lx9009kxd77q4uyj2t683f3kvuhdxafwd5",
+        },
+        {
+          index: true,
+          key: "amount",
+          value: "25527uinit",
+        },
+      ],
+      type: "coin_spent",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "receiver",
+          value: "init17xpfvakm2amg962yls6f84z3kell8c5l70rnql",
+        },
+        {
+          index: true,
+          key: "amount",
+          value: "25527uinit",
+        },
+      ],
+      type: "coin_received",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "recipient",
+          value: "init17xpfvakm2amg962yls6f84z3kell8c5l70rnql",
+        },
+        {
+          index: true,
+          key: "sender",
+          value: "init1lxg0lx9009kxd77q4uyj2t683f3kvuhdxafwd5",
+        },
+        {
+          index: true,
+          key: "amount",
+          value: "25527uinit",
+        },
+      ],
+      type: "transfer",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "sender",
+          value: "init1lxg0lx9009kxd77q4uyj2t683f3kvuhdxafwd5",
+        },
+      ],
+      type: "message",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "fee",
+          value: "25527uinit",
+        },
+        {
+          index: true,
+          key: "fee_payer",
+          value: "init1lxg0lx9009kxd77q4uyj2t683f3kvuhdxafwd5",
+        },
+      ],
+      type: "tx",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "acc_seq",
+          value: "init1lxg0lx9009kxd77q4uyj2t683f3kvuhdxafwd5/22",
+        },
+      ],
+      type: "tx",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "signature",
+          value:
+            "q5tNNo3CrYTs0O+r3jiUSGH5U/XZNiSXLBX5F1IVvU0lQOml+1K8QimmY6K/VzhqZJ1z71iWlKh/Dyp8tyhvRA==",
+        },
+      ],
+      type: "tx",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "action",
+          value: "/initia.move.v1.MsgExecute",
+        },
+        {
+          index: true,
+          key: "sender",
+          value: "init1lxg0lx9009kxd77q4uyj2t683f3kvuhdxafwd5",
+        },
+        {
+          index: true,
+          key: "module",
+          value: "move",
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "0",
+        },
+      ],
+      type: "message",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "sender",
+          value: "0xf990ff98af796c66fbc0af09252f478a636672ed",
+        },
+        {
+          index: true,
+          key: "module_addr",
+          value:
+            "0x3a886b32a802582f2e446e74d4a24d1d7ed01adf46d2a8f65c5723887e708789",
+        },
+        {
+          index: true,
+          key: "module_name",
+          value: "vip",
+        },
+        {
+          index: true,
+          key: "function_name",
+          value: "batch_claim_user_reward_script",
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "0",
+        },
+      ],
+      type: "execute",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "type_tag",
+          value:
+            "0x3a886b32a802582f2e446e74d4a24d1d7ed01adf46d2a8f65c5723887e708789::vesting::UserVestingCreateEvent",
+        },
+        {
+          index: true,
+          key: "data",
+          value:
+            '{"account":"0xf990ff98af796c66fbc0af09252f478a636672ed","bridge_id":"32","version":"1","start_stage":"6","end_stage":"32","l2_score":"2237510053","minimum_score":"1118755026","initial_reward":"5117681"}',
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "0",
+        },
+      ],
+      type: "move",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "action",
+          value: "/initia.move.v1.MsgExecute",
+        },
+        {
+          index: true,
+          key: "sender",
+          value: "init1lxg0lx9009kxd77q4uyj2t683f3kvuhdxafwd5",
+        },
+        {
+          index: true,
+          key: "module",
+          value: "move",
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "1",
+        },
+      ],
+      type: "message",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "sender",
+          value: "0xf990ff98af796c66fbc0af09252f478a636672ed",
+        },
+        {
+          index: true,
+          key: "module_addr",
+          value:
+            "0x3a886b32a802582f2e446e74d4a24d1d7ed01adf46d2a8f65c5723887e708789",
+        },
+        {
+          index: true,
+          key: "module_name",
+          value: "vip",
+        },
+        {
+          index: true,
+          key: "function_name",
+          value: "batch_lock_stake_script",
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "1",
+        },
+      ],
+      type: "execute",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "type_tag",
+          value:
+            "0x3a886b32a802582f2e446e74d4a24d1d7ed01adf46d2a8f65c5723887e708789::vesting::UserVestingChangedEvent",
+        },
+        {
+          index: true,
+          key: "data",
+          value:
+            '{"account":"0xf990ff98af796c66fbc0af09252f478a636672ed","bridge_id":"32","version":"1","start_stage":"6","initial_reward":"5117681","remaining_reward":"0","penalty_reward":"0"}',
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "1",
+        },
+      ],
+      type: "move",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "type_tag",
+          value:
+            "0x3a886b32a802582f2e446e74d4a24d1d7ed01adf46d2a8f65c5723887e708789::vesting::UserVestingFinalizedEvent",
+        },
+        {
+          index: true,
+          key: "data",
+          value:
+            '{"account":"0xf990ff98af796c66fbc0af09252f478a636672ed","bridge_id":"32","version":"1","start_stage":"6","penalty_reward":"0"}',
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "1",
+        },
+      ],
+      type: "move",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "type_tag",
+          value: "0x1::fungible_asset::WithdrawEvent",
+        },
+        {
+          index: true,
+          key: "data",
+          value:
+            '{"store_addr":"0x523bd8fb61230d8b2bc9c070d684e3482cf9c4ef7d08ebfcc9f756c36b229558","metadata_addr":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9","amount":"5117681"}',
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "1",
+        },
+      ],
+      type: "move",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "type_tag",
+          value:
+            "0x3a886b32a802582f2e446e74d4a24d1d7ed01adf46d2a8f65c5723887e708789::vip::LockStakeEvent",
+        },
+        {
+          index: true,
+          key: "data",
+          value:
+            '{"account":"0xf990ff98af796c66fbc0af09252f478a636672ed","bridge_id":"32","version":"1","stage":"6","amount":"5117681"}',
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "1",
+        },
+      ],
+      type: "move",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "type_tag",
+          value: "0x1::fungible_asset::WithdrawEvent",
+        },
+        {
+          index: true,
+          key: "data",
+          value:
+            '{"store_addr":"0xb259bcbfcad49341519ebf11fb589663431a1f2e656b5a879c53203169213a98","metadata_addr":"0xe0e9394b24e53775d6af87934ac02d73536ad58b7894f6ccff3f5e7c0d548e55","amount":"544179"}',
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "1",
+        },
+      ],
+      type: "move",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "type_tag",
+          value: "0x1::dex::ProvideEvent",
+        },
+        {
+          index: true,
+          key: "data",
+          value:
+            '{"coin_a":"0xe0e9394b24e53775d6af87934ac02d73536ad58b7894f6ccff3f5e7c0d548e55","coin_b":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9","liquidity_token":"0x543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1","coin_a_amount":"544179","coin_b_amount":"5117681","liquidity":"4953682"}',
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "1",
+        },
+      ],
+      type: "move",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "type_tag",
+          value: "0x1::fungible_asset::DepositEvent",
+        },
+        {
+          index: true,
+          key: "data",
+          value:
+            '{"store_addr":"0x39e454a8b7b1b71b2c0c27bf4ce1fbe234652f2c40f1fc209b023beaa7ece013","metadata_addr":"0xe0e9394b24e53775d6af87934ac02d73536ad58b7894f6ccff3f5e7c0d548e55","amount":"544179"}',
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "1",
+        },
+      ],
+      type: "move",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "type_tag",
+          value: "0x1::fungible_asset::DepositEvent",
+        },
+        {
+          index: true,
+          key: "data",
+          value:
+            '{"store_addr":"0xd8d20f9cd225d52f126bd3f973cbb83de3212b1b3dae547f13dd01f593d537b3","metadata_addr":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9","amount":"5117681"}',
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "1",
+        },
+      ],
+      type: "move",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "type_tag",
+          value: "0x1::fungible_asset::MintEvent",
+        },
+        {
+          index: true,
+          key: "data",
+          value:
+            '{"metadata_addr":"0x543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1","amount":"4953682"}',
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "1",
+        },
+      ],
+      type: "move",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "type_tag",
+          value: "0x1::fungible_asset::DepositEvent",
+        },
+        {
+          index: true,
+          key: "data",
+          value:
+            '{"store_addr":"0x781a86c45e9607aa154d716ec950b8d50c552a17421cdfa0d63fdd2708611b8f","metadata_addr":"0x543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1","amount":"4953682"}',
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "1",
+        },
+      ],
+      type: "move",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "sender",
+          value: "0x1,0x93354845030274cd4bf1686abd60ab28ec52e1a7",
+        },
+        {
+          index: true,
+          key: "module_addr",
+          value: "0x1",
+        },
+        {
+          index: true,
+          key: "module_name",
+          value: "coin",
+        },
+        {
+          index: true,
+          key: "function_name",
+          value: "sudo_transfer",
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "1",
+        },
+      ],
+      type: "execute",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "type_tag",
+          value: "0x1::fungible_asset::WithdrawEvent",
+        },
+        {
+          index: true,
+          key: "data",
+          value:
+            '{"store_addr":"0xba2a23251eb06923fadb03ea9856c66510fefc4dfa9abe92cfb2961c9145cfb3","metadata_addr":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9","amount":"188279"}',
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "1",
+        },
+      ],
+      type: "move",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "type_tag",
+          value: "0x1::fungible_asset::DepositEvent",
+        },
+        {
+          index: true,
+          key: "data",
+          value:
+            '{"store_addr":"0x76fb902aa3450e5e63fe46a2a03b093ed9afcddbe113ee5485e2ceafe4828685","metadata_addr":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9","amount":"188279"}',
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "1",
+        },
+      ],
+      type: "move",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "spender",
+          value: "init1jv65s3grqf6v6jl3dp4t6c9t9rk99cd8ffy0za",
+        },
+        {
+          index: true,
+          key: "amount",
+          value: "188279uinit",
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "1",
+        },
+      ],
+      type: "coin_spent",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "receiver",
+          value:
+            "init1dwn2pf23n58d39let3xqvua787lmer9ej5cutxdlnslp7gtvmvnsfsr9cz",
+        },
+        {
+          index: true,
+          key: "amount",
+          value: "188279uinit",
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "1",
+        },
+      ],
+      type: "coin_received",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "recipient",
+          value:
+            "init1dwn2pf23n58d39let3xqvua787lmer9ej5cutxdlnslp7gtvmvnsfsr9cz",
+        },
+        {
+          index: true,
+          key: "sender",
+          value: "init1jv65s3grqf6v6jl3dp4t6c9t9rk99cd8ffy0za",
+        },
+        {
+          index: true,
+          key: "amount",
+          value: "188279uinit",
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "1",
+        },
+      ],
+      type: "transfer",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "sender",
+          value: "init1jv65s3grqf6v6jl3dp4t6c9t9rk99cd8ffy0za",
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "1",
+        },
+      ],
+      type: "message",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "sender",
+          value:
+            "0x1,0x6ba6a0a5519d0ed897f95c4c0673be3fbfbc8cb99531c599bf9c3e1f216cdb27",
+        },
+        {
+          index: true,
+          key: "module_addr",
+          value: "0x1",
+        },
+        {
+          index: true,
+          key: "module_name",
+          value: "coin",
+        },
+        {
+          index: true,
+          key: "function_name",
+          value: "sudo_transfer",
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "1",
+        },
+      ],
+      type: "execute",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "type_tag",
+          value: "0x1::fungible_asset::WithdrawEvent",
+        },
+        {
+          index: true,
+          key: "data",
+          value:
+            '{"store_addr":"0x781a86c45e9607aa154d716ec950b8d50c552a17421cdfa0d63fdd2708611b8f","metadata_addr":"0x543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1","amount":"4953682"}',
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "1",
+        },
+      ],
+      type: "move",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "type_tag",
+          value: "0x1::fungible_asset::DepositEvent",
+        },
+        {
+          index: true,
+          key: "data",
+          value:
+            '{"store_addr":"0xeae8f912db9acfb4901766874adc7f6dbb1d5fea4785a423671ba5afc59a710f","metadata_addr":"0x543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1","amount":"4953682"}',
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "1",
+        },
+      ],
+      type: "move",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "spender",
+          value:
+            "init1dwn2pf23n58d39let3xqvua787lmer9ej5cutxdlnslp7gtvmvnsfsr9cz",
+        },
+        {
+          index: true,
+          key: "amount",
+          value:
+            "4953682move/543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1",
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "1",
+        },
+      ],
+      type: "coin_spent",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "receiver",
+          value: "init1fl48vsnmsdzcv85q5d2q4z5ajdha8yu3mdfuj4",
+        },
+        {
+          index: true,
+          key: "amount",
+          value:
+            "4953682move/543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1",
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "1",
+        },
+      ],
+      type: "coin_received",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "validator",
+          value: "initvaloper1cmlx2pqfgt2kpshe2fmc40epzvg699eqv3ax66",
+        },
+        {
+          index: true,
+          key: "delegator",
+          value:
+            "init1dwn2pf23n58d39let3xqvua787lmer9ej5cutxdlnslp7gtvmvnsfsr9cz",
+        },
+        {
+          index: true,
+          key: "amount",
+          value:
+            "4953682move/543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1",
+        },
+        {
+          index: true,
+          key: "new_shares",
+          value:
+            "4953682.000000000000000000move/543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1",
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "1",
+        },
+      ],
+      type: "delegate",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "success",
+          value: "true",
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "1",
+        },
+      ],
+      type: "submsg",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "sender",
+          value:
+            "0x6ba6a0a5519d0ed897f95c4c0673be3fbfbc8cb99531c599bf9c3e1f216cdb27",
+        },
+        {
+          index: true,
+          key: "module_addr",
+          value:
+            "0x3a886b32a802582f2e446e74d4a24d1d7ed01adf46d2a8f65c5723887e708789",
+        },
+        {
+          index: true,
+          key: "module_name",
+          value: "lock_staking",
+        },
+        {
+          index: true,
+          key: "function_name",
+          value: "delegate_hook",
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "1",
+        },
+      ],
+      type: "execute",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "type_tag",
+          value:
+            "0x3a886b32a802582f2e446e74d4a24d1d7ed01adf46d2a8f65c5723887e708789::lock_staking::DepositDelegationEvent",
+        },
+        {
+          index: true,
+          key: "data",
+          value:
+            '{"staking_account":"0x6ba6a0a5519d0ed897f95c4c0673be3fbfbc8cb99531c599bf9c3e1f216cdb27","metadata":"0x543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1","release_time":"1785388250","validator":"initvaloper1cmlx2pqfgt2kpshe2fmc40epzvg699eqv3ax66","locked_share":"4953682"}',
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "1",
+        },
+      ],
+      type: "move",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "type_tag",
+          value: "0x1::fungible_asset::WithdrawEvent",
+        },
+        {
+          index: true,
+          key: "data",
+          value:
+            '{"store_addr":"0x76fb902aa3450e5e63fe46a2a03b093ed9afcddbe113ee5485e2ceafe4828685","metadata_addr":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9","amount":"188279"}',
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "1",
+        },
+      ],
+      type: "move",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "type_tag",
+          value: "0x1::fungible_asset::DepositEvent",
+        },
+        {
+          index: true,
+          key: "data",
+          value:
+            '{"store_addr":"0x363088eba325d34d3f5c4beb84cf82cff074a6624dfeec6905417c3f83fac148","metadata_addr":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9","amount":"188279"}',
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "1",
+        },
+      ],
+      type: "move",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "success",
+          value: "true",
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "1",
+        },
+      ],
+      type: "submsg",
+    },
+  ],
+  gas_used: "1210563",
+  gas_wanted: "1701752",
+  height: "5630052",
+  info: "",
+  logs: [],
+  raw_log: "",
+  timestamp: "2025-07-31T05:10:50Z",
+  tx: {
+    "@type": "/cosmos.tx.v1beta1.Tx",
+    auth_info: {
+      fee: {
+        amount: [
+          {
+            amount: "25527",
+            denom: "uinit",
+          },
+        ],
+        gas_limit: "1701752",
+        granter: "",
+        payer: "",
+      },
+      signer_infos: [
+        {
+          mode_info: {
+            single: {
+              mode: "SIGN_MODE_EIP_191",
+            },
+          },
+          public_key: {
+            "@type": "/initia.crypto.v1beta1.ethsecp256k1.PubKey",
+            key: "Azjc3fgjQvWbiXKbqFOzfNboaEEp56ioGj1jLoH6DrmR",
+          },
+          sequence: "22",
+        },
+      ],
+      tip: null,
+    },
+    body: {
+      extension_options: [],
+      memo: "",
+      messages: [
+        {
+          "@type": "/initia.move.v1.MsgExecute",
+          args: [
+            "IAAAAAAAAAA=",
+            "AQAAAAAAAAA=",
+            "AQYAAAAAAAAA",
+            "AQwgF1tAng1NrRQmJ05mI5x+EL1P/LP5yXI+Gy4qRHOTtEMgZZLO6F2D76uoJYBs/nkeKi4R3jbn5isc7nWi6qWaocYgFtf/yFGwBkkvFVYX1H85tRn3XiN4hTgHTGlvgoSEb/Ig25gGwmu+agOtjHELO6h4tVTxwwXJygzdcSZunPk4CHAgqpM8cBPmpR7OkzK8UYq+wlrMeCR7CEXORsw8u/m2HXYgqPhwfRkydxERnhoFZQI8K7EFQ15uJOQ0IOwP7nTWdYYgMt6IWu38VNty8FZn2KmKTHuVJRM2Ocs10qV65e5cZOsgBiOsdWH6WRJmit7T0MoQyX8HSCpGN5ROTb3qIk6ZfjYgKNTUX1m76dhi4OXHy0cNhW79r6dSIy44d8wiFywqTgkgPOmB242HyGRG61VYlAR/asW2Wfzq3GuroNwWgF/cQIkgoxo8dt1VcDQ+gG/q+tBc6dChNqhkgJi215bIJfqLna8gWx+Vs4JPDQE1+XQX05uIouahK2zQTJpRhUxi/7/RDYg=",
+            "AaWxXYUAAAAA",
+          ],
+          function_name: "batch_claim_user_reward_script",
+          module_address:
+            "0x3a886b32a802582f2e446e74d4a24d1d7ed01adf46d2a8f65c5723887e708789",
+          module_name: "vip",
+          sender: "init1lxg0lx9009kxd77q4uyj2t683f3kvuhdxafwd5",
+          type_args: [],
+        },
+        {
+          "@type": "/initia.move.v1.MsgExecute",
+          args: [
+            "IAAAAAAAAAA=",
+            "AQAAAAAAAAA=",
+            "VDs1o5z62tPaPCMknEdEVdFe/S+U+ElHMibe6KPHqeE=",
+            "AZI1SwAAAAAA",
+            "MmluaXR2YWxvcGVyMWNtbHgycHFmZ3Qya3BzaGUyZm1jNDBlcHp2ZzY5OWVxdjNheDY2",
+            "AQYAAAAAAAAA",
+            "AfEWTgAAAAAA",
+            "4Ok5SyTlN3XWr4eTSsAtc1Nq1Yt4lPbM/z9efA1UjlU=",
+            "s00IAAAAAAA=",
+            "AA==",
+          ],
+          function_name: "batch_lock_stake_script",
+          module_address:
+            "0x3a886b32a802582f2e446e74d4a24d1d7ed01adf46d2a8f65c5723887e708789",
+          module_name: "vip",
+          sender: "init1lxg0lx9009kxd77q4uyj2t683f3kvuhdxafwd5",
+          type_args: [],
+        },
+      ],
+      non_critical_extension_options: [],
+      timeout_height: "0",
+    },
+    signatures: [
+      "q5tNNo3CrYTs0O+r3jiUSGH5U/XZNiSXLBX5F1IVvU0lQOml+1K8QimmY6K/VzhqZJ1z71iWlKh/Dyp8tyhvRA==",
+    ],
+  },
+  txhash: "3F61FCD8DCA9953F011590D082FAC9882F1C6FA390B39141C1722AEE64521758",
+};
+
 export const mockApiResponsesForVipClaimEsinit = {
   GET: {
+    "/initia/move/v1/accounts/0x39e454a8b7b1b71b2c0c27bf4ce1fbe234652f2c40f1fc209b023beaa7ece013/resources":
+      {
+        pagination: {
+          next_key: null,
+          total: "0",
+        },
+        resources: [
+          {
+            address:
+              "0x39e454a8b7b1b71b2c0c27bf4ce1fbe234652f2c40f1fc209b023beaa7ece013",
+            move_resource:
+              '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0xf990ff98af796c66fbc0af09252f478a636672ed","version":"1"}}',
+            raw_bytes:
+              "8sAawdRAbd7eanjKXIhrmiruKn73DQSalCoItLM9NM0AAQAAAAAAAAA=",
+            struct_tag: "0x1::object::ObjectCore",
+          },
+          {
+            address:
+              "0x39e454a8b7b1b71b2c0c27bf4ce1fbe234652f2c40f1fc209b023beaa7ece013",
+            move_resource:
+              '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"0","frozen":false,"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}',
+            raw_bytes:
+              "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdkAAAAAAAAAAA==",
+            struct_tag: "0x1::fungible_asset::FungibleStore",
+          },
+        ],
+      },
+    "/initia/move/v1/accounts/0x76fb902aa3450e5e63fe46a2a03b093ed9afcddbe113ee5485e2ceafe4828685/resources":
+      {
+        pagination: {
+          next_key: null,
+          total: "0",
+        },
+        resources: [
+          {
+            address:
+              "0x76fb902aa3450e5e63fe46a2a03b093ed9afcddbe113ee5485e2ceafe4828685",
+            move_resource:
+              '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0xf990ff98af796c66fbc0af09252f478a636672ed","version":"1"}}',
+            raw_bytes:
+              "8sAawdRAbd7eanjKXIhrmiruKn73DQSalCoItLM9NM0AAQAAAAAAAAA=",
+            struct_tag: "0x1::object::ObjectCore",
+          },
+          {
+            address:
+              "0x76fb902aa3450e5e63fe46a2a03b093ed9afcddbe113ee5485e2ceafe4828685",
+            move_resource:
+              '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"0","frozen":false,"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}',
+            raw_bytes:
+              "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdkAAAAAAAAAAA==",
+            struct_tag: "0x1::fungible_asset::FungibleStore",
+          },
+        ],
+      },
     "/initia/move/v1/accounts/0x523bd8fb61230d8b2bc9c070d684e3482cf9c4ef7d08ebfcc9f756c36b229558/resources":
       {
         pagination: {
@@ -788,6 +1866,60 @@ export const mockApiResponsesForVipClaimEsinit = {
               '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"15964127538441","frozen":false,"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}',
             raw_bytes:
               "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdkJrSbwhA4AAAA=",
+            struct_tag: "0x1::fungible_asset::FungibleStore",
+          },
+        ],
+      },
+    "/initia/move/v1/accounts/0x781a86c45e9607aa154d716ec950b8d50c552a17421cdfa0d63fdd2708611b8f/resources":
+      {
+        pagination: {
+          next_key: null,
+          total: "0",
+        },
+        resources: [
+          {
+            address:
+              "0x781a86c45e9607aa154d716ec950b8d50c552a17421cdfa0d63fdd2708611b8f",
+            move_resource:
+              '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0xf990ff98af796c66fbc0af09252f478a636672ed","version":"1"}}',
+            raw_bytes:
+              "8sAawdRAbd7eanjKXIhrmiruKn73DQSalCoItLM9NM0AAQAAAAAAAAA=",
+            struct_tag: "0x1::object::ObjectCore",
+          },
+          {
+            address:
+              "0x781a86c45e9607aa154d716ec950b8d50c552a17421cdfa0d63fdd2708611b8f",
+            move_resource:
+              '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"0","frozen":false,"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}',
+            raw_bytes:
+              "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdkAAAAAAAAAAA==",
+            struct_tag: "0x1::fungible_asset::FungibleStore",
+          },
+        ],
+      },
+    "/initia/move/v1/accounts/0x363088eba325d34d3f5c4beb84cf82cff074a6624dfeec6905417c3f83fac148/resources":
+      {
+        pagination: {
+          next_key: null,
+          total: "0",
+        },
+        resources: [
+          {
+            address:
+              "0x363088eba325d34d3f5c4beb84cf82cff074a6624dfeec6905417c3f83fac148",
+            move_resource:
+              '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0xf990ff98af796c66fbc0af09252f478a636672ed","version":"1"}}',
+            raw_bytes:
+              "8sAawdRAbd7eanjKXIhrmiruKn73DQSalCoItLM9NM0AAQAAAAAAAAA=",
+            struct_tag: "0x1::object::ObjectCore",
+          },
+          {
+            address:
+              "0x363088eba325d34d3f5c4beb84cf82cff074a6624dfeec6905417c3f83fac148",
+            move_resource:
+              '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"0","frozen":false,"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}',
+            raw_bytes:
+              "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdkAAAAAAAAAAA==",
             struct_tag: "0x1::fungible_asset::FungibleStore",
           },
         ],
@@ -819,9 +1951,127 @@ export const mockApiResponsesForVipClaimEsinit = {
           },
         ],
       },
+    "/initia/move/v1/accounts/0xb259bcbfcad49341519ebf11fb589663431a1f2e656b5a879c53203169213a98/resources":
+      {
+        pagination: {
+          next_key: null,
+          total: "0",
+        },
+        resources: [
+          {
+            address:
+              "0xb259bcbfcad49341519ebf11fb589663431a1f2e656b5a879c53203169213a98",
+            move_resource:
+              '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0xf990ff98af796c66fbc0af09252f478a636672ed","version":"1"}}',
+            raw_bytes:
+              "8sAawdRAbd7eanjKXIhrmiruKn73DQSalCoItLM9NM0AAQAAAAAAAAA=",
+            struct_tag: "0x1::object::ObjectCore",
+          },
+          {
+            address:
+              "0xb259bcbfcad49341519ebf11fb589663431a1f2e656b5a879c53203169213a98",
+            move_resource:
+              '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"0","frozen":false,"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}',
+            raw_bytes:
+              "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdkAAAAAAAAAAA==",
+            struct_tag: "0x1::fungible_asset::FungibleStore",
+          },
+        ],
+      },
+    "/initia/move/v1/accounts/0xba2a23251eb06923fadb03ea9856c66510fefc4dfa9abe92cfb2961c9145cfb3/resources":
+      {
+        pagination: {
+          next_key: null,
+          total: "0",
+        },
+        resources: [
+          {
+            address:
+              "0xba2a23251eb06923fadb03ea9856c66510fefc4dfa9abe92cfb2961c9145cfb3",
+            move_resource:
+              '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0xf990ff98af796c66fbc0af09252f478a636672ed","version":"1"}}',
+            raw_bytes:
+              "8sAawdRAbd7eanjKXIhrmiruKn73DQSalCoItLM9NM0AAQAAAAAAAAA=",
+            struct_tag: "0x1::object::ObjectCore",
+          },
+          {
+            address:
+              "0xba2a23251eb06923fadb03ea9856c66510fefc4dfa9abe92cfb2961c9145cfb3",
+            move_resource:
+              '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"0","frozen":false,"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}',
+            raw_bytes:
+              "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdkAAAAAAAAAAA==",
+            struct_tag: "0x1::fungible_asset::FungibleStore",
+          },
+        ],
+      },
+    "/initia/move/v1/accounts/0xd8d20f9cd225d52f126bd3f973cbb83de3212b1b3dae547f13dd01f593d537b3/resources":
+      {
+        pagination: {
+          next_key: null,
+          total: "0",
+        },
+        resources: [
+          {
+            address:
+              "0xd8d20f9cd225d52f126bd3f973cbb83de3212b1b3dae547f13dd01f593d537b3",
+            move_resource:
+              '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0xf990ff98af796c66fbc0af09252f478a636672ed","version":"1"}}',
+            raw_bytes:
+              "8sAawdRAbd7eanjKXIhrmiruKn73DQSalCoItLM9NM0AAQAAAAAAAAA=",
+            struct_tag: "0x1::object::ObjectCore",
+          },
+          {
+            address:
+              "0xd8d20f9cd225d52f126bd3f973cbb83de3212b1b3dae547f13dd01f593d537b3",
+            move_resource:
+              '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"0","frozen":false,"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}',
+            raw_bytes:
+              "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdkAAAAAAAAAAA==",
+            struct_tag: "0x1::fungible_asset::FungibleStore",
+          },
+        ],
+      },
+    "/initia/move/v1/accounts/0xeae8f912db9acfb4901766874adc7f6dbb1d5fea4785a423671ba5afc59a710f/resources":
+      {
+        pagination: {
+          next_key: null,
+          total: "0",
+        },
+        resources: [
+          {
+            address:
+              "0xeae8f912db9acfb4901766874adc7f6dbb1d5fea4785a423671ba5afc59a710f",
+            move_resource:
+              '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":false,"owner":"0xf990ff98af796c66fbc0af09252f478a636672ed","version":"1"}}',
+            raw_bytes:
+              "8sAawdRAbd7eanjKXIhrmiruKn73DQSalCoItLM9NM0AAQAAAAAAAAA=",
+            struct_tag: "0x1::object::ObjectCore",
+          },
+          {
+            address:
+              "0xeae8f912db9acfb4901766874adc7f6dbb1d5fea4785a423671ba5afc59a710f",
+            move_resource:
+              '{"type":"0x1::fungible_asset::FungibleStore","data":{"balance":"0","frozen":false,"metadata":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"}}}',
+            raw_bytes:
+              "jkczvavPfUr8PRTw3UbJv1L7D86eS5lsk54ZW4vIkdkAAAAAAAAAAA==",
+            struct_tag: "0x1::fungible_asset::FungibleStore",
+          },
+        ],
+      },
     "/initia/move/v1/denom?metadata=0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9":
       {
         denom: "uinit",
+      },
+    "/initia/move/v1/denom?metadata=0x543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1":
+      {
+        denom:
+          "move/0x3a886b32a802582f2e446e74d4a24d1d7ed01adf46d2a8f65c5723887e708789::ESESIN",
+      },
+    "/initia/move/v1/denom?metadata=0xe0e9394b24e53775d6af87934ac02d73536ad58b7894f6ccff3f5e7c0d548e55":
+      {
+        denom:
+          "move/0x3a886b32a802582f2e446e74d4a24d1d7ed01adf46d2a8f65c5723887e708789::ESESIN",
       },
   },
 };

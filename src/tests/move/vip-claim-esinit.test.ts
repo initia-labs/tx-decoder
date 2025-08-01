@@ -1,6 +1,7 @@
 import {
   mockApiResponsesForVipClaimEsinit,
   mockMsgVipClaimEsinit,
+  mockMsgVipClaimEsinitZero,
 } from "../fixtures/vip-claim-esinit.fixture";
 import {
   initialize,
@@ -55,6 +56,23 @@ describe("VIP Claim Esinit Message", () => {
         },
       },
       object: {},
+    });
+  });
+
+  it("should decode a VIP claim esinit message with zero amount", async () => {
+    setupMockApi(mockedAxios, mockApiResponsesForVipClaimEsinit);
+    const decoded = await decoder.decodeTransaction(mockMsgVipClaimEsinitZero);
+
+    expect(decoded.messages).toHaveLength(2);
+    expect(decoded.messages[0].decodedMessage).toEqual({
+      action: "vip_claim_esinit",
+      data: {
+        amount: "0",
+        denom: "uinit",
+        from: "init1lxg0lx9009kxd77q4uyj2t683f3kvuhdxafwd5",
+      },
+      isIbc: false,
+      isOp: false,
     });
   });
 });
