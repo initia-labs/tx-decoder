@@ -1,5 +1,5 @@
 import { ApiClient } from "@/api";
-import { LOCK_STAKING_MODULE_ADDRESS } from "@/constants";
+import { INITIA_VAULT_MODULE_ADDRESS } from "@/constants";
 import { DecodedMessage, MessageDecoder } from "@/interfaces";
 import {
   Log,
@@ -11,7 +11,8 @@ import {
 import { findMoveEvent } from "@/utils";
 
 export const depositStakeLockLiquidityDecoder: MessageDecoder = {
-  check: (message: Message, _log: Log) => zMsgDepositStakeLockLiquidity.safeParse(message).success,
+  check: (message: Message, _log: Log) =>
+    zMsgDepositStakeLockLiquidity.safeParse(message).success,
   decode: async (message: Message, log: Log, apiClient: ApiClient) => {
     const parsed = zMsgDepositStakeLockLiquidity.parse(message);
     const { sender } = parsed;
@@ -39,7 +40,7 @@ export const depositStakeLockLiquidityDecoder: MessageDecoder = {
     // Find the DepositDelegationEvent to extract release time
     const depositDelegationEvent = findMoveEvent(
       log.events,
-      `${LOCK_STAKING_MODULE_ADDRESS}::lock_staking::DepositDelegationEvent`,
+      `${INITIA_VAULT_MODULE_ADDRESS}::lock_staking::DepositDelegationEvent`,
       zDepositDelegationEvent
     );
     if (!depositDelegationEvent) {

@@ -13,6 +13,7 @@ export const vipClaimEsinitDecoder: MessageDecoder = {
   decode: async (message: Message, log: Log, _: ApiClient) => {
     const parsed = zMsgVipClaimEsinit.parse(message);
     const { sender } = parsed;
+    const denom = "uinit";
 
     // Find the DepositEvent - should be the reward deposit to the user
     const depositEvent = findMoveEvent(
@@ -26,7 +27,7 @@ export const vipClaimEsinitDecoder: MessageDecoder = {
         action: "vip_claim_esinit",
         data: {
           amount: "0",
-          denom: "uinit",
+          denom,
           from: sender,
         },
         isIbc: false,
@@ -39,7 +40,7 @@ export const vipClaimEsinitDecoder: MessageDecoder = {
       action: "vip_claim_esinit",
       data: {
         amount: depositEvent.amount,
-        denom: "uinit",
+        denom,
         from: sender,
       },
       isIbc: false,

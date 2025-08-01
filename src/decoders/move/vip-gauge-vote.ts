@@ -2,7 +2,7 @@ import type { DecodedMessage, MessageDecoder } from "@/interfaces";
 import type { Log, Message } from "@/schema";
 
 import { ApiClient } from "@/api";
-import { VIP_MODULE_ADDRESS } from "@/constants";
+import { INITIA_VAULT_MODULE_ADDRESS } from "@/constants";
 import { zMsgVipGaugeVote } from "@/schema";
 import { zVoteEvent } from "@/schema/events";
 import { findMoveEvent } from "@/utils";
@@ -18,7 +18,7 @@ export const vipGaugeVoteDecoder: MessageDecoder = {
     // Find the VoteEvent
     const voteEvent = findMoveEvent(
       log.events,
-      `${VIP_MODULE_ADDRESS}::weight_vote::VoteEvent`,
+      `${INITIA_VAULT_MODULE_ADDRESS}::weight_vote::VoteEvent`,
       zVoteEvent
     );
 

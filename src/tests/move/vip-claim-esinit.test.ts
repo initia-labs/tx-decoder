@@ -74,5 +74,10 @@ describe("VIP Claim Esinit Message", () => {
       isIbc: false,
       isOp: false,
     });
+
+    expect(decoded.messages[0].balanceChanges).toEqual({
+      ft: {},
+      object: {},
+    });
   });
 });
