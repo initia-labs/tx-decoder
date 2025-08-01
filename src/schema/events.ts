@@ -117,6 +117,19 @@ export const zMsgIbcTransferSendPacketEvent = zJsonString.pipe(
   })
 );
 
+export const zMinitswapProvideEvent = zJsonString.pipe(
+  z.object({
+    provide_amount: z.string(),
+    share_amount: z.string(),
+  })
+);
+
+export const zMintEvent = zJsonString.pipe(
+  z.object({
+    amount: z.string(),
+    metadata_addr: z.string(),
+  })
+);
 export const zProvideEvent = zJsonString.pipe(
   z.object({
     coin_a: z.string(),
@@ -127,6 +140,31 @@ export const zProvideEvent = zJsonString.pipe(
     liquidity_token: z.string(),
   })
 );
+export const zMinitswapUnbondEvent = zJsonString.pipe(
+  z.object({
+    account: z.string(),
+    release_time: z.string(),
+    share_amount: z.string(),
+    withdraw_amount: z.string(),
+  })
+);
+
+export const zBurnEvent = zJsonString.pipe(
+  z.object({
+    amount: z.string(),
+    metadata_addr: z.string(),
+  })
+);
+
+export const zMinitswapWithdrawUnbondEvent = zJsonString.pipe(
+  z.object({
+    account: z.string(),
+    release_time: z.string(),
+    share_amount: z.string(),
+    withdraw_amount: z.string(),
+  })
+);
+
 export const zDexWithdrawEvent = zJsonString.pipe(
   z.object({
     coin_a: z.string(),
