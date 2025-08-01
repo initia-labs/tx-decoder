@@ -358,6 +358,7 @@ interface DecodedDepositStakeLockLiquidityMessage extends DecodedMessageBase {
     validatorAddress: string;
   };
 }
+
 interface DecodedVipClaimEsinitMessage extends DecodedMessageBase {
   action: "vip_claim_esinit";
   data: {

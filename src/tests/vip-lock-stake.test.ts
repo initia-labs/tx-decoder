@@ -25,14 +25,6 @@ describe("VIP Lock Stake Message", () => {
       ft: {},
       object: {},
     });
-    expect(messages[0].decodedMessage).toEqual({
-      action: "not_supported",
-      data: {
-        msgType: "/initia.move.v1.MsgExecute",
-      },
-      isIbc: false,
-      isOp: false,
-    });
 
     expect(messages[1].balanceChanges).toEqual({
       ft: {

@@ -25,11 +25,27 @@ describe("VIP Gauge Vote Message", () => {
     expect(decoded.messages[0].decodedMessage).toEqual({
       action: "vip_gauge_vote",
       data: {
-        from: "init15j9nswsatns09fnru6ww9jjljg07r87kr56mdc",
+        from: "init1kw2unuhgfa6mz6r0ehrzlr9k9ftjk7pql8u5fm",
         votes: [
           {
             amount: 0.1,
-            rollup: "minimove-1",
+            rollup: "echelon-1",
+          },
+          {
+            amount: 0.3,
+            rollup: "ingnetwork-1",
+          },
+          {
+            amount: 0.4,
+            rollup: "rave-1",
+          },
+          {
+            amount: 0.1,
+            rollup: "intergaze-1",
+          },
+          {
+            amount: 0.1,
+            rollup: "inertia-2",
           },
         ],
       },
@@ -37,8 +53,6 @@ describe("VIP Gauge Vote Message", () => {
       isOp: false,
     });
 
-    // Note: Balance changes would be calculated based on WithdrawEvent and DepositEvent
-    // but for now we focus on the main decoder functionality which is working correctly
     expect(decoded.messages[0].balanceChanges).toEqual({
       ft: {},
       object: {},
