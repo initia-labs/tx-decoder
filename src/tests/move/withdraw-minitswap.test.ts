@@ -27,6 +27,7 @@ describe("Withdraw Minitswap Message", () => {
       data: {
         amountReceived: "1033384",
         amountWithdrawn: "1000000",
+        denomReceived: "uinit",
         denomWithdrawn: "uoinit",
         from: "init15j9nswsatns09fnru6ww9jjljg07r87kr56mdc",
         releaseTime: "1753430669",

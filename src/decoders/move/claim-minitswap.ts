@@ -3,11 +3,7 @@ import type { Log, Message } from "@/schema";
 
 import { ApiClient } from "@/api";
 import { zMsgClaimMinitswap } from "@/schema";
-import {
-  zDepositEvent,
-  zMinitswapWithdrawUnbondEvent,
-  zWithdrawEvent,
-} from "@/schema/events";
+import { zDepositEvent, zMinitswapWithdrawUnbondEvent } from "@/schema/events";
 import { findMoveEvent } from "@/utils";
 
 export const claimMinitswapDecoder: MessageDecoder = {
@@ -26,16 +22,6 @@ export const claimMinitswapDecoder: MessageDecoder = {
     );
     if (!withdrawUnbondEvent) {
       throw new Error("WithdrawUnbondEvent not found");
-    }
-
-    // Find the WithdrawEvent from the pool to identify the underlying token
-    const withdrawEvent = findMoveEvent(
-      log.events,
-      "0x1::fungible_asset::WithdrawEvent",
-      zWithdrawEvent
-    );
-    if (!withdrawEvent) {
-      throw new Error("WithdrawEvent not found");
     }
 
     // Find the DepositEvent to user's account
