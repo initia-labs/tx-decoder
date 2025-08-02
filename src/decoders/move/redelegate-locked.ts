@@ -2,7 +2,7 @@ import type { DecodedMessage, MessageDecoder } from "@/interfaces";
 import type { Log, Message } from "@/schema";
 
 import { ApiClient } from "@/api";
-import { LOCK_STAKING_MODULE_ADDRESS } from "@/constants";
+import { INITIA_VAULT_MODULE_ADDRESS } from "@/constants";
 import {
   zDepositDelegationEvent,
   zMsgRedelegateLocked,
@@ -22,7 +22,7 @@ export const redelegateLockedDecoder: MessageDecoder = {
 
     const withdrawDelegationEvent = findMoveEvent(
       log.events,
-      `${LOCK_STAKING_MODULE_ADDRESS}::lock_staking::WithdrawDelegationEvent`,
+      `${INITIA_VAULT_MODULE_ADDRESS}::lock_staking::WithdrawDelegationEvent`,
       zWithdrawDelegationEvent
     );
     if (!withdrawDelegationEvent) {
@@ -33,7 +33,7 @@ export const redelegateLockedDecoder: MessageDecoder = {
 
     const delegateLockedEvent = findMoveEvent(
       log.events,
-      `${LOCK_STAKING_MODULE_ADDRESS}::lock_staking::DepositDelegationEvent`,
+      `${INITIA_VAULT_MODULE_ADDRESS}::lock_staking::DepositDelegationEvent`,
       zDepositDelegationEvent
     );
     if (!delegateLockedEvent) {

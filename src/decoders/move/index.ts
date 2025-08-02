@@ -12,6 +12,8 @@ export * from "./object-transfer";
 export * from "./redelegate-locked";
 export * from "./stable-swap";
 export * from "./undelegate-locked";
+export * from "./vip-claim-esinit";
+export * from "./vip-gauge-vote";
 export * from "./vip-lock-stake";
 export * from "./withdraw-delegator-reward-locked";
 export * from "./withdraw-liquidity";

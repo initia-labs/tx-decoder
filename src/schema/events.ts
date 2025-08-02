@@ -45,6 +45,21 @@ export const zMsgMoveObjectTransferEvent = zJsonString.pipe(
   })
 );
 
+export const zVoteEvent = zJsonString.pipe(
+  z.object({
+    account: z.string(),
+    cycle: z.string(),
+    max_voting_power: z.string(),
+    voting_power: z.string(),
+    weights: z.array(
+      z.object({
+        bridge_id: z.string(),
+        weight: z.string(),
+      })
+    ),
+  })
+);
+
 export const zMsgMoveNftBurnEvent = zJsonString.pipe(
   z.object({
     collection: z.string(),

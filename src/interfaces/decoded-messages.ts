@@ -28,6 +28,8 @@ export type DecodedMessage =
   | DecodedSendMessage
   | DecodedSwapMessage
   | DecodedUndelegateMessage
+  | DecodedVipClaimEsinitMessage
+  | DecodedVipGaugeVoteMessage
   | DecodedWithdrawDelegatorRewardMessage
   | DecodedWithdrawLiquidityMessage
   | DecodedWithdrawMinitswapMessage;
@@ -356,6 +358,27 @@ interface DecodedDepositStakeLockLiquidityMessage extends DecodedMessageBase {
     validatorAddress: string;
   };
 }
+
+interface DecodedVipClaimEsinitMessage extends DecodedMessageBase {
+  action: "vip_claim_esinit";
+  data: {
+    amount: string;
+    denom: string;
+    from: string;
+  };
+}
+
+interface DecodedVipGaugeVoteMessage extends DecodedMessageBase {
+  action: "vip_gauge_vote";
+  data: {
+    from: string;
+    votes: Array<{
+      amount: number;
+      rollup: string;
+    }>;
+  };
+}
+
 interface DecodedExtendLiquidityMessage extends DecodedMessageBase {
   action: "extend_liquidity";
   data: {
@@ -368,6 +391,7 @@ interface DecodedExtendLiquidityMessage extends DecodedMessageBase {
     validatorAddress: string;
   };
 }
+
 interface DecodedMergeLiquidityMessage extends DecodedMessageBase {
   action: "merge_liquidity";
   data: {

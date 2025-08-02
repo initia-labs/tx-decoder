@@ -2,7 +2,7 @@ import { z } from "zod";
 
 import {
   DEX_UTILS_MODULE_ADDRESS,
-  LOCK_STAKING_MODULE_ADDRESS,
+  INITIA_VAULT_MODULE_ADDRESS,
   USERNAME_MODULE_ADDRESSES,
 } from "@/constants";
 
@@ -105,31 +105,43 @@ export const zMsgMoveExecute = z.object({
 
 export const zMsgDelegateLocked = zMsgMoveExecute.extend({
   function_name: z.literal("delegate"),
-  module_address: z.literal(LOCK_STAKING_MODULE_ADDRESS),
+  module_address: z.literal(INITIA_VAULT_MODULE_ADDRESS),
   module_name: z.literal("lock_staking"),
 });
 
 export const zMsgVipLockStake = zMsgMoveExecute.extend({
   function_name: z.literal("batch_lock_stake_script"),
-  module_address: z.literal(LOCK_STAKING_MODULE_ADDRESS),
+  module_address: z.literal(INITIA_VAULT_MODULE_ADDRESS),
   module_name: z.literal("vip"),
+});
+
+export const zMsgVipClaimEsinit = zMsgMoveExecute.extend({
+  function_name: z.literal("batch_claim_user_reward_script"),
+  module_address: z.literal(INITIA_VAULT_MODULE_ADDRESS),
+  module_name: z.literal("vip"),
+});
+
+export const zMsgVipGaugeVote = zMsgMoveExecute.extend({
+  function_name: z.literal("vote"),
+  module_address: z.literal(INITIA_VAULT_MODULE_ADDRESS),
+  module_name: z.literal("weight_vote"),
 });
 
 export const zMsgUndelegateLocked = zMsgMoveExecute.extend({
   function_name: z.literal("undelegate"),
-  module_address: z.literal(LOCK_STAKING_MODULE_ADDRESS),
+  module_address: z.literal(INITIA_VAULT_MODULE_ADDRESS),
   module_name: z.literal("lock_staking"),
 });
 
 export const zMsgRedelegateLocked = zMsgMoveExecute.extend({
   function_name: z.literal("redelegate"),
-  module_address: z.literal(LOCK_STAKING_MODULE_ADDRESS),
+  module_address: z.literal(INITIA_VAULT_MODULE_ADDRESS),
   module_name: z.literal("lock_staking"),
 });
 
 export const zMsgWithdrawDelegatorRewardLocked = zMsgMoveExecute.extend({
   function_name: z.literal("withdraw_delegator_reward"),
-  module_address: z.literal(LOCK_STAKING_MODULE_ADDRESS),
+  module_address: z.literal(INITIA_VAULT_MODULE_ADDRESS),
   module_name: z.literal("lock_staking"),
 });
 
@@ -246,13 +258,13 @@ export const zMsgDepositStakeLockLiquidity = zMsgMoveExecute.extend({
 });
 export const zMsgExtendLiquidity = zMsgMoveExecute.extend({
   function_name: z.literal("extend"),
-  module_address: z.literal(LOCK_STAKING_MODULE_ADDRESS),
+  module_address: z.literal(INITIA_VAULT_MODULE_ADDRESS),
   module_name: z.literal("lock_staking"),
 });
 
 export const zMsgMergeLiquidity = zMsgMoveExecute.extend({
   function_name: z.literal("batch_extend"),
-  module_address: z.literal(LOCK_STAKING_MODULE_ADDRESS),
+  module_address: z.literal(INITIA_VAULT_MODULE_ADDRESS),
   module_name: z.literal("lock_staking"),
 });
 

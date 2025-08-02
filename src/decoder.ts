@@ -40,6 +40,8 @@ const messageDecoders: MessageDecoder[] = [
   Decoders.stableSwapDecoder,
   Decoders.undelegateDecoder,
   Decoders.undelegateLockedDecoder,
+  Decoders.vipClaimEsinitDecoder,
+  Decoders.vipGaugeVoteDecoder,
   Decoders.vipLockStakeDecoder,
   Decoders.withdrawDelegatorRewardDecoder,
   Decoders.withdrawDelegatorRewardLockedDecoder,
