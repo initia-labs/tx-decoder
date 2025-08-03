@@ -1,9 +1,11 @@
 import {
   mockApiResponsesForMultipleCoins,
   mockApiResponsesForMultipleMessages,
+  mockApiResponsesForOwnerEvent,
   mockApiResponsesForSingleCoin,
   mockMsgSendWithMultipleCoins,
   mockMsgSendWithMultipleMessages,
+  mockMsgSendWithOwnerEvent,
   mockMsgSendWithSingleCoin,
 } from "./fixtures/send.fixture";
 import { initialize, mockedAxios, resetMockApi, setupMockApi } from "./helpers";
@@ -162,6 +164,38 @@ describe("Send Message", () => {
         init1926svvgllca2lzr3lp98h29xshsztka6vua3wf: {
           uinit: "4000000",
         },
+      },
+      object: {},
+    });
+  });
+
+  it("should decode a send message with owner event correctly", async () => {
+    setupMockApi(mockedAxios, mockApiResponsesForOwnerEvent);
+
+    const decoded = await decoder.decodeTransaction(mockMsgSendWithOwnerEvent);
+
+    expect(decoded.messages).toHaveLength(1);
+    expect(decoded.messages[0].decodedMessage).toEqual({
+      action: "send",
+      data: {
+        coins: [{ amount: "34365658000", denom: "uinit" }],
+        from: "init1sqnzndr2mc3us4m59tksjge7gnnml6usydaskw",
+        to: "init1xt4ggu8tqvzj5mt0xlftdnuq6cw8ax8lp593zf",
+      },
+      isIbc: false,
+      isOp: false,
+    });
+    expect(decoded.messages[0].balanceChanges).toEqual({
+      ft: {
+        init1sqnzndr2mc3us4m59tksjge7gnnml6usydaskw: { uinit: "-34365658000" },
+        init1xt4ggu8tqvzj5mt0xlftdnuq6cw8ax8lp593zf: { uinit: "34365658000" },
+      },
+      object: {},
+    });
+    expect(decoded.totalBalanceChanges).toEqual({
+      ft: {
+        init1sqnzndr2mc3us4m59tksjge7gnnml6usydaskw: { uinit: "-34365658000" },
+        init1xt4ggu8tqvzj5mt0xlftdnuq6cw8ax8lp593zf: { uinit: "34365658000" },
       },
       object: {},
     });

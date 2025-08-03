@@ -115,11 +115,23 @@ export const zDepositEvent = zJsonString.pipe(
   })
 );
 
+export const zDepositOwnerEvent = zJsonString.pipe(
+  z.object({
+    owner: z.string(),
+  })
+);
+
 export const zWithdrawEvent = zJsonString.pipe(
   z.object({
     amount: z.string(),
     metadata_addr: z.string(),
     store_addr: z.string(),
+  })
+);
+
+export const zWithdrawOwnerEvent = zJsonString.pipe(
+  z.object({
+    owner: z.string(),
   })
 );
 

@@ -6,7 +6,8 @@ export interface BalanceEventProcessor {
   process: (
     currentEvent: Event,
     allEvents: Event[],
-    apiClient: ApiClient
+    apiClient: ApiClient,
+    eventIndex: number
   ) => Promise<BalanceChanges>;
   type_tag: string;
 }

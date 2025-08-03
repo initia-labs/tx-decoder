@@ -2079,6 +2079,475 @@ export const mockMsgSendWithMultipleMessages = {
   txhash: "90EADB7E294A82012189E91ACA18578CD39F45EE12D9DB96F87FD72EB25011BE",
 };
 
+export const mockMsgSendWithOwnerEvent = {
+  code: 0,
+  codespace: "",
+  data: "12260A242F636F736D6F732E62616E6B2E763162657461312E4D736753656E64526573706F6E7365",
+  events: [
+    {
+      attributes: [
+        {
+          index: true,
+          key: "sender",
+          value: "0x1,0x802629b46ade23c857742aed09233e44e7bfeb90",
+        },
+        {
+          index: true,
+          key: "module_addr",
+          value: "0x1",
+        },
+        {
+          index: true,
+          key: "module_name",
+          value: "coin",
+        },
+        {
+          index: true,
+          key: "function_name",
+          value: "sudo_transfer",
+        },
+      ],
+      type: "execute",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "type_tag",
+          value: "0x1::fungible_asset::WithdrawEvent",
+        },
+        {
+          index: true,
+          key: "data",
+          value:
+            '{"store_addr":"0x9418834bfb3a2fd9b1597fe1afd477824027e2e51f0dedf96061ada9ccca451","metadata_addr":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9","amount":"12000"}',
+        },
+      ],
+      type: "move",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "type_tag",
+          value: "0x1::fungible_asset::WithdrawOwnerEvent",
+        },
+        {
+          index: true,
+          key: "data",
+          value: '{"owner":"0x802629b46ade23c857742aed09233e44e7bfeb90"}',
+        },
+      ],
+      type: "move",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "type_tag",
+          value: "0x1::fungible_asset::DepositEvent",
+        },
+        {
+          index: true,
+          key: "data",
+          value:
+            '{"store_addr":"0x66a8cb0bfb991610dcffb8a6543ac0887c7c5405b8f985ebed6d628fe50c4686","metadata_addr":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9","amount":"12000"}',
+        },
+      ],
+      type: "move",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "type_tag",
+          value: "0x1::fungible_asset::DepositOwnerEvent",
+        },
+        {
+          index: true,
+          key: "data",
+          value: '{"owner":"0xf1829676db577682e944fc3493d451b67ff3e29f"}',
+        },
+      ],
+      type: "move",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "spender",
+          value: "init1sqnzndr2mc3us4m59tksjge7gnnml6usydaskw",
+        },
+        {
+          index: true,
+          key: "amount",
+          value: "12000uinit",
+        },
+      ],
+      type: "coin_spent",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "receiver",
+          value: "init17xpfvakm2amg962yls6f84z3kell8c5l70rnql",
+        },
+        {
+          index: true,
+          key: "amount",
+          value: "12000uinit",
+        },
+      ],
+      type: "coin_received",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "recipient",
+          value: "init17xpfvakm2amg962yls6f84z3kell8c5l70rnql",
+        },
+        {
+          index: true,
+          key: "sender",
+          value: "init1sqnzndr2mc3us4m59tksjge7gnnml6usydaskw",
+        },
+        {
+          index: true,
+          key: "amount",
+          value: "12000uinit",
+        },
+      ],
+      type: "transfer",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "sender",
+          value: "init1sqnzndr2mc3us4m59tksjge7gnnml6usydaskw",
+        },
+      ],
+      type: "message",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "fee",
+          value: "12000uinit",
+        },
+        {
+          index: true,
+          key: "fee_payer",
+          value: "init1sqnzndr2mc3us4m59tksjge7gnnml6usydaskw",
+        },
+      ],
+      type: "tx",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "acc_seq",
+          value: "init1sqnzndr2mc3us4m59tksjge7gnnml6usydaskw/1086",
+        },
+      ],
+      type: "tx",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "signature",
+          value:
+            "WQUSfUGe0NmccCJ/hu2T+DDPQERl3Q593ea4y/QWg0tb7YHRWqgBXGRDBG6j+2N7h3N1af1GK4mqGuGGCws8Sw==",
+        },
+      ],
+      type: "tx",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "action",
+          value: "/cosmos.bank.v1beta1.MsgSend",
+        },
+        {
+          index: true,
+          key: "sender",
+          value: "init1sqnzndr2mc3us4m59tksjge7gnnml6usydaskw",
+        },
+        {
+          index: true,
+          key: "module",
+          value: "bank",
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "0",
+        },
+      ],
+      type: "message",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "sender",
+          value: "0x1,0x802629b46ade23c857742aed09233e44e7bfeb90",
+        },
+        {
+          index: true,
+          key: "module_addr",
+          value: "0x1",
+        },
+        {
+          index: true,
+          key: "module_name",
+          value: "coin",
+        },
+        {
+          index: true,
+          key: "function_name",
+          value: "sudo_transfer",
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "0",
+        },
+      ],
+      type: "execute",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "type_tag",
+          value: "0x1::fungible_asset::WithdrawEvent",
+        },
+        {
+          index: true,
+          key: "data",
+          value:
+            '{"store_addr":"0x9418834bfb3a2fd9b1597fe1afd477824027e2e51f0dedf96061ada9ccca451","metadata_addr":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9","amount":"34365658000"}',
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "0",
+        },
+      ],
+      type: "move",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "type_tag",
+          value: "0x1::fungible_asset::WithdrawOwnerEvent",
+        },
+        {
+          index: true,
+          key: "data",
+          value: '{"owner":"0x802629b46ade23c857742aed09233e44e7bfeb90"}',
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "0",
+        },
+      ],
+      type: "move",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "type_tag",
+          value: "0x1::fungible_asset::DepositEvent",
+        },
+        {
+          index: true,
+          key: "data",
+          value:
+            '{"store_addr":"0xa067ae682e3a86fe8185e2bb4e19e42db75837b7a21f4e2de31906a654119f47","metadata_addr":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9","amount":"34365658000"}',
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "0",
+        },
+      ],
+      type: "move",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "type_tag",
+          value: "0x1::fungible_asset::DepositOwnerEvent",
+        },
+        {
+          index: true,
+          key: "data",
+          value: '{"owner":"0x32ea8470eb03052a6d6f37d2b6cf80d61c7e98ff"}',
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "0",
+        },
+      ],
+      type: "move",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "spender",
+          value: "init1sqnzndr2mc3us4m59tksjge7gnnml6usydaskw",
+        },
+        {
+          index: true,
+          key: "amount",
+          value: "34365658000uinit",
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "0",
+        },
+      ],
+      type: "coin_spent",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "receiver",
+          value: "init1xt4ggu8tqvzj5mt0xlftdnuq6cw8ax8lp593zf",
+        },
+        {
+          index: true,
+          key: "amount",
+          value: "34365658000uinit",
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "0",
+        },
+      ],
+      type: "coin_received",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "recipient",
+          value: "init1xt4ggu8tqvzj5mt0xlftdnuq6cw8ax8lp593zf",
+        },
+        {
+          index: true,
+          key: "sender",
+          value: "init1sqnzndr2mc3us4m59tksjge7gnnml6usydaskw",
+        },
+        {
+          index: true,
+          key: "amount",
+          value: "34365658000uinit",
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "0",
+        },
+      ],
+      type: "transfer",
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "sender",
+          value: "init1sqnzndr2mc3us4m59tksjge7gnnml6usydaskw",
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "0",
+        },
+      ],
+      type: "message",
+    },
+  ],
+  gas_used: "146459",
+  gas_wanted: "400000",
+  height: "5761105",
+  info: "",
+  logs: [],
+  raw_log: "",
+  timestamp: "2025-08-03T14:37:40Z",
+  tx: {
+    "@type": "/cosmos.tx.v1beta1.Tx",
+    auth_info: {
+      fee: {
+        amount: [
+          {
+            amount: "12000",
+            denom: "uinit",
+          },
+        ],
+        gas_limit: "400000",
+        granter: "",
+        payer: "",
+      },
+      signer_infos: [
+        {
+          mode_info: {
+            single: {
+              mode: "SIGN_MODE_DIRECT",
+            },
+          },
+          public_key: {
+            "@type": "/cosmos.crypto.secp256k1.PubKey",
+            key: "AisZf6W9lN9eTt+b1+y4oUxXsAigp8wI9GhIxWapvyY5",
+          },
+          sequence: "1086",
+        },
+      ],
+      tip: null,
+    },
+    body: {
+      extension_options: [],
+      memo: "",
+      messages: [
+        {
+          "@type": "/cosmos.bank.v1beta1.MsgSend",
+          amount: [
+            {
+              amount: "34365658000",
+              denom: "uinit",
+            },
+          ],
+          from_address: "init1sqnzndr2mc3us4m59tksjge7gnnml6usydaskw",
+          to_address: "init1xt4ggu8tqvzj5mt0xlftdnuq6cw8ax8lp593zf",
+        },
+      ],
+      non_critical_extension_options: [],
+      timeout_height: "0",
+    },
+    signatures: [
+      "WQUSfUGe0NmccCJ/hu2T+DDPQERl3Q593ea4y/QWg0tb7YHRWqgBXGRDBG6j+2N7h3N1af1GK4mqGuGGCws8Sw==",
+    ],
+  },
+  txhash: "8279A5CD17D102FE04909E87D8148CC0F26A34D32A5C4CF023D1A2D2E7731B1F",
+};
+
 export const mockApiResponsesForSingleCoin = {
   GET: {
     "/initia/move/v1/accounts/0x1ad99353426d05e2ef000df9424c01c8f1d37707667f9b0f2f8aee6ac3410bef/resources":
@@ -2349,6 +2818,16 @@ export const mockApiResponsesForMultipleMessages = {
           },
         ],
       },
+    "/initia/move/v1/denom?metadata=0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9":
+      {
+        denom: "uinit",
+      },
+  },
+  POST: {},
+};
+
+export const mockApiResponsesForOwnerEvent = {
+  GET: {
     "/initia/move/v1/denom?metadata=0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9":
       {
         denom: "uinit",
