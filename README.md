@@ -197,12 +197,23 @@ The decoder returns a structured object with the following format:
 - `0x1::simple_nft::mint`
 - `0x1::simple_nft::burn`
 - `0x1::object::transfer_call`
+- `0x1::dex::withdraw_liquidity_script`
+- `0x1::minitswap::provide`
+- `0x1::minitswap::unbond`
+- `0x1::minitswap::withdraw_unbond`
 - `<module_address>::usernames::register_domain`
 - `<module_address>::lock_staking::delegate`
 - `<module_address>::lock_staking::undelegate`
 - `<module_address>::lock_staking::redelegate`
 - `<module_address>::lock_staking::withdraw_delegator_reward`
+- `<module_address>::lock_staking::extend`
+- `<module_address>::lock_staking::batch_extend`
+- `<module_address>::vip::batch_claim_user_reward_script`
 - `<module_address>::vip::batch_lock_stake_script`
+- `<module_address>::weight_vote::vote`
+- `<module_address>::dex_utils::unproportional_provide`
+- `<module_address>::dex_utils::unproportional_provide_stake`
+- `<module_address>::dex_utils::unproportional_provide_lock_stake`
 
 ### OpInit Messages
 
