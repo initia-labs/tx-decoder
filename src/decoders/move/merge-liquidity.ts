@@ -6,7 +6,7 @@ import {
   Message,
   zDepositDelegationEvent,
   zMsgMergeLiquidity,
-  zWithdrawDelegationEvent,
+  zWithdrawDelegationEvent
 } from "@/schema";
 import { findMoveEvent } from "@/utils";
 
@@ -39,7 +39,7 @@ export const mergeLiquidityDecoder: MessageDecoder = {
 
     const [liquidityDenom, validatorData] = await Promise.all([
       apiClient.findDenomFromMetadataAddr(depositDelegationEvent.metadata),
-      apiClient.findValidator(depositDelegationEvent.validator),
+      apiClient.findValidator(depositDelegationEvent.validator)
     ]);
 
     if (!liquidityDenom) {
@@ -57,12 +57,12 @@ export const mergeLiquidityDecoder: MessageDecoder = {
         liquidityDenom,
         newReleaseTimestamp: depositDelegationEvent.release_time,
         validator: validatorData,
-        validatorAddress: depositDelegationEvent.validator,
+        validatorAddress: depositDelegationEvent.validator
       },
       isIbc: false,
-      isOp: false,
+      isOp: false
     };
 
     return decodedMessage;
-  },
+  }
 };

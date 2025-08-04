@@ -2,7 +2,7 @@ import {
   mockApiResponsesForRedelegate,
   mockApiResponsesForRedelegateLocked,
   mockMsgRedelegate,
-  mockMsgRedelegateLocked,
+  mockMsgRedelegateLocked
 } from "./fixtures/redelegate.fixture";
 import { initialize, mockedAxios, resetMockApi, setupMockApi } from "./helpers";
 
@@ -17,9 +17,8 @@ describe("Redelegate Message", () => {
   it("should decode a redelegate message correctly", async () => {
     setupMockApi(mockedAxios, mockApiResponsesForRedelegate);
 
-    const { messages, totalBalanceChanges } = await decoder.decodeTransaction(
-      mockMsgRedelegate
-    );
+    const { messages, totalBalanceChanges } =
+      await decoder.decodeTransaction(mockMsgRedelegate);
     const { balanceChanges, decodedMessage } = messages[0];
 
     expect(messages).toHaveLength(1);
@@ -29,8 +28,8 @@ describe("Redelegate Message", () => {
         coins: [
           {
             amount: "49340",
-            denom: "uinit",
-          },
+            denom: "uinit"
+          }
         ],
         delegatorAddress: "init1kw2unuhgfa6mz6r0ehrzlr9k9ftjk7pql8u5fm",
         validatorDst: {
@@ -40,10 +39,9 @@ describe("Redelegate Message", () => {
             identity: "AE4C403A6E7AA1AC",
             moniker: "Cosmostation",
             security_contact: "node@stamper.network",
-            website: "https://www.cosmostation.io",
+            website: "https://www.cosmostation.io"
           },
-          operator_address:
-            "initvaloper19uzc087w778p0l333w52ju0dgsajcj6ydep4rm",
+          operator_address: "initvaloper19uzc087w778p0l333w52ju0dgsajcj6ydep4rm"
         },
         validatorDstAddress:
           "initvaloper19uzc087w778p0l333w52ju0dgsajcj6ydep4rm",
@@ -53,42 +51,41 @@ describe("Redelegate Message", () => {
             identity: "8957C5091FBF4192",
             moniker: "B-Harvest",
             security_contact: "contact@bharvest.io",
-            website: "https://bharvest.io",
+            website: "https://bharvest.io"
           },
-          operator_address:
-            "initvaloper1cmlx2pqfgt2kpshe2fmc40epzvg699eqv3ax66",
+          operator_address: "initvaloper1cmlx2pqfgt2kpshe2fmc40epzvg699eqv3ax66"
         },
         validatorSrcAddress:
-          "initvaloper1cmlx2pqfgt2kpshe2fmc40epzvg699eqv3ax66",
+          "initvaloper1cmlx2pqfgt2kpshe2fmc40epzvg699eqv3ax66"
       },
       isIbc: false,
-      isOp: false,
+      isOp: false
     });
 
     // This is staking reward
     expect(balanceChanges).toEqual({
       ft: {
         init1jv65s3grqf6v6jl3dp4t6c9t9rk99cd8ffy0za: {
-          uinit: "-2",
+          uinit: "-2"
         },
         init1kw2unuhgfa6mz6r0ehrzlr9k9ftjk7pql8u5fm: {
-          uinit: "2",
-        },
+          uinit: "2"
+        }
       },
-      object: {},
+      object: {}
     });
 
     // This is staking reward
     expect(totalBalanceChanges).toEqual({
       ft: {
         init1jv65s3grqf6v6jl3dp4t6c9t9rk99cd8ffy0za: {
-          uinit: "-2",
+          uinit: "-2"
         },
         init1kw2unuhgfa6mz6r0ehrzlr9k9ftjk7pql8u5fm: {
-          uinit: "2",
-        },
+          uinit: "2"
+        }
       },
-      object: {},
+      object: {}
     });
   });
 
@@ -108,8 +105,8 @@ describe("Redelegate Message", () => {
           {
             amount: "1083469",
             denom:
-              "move/543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1",
-          },
+              "move/543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1"
+          }
         ],
         delegatorAddress: "init1tacytfqagzjv73v5ke2s4qj8l68c2w0q4v0q0n",
         validatorDst: {
@@ -119,10 +116,9 @@ describe("Redelegate Message", () => {
             identity: "40FCEFE83A8394E3",
             moniker: "Four Pillars",
             security_contact: "",
-            website: "https://4pillars.io",
+            website: "https://4pillars.io"
           },
-          operator_address:
-            "initvaloper13ze0ryc7vfj2n86sfxfugww4qygjf8mnxxy9uk",
+          operator_address: "initvaloper13ze0ryc7vfj2n86sfxfugww4qygjf8mnxxy9uk"
         },
         validatorDstAddress:
           "initvaloper13ze0ryc7vfj2n86sfxfugww4qygjf8mnxxy9uk",
@@ -133,38 +129,37 @@ describe("Redelegate Message", () => {
             identity: "2F47665C54DB2742",
             moniker: "Delphi Consulting",
             security_contact: "ops@delphiconsulting.io",
-            website: "https://delphidigital.io/consulting",
+            website: "https://delphidigital.io/consulting"
           },
-          operator_address:
-            "initvaloper1qgje6dgazcruzsashpqektp2yaf47x2wyysjqx",
+          operator_address: "initvaloper1qgje6dgazcruzsashpqektp2yaf47x2wyysjqx"
         },
         validatorSrcAddress:
-          "initvaloper1qgje6dgazcruzsashpqektp2yaf47x2wyysjqx",
+          "initvaloper1qgje6dgazcruzsashpqektp2yaf47x2wyysjqx"
       },
       isIbc: false,
-      isOp: false,
+      isOp: false
     });
 
     expect(balanceChanges).toEqual({
       ft: {
         init1ed6zkyv8g87m9ymtc736mewx9gvvp0mtqyt2rfcnv9xucejmhnkqe22kyd: {
-          uinit: "0",
+          uinit: "0"
         },
         init1jv65s3grqf6v6jl3dp4t6c9t9rk99cd8ffy0za: { uinit: "-33" },
-        init1tacytfqagzjv73v5ke2s4qj8l68c2w0q4v0q0n: { uinit: "33" },
+        init1tacytfqagzjv73v5ke2s4qj8l68c2w0q4v0q0n: { uinit: "33" }
       },
-      object: {},
+      object: {}
     });
 
     expect(totalBalanceChanges).toEqual({
       ft: {
         init1ed6zkyv8g87m9ymtc736mewx9gvvp0mtqyt2rfcnv9xucejmhnkqe22kyd: {
-          uinit: "0",
+          uinit: "0"
         },
         init1jv65s3grqf6v6jl3dp4t6c9t9rk99cd8ffy0za: { uinit: "-33" },
-        init1tacytfqagzjv73v5ke2s4qj8l68c2w0q4v0q0n: { uinit: "33" },
+        init1tacytfqagzjv73v5ke2s4qj8l68c2w0q4v0q0n: { uinit: "33" }
       },
-      object: {},
+      object: {}
     });
   });
 });

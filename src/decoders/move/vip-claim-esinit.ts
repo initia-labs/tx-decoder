@@ -28,10 +28,10 @@ export const vipClaimEsinitDecoder: MessageDecoder = {
         data: {
           amount: "0",
           denom,
-          from: sender,
+          from: sender
         },
         isIbc: false,
-        isOp: false,
+        isOp: false
       };
       return decodedMessage;
     }
@@ -41,12 +41,12 @@ export const vipClaimEsinitDecoder: MessageDecoder = {
       data: {
         amount: depositEvent.amount,
         denom,
-        from: sender,
+        from: sender
       },
       isIbc: false,
-      isOp: false,
+      isOp: false
     };
 
     return decodedMessage;
-  },
+  }
 };

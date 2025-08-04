@@ -8,12 +8,12 @@ export const zUtcDate = z
 
 export const zAny = z.object({
   typeUrl: z.string(),
-  value: z.array(z.number()), // UInt8Array
+  value: z.array(z.number()) // UInt8Array
 });
 
 export const zCoin = z.object({
   amount: z.string(),
-  denom: z.string(),
+  denom: z.string()
 });
 export type Coin = z.infer<typeof zCoin>;
 
@@ -23,7 +23,7 @@ export const zJsonString = z.string().transform((val, ctx) => {
   } catch {
     ctx.addIssue({
       code: z.ZodIssueCode.custom,
-      message: "Invalid JSON string",
+      message: "Invalid JSON string"
     });
     return z.NEVER;
   }

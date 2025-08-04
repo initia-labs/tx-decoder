@@ -7,7 +7,7 @@ import {
   zMsgMoveExecute,
   zMsgMoveNftBurnEvent,
   zMsgMoveNftMint,
-  zMsgMoveObjectCreateEvent,
+  zMsgMoveObjectCreateEvent
 } from "@/schema";
 import { findMoveEvent, toBech32 } from "@/utils";
 
@@ -54,19 +54,19 @@ export const nftMintDecoder: MessageDecoder = {
           creator: toBech32(collection.data.creator),
           description: collection.data.description,
           name: collection.data.name,
-          uri: collection.data.uri,
+          uri: collection.data.uri
         },
         collectionAddress: toBech32(mintEvent.collection),
         from: parsed.sender,
         tokenAddress: toBech32(mintEvent.nft),
         tokenId: mintEvent.token_id,
         // in case of burn, the tokenUri is not available
-        tokenUri: nftData?.data.uri,
+        tokenUri: nftData?.data.uri
       },
       isIbc: false,
-      isOp: false,
+      isOp: false
     };
-  },
+  }
 };
 
 export const nftBurnDecoder: MessageDecoder = {
@@ -103,15 +103,15 @@ export const nftBurnDecoder: MessageDecoder = {
           creator: toBech32(collection.data.creator),
           description: collection.data.description,
           name: collection.data.name,
-          uri: collection.data.uri,
+          uri: collection.data.uri
         },
         collectionAddress: toBech32(burnEvent.collection),
         from: parsed.sender,
         tokenAddress: toBech32(burnEvent.nft),
-        tokenId: burnEvent.token_id,
+        tokenId: burnEvent.token_id
       },
       isIbc: false,
-      isOp: false,
+      isOp: false
     };
-  },
+  }
 };

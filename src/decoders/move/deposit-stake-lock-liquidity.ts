@@ -6,7 +6,7 @@ import {
   Message,
   zDepositDelegationEvent,
   zMsgDepositStakeLockLiquidity,
-  zProvideEvent,
+  zProvideEvent
 } from "@/schema";
 import { findMoveEvent } from "@/utils";
 
@@ -51,7 +51,7 @@ export const depositStakeLockLiquidityDecoder: MessageDecoder = {
       apiClient.findDenomFromMetadataAddr(provideEvent.coin_a),
       apiClient.findDenomFromMetadataAddr(provideEvent.coin_b),
       apiClient.findDenomFromMetadataAddr(provideEvent.liquidity_token),
-      apiClient.findValidator(validatorAddress),
+      apiClient.findValidator(validatorAddress)
     ]);
 
     if (!denomA) {
@@ -80,12 +80,12 @@ export const depositStakeLockLiquidityDecoder: MessageDecoder = {
         liquidityDenom,
         releaseTimestamp: depositDelegationEvent.release_time,
         validator: validatorData,
-        validatorAddress,
+        validatorAddress
       },
       isIbc: false,
-      isOp: false,
+      isOp: false
     };
 
     return decodedMessage;
-  },
+  }
 };

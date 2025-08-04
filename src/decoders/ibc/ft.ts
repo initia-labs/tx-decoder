@@ -7,7 +7,7 @@ import {
   Message,
   zIbcTransferRecvPacket,
   zMsgIbcRecvPacket,
-  zMsgIbcTransfer,
+  zMsgIbcTransfer
 } from "@/schema";
 import { getIbcDenom } from "@/utils";
 
@@ -25,7 +25,7 @@ export const ibcSendFtDecoder: MessageDecoder = {
       source_port,
       timeout_height,
       timeout_timestamp,
-      token,
+      token
     } = parsed;
 
     const event = log.events.find((event) => event.type === "send_packet");
@@ -71,12 +71,12 @@ export const ibcSendFtDecoder: MessageDecoder = {
         srcChannel: source_channel,
         srcPort: source_port,
         timeoutHeight: timeout_height,
-        timeoutTimestamp: timeout_timestamp,
+        timeoutTimestamp: timeout_timestamp
       },
       isIbc: true,
-      isOp: false,
+      isOp: false
     };
-  },
+  }
 };
 
 export const ibcReceiveFtDecoder: MessageDecoder = {
@@ -95,8 +95,8 @@ export const ibcReceiveFtDecoder: MessageDecoder = {
         source_channel,
         source_port,
         timeout_height,
-        timeout_timestamp,
-      },
+        timeout_timestamp
+      }
     } = parsed;
 
     const parsedPacket = zIbcTransferRecvPacket.parse(
@@ -129,10 +129,10 @@ export const ibcReceiveFtDecoder: MessageDecoder = {
         srcChannel: source_channel,
         srcPort: source_port,
         timeoutHeight: timeout_height,
-        timeoutTimestamp: timeout_timestamp,
+        timeoutTimestamp: timeout_timestamp
       },
       isIbc: true,
-      isOp: false,
+      isOp: false
     };
-  },
+  }
 };

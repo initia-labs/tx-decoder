@@ -1,12 +1,12 @@
 import {
   mockApiResponsesForWithdrawMinitswap,
-  mockMsgWithdrawMinitswap,
+  mockMsgWithdrawMinitswap
 } from "../fixtures/move/withdraw-minitswap.fixture";
 import {
   initialize,
   mockedAxios,
   resetMockApi,
-  setupMockApi,
+  setupMockApi
 } from "../helpers";
 
 jest.mock("axios");
@@ -30,28 +30,28 @@ describe("Withdraw Minitswap Message", () => {
         denomReceived: "uinit",
         denomWithdrawn: "uoinit",
         from: "init15j9nswsatns09fnru6ww9jjljg07r87kr56mdc",
-        releaseTime: "1753430669",
+        releaseTime: "1753430669"
       },
       isIbc: false,
-      isOp: false,
+      isOp: false
     });
 
     expect(decoded.messages[0].balanceChanges).toEqual({
       ft: {
         init15j9nswsatns09fnru6ww9jjljg07r87kr56mdc: {
-          uoinit: "-1000000",
-        },
+          uoinit: "-1000000"
+        }
       },
-      object: {},
+      object: {}
     });
 
     expect(decoded.totalBalanceChanges).toEqual({
       ft: {
         init15j9nswsatns09fnru6ww9jjljg07r87kr56mdc: {
-          uoinit: "-1000000",
-        },
+          uoinit: "-1000000"
+        }
       },
-      object: {},
+      object: {}
     });
   });
 });

@@ -1,10 +1,16 @@
 import { ApiClient } from "@/api";
 import { DecodedMessage, MessageDecoder } from "@/interfaces";
-import { Log, Message, zMsgDepositStakeLiquidity, zProvideEvent } from "@/schema";
+import {
+  Log,
+  Message,
+  zMsgDepositStakeLiquidity,
+  zProvideEvent
+} from "@/schema";
 import { findMoveEvent } from "@/utils";
 
 export const depositStakeLiquidityDecoder: MessageDecoder = {
-  check: (message: Message, _log: Log) => zMsgDepositStakeLiquidity.safeParse(message).success,
+  check: (message: Message, _log: Log) =>
+    zMsgDepositStakeLiquidity.safeParse(message).success,
   decode: async (message: Message, log: Log, apiClient: ApiClient) => {
     const parsed = zMsgDepositStakeLiquidity.parse(message);
     const { sender } = parsed;
@@ -33,7 +39,7 @@ export const depositStakeLiquidityDecoder: MessageDecoder = {
       apiClient.findDenomFromMetadataAddr(provideEvent.coin_a),
       apiClient.findDenomFromMetadataAddr(provideEvent.coin_b),
       apiClient.findDenomFromMetadataAddr(provideEvent.liquidity_token),
-      apiClient.findValidator(validatorAddress),
+      apiClient.findValidator(validatorAddress)
     ]);
 
     if (!denomA) {
@@ -61,12 +67,12 @@ export const depositStakeLiquidityDecoder: MessageDecoder = {
         liquidity: provideEvent.liquidity,
         liquidityDenom,
         validator: validatorData,
-        validatorAddress,
+        validatorAddress
       },
       isIbc: false,
-      isOp: false,
+      isOp: false
     };
 
     return decodedMessage;
-  },
+  }
 };

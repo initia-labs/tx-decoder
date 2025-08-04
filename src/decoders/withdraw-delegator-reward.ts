@@ -28,12 +28,12 @@ export const withdrawDelegatorRewardDecoder: MessageDecoder = {
         coins,
         delegatorAddress: delegator_address,
         validator,
-        validatorAddress: validator_address,
+        validatorAddress: validator_address
       },
       isIbc: false,
-      isOp: false,
+      isOp: false
     };
 
     return decodedMessage;
-  },
+  }
 };

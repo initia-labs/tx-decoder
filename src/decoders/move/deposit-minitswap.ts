@@ -6,12 +6,13 @@ import { zMsgDepositMinitswap } from "@/schema";
 import {
   zMinitswapProvideEvent,
   zMintEvent,
-  zWithdrawEvent,
+  zWithdrawEvent
 } from "@/schema/events";
 import { findMoveEvent } from "@/utils";
 
 export const depositMinitswapDecoder: MessageDecoder = {
-  check: (message: Message, _log: Log) => zMsgDepositMinitswap.safeParse(message).success,
+  check: (message: Message, _log: Log) =>
+    zMsgDepositMinitswap.safeParse(message).success,
 
   decode: async (message: Message, log: Log, apiClient: ApiClient) => {
     const parsed = zMsgDepositMinitswap.parse(message);
@@ -50,15 +51,19 @@ export const depositMinitswapDecoder: MessageDecoder = {
     // Get denomination data for deposited and received tokens
     const [depositedDenom, receivedDenom] = await Promise.all([
       apiClient.findDenomFromMetadataAddr(withdrawEvent.metadata_addr),
-      apiClient.findDenomFromMetadataAddr(mintEvent.metadata_addr),
+      apiClient.findDenomFromMetadataAddr(mintEvent.metadata_addr)
     ]);
 
     if (!depositedDenom) {
-      throw new Error(`Deposited denom not found for metadata ${withdrawEvent.metadata_addr}`);
+      throw new Error(
+        `Deposited denom not found for metadata ${withdrawEvent.metadata_addr}`
+      );
     }
 
     if (!receivedDenom) {
-      throw new Error(`Received denom not found for metadata ${mintEvent.metadata_addr}`);
+      throw new Error(
+        `Received denom not found for metadata ${mintEvent.metadata_addr}`
+      );
     }
 
     const decodedMessage: DecodedMessage = {
@@ -68,12 +73,12 @@ export const depositMinitswapDecoder: MessageDecoder = {
         amountReceived: provideEvent.share_amount,
         denomDeposited: depositedDenom,
         denomReceived: receivedDenom,
-        from: sender,
+        from: sender
       },
       isIbc: false,
-      isOp: false,
+      isOp: false
     };
 
     return decodedMessage;
-  },
+  }
 };

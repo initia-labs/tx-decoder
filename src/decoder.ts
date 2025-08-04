@@ -6,7 +6,7 @@ import {
   DecodedTx,
   DecoderConfig,
   MessageDecoder,
-  ProcessedMessage,
+  ProcessedMessage
 } from "./interfaces";
 import { resolveMetadata } from "./metadata-resolver";
 import { Log, Message, TxResponse, zTxResponse } from "./schema";
@@ -46,7 +46,7 @@ const messageDecoders: MessageDecoder[] = [
   Decoders.withdrawDelegatorRewardDecoder,
   Decoders.withdrawDelegatorRewardLockedDecoder,
   Decoders.withdrawLiquidityDecoder,
-  Decoders.withdrawMinitswapDecoder,
+  Decoders.withdrawMinitswapDecoder
   // Add more decoders here in order of priority
 ];
 
@@ -68,7 +68,7 @@ export class TxDecoder {
       return {
         messages: [],
         metadata: {},
-        totalBalanceChanges: DEFAULT_BALANCE_CHANGES,
+        totalBalanceChanges: DEFAULT_BALANCE_CHANGES
       };
     }
 
@@ -93,7 +93,7 @@ export class TxDecoder {
     return {
       messages: processedMessages,
       metadata,
-      totalBalanceChanges,
+      totalBalanceChanges
     };
   }
 

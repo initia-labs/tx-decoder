@@ -38,7 +38,7 @@ export const vipLockStakeDecoder: MessageDecoder = {
 
     const vipLockStakeCoin = {
       amount: depositDelegationEvent.locked_share,
-      denom,
+      denom
     };
 
     const validator = await apiClient.findValidator(
@@ -52,12 +52,12 @@ export const vipLockStakeDecoder: MessageDecoder = {
         delegatorAddress: sender,
         releaseTimestamp: depositDelegationEvent.release_time,
         validator,
-        validatorAddress: depositDelegationEvent.validator,
+        validatorAddress: depositDelegationEvent.validator
       },
       isIbc: false,
-      isOp: false,
+      isOp: false
     };
 
     return decodedMessage;
-  },
+  }
 };

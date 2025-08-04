@@ -1,12 +1,12 @@
 import {
   mockApiResponsesForMergeLiquidity,
-  mockMsgMergeLiquidity,
+  mockMsgMergeLiquidity
 } from "../fixtures/move/merge-liquidity.fixture";
 import {
   initialize,
   mockedAxios,
   resetMockApi,
-  setupMockApi,
+  setupMockApi
 } from "../helpers";
 
 jest.mock("axios");
@@ -38,25 +38,24 @@ describe("Merge Liquidity Message", () => {
             identity: "A2879F08F59FB0AF",
             moniker: "Orbital Command",
             security_contact: "",
-            website: "https://orbitalcommand.io",
+            website: "https://orbitalcommand.io"
           },
-          operator_address:
-            "initvaloper1qx6ghyv83caecuxgl77lvlnha9d9y6fntryc8a",
+          operator_address: "initvaloper1qx6ghyv83caecuxgl77lvlnha9d9y6fntryc8a"
         },
-        validatorAddress: "initvaloper1qx6ghyv83caecuxgl77lvlnha9d9y6fntryc8a",
+        validatorAddress: "initvaloper1qx6ghyv83caecuxgl77lvlnha9d9y6fntryc8a"
       },
       isIbc: false,
-      isOp: false,
+      isOp: false
     });
 
     expect(decoded.messages[0].balanceChanges).toEqual({
       ft: {},
-      object: {},
+      object: {}
     });
 
     expect(decoded.totalBalanceChanges).toEqual({
       ft: {},
-      object: {},
+      object: {}
     });
   });
 });

@@ -30,12 +30,12 @@ export const finalizeTokenWithdrawalDecoder: MessageDecoder = {
         denom: amount.denom,
         from,
         srcChainId,
-        to,
+        to
       },
       isIbc: false,
-      isOp: true,
+      isOp: true
     };
 
     return decodedMessage;
-  },
+  }
 };

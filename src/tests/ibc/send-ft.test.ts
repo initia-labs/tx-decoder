@@ -1,12 +1,12 @@
 import {
   mockApiResponsesForMsgIbcSend,
-  mockMsgIbcSendFt,
+  mockMsgIbcSendFt
 } from "../fixtures/ibc/send-ft.fixture";
 import {
   initialize,
   mockedAxios,
   resetMockApi,
-  setupMockApi,
+  setupMockApi
 } from "../helpers";
 
 jest.mock("axios");
@@ -39,34 +39,34 @@ describe("IBC Send FT Message", () => {
         srcPort: "transfer",
         timeoutHeight: {
           revision_height: "0",
-          revision_number: "0",
+          revision_number: "0"
         },
-        timeoutTimestamp: "1751257396110677500",
+        timeoutTimestamp: "1751257396110677500"
       },
       isIbc: true,
-      isOp: false,
+      isOp: false
     });
     expect(decoded.messages[0].balanceChanges).toEqual({
       ft: {
         init1je5zsemauel5dqjwug9snfvkwr8hks9zrfgla2: {
-          uinit: "200000",
+          uinit: "200000"
         },
         init1kw2unuhgfa6mz6r0ehrzlr9k9ftjk7pql8u5fm: {
-          uinit: "-200000",
-        },
+          uinit: "-200000"
+        }
       },
-      object: {},
+      object: {}
     });
     expect(decoded.totalBalanceChanges).toEqual({
       ft: {
         init1je5zsemauel5dqjwug9snfvkwr8hks9zrfgla2: {
-          uinit: "200000",
+          uinit: "200000"
         },
         init1kw2unuhgfa6mz6r0ehrzlr9k9ftjk7pql8u5fm: {
-          uinit: "-200000",
-        },
+          uinit: "-200000"
+        }
       },
-      object: {},
+      object: {}
     });
   });
 });

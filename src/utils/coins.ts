@@ -16,7 +16,7 @@ export const parseCoins = (input: string): Coin[] => {
       if (!match) throw new Error("Got an invalid coin string");
       return {
         amount: match[1].replace(/^0+/, "") || "0",
-        denom: match[2],
+        denom: match[2]
       };
     });
 };

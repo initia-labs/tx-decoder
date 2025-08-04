@@ -36,7 +36,7 @@ export const delegateLockedDecoder: MessageDecoder = {
 
     const delegateLockedCoin = {
       amount: delegateLockedEvent.locked_share,
-      denom,
+      denom
     };
 
     const validator = await apiClient.findValidator(
@@ -50,12 +50,12 @@ export const delegateLockedDecoder: MessageDecoder = {
         delegatorAddress: sender,
         releaseTimestamp: delegateLockedEvent.release_time,
         validator,
-        validatorAddress: delegateLockedEvent.validator,
+        validatorAddress: delegateLockedEvent.validator
       },
       isIbc: false,
-      isOp: false,
+      isOp: false
     };
 
     return decodedMessage;
-  },
+  }
 };
