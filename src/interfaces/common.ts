@@ -14,6 +14,6 @@ export interface ProcessedMessage {
 }
 
 export interface DecoderConfig {
-  registryUrls: string[];
+  registryUrl: string;
   restUrl: string;
 }

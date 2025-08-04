@@ -1,33 +1,29 @@
 import axios from "axios";
 import { z } from "zod";
 
-import { DecoderConfig } from "./interfaces";
-import {
+import type {
   AccountResource,
   CollectionResource,
   NftResource,
   Registry,
-  zAccountResources,
-  zCollectionResource,
-  zMoveViewResponse,
-  zNftResource,
-  zNodeInfo,
-  zObjectCoreResource,
-  zRegistries,
-  zValidator,
 } from "./schema";
+
+import { DecoderConfig } from "./interfaces";
+import * as schema from "./schema";
 import { isAnyHexAddress, toBech32, toHex } from "./utils";
 
 export class ApiClient {
-  public registries: Registry[] = [];
   private readonly cache: Map<string, unknown> = new Map();
 
-  private readonly registryUrls: string[];
+  private registries: Registry[] = [];
+  private registriesUpdatePromise: Promise<void> | null = null;
+
+  private readonly registryUrl: string;
   private readonly restUrl: string;
 
   constructor(config: DecoderConfig) {
+    this.registryUrl = config.registryUrl;
     this.restUrl = config.restUrl;
-    this.registryUrls = config.registryUrls;
   }
 
   public async findCollectionFromCollectionAddr(
@@ -43,22 +39,19 @@ export class ApiClient {
     if (!collectionResource) {
       return null;
     }
-    return zCollectionResource.parse(collectionResource.move_resource);
+    return schema.zCollectionResource.parse(collectionResource.move_resource);
   }
 
   public async findDenomFromMetadataAddr(
     metadataAddr: string
   ): Promise<string | null> {
-    const url = `${this.restUrl}/initia/move/v1/denom?metadata=${metadataAddr}`;
-    const cached = this.cache.get(url);
-    if (cached) return z.string().parse(cached);
-
     try {
-      const response = await axios.get(url);
-      const parsedDenom = z.string().parse(response.data.denom);
+      const result = await this._fetchWithCache(
+        `${this.restUrl}/initia/move/v1/denom?metadata=${metadataAddr}`,
+        z.object({ denom: z.string() })
+      );
 
-      this.cache.set(url, parsedDenom);
-      return parsedDenom;
+      return result.denom;
     } catch {
       return null;
     }
@@ -69,12 +62,11 @@ export class ApiClient {
     portId: string,
     channelId: string
   ): Promise<string | null> {
-    await this._getRegistries();
+    await this._updateRegistries();
 
     const registry = this.registries.find(
       (registry) => registry.chain_id === chainId
     );
-
     if (!registry) {
       return null;
     }
@@ -83,7 +75,6 @@ export class ApiClient {
       (channel) =>
         channel.port_id === portId && channel.channel_id === channelId
     );
-
     if (!channel) {
       return null;
     }
@@ -98,13 +89,14 @@ export class ApiClient {
     if (!resources) {
       return null;
     }
+
     const nftResource = resources.find(
       (resource) => resource.struct_tag === "0x1::nft::Nft"
     );
     if (!nftResource) {
       return null;
     }
-    return zNftResource.parse(nftResource.move_resource);
+    return schema.zNftResource.parse(nftResource.move_resource);
   }
 
   public async findOwnerFromStoreAddr(
@@ -114,6 +106,7 @@ export class ApiClient {
     if (!resources) {
       return null;
     }
+
     const objectCoreResource = resources.find(
       (resource) => resource.struct_tag === "0x1::object::ObjectCore"
     );
@@ -122,12 +115,13 @@ export class ApiClient {
     }
 
     return toBech32(
-      zObjectCoreResource.parse(objectCoreResource.move_resource).data.owner
+      schema.zObjectCoreResource.parse(objectCoreResource.move_resource).data
+        .owner
     );
   }
 
   public async findRollupChainId(bridgeId: string) {
-    await this._getRegistries();
+    await this._updateRegistries();
 
     return this.registries.find(
       (registry) => registry.metadata?.op_bridge_id === bridgeId
@@ -136,11 +130,11 @@ export class ApiClient {
 
   public async findValidator(validatorAddress: string) {
     try {
-      const response = await axios.get(
-        `${this.restUrl}/initia/mstaking/v1/validators/${validatorAddress}`
+      const result = await this._fetchWithCache(
+        `${this.restUrl}/initia/mstaking/v1/validators/${validatorAddress}`,
+        schema.zValidatorResponse
       );
-
-      return zValidator.parse(response.data);
+      return result.validator;
     } catch {
       return null;
     }
@@ -148,13 +142,38 @@ export class ApiClient {
 
   public async getChainId(): Promise<string> {
     try {
-      const response = await axios.get(
-        `${this.restUrl}/cosmos/base/tendermint/v1beta1/node_info`
+      const result = await this._fetchWithCache(
+        `${this.restUrl}/cosmos/base/tendermint/v1beta1/node_info`,
+        schema.zNodeInfo
       );
-      return zNodeInfo.parse(response.data).default_node_info.network;
+      return result.default_node_info.network;
     } catch (error) {
       console.error("Failed to fetch chain ID:", error);
       throw new Error("Unable to retrieve chain ID from node info");
+    }
+  }
+
+  private async _fetchWithCache<T>(
+    url: string,
+    parser: z.ZodType<T>
+  ): Promise<T> {
+    const cached = this.cache.get(url);
+    if (cached !== undefined) {
+      try {
+        return parser.parse(cached);
+      } catch {
+        this.cache.delete(url);
+      }
+    }
+
+    try {
+      const response = await axios.get(url);
+      const parsed = parser.parse(response.data);
+      this.cache.set(url, parsed);
+      return parsed;
+    } catch (error) {
+      console.error(`Failed to fetch or parse data from ${url}:`, error);
+      throw error;
     }
   }
 
@@ -163,55 +182,38 @@ export class ApiClient {
   ): Promise<AccountResource[] | null> {
     // convert to hex if it's a bech32 address
     const hexAddress = isAnyHexAddress(address) ? address : toHex(address);
-
     const url = `${this.restUrl}/initia/move/v1/accounts/${hexAddress}/resources`;
 
-    const cachedData = this.cache.get(url);
-    const parsedCache = zAccountResources.shape.resources.safeParse(cachedData);
-
-    if (parsedCache.success) {
-      return parsedCache.data;
-    }
-
     try {
-      const response = await axios.get(url);
-      const result = zAccountResources.parse(response.data).resources;
-      this.cache.set(url, result);
-      return result;
+      return (await this._fetchWithCache(url, schema.zAccountResources))
+        .resources;
     } catch {
       return null;
     }
   }
 
-  private async _getRegistries() {
-    if (this.registries.length > 0) {
-      return this.registries;
+  private async _updateRegistries() {
+    if (this.registriesUpdatePromise) {
+      return this.registriesUpdatePromise;
     }
 
-    const results = await Promise.allSettled(
-      this.registryUrls.map((url) => axios.get(`${url}/chains.json`))
-    );
-
-    this.registries = results.flatMap((result, index) => {
-      if (result.status === "rejected") {
-        console.error(
-          `Failed to fetch from ${this.registryUrls[index]}:`,
-          result.reason
+    this.registriesUpdatePromise = (async () => {
+      try {
+        const registries = await this._fetchWithCache(
+          `${this.registryUrl}/chains.json`,
+          schema.zRegistries
         );
-        return [];
-      }
 
-      const parsed = zRegistries.safeParse(result.value.data);
-
-      if (parsed.success) {
-        return parsed.data;
+        this.registries = registries;
+      } catch (error) {
+        console.error(`Failed to fetch from ${this.registryUrl}:`, error);
+        this.registries = [];
+      } finally {
+        this.registriesUpdatePromise = null;
       }
-      console.warn(
-        `Invalid registry format from ${this.registryUrls[index]}:`,
-        parsed.error
-      );
-      return [];
-    });
+    })();
+
+    return this.registriesUpdatePromise;
   }
 
   private async _viewMoveContract(
@@ -234,7 +236,7 @@ export class ApiClient {
     });
 
     const cachedData = this.cache.get(cacheKey);
-    const parsedCache = zMoveViewResponse.safeParse(cachedData);
+    const parsedCache = schema.zMoveViewResponse.safeParse(cachedData);
 
     if (parsedCache.success) {
       return parsedCache.data.data;
@@ -249,7 +251,7 @@ export class ApiClient {
         typeArgs,
       });
 
-      const result = zMoveViewResponse.parse(response.data);
+      const result = schema.zMoveViewResponse.parse(response.data);
       this.cache.set(cacheKey, result);
       return result.data;
     } catch {

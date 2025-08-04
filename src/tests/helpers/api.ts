@@ -31,6 +31,7 @@ export const createMockApiHandlers = (responses: MockApiResponses) => {
 
   const getHandler = (url: string) => {
     const path = getPath(url);
+
     if (responses.GET && responses.GET[path]) {
       return Promise.resolve({ data: responses.GET[path] });
     }
