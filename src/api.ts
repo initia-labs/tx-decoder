@@ -5,7 +5,7 @@ import type {
   AccountResource,
   CollectionResource,
   NftResource,
-  Registry,
+  Registry
 } from "./schema";
 
 import { DecoderConfig } from "./interfaces";
@@ -230,9 +230,9 @@ export class ApiClient {
         args,
         function_name: functionName,
         module_name: moduleName,
-        typeArgs,
+        typeArgs
       },
-      url,
+      url
     });
 
     const cachedData = this.cache.get(cacheKey);
@@ -248,7 +248,7 @@ export class ApiClient {
         args,
         function_name: functionName,
         module_name: moduleName,
-        typeArgs,
+        typeArgs
       });
 
       const result = schema.zMoveViewResponse.parse(response.data);

@@ -15,7 +15,7 @@ export const depositEventProcessor: BalanceEventProcessor = {
       const data = zDepositEvent.parse(dataAttribute.value);
       const [owner, denom] = await Promise.all([
         apiClient.findOwnerFromStoreAddr(data.store_addr),
-        apiClient.findDenomFromMetadataAddr(data.metadata_addr),
+        apiClient.findDenomFromMetadataAddr(data.metadata_addr)
       ]);
 
       if (!owner) {
@@ -31,9 +31,9 @@ export const depositEventProcessor: BalanceEventProcessor = {
 
       return {
         ft: {
-          [owner]: { [denom]: data.amount },
+          [owner]: { [denom]: data.amount }
         },
-        object: {},
+        object: {}
       };
     } catch (error) {
       console.error(
@@ -44,5 +44,5 @@ export const depositEventProcessor: BalanceEventProcessor = {
 
     return DEFAULT_BALANCE_CHANGES;
   },
-  type_tag: "0x1::fungible_asset::DepositEvent",
+  type_tag: "0x1::fungible_asset::DepositEvent"
 };

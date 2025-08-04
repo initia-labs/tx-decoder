@@ -7,5 +7,5 @@ export default defineConfig({
   external: [],
   format: ["esm", "cjs"],
   sourcemap: true,
-  splitting: false,
+  splitting: false
 });

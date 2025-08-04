@@ -19,12 +19,12 @@ export const sendDecoder: MessageDecoder = {
       data: {
         coins: amount,
         from: from_address,
-        to: to_address,
+        to: to_address
       },
       isIbc: false,
-      isOp: false,
+      isOp: false
     };
 
     return decodedMessage;
-  },
+  }
 };

@@ -13,7 +13,7 @@ const extractTxLogs = (txData: TxResponse): Log[] => {
   const msgLogs = txData.tx.body.messages.map((_, index) => ({
     events: [] as Event[],
     log: "",
-    msg_index: index,
+    msg_index: index
   }));
 
   return produce(msgLogs, (draft) => {
@@ -30,6 +30,6 @@ export const attachTxLogs = (txData: TxResponse): TxResponse => {
   const logs = extractTxLogs(txData);
   return {
     ...txData,
-    logs,
+    logs
   };
 };

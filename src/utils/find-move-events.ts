@@ -48,7 +48,7 @@ export const findAllMoveEvents = <S extends z.ZodType<unknown>>(
 
   for (const event of matchingEvents) {
     const dataAttribute = event.attributes.find((attr) => attr.key === "data");
-    
+
     if (!dataAttribute) continue;
 
     const parsed = schema.safeParse(dataAttribute.value);

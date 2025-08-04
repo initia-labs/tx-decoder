@@ -1,12 +1,12 @@
 import {
   mockApiResponsesForIbcSendNft,
-  mockMsgIbcSendNft,
+  mockMsgIbcSendNft
 } from "../fixtures/ibc/send-nft.fixture";
 import {
   initialize,
   mockedAxios,
   resetMockApi,
-  setupMockApi,
+  setupMockApi
 } from "../helpers";
 
 jest.mock("axios");
@@ -31,7 +31,7 @@ describe("IBC Send NFT Message", () => {
           description:
             "Jennie you know and love, now living rent-free in your wallet. She'll accompany you wherever you go.",
           name: "Jennie",
-          uri: "https://jennie.initia.xyz/data/collection.json",
+          uri: "https://jennie.initia.xyz/data/collection.json"
         },
         collectionId:
           "init1fv3ykwuzzsrpf7lqwp45y8vg0azn96536jkseu4engf9rsrdl2dqzkhn6h",
@@ -46,39 +46,39 @@ describe("IBC Send NFT Message", () => {
         srcPort: "nft-transfer",
         timeoutHeight: {
           revision_height: "0",
-          revision_number: "0",
+          revision_number: "0"
         },
         timeoutTimestamp: "1749471966170000000",
         tokenAddress:
           "init1v2xnnl08y508ec6q4q4hxqr2avdeyu3cew5rxghwnn5t3y4jhd2smmah7n",
         tokenIds: ["1"],
-        tokenUris: ["https://jennie.initia.xyz/data/9_4.json"],
+        tokenUris: ["https://jennie.initia.xyz/data/9_4.json"]
       },
       isIbc: true,
-      isOp: false,
+      isOp: false
     });
     expect(decoded.messages[0].balanceChanges).toEqual({
       ft: {},
       object: {
         init1dw49mn7s2r5mskjdmus5hth80zz8wwaywycq06: {
-          init1v2xnnl08y508ec6q4q4hxqr2avdeyu3cew5rxghwnn5t3y4jhd2smmah7n: "-1",
+          init1v2xnnl08y508ec6q4q4hxqr2avdeyu3cew5rxghwnn5t3y4jhd2smmah7n: "-1"
         },
         init1j0kfut4t788gs9e6l4aqyh7s3pgwtwegnqn6qr: {
-          init1v2xnnl08y508ec6q4q4hxqr2avdeyu3cew5rxghwnn5t3y4jhd2smmah7n: "1",
-        },
-      },
+          init1v2xnnl08y508ec6q4q4hxqr2avdeyu3cew5rxghwnn5t3y4jhd2smmah7n: "1"
+        }
+      }
     });
 
     expect(decoded.totalBalanceChanges).toEqual({
       ft: {},
       object: {
         init1dw49mn7s2r5mskjdmus5hth80zz8wwaywycq06: {
-          init1v2xnnl08y508ec6q4q4hxqr2avdeyu3cew5rxghwnn5t3y4jhd2smmah7n: "-1",
+          init1v2xnnl08y508ec6q4q4hxqr2avdeyu3cew5rxghwnn5t3y4jhd2smmah7n: "-1"
         },
         init1j0kfut4t788gs9e6l4aqyh7s3pgwtwegnqn6qr: {
-          init1v2xnnl08y508ec6q4q4hxqr2avdeyu3cew5rxghwnn5t3y4jhd2smmah7n: "1",
-        },
-      },
+          init1v2xnnl08y508ec6q4q4hxqr2avdeyu3cew5rxghwnn5t3y4jhd2smmah7n: "1"
+        }
+      }
     });
 
     expect(decoded.metadata).toEqual({
@@ -89,14 +89,14 @@ describe("IBC Send NFT Message", () => {
           description:
             "Jennie you know and love, now living rent-free in your wallet. She'll accompany you wherever you go.",
           name: "Jennie",
-          uri: "https://jennie.initia.xyz/data/collection.json",
+          uri: "https://jennie.initia.xyz/data/collection.json"
         },
         collectionAddress:
           "init1fv3ykwuzzsrpf7lqwp45y8vg0azn96536jkseu4engf9rsrdl2dqzkhn6h",
         tokenId: "1",
         tokenUri: "https://jennie.initia.xyz/data/9_4.json",
-        type: "nft",
-      },
+        type: "nft"
+      }
     });
   });
 
@@ -123,7 +123,7 @@ describe("IBC Send NFT Message", () => {
       );
       expect(decodedMessage.data.tokenIds).toEqual(["1"]);
       expect(decodedMessage.data.tokenUris).toEqual([
-        "https://jennie.initia.xyz/data/9_4.json",
+        "https://jennie.initia.xyz/data/9_4.json"
       ]);
     }
   });

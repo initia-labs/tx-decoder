@@ -1,13 +1,13 @@
 import {
   mockApiResponsesForVipClaimEsinit,
   mockMsgVipClaimEsinit,
-  mockMsgVipClaimEsinitZero,
+  mockMsgVipClaimEsinitZero
 } from "../fixtures/vip-claim-esinit.fixture";
 import {
   initialize,
   mockedAxios,
   resetMockApi,
-  setupMockApi,
+  setupMockApi
 } from "../helpers";
 
 jest.mock("axios");
@@ -28,34 +28,34 @@ describe("VIP Claim Esinit Message", () => {
       data: {
         amount: "11190511",
         denom: "uinit",
-        from: "init1mnthd2lz2eltmchrkep3quw2um38fy47qw43u6",
+        from: "init1mnthd2lz2eltmchrkep3quw2um38fy47qw43u6"
       },
       isIbc: false,
-      isOp: false,
+      isOp: false
     });
 
     expect(decoded.messages[0].balanceChanges).toEqual({
       ft: {
         init1mnthd2lz2eltmchrkep3quw2um38fy47qw43u6: {
-          uinit: "11190511",
+          uinit: "11190511"
         },
         init1208jaukpzulngp245mevqfxpm689p8nmtwkvkv2nu0q9ut04xlnsxluexg: {
-          uinit: "-11190511",
-        },
+          uinit: "-11190511"
+        }
       },
-      object: {},
+      object: {}
     });
 
     expect(decoded.totalBalanceChanges).toEqual({
       ft: {
         init1mnthd2lz2eltmchrkep3quw2um38fy47qw43u6: {
-          uinit: "11190511",
+          uinit: "11190511"
         },
         init1208jaukpzulngp245mevqfxpm689p8nmtwkvkv2nu0q9ut04xlnsxluexg: {
-          uinit: "-11190511",
-        },
+          uinit: "-11190511"
+        }
       },
-      object: {},
+      object: {}
     });
   });
 
@@ -69,15 +69,15 @@ describe("VIP Claim Esinit Message", () => {
       data: {
         amount: "0",
         denom: "uinit",
-        from: "init1lxg0lx9009kxd77q4uyj2t683f3kvuhdxafwd5",
+        from: "init1lxg0lx9009kxd77q4uyj2t683f3kvuhdxafwd5"
       },
       isIbc: false,
-      isOp: false,
+      isOp: false
     });
 
     expect(decoded.messages[0].balanceChanges).toEqual({
       ft: {},
-      object: {},
+      object: {}
     });
   });
 });

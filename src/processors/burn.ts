@@ -25,8 +25,8 @@ export const burnEventProcessor: BalanceEventProcessor = {
       return {
         ft: {},
         object: {
-          [toBech32(owner)]: { [toBech32(burnEvent.nft)]: "-1" },
-        },
+          [toBech32(owner)]: { [toBech32(burnEvent.nft)]: "-1" }
+        }
       };
     } catch (error) {
       console.error(`Failed to process ${burnEventProcessor.type_tag}:`, error);
@@ -34,5 +34,5 @@ export const burnEventProcessor: BalanceEventProcessor = {
 
     return DEFAULT_BALANCE_CHANGES;
   },
-  type_tag: "0x1::collection::BurnEvent",
+  type_tag: "0x1::collection::BurnEvent"
 };

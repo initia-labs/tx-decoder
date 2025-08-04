@@ -2,13 +2,13 @@ import {
   mockApiResponsesForIbcReceiveNftRemoteToken,
   mockApiResponsesForIbcReceiveNftSourceToken,
   mockMsgIbcReceiveNftRemoteToken,
-  mockMsgIbcReceiveNftSourceToken,
+  mockMsgIbcReceiveNftSourceToken
 } from "../fixtures/ibc/receive-nft.fixture";
 import {
   initialize,
   mockedAxios,
   resetMockApi,
-  setupMockApi,
+  setupMockApi
 } from "../helpers";
 
 jest.mock("axios");
@@ -41,7 +41,7 @@ describe("IBC Receive NFT Message", () => {
             description:
               "Good places to visit in Thailand - Explore beautiful destinations and cultural landmarks",
             name: "Thailand places",
-            uri: "https://nft-rho-ten.vercel.app/thailand",
+            uri: "https://nft-rho-ten.vercel.app/thailand"
           },
           collectionId:
             "init1ntmktkq3yzwnn0f4luwhtaw0pn6xvc7067j52k55sfndkxydvlesl6xnsq",
@@ -56,16 +56,16 @@ describe("IBC Receive NFT Message", () => {
           srcPort: "nft-transfer",
           timeoutHeight: {
             revision_height: "0",
-            revision_number: "0",
+            revision_number: "0"
           },
           timeoutTimestamp: "1750418571134000000",
           tokenAddress:
             "init1rf9acg4cee5welf4jqqhrwx3pv4f695ae0jtaze2tksxywsg76msp3qj9a",
           tokenIds: ["1"],
-          tokenUris: ["https://nft-rho-ten.vercel.app/thailand/1"],
+          tokenUris: ["https://nft-rho-ten.vercel.app/thailand/1"]
         },
         isIbc: true,
-        isOp: false,
+        isOp: false
       });
 
       expect(totalBalanceChanges).toEqual({
@@ -73,13 +73,12 @@ describe("IBC Receive NFT Message", () => {
         object: {
           init1j0kfut4t788gs9e6l4aqyh7s3pgwtwegnqn6qr: {
             init1rf9acg4cee5welf4jqqhrwx3pv4f695ae0jtaze2tksxywsg76msp3qj9a:
-              "-1",
+              "-1"
           },
           init1t9k78msywte6jx4zrxkp94pa9u9laa9pqfpytk: {
-            init1rf9acg4cee5welf4jqqhrwx3pv4f695ae0jtaze2tksxywsg76msp3qj9a:
-              "1",
-          },
-        },
+            init1rf9acg4cee5welf4jqqhrwx3pv4f695ae0jtaze2tksxywsg76msp3qj9a: "1"
+          }
+        }
       });
 
       expect(metadata).toEqual({
@@ -89,14 +88,14 @@ describe("IBC Receive NFT Message", () => {
             description:
               "Good places to visit in Thailand - Explore beautiful destinations and cultural landmarks",
             name: "Thailand places",
-            uri: "https://nft-rho-ten.vercel.app/thailand",
+            uri: "https://nft-rho-ten.vercel.app/thailand"
           },
           collectionAddress:
             "init1ntmktkq3yzwnn0f4luwhtaw0pn6xvc7067j52k55sfndkxydvlesl6xnsq",
           tokenId: "1",
           tokenUri: "https://nft-rho-ten.vercel.app/thailand/1",
-          type: "nft",
-        },
+          type: "nft"
+        }
       });
     });
   });
@@ -122,7 +121,7 @@ describe("IBC Receive NFT Message", () => {
             description:
               "eyJvd25lciI6ImluaXQxd2M1M3U5c21uenV3cGt6NzA4a3dqNXMzeGV2cXN4MjYzajAwaGx1N25jbXNja3oyZ2NmczVqeDJtayIsImNvbnRyYWN0X2luZm8iOnsiY29kZV9pZCI6MTIsImNyZWF0b3IiOiJpbml0MXdjNTN1OXNtbnp1d3BrejcwOGt3ajVzM3hldnFzeDI2M2owMGhsdTduY21zY2t6MmdjZnM1angybWsiLCJhZG1pbiI6ImluaXQxcDV3N3h3OXA2c2pheWMybjN2djA1NnU1MGM1azdxYWU3YXBhazkiLCJwaW5uZWQiOmZhbHNlLCJpYmNfcG9ydCI6bnVsbH0sIm51bV90b2tlbnMiOjM0ODEsIm5hbWUiOiJUVVpJIiwic3ltYm9sIjoiVFVaSSIsImV4dGVuc2lvbiI6bnVsbH0=",
             name: "ibc/0A1FFECF8C217E1630E58ABF7BF857FD7CC762D165DF018D94DACBC8881209E2",
-            uri: null,
+            uri: null
           },
           collectionId:
             "init1lf8xkx587wkwlnc8pm8wqn43ur8ycmzu3xu8lcpxhxwx43rmqyxqkqeqpp",
@@ -138,51 +137,47 @@ describe("IBC Receive NFT Message", () => {
             "wasm.init1wug8sewp6cedgkmrmvhl3lf3tulagm9hnvy8p0rppz9yjw0g4wtq7947m6",
           timeoutHeight: {
             revision_height: "0",
-            revision_number: "0",
+            revision_number: "0"
           },
           timeoutTimestamp: "1746042009484000000",
           tokenAddress:
             "init1t64cqru8efqzzrmfqkkrzdqn2ft453pyvvpvtvnlgw8f0qr3haeslr0899",
           tokenIds: ["6089"],
           tokenUris: [
-            "ipfs://bafybeifye6qvvdw45he36lfoqolfxunwvk3k3vh4b2ahloubv7cnstt56i/6089",
-          ],
+            "ipfs://bafybeifye6qvvdw45he36lfoqolfxunwvk3k3vh4b2ahloubv7cnstt56i/6089"
+          ]
         },
         isIbc: true,
-        isOp: false,
+        isOp: false
       });
 
       expect(messages[0].balanceChanges).toEqual({
         ft: {},
-        object: {},
+        object: {}
       });
 
       expect(messages[1].balanceChanges).toEqual({
         ft: {},
         object: {
           init1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqpqr5e3d: {
-            init1t64cqru8efqzzrmfqkkrzdqn2ft453pyvvpvtvnlgw8f0qr3haeslr0899:
-              "0",
+            init1t64cqru8efqzzrmfqkkrzdqn2ft453pyvvpvtvnlgw8f0qr3haeslr0899: "0"
           },
           init18cd6ufdufm4crr4tjr23uwhn26qz6ndea57aya: {
-            init1t64cqru8efqzzrmfqkkrzdqn2ft453pyvvpvtvnlgw8f0qr3haeslr0899:
-              "1",
-          },
-        },
+            init1t64cqru8efqzzrmfqkkrzdqn2ft453pyvvpvtvnlgw8f0qr3haeslr0899: "1"
+          }
+        }
       });
 
       expect(totalBalanceChanges).toEqual({
         ft: {},
         object: {
           init1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqpqr5e3d: {
-            init1t64cqru8efqzzrmfqkkrzdqn2ft453pyvvpvtvnlgw8f0qr3haeslr0899:
-              "0",
+            init1t64cqru8efqzzrmfqkkrzdqn2ft453pyvvpvtvnlgw8f0qr3haeslr0899: "0"
           },
           init18cd6ufdufm4crr4tjr23uwhn26qz6ndea57aya: {
-            init1t64cqru8efqzzrmfqkkrzdqn2ft453pyvvpvtvnlgw8f0qr3haeslr0899:
-              "1",
-          },
-        },
+            init1t64cqru8efqzzrmfqkkrzdqn2ft453pyvvpvtvnlgw8f0qr3haeslr0899: "1"
+          }
+        }
       });
 
       expect(metadata).toEqual({
@@ -192,15 +187,15 @@ describe("IBC Receive NFT Message", () => {
             description:
               "eyJvd25lciI6ImluaXQxd2M1M3U5c21uenV3cGt6NzA4a3dqNXMzeGV2cXN4MjYzajAwaGx1N25jbXNja3oyZ2NmczVqeDJtayIsImNvbnRyYWN0X2luZm8iOnsiY29kZV9pZCI6MTIsImNyZWF0b3IiOiJpbml0MXdjNTN1OXNtbnp1d3BrejcwOGt3ajVzM3hldnFzeDI2M2owMGhsdTduY21zY2t6MmdjZnM1angybWsiLCJhZG1pbiI6ImluaXQxcDV3N3h3OXA2c2pheWMybjN2djA1NnU1MGM1azdxYWU3YXBhazkiLCJwaW5uZWQiOmZhbHNlLCJpYmNfcG9ydCI6bnVsbH0sIm51bV90b2tlbnMiOjM0ODEsIm5hbWUiOiJUVVpJIiwic3ltYm9sIjoiVFVaSSIsImV4dGVuc2lvbiI6bnVsbH0=",
             name: "ibc/0A1FFECF8C217E1630E58ABF7BF857FD7CC762D165DF018D94DACBC8881209E2",
-            uri: "",
+            uri: ""
           },
           collectionAddress:
             "init1lf8xkx587wkwlnc8pm8wqn43ur8ycmzu3xu8lcpxhxwx43rmqyxqkqeqpp",
           tokenId: "6089",
           tokenUri:
             "ipfs://bafybeifye6qvvdw45he36lfoqolfxunwvk3k3vh4b2ahloubv7cnstt56i/6089",
-          type: "nft",
-        },
+          type: "nft"
+        }
       });
     });
   });

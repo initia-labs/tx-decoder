@@ -52,12 +52,12 @@ export const claimMinitswapDecoder: MessageDecoder = {
         amountWithdrawn: withdrawUnbondEvent.share_amount,
         denomReceived: receivedDenom,
         denomWithdrawn: "uoinit",
-        from: sender,
+        from: sender
       },
       isIbc: false,
-      isOp: false,
+      isOp: false
     };
 
     return decodedMessage;
-  },
+  }
 };
