@@ -206,7 +206,7 @@ export class ApiClient {
 
         this.registries = registries;
       } catch (error) {
-        console.error(`Failed to fetch from ${this.registryUrl}:`, error);
+        console.error(`Failed to fetch data from ${this.registryUrl}:`, error);
         this.registries = [];
       } finally {
         this.registriesUpdatePromise = null;
