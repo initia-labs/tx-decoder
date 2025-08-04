@@ -273,8 +273,6 @@ tx-decoder/
 └── ...                           # Config and other files
 ```
 
-## Development
-
 See [CONTRIBUTING.md](./CONTRIBUTING.md) for development setup and guidelines.
 
 ## 📄 [License](#-license)
