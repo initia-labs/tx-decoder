@@ -6,7 +6,7 @@ import { INITIA_VAULT_MODULE_ADDRESS } from "@/constants";
 import {
   zDepositDelegationEvent,
   zMsgRedelegateLocked,
-  zWithdrawDelegationEvent,
+  zWithdrawDelegationEvent
 } from "@/schema";
 import { findMoveEvent } from "@/utils";
 
@@ -52,12 +52,12 @@ export const redelegateLockedDecoder: MessageDecoder = {
 
     const redelegateLockedCoin = {
       amount: withdrawDelegationEvent.locked_share,
-      denom,
+      denom
     };
 
     const [validatorDst, validatorSrc] = await Promise.all([
       apiClient.findValidator(delegateLockedEvent.validator),
-      apiClient.findValidator(withdrawDelegationEvent.validator),
+      apiClient.findValidator(withdrawDelegationEvent.validator)
     ]);
 
     const decodedMessage: DecodedMessage = {
@@ -68,12 +68,12 @@ export const redelegateLockedDecoder: MessageDecoder = {
         validatorDst,
         validatorDstAddress: delegateLockedEvent.validator,
         validatorSrc,
-        validatorSrcAddress: withdrawDelegationEvent.validator,
+        validatorSrcAddress: withdrawDelegationEvent.validator
       },
       isIbc: false,
-      isOp: false,
+      isOp: false
     };
 
     return decodedMessage;
-  },
+  }
 };

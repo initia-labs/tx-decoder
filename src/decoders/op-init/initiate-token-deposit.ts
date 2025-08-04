@@ -32,12 +32,12 @@ export const initiateTokenDepositDecoder: MessageDecoder = {
         denom: amount.denom,
         dstChainId,
         from: sender,
-        to,
+        to
       },
       isIbc: false,
-      isOp: true,
+      isOp: true
     };
 
     return decodedMessage;
-  },
+  }
 };

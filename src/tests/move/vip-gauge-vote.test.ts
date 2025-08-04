@@ -1,12 +1,12 @@
 import {
   mockApiResponsesForVipGaugeVote,
-  mockMsgVipGaugeVote,
+  mockMsgVipGaugeVote
 } from "../fixtures/vip-gauge-vote.fixture";
 import {
   initialize,
   mockedAxios,
   resetMockApi,
-  setupMockApi,
+  setupMockApi
 } from "../helpers";
 
 jest.mock("axios");
@@ -29,38 +29,38 @@ describe("VIP Gauge Vote Message", () => {
         votes: [
           {
             amount: 0.1,
-            rollup: "echelon-1",
+            rollup: "echelon-1"
           },
           {
             amount: 0.3,
-            rollup: "ingnetwork-1",
+            rollup: "ingnetwork-1"
           },
           {
             amount: 0.4,
-            rollup: "rave-1",
+            rollup: "rave-1"
           },
           {
             amount: 0.1,
-            rollup: "intergaze-1",
+            rollup: "intergaze-1"
           },
           {
             amount: 0.1,
-            rollup: "inertia-2",
-          },
-        ],
+            rollup: "inertia-2"
+          }
+        ]
       },
       isIbc: false,
-      isOp: false,
+      isOp: false
     });
 
     expect(decoded.messages[0].balanceChanges).toEqual({
       ft: {},
-      object: {},
+      object: {}
     });
 
     expect(decoded.totalBalanceChanges).toEqual({
       ft: {},
-      object: {},
+      object: {}
     });
   });
 });

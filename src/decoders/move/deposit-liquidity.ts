@@ -4,7 +4,8 @@ import { Log, Message, zMsgDepositLiquidity, zProvideEvent } from "@/schema";
 import { findMoveEvent } from "@/utils";
 
 export const depositLiquidityDecoder: MessageDecoder = {
-  check: (message: Message, _log: Log) => zMsgDepositLiquidity.safeParse(message).success,
+  check: (message: Message, _log: Log) =>
+    zMsgDepositLiquidity.safeParse(message).success,
   decode: async (message: Message, log: Log, apiClient: ApiClient) => {
     const parsed = zMsgDepositLiquidity.parse(message);
     const { sender } = parsed;
@@ -21,7 +22,7 @@ export const depositLiquidityDecoder: MessageDecoder = {
     const [denomA, denomB, liquidityDenom] = await Promise.all([
       apiClient.findDenomFromMetadataAddr(provideEvent.coin_a),
       apiClient.findDenomFromMetadataAddr(provideEvent.coin_b),
-      apiClient.findDenomFromMetadataAddr(provideEvent.liquidity_token),
+      apiClient.findDenomFromMetadataAddr(provideEvent.liquidity_token)
     ]);
 
     if (!denomA) {
@@ -47,12 +48,12 @@ export const depositLiquidityDecoder: MessageDecoder = {
         denomB,
         from: sender,
         liquidity: provideEvent.liquidity,
-        liquidityDenom,
+        liquidityDenom
       },
       isIbc: false,
-      isOp: false,
+      isOp: false
     };
 
     return decodedMessage;
-  },
+  }
 };

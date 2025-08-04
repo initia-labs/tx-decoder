@@ -9,7 +9,7 @@ export const zSwapEvent = zJsonString.pipe(
     offer_amount: z.string(),
     offer_coin: z.string(),
     return_amount: z.string(),
-    return_coin: z.string(),
+    return_coin: z.string()
   })
 );
 
@@ -17,7 +17,7 @@ export const zCreateEvent = zJsonString.pipe(
   z.object({
     object: z.string(),
     owner: z.string(),
-    version: z.string(),
+    version: z.string()
   })
 );
 
@@ -25,7 +25,7 @@ export const zMintNftEvent = zJsonString.pipe(
   z.object({
     collection: z.string(),
     nft: z.string(),
-    token_id: z.string(),
+    token_id: z.string()
   })
 );
 
@@ -33,7 +33,7 @@ export const zMsgMoveObjectCreateEvent = zJsonString.pipe(
   z.object({
     object: z.string(),
     owner: z.string(),
-    version: z.string(),
+    version: z.string()
   })
 );
 
@@ -41,7 +41,7 @@ export const zMsgMoveObjectTransferEvent = zJsonString.pipe(
   z.object({
     from: z.string(),
     object: z.string(),
-    to: z.string(),
+    to: z.string()
   })
 );
 
@@ -54,9 +54,9 @@ export const zVoteEvent = zJsonString.pipe(
     weights: z.array(
       z.object({
         bridge_id: z.string(),
-        weight: z.string(),
+        weight: z.string()
       })
-    ),
+    )
   })
 );
 
@@ -64,7 +64,7 @@ export const zMsgMoveNftBurnEvent = zJsonString.pipe(
   z.object({
     collection: z.string(),
     nft: z.string(),
-    token_id: z.string(),
+    token_id: z.string()
   })
 );
 
@@ -75,7 +75,7 @@ export const zMsgIbcNftTransferSendPacketEvent = zJsonString.pipe(
     receiver: z.string(),
     sender: z.string(),
     tokenIds: z.array(z.string()),
-    tokenUris: z.array(z.string()),
+    tokenUris: z.array(z.string())
   })
 );
 
@@ -83,7 +83,7 @@ export const zMsgMoveCreateCollectionEvent = zJsonString.pipe(
   z.object({
     collection: z.string(),
     creator: z.string(),
-    name: z.string(),
+    name: z.string()
   })
 );
 
@@ -93,7 +93,7 @@ export const zDepositDelegationEvent = zJsonString.pipe(
     metadata: z.string(),
     release_time: z.string(),
     staking_account: z.string(),
-    validator: z.string(),
+    validator: z.string()
   })
 );
 
@@ -103,7 +103,7 @@ export const zWithdrawDelegationEvent = zJsonString.pipe(
     metadata: z.string(),
     release_time: z.string(),
     staking_account: z.string(),
-    validator: z.string(),
+    validator: z.string()
   })
 );
 
@@ -111,13 +111,13 @@ export const zDepositEvent = zJsonString.pipe(
   z.object({
     amount: z.string(),
     metadata_addr: z.string(),
-    store_addr: z.string(),
+    store_addr: z.string()
   })
 );
 
 export const zDepositOwnerEvent = zJsonString.pipe(
   z.object({
-    owner: z.string(),
+    owner: z.string()
   })
 );
 
@@ -125,13 +125,13 @@ export const zWithdrawEvent = zJsonString.pipe(
   z.object({
     amount: z.string(),
     metadata_addr: z.string(),
-    store_addr: z.string(),
+    store_addr: z.string()
   })
 );
 
 export const zWithdrawOwnerEvent = zJsonString.pipe(
   z.object({
-    owner: z.string(),
+    owner: z.string()
   })
 );
 
@@ -140,21 +140,21 @@ export const zMsgIbcTransferSendPacketEvent = zJsonString.pipe(
     amount: z.string(),
     denom: z.string(),
     receiver: z.string(),
-    sender: z.string(),
+    sender: z.string()
   })
 );
 
 export const zMinitswapProvideEvent = zJsonString.pipe(
   z.object({
     provide_amount: z.string(),
-    share_amount: z.string(),
+    share_amount: z.string()
   })
 );
 
 export const zMintEvent = zJsonString.pipe(
   z.object({
     amount: z.string(),
-    metadata_addr: z.string(),
+    metadata_addr: z.string()
   })
 );
 export const zProvideEvent = zJsonString.pipe(
@@ -164,7 +164,7 @@ export const zProvideEvent = zJsonString.pipe(
     coin_b: z.string(),
     coin_b_amount: z.string(),
     liquidity: z.string(),
-    liquidity_token: z.string(),
+    liquidity_token: z.string()
   })
 );
 export const zMinitswapUnbondEvent = zJsonString.pipe(
@@ -172,14 +172,14 @@ export const zMinitswapUnbondEvent = zJsonString.pipe(
     account: z.string(),
     release_time: z.string(),
     share_amount: z.string(),
-    withdraw_amount: z.string(),
+    withdraw_amount: z.string()
   })
 );
 
 export const zBurnEvent = zJsonString.pipe(
   z.object({
     amount: z.string(),
-    metadata_addr: z.string(),
+    metadata_addr: z.string()
   })
 );
 
@@ -188,7 +188,7 @@ export const zMinitswapWithdrawUnbondEvent = zJsonString.pipe(
     account: z.string(),
     release_time: z.string(),
     share_amount: z.string(),
-    withdraw_amount: z.string(),
+    withdraw_amount: z.string()
   })
 );
 
@@ -199,6 +199,6 @@ export const zDexWithdrawEvent = zJsonString.pipe(
     coin_b: z.string(),
     coin_b_amount: z.string(),
     liquidity: z.string(),
-    liquidity_token: z.string(),
+    liquidity_token: z.string()
   })
 );

@@ -6,47 +6,47 @@ import { zMessage } from "./messages";
 
 const zPubkeySingle = z.object({
   "@type": z.string(),
-  key: z.string(),
+  key: z.string()
 });
 
 const zPubkeyMulti = z.object({
   "@type": z.string(),
   public_keys: z.array(zPubkeySingle),
-  threshold: z.number(),
+  threshold: z.number()
 });
 
 const zModeInfoSingle = z.object({
   single: z.object({
     mode: z.union([
       z.custom<SignMode>((val) => SignMode[val as keyof typeof SignMode]),
-      z.literal(9999), // minievm sign mode,
-    ]),
-  }),
+      z.literal(9999) // minievm sign mode,
+    ])
+  })
 });
 
 const zModeInfoMulti = z.object({
   multi: z.object({
     bitarray: z.object({
       elems: z.string(), // base64 encoded of Uint8Array
-      extra_bits_stored: z.number(),
+      extra_bits_stored: z.number()
     }),
     // assuming one nesting level for now as multisig pubkey is also one level
-    mode_infos: z.array(zModeInfoSingle),
-  }),
+    mode_infos: z.array(zModeInfoSingle)
+  })
 });
 
 const zSignerInfoBase = z.object({
-  sequence: z.string(),
+  sequence: z.string()
 });
 
 const zSignerInfoSingle = zSignerInfoBase.extend({
   mode_info: zModeInfoSingle,
-  public_key: zPubkeySingle,
+  public_key: zPubkeySingle
 });
 
 const zSignerInfoMulti = zSignerInfoBase.extend({
   mode_info: zModeInfoMulti,
-  public_key: zPubkeyMulti,
+  public_key: zPubkeyMulti
 });
 
 const zSignerInfo = z.union([zSignerInfoSingle, zSignerInfoMulti]);
@@ -56,9 +56,9 @@ const zAuthInfo = z.object({
     amount: z.array(zCoin),
     gas_limit: z.string(),
     granter: z.string(),
-    payer: z.string(),
+    payer: z.string()
   }),
-  signer_infos: z.array(zSignerInfo),
+  signer_infos: z.array(zSignerInfo)
 });
 
 const zTxBody = z.object({
@@ -66,32 +66,32 @@ const zTxBody = z.object({
   memo: z.string(),
   messages: z.array(zMessage),
   non_critical_extension_options: zAny.array(),
-  timeout_height: z.string(),
+  timeout_height: z.string()
 });
 
 const zTx = z.object({
   auth_info: zAuthInfo,
   body: zTxBody,
-  signatures: z.array(z.string()),
+  signatures: z.array(z.string())
 });
 
 const zEventAttribute = z.object({
   index: z.boolean().optional(),
   key: z.string(),
-  value: z.union([z.string(), z.null().transform(() => "")]),
+  value: z.union([z.string(), z.null().transform(() => "")])
 });
 export type EventAttribute = z.infer<typeof zEventAttribute>;
 
 const zEvent = z.object({
   attributes: z.array(zEventAttribute),
-  type: z.string(),
+  type: z.string()
 });
 export type Event = z.infer<typeof zEvent>;
 
 const zLog = z.object({
   events: z.array(zEvent),
   log: z.string(),
-  msg_index: z.number(),
+  msg_index: z.number()
 });
 export type Log = z.infer<typeof zLog>;
 
@@ -108,6 +108,6 @@ export const zTxResponse = z.object({
   raw_log: z.string(),
   timestamp: zUtcDate,
   tx: zTx,
-  txhash: z.string(),
+  txhash: z.string()
 });
 export type TxResponse = z.infer<typeof zTxResponse>;

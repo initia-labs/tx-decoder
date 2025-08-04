@@ -7,7 +7,7 @@ import {
   zMsgIbcRecvPacket,
   zMsgIbcSendNft,
   zMsgMoveCreateCollectionEvent,
-  zMsgMoveObjectTransferEvent,
+  zMsgMoveObjectTransferEvent
 } from "@/schema";
 import { denomToHex, findMoveEvent, toBech32, toHex } from "@/utils";
 
@@ -25,7 +25,7 @@ export const ibcSendNftDecoder: MessageDecoder = {
       source_channel,
       source_port,
       timeout_height,
-      timeout_timestamp,
+      timeout_timestamp
     } = parsed;
 
     const event = log.events.find((event) => event.type === "send_packet");
@@ -104,7 +104,7 @@ export const ibcSendNftDecoder: MessageDecoder = {
           creator: toBech32(collection.data.creator),
           description: collection.data.description,
           name: collection.data.name,
-          uri: collection.data.uri || parsedData.data.classUri,
+          uri: collection.data.uri || parsedData.data.classUri
         },
         collectionId: toBech32(denomToHex(class_id)),
         dstChainId,
@@ -120,12 +120,12 @@ export const ibcSendNftDecoder: MessageDecoder = {
         timeoutTimestamp: timeout_timestamp,
         tokenAddress: toBech32(tokenAddress),
         tokenIds: parsedData.data.tokenIds,
-        tokenUris: parsedData.data.tokenUris,
+        tokenUris: parsedData.data.tokenUris
       },
       isIbc: true,
-      isOp: false,
+      isOp: false
     };
-  },
+  }
 };
 
 export const ibcReceiveNftDecoder: MessageDecoder = {
@@ -142,7 +142,7 @@ export const ibcReceiveNftDecoder: MessageDecoder = {
       destination_port,
       sequence,
       timeout_height,
-      timeout_timestamp,
+      timeout_timestamp
     } = parsed.packet;
 
     const event = log.events.find((event) => event.type === "recv_packet");
@@ -178,9 +178,8 @@ export const ibcReceiveNftDecoder: MessageDecoder = {
         : toHex(parsedData.data.classId);
     }
 
-    const collection = await apiClient.findCollectionFromCollectionAddr(
-      collection_id
-    );
+    const collection =
+      await apiClient.findCollectionFromCollectionAddr(collection_id);
     if (!collection) {
       throw new Error(
         `Collection data not found for collection address ${collection_id}`
@@ -228,7 +227,7 @@ export const ibcReceiveNftDecoder: MessageDecoder = {
           creator: toBech32(collection.data.creator),
           description: collection.data.description,
           name: collection.data.name,
-          uri: collection.data.uri || parsedData.data.classUri,
+          uri: collection.data.uri || parsedData.data.classUri
         },
         collectionId: toBech32(collection_id),
         dstChainId,
@@ -244,10 +243,10 @@ export const ibcReceiveNftDecoder: MessageDecoder = {
         timeoutTimestamp: timeout_timestamp,
         tokenAddress: toBech32(tokenAddress),
         tokenIds: parsedData.data.tokenIds,
-        tokenUris: parsedData.data.tokenUris,
+        tokenUris: parsedData.data.tokenUris
       },
       isIbc: true,
-      isOp: false,
+      isOp: false
     };
-  },
+  }
 };

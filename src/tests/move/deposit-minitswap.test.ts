@@ -1,12 +1,12 @@
 import {
   mockApiResponsesForDepositMinitswap,
-  mockMsgDepositMinitswap,
+  mockMsgDepositMinitswap
 } from "../fixtures/move/deposit-minitswap.fixture";
 import {
   initialize,
   mockedAxios,
   resetMockApi,
-  setupMockApi,
+  setupMockApi
 } from "../helpers";
 
 jest.mock("axios");
@@ -30,36 +30,36 @@ describe("Deposit Minitswap Message", () => {
         amountReceived: "967693",
         denomDeposited: "uinit",
         denomReceived: "uoinit",
-        from: "init15j9nswsatns09fnru6ww9jjljg07r87kr56mdc",
+        from: "init15j9nswsatns09fnru6ww9jjljg07r87kr56mdc"
       },
       isIbc: false,
-      isOp: false,
+      isOp: false
     });
 
     expect(decoded.messages[0].balanceChanges).toEqual({
       ft: {
         init1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqpqr5e3d: {
-          uinit: "1000000",
+          uinit: "1000000"
         },
         init15j9nswsatns09fnru6ww9jjljg07r87kr56mdc: {
           uinit: "-1000000",
-          uoinit: "967693",
-        },
+          uoinit: "967693"
+        }
       },
-      object: {},
+      object: {}
     });
 
     expect(decoded.totalBalanceChanges).toEqual({
       ft: {
         init1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqpqr5e3d: {
-          uinit: "1000000",
+          uinit: "1000000"
         },
         init15j9nswsatns09fnru6ww9jjljg07r87kr56mdc: {
           uinit: "-1000000",
-          uoinit: "967693",
-        },
+          uoinit: "967693"
+        }
       },
-      object: {},
+      object: {}
     });
   });
 });

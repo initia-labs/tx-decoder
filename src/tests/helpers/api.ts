@@ -73,6 +73,6 @@ export const createMockApiHandlers = (responses: MockApiResponses) => {
 
   return {
     get: getHandler,
-    post: postHandler,
+    post: postHandler
   };
 };

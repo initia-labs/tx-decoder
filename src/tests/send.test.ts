@@ -6,7 +6,7 @@ import {
   mockMsgSendWithMultipleCoins,
   mockMsgSendWithMultipleMessages,
   mockMsgSendWithOwnerEvent,
-  mockMsgSendWithSingleCoin,
+  mockMsgSendWithSingleCoin
 } from "./fixtures/send.fixture";
 import { initialize, mockedAxios, resetMockApi, setupMockApi } from "./helpers";
 
@@ -27,31 +27,31 @@ describe("Send Message", () => {
           balanceChanges: {
             ft: {
               init1kw2unuhgfa6mz6r0ehrzlr9k9ftjk7pql8u5fm: { uinit: "-100" },
-              init1nyky4mrxx69l4zpqtdldkk9rlf9grlnn77djlh: { uinit: "100" },
+              init1nyky4mrxx69l4zpqtdldkk9rlf9grlnn77djlh: { uinit: "100" }
             },
-            object: {},
+            object: {}
           },
           decodedMessage: {
             action: "send",
             data: {
               coins: [{ amount: "100", denom: "uinit" }],
               from: "init1kw2unuhgfa6mz6r0ehrzlr9k9ftjk7pql8u5fm",
-              to: "init1nyky4mrxx69l4zpqtdldkk9rlf9grlnn77djlh",
+              to: "init1nyky4mrxx69l4zpqtdldkk9rlf9grlnn77djlh"
             },
             isIbc: false,
-            isOp: false,
-          },
-        },
+            isOp: false
+          }
+        }
       ],
       expectedTotalBalanceChanges: {
         ft: {
           init1kw2unuhgfa6mz6r0ehrzlr9k9ftjk7pql8u5fm: { uinit: "-100" },
-          init1nyky4mrxx69l4zpqtdldkk9rlf9grlnn77djlh: { uinit: "100" },
+          init1nyky4mrxx69l4zpqtdldkk9rlf9grlnn77djlh: { uinit: "100" }
         },
-        object: {},
+        object: {}
       },
       mockApiResponses: mockApiResponsesForSingleCoin,
-      mockData: mockMsgSendWithSingleCoin,
+      mockData: mockMsgSendWithSingleCoin
     },
     {
       description: "a simple send message with multiple coins",
@@ -62,15 +62,15 @@ describe("Send Message", () => {
               init1h8lpl5qcs5k5nngxvdum5v20jnww2lckg3n2ta: {
                 ueth: "-919",
                 uinit: "-1000000",
-                uusdc: "-1024",
+                uusdc: "-1024"
               },
               init1926svvgllca2lzr3lp98h29xshsztka6vua3wf: {
                 ueth: "919",
                 uinit: "1000000",
-                uusdc: "1024",
-              },
+                uusdc: "1024"
+              }
             },
-            object: {},
+            object: {}
           },
           decodedMessage: {
             action: "send",
@@ -78,41 +78,41 @@ describe("Send Message", () => {
               coins: [
                 { amount: "919", denom: "ueth" },
                 { amount: "1000000", denom: "uinit" },
-                { amount: "1024", denom: "uusdc" },
+                { amount: "1024", denom: "uusdc" }
               ],
               from: "init1h8lpl5qcs5k5nngxvdum5v20jnww2lckg3n2ta",
-              to: "init1926svvgllca2lzr3lp98h29xshsztka6vua3wf",
+              to: "init1926svvgllca2lzr3lp98h29xshsztka6vua3wf"
             },
             isIbc: false,
-            isOp: false,
-          },
-        },
+            isOp: false
+          }
+        }
       ],
       expectedTotalBalanceChanges: {
         ft: {
           init1h8lpl5qcs5k5nngxvdum5v20jnww2lckg3n2ta: {
             ueth: "-919",
             uinit: "-1000000",
-            uusdc: "-1024",
+            uusdc: "-1024"
           },
           init1926svvgllca2lzr3lp98h29xshsztka6vua3wf: {
             ueth: "919",
             uinit: "1000000",
-            uusdc: "1024",
-          },
+            uusdc: "1024"
+          }
         },
-        object: {},
+        object: {}
       },
       mockApiResponses: mockApiResponsesForMultipleCoins,
-      mockData: mockMsgSendWithMultipleCoins,
-    },
+      mockData: mockMsgSendWithMultipleCoins
+    }
   ])(
     "should decode $description correctly",
     async ({
       expectedProcessedMessages,
       expectedTotalBalanceChanges,
       mockApiResponses,
-      mockData,
+      mockData
     }) => {
       setupMockApi(mockedAxios, mockApiResponses);
 
@@ -134,20 +134,20 @@ describe("Send Message", () => {
       balanceChanges: {
         ft: {
           init1h8lpl5qcs5k5nngxvdum5v20jnww2lckg3n2ta: { uinit: "-1000000" },
-          init1926svvgllca2lzr3lp98h29xshsztka6vua3wf: { uinit: "1000000" },
+          init1926svvgllca2lzr3lp98h29xshsztka6vua3wf: { uinit: "1000000" }
         },
-        object: {},
+        object: {}
       },
       decodedMessage: {
         action: "send",
         data: {
           coins: [{ amount: "1000000", denom: "uinit" }],
           from: "init1h8lpl5qcs5k5nngxvdum5v20jnww2lckg3n2ta",
-          to: "init1926svvgllca2lzr3lp98h29xshsztka6vua3wf",
+          to: "init1926svvgllca2lzr3lp98h29xshsztka6vua3wf"
         },
         isIbc: false,
-        isOp: false,
-      },
+        isOp: false
+      }
     };
 
     expect(decoded.messages).toHaveLength(4);
@@ -159,13 +159,13 @@ describe("Send Message", () => {
     expect(decoded.totalBalanceChanges).toEqual({
       ft: {
         init1h8lpl5qcs5k5nngxvdum5v20jnww2lckg3n2ta: {
-          uinit: "-4000000",
+          uinit: "-4000000"
         },
         init1926svvgllca2lzr3lp98h29xshsztka6vua3wf: {
-          uinit: "4000000",
-        },
+          uinit: "4000000"
+        }
       },
-      object: {},
+      object: {}
     });
   });
 
@@ -180,24 +180,24 @@ describe("Send Message", () => {
       data: {
         coins: [{ amount: "34365658000", denom: "uinit" }],
         from: "init1sqnzndr2mc3us4m59tksjge7gnnml6usydaskw",
-        to: "init1xt4ggu8tqvzj5mt0xlftdnuq6cw8ax8lp593zf",
+        to: "init1xt4ggu8tqvzj5mt0xlftdnuq6cw8ax8lp593zf"
       },
       isIbc: false,
-      isOp: false,
+      isOp: false
     });
     expect(decoded.messages[0].balanceChanges).toEqual({
       ft: {
         init1sqnzndr2mc3us4m59tksjge7gnnml6usydaskw: { uinit: "-34365658000" },
-        init1xt4ggu8tqvzj5mt0xlftdnuq6cw8ax8lp593zf: { uinit: "34365658000" },
+        init1xt4ggu8tqvzj5mt0xlftdnuq6cw8ax8lp593zf: { uinit: "34365658000" }
       },
-      object: {},
+      object: {}
     });
     expect(decoded.totalBalanceChanges).toEqual({
       ft: {
         init1sqnzndr2mc3us4m59tksjge7gnnml6usydaskw: { uinit: "-34365658000" },
-        init1xt4ggu8tqvzj5mt0xlftdnuq6cw8ax8lp593zf: { uinit: "34365658000" },
+        init1xt4ggu8tqvzj5mt0xlftdnuq6cw8ax8lp593zf: { uinit: "34365658000" }
       },
-      object: {},
+      object: {}
     });
   });
 });

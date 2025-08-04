@@ -1,12 +1,12 @@
 import {
   mockApiResponsesForWithdrawLiquidity,
-  mockMsgWithdrawLiquidity,
+  mockMsgWithdrawLiquidity
 } from "../fixtures/move/withdraw-liquidity.fixture";
 import {
   initialize,
   mockedAxios,
   resetMockApi,
-  setupMockApi,
+  setupMockApi
 } from "../helpers";
 
 jest.mock("axios");
@@ -34,10 +34,10 @@ describe("Withdraw Liquidity Message", () => {
         from: "init15j9nswsatns09fnru6ww9jjljg07r87kr56mdc",
         liquidity: "1000000",
         liquidityDenom:
-          "move/543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1",
+          "move/543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1"
       },
       isIbc: false,
-      isOp: false,
+      isOp: false
     });
 
     expect(decoded.messages[0].balanceChanges).toEqual({
@@ -45,17 +45,17 @@ describe("Withdraw Liquidity Message", () => {
         init12santguultdd8k3uyvjfc36y2hg4alf0jnuyj3ejym0w3g7848ssynvde3: {
           "ibc/6490A7EAB61059BFC1CDDEB05917DD70BDF3A611654162A1A47DB930D40D8AF4":
             "-118630",
-          uinit: "-1006848",
+          uinit: "-1006848"
         },
         init15j9nswsatns09fnru6ww9jjljg07r87kr56mdc: {
           "ibc/6490A7EAB61059BFC1CDDEB05917DD70BDF3A611654162A1A47DB930D40D8AF4":
             "118630",
           "move/543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1":
             "-1000000",
-          uinit: "1006848",
-        },
+          uinit: "1006848"
+        }
       },
-      object: {},
+      object: {}
     });
 
     expect(decoded.totalBalanceChanges).toEqual({
@@ -63,17 +63,17 @@ describe("Withdraw Liquidity Message", () => {
         init12santguultdd8k3uyvjfc36y2hg4alf0jnuyj3ejym0w3g7848ssynvde3: {
           "ibc/6490A7EAB61059BFC1CDDEB05917DD70BDF3A611654162A1A47DB930D40D8AF4":
             "-118630",
-          uinit: "-1006848",
+          uinit: "-1006848"
         },
         init15j9nswsatns09fnru6ww9jjljg07r87kr56mdc: {
           "ibc/6490A7EAB61059BFC1CDDEB05917DD70BDF3A611654162A1A47DB930D40D8AF4":
             "118630",
           "move/543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1":
             "-1000000",
-          uinit: "1006848",
-        },
+          uinit: "1006848"
+        }
       },
-      object: {},
+      object: {}
     });
   });
 });

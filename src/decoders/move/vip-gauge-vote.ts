@@ -32,7 +32,7 @@ export const vipGaugeVoteDecoder: MessageDecoder = {
         const rollup = await apiClient.findRollupChainId(weight.bridge_id);
         return {
           amount: parseFloat(weight.weight),
-          rollup: rollup || `bridge-${weight.bridge_id}`,
+          rollup: rollup || `bridge-${weight.bridge_id}`
         };
       })
     );
@@ -41,12 +41,12 @@ export const vipGaugeVoteDecoder: MessageDecoder = {
       action: "vip_gauge_vote",
       data: {
         from: sender,
-        votes,
+        votes
       },
       isIbc: false,
-      isOp: false,
+      isOp: false
     };
 
     return decodedMessage;
-  },
+  }
 };

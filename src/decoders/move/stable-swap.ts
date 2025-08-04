@@ -22,7 +22,7 @@ export const stableSwapDecoder: MessageDecoder = {
 
     const [denomIn, denomOut] = await Promise.all([
       apiClient.findDenomFromMetadataAddr(swapEvent.offer_coin),
-      apiClient.findDenomFromMetadataAddr(swapEvent.return_coin),
+      apiClient.findDenomFromMetadataAddr(swapEvent.return_coin)
     ]);
 
     if (!denomIn) {
@@ -44,12 +44,12 @@ export const stableSwapDecoder: MessageDecoder = {
         amountOut: swapEvent.return_amount,
         denomIn,
         denomOut,
-        from: sender,
+        from: sender
       },
       isIbc: false,
-      isOp: false,
+      isOp: false
     };
 
     return decodedMessage;
-  },
+  }
 };

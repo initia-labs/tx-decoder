@@ -21,7 +21,7 @@ export const withdrawEventProcessor: BalanceEventProcessor = {
           data.store_addr,
           apiClient
         ),
-        apiClient.findDenomFromMetadataAddr(data.metadata_addr),
+        apiClient.findDenomFromMetadataAddr(data.metadata_addr)
       ]);
 
       if (!owner) {
@@ -37,9 +37,9 @@ export const withdrawEventProcessor: BalanceEventProcessor = {
 
       return {
         ft: {
-          [owner]: { [denom]: `-${data.amount}` },
+          [owner]: { [denom]: `-${data.amount}` }
         },
-        object: {},
+        object: {}
       };
     } catch (error) {
       console.error(
@@ -50,7 +50,7 @@ export const withdrawEventProcessor: BalanceEventProcessor = {
 
     return DEFAULT_BALANCE_CHANGES;
   },
-  type_tag: "0x1::fungible_asset::WithdrawEvent",
+  type_tag: "0x1::fungible_asset::WithdrawEvent"
 };
 
 const _getWithdrawOwner = async (
