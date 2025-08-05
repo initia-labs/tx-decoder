@@ -1,3 +1,4 @@
+import { InitiaAddress } from "@initia/utils";
 import axios from "axios";
 import { z } from "zod";
 
@@ -10,7 +11,6 @@ import type {
 
 import { DecoderConfig } from "./interfaces";
 import * as schema from "./schema";
-import { isAnyHexAddress, toBech32, toHex } from "./utils";
 
 export class ApiClient {
   private readonly cache: Map<string, unknown> = new Map();
@@ -114,10 +114,10 @@ export class ApiClient {
       return null;
     }
 
-    return toBech32(
+    return InitiaAddress(
       schema.zObjectCoreResource.parse(objectCoreResource.move_resource).data
         .owner
-    );
+    ).bech32;
   }
 
   public async findRollupChainId(bridgeId: string) {
@@ -180,8 +180,7 @@ export class ApiClient {
   private async _getAccountResources(
     address: string
   ): Promise<AccountResource[] | null> {
-    // convert to hex if it's a bech32 address
-    const hexAddress = isAnyHexAddress(address) ? address : toHex(address);
+    const hexAddress = InitiaAddress(address).hex;
     const url = `${this.restUrl}/initia/move/v1/accounts/${hexAddress}/resources`;
 
     try {

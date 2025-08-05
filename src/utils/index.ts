@@ -1,4 +1,3 @@
-export * from "./address-converter";
 export * from "./attach-tx-logs";
 export * from "./coins";
 export * from "./denom";

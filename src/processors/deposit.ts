@@ -1,8 +1,9 @@
+import { InitiaAddress } from "@initia/utils";
+
 import { ApiClient } from "@/api";
 import { DEFAULT_BALANCE_CHANGES } from "@/constants";
 import { BalanceEventProcessor } from "@/interfaces";
 import { Event, zDepositEvent, zDepositOwnerEvent } from "@/schema";
-import { toBech32 } from "@/utils";
 
 export const depositEventProcessor: BalanceEventProcessor = {
   async process(currentEvent, allEvents, apiClient, eventIndex) {
@@ -58,7 +59,8 @@ const _getDepositOwner = async (
     const ownerDataAttr = depositOwnerEvent?.attributes.find(
       (attr) => attr.key === "data"
     );
-    return toBech32(zDepositOwnerEvent.parse(ownerDataAttr?.value).owner);
+    return InitiaAddress(zDepositOwnerEvent.parse(ownerDataAttr?.value).owner)
+      .bech32;
   } catch {
     return apiClient.findOwnerFromStoreAddr(storeAddr);
   }

@@ -1,8 +1,9 @@
+import { InitiaAddress } from "@initia/utils";
+
 import { ApiClient } from "@/api";
 import { DEFAULT_BALANCE_CHANGES } from "@/constants";
 import { BalanceEventProcessor } from "@/interfaces";
 import { Event, zWithdrawEvent, zWithdrawOwnerEvent } from "@/schema";
-import { toBech32 } from "@/utils/address-converter";
 
 export const withdrawEventProcessor: BalanceEventProcessor = {
   async process(currentEvent, allEvents, apiClient, eventIndex) {
@@ -62,7 +63,8 @@ const _getWithdrawOwner = async (
     const ownerDataAttr = withdrawOwnerEvent?.attributes.find(
       (attr) => attr.key === "data"
     );
-    return toBech32(zWithdrawOwnerEvent.parse(ownerDataAttr?.value).owner);
+    return InitiaAddress(zWithdrawOwnerEvent.parse(ownerDataAttr?.value).owner)
+      .bech32;
   } catch {
     return apiClient.findOwnerFromStoreAddr(storeAddr);
   }

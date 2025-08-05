@@ -52,6 +52,7 @@
   },
   "dependencies": {
     "@cosmjs/encoding": "^0.33.1",
+    "@initia/utils": "2.0.0-alpha.3",
     "@noble/hashes": "^1.8.0",
     "axios": "^1.10.0",
     "big.js": "^7.0.1",
