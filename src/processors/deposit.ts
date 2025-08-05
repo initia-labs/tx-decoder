@@ -1,9 +1,11 @@
+import { ApiClient } from "@/api";
 import { DEFAULT_BALANCE_CHANGES } from "@/constants";
 import { BalanceEventProcessor } from "@/interfaces";
-import { zDepositEvent } from "@/schema";
+import { Event, zDepositEvent, zDepositOwnerEvent } from "@/schema";
+import { toBech32 } from "@/utils";
 
 export const depositEventProcessor: BalanceEventProcessor = {
-  async process(currentEvent, _allEvents, apiClient) {
+  async process(currentEvent, allEvents, apiClient, eventIndex) {
     try {
       const dataAttribute = currentEvent.attributes.find(
         (attr) => attr.key === "data"
@@ -14,8 +16,8 @@ export const depositEventProcessor: BalanceEventProcessor = {
 
       const data = zDepositEvent.parse(dataAttribute.value);
       const [owner, denom] = await Promise.all([
-        apiClient.findOwnerFromStoreAddr(data.store_addr),
-        apiClient.findDenomFromMetadataAddr(data.metadata_addr),
+        _getDepositOwner(allEvents[eventIndex + 1], data.store_addr, apiClient),
+        apiClient.findDenomFromMetadataAddr(data.metadata_addr)
       ]);
 
       if (!owner) {
@@ -31,9 +33,9 @@ export const depositEventProcessor: BalanceEventProcessor = {
 
       return {
         ft: {
-          [owner]: { [denom]: data.amount },
+          [owner]: { [denom]: data.amount }
         },
-        object: {},
+        object: {}
       };
     } catch (error) {
       console.error(
@@ -44,5 +46,20 @@ export const depositEventProcessor: BalanceEventProcessor = {
 
     return DEFAULT_BALANCE_CHANGES;
   },
-  type_tag: "0x1::fungible_asset::DepositEvent",
+  type_tag: "0x1::fungible_asset::DepositEvent"
+};
+
+const _getDepositOwner = async (
+  depositOwnerEvent: Event | undefined,
+  storeAddr: string,
+  apiClient: ApiClient
+): Promise<string | null> => {
+  try {
+    const ownerDataAttr = depositOwnerEvent?.attributes.find(
+      (attr) => attr.key === "data"
+    );
+    return toBech32(zDepositOwnerEvent.parse(ownerDataAttr?.value).owner);
+  } catch {
+    return apiClient.findOwnerFromStoreAddr(storeAddr);
+  }
 };

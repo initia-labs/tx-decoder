@@ -18,12 +18,12 @@ export const redelegateDecoder: MessageDecoder = {
       amount,
       delegator_address,
       validator_dst_address,
-      validator_src_address,
+      validator_src_address
     } = parsed.data;
 
     const [validatorDst, validatorSrc] = await Promise.all([
       apiClient.findValidator(validator_dst_address),
-      apiClient.findValidator(validator_src_address),
+      apiClient.findValidator(validator_src_address)
     ]);
 
     const decodedMessage: DecodedMessage = {
@@ -34,12 +34,12 @@ export const redelegateDecoder: MessageDecoder = {
         validatorDst,
         validatorDstAddress: validator_dst_address,
         validatorSrc,
-        validatorSrcAddress: validator_src_address,
+        validatorSrcAddress: validator_src_address
       },
       isIbc: false,
-      isOp: false,
+      isOp: false
     };
 
     return decodedMessage;
-  },
+  }
 };

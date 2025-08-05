@@ -47,12 +47,12 @@ export const resolveMetadata = async (
           creator: toBech32(collection.data.creator),
           description: collection.data.description,
           name: collection.data.name,
-          uri: collection.data.uri,
+          uri: collection.data.uri
         },
         collectionAddress: toBech32(nft.data.collection.inner),
         tokenId: nft.data.token_id,
         tokenUri: nft.data.uri,
-        type: "nft",
+        type: "nft"
       };
     }
     return acc;

@@ -21,12 +21,12 @@ export const objectTransferEventProcessor: BalanceEventProcessor = {
         ft: {},
         object: {
           [toBech32(transferEvent.from)]: {
-            [toBech32(transferEvent.object)]: "-1",
+            [toBech32(transferEvent.object)]: "-1"
           },
           [toBech32(transferEvent.to)]: {
-            [toBech32(transferEvent.object)]: "1",
-          },
-        },
+            [toBech32(transferEvent.object)]: "1"
+          }
+        }
       };
     } catch (error) {
       console.error(
@@ -37,5 +37,5 @@ export const objectTransferEventProcessor: BalanceEventProcessor = {
 
     return DEFAULT_BALANCE_CHANGES;
   },
-  type_tag: "0x1::object::TransferEvent",
+  type_tag: "0x1::object::TransferEvent"
 };

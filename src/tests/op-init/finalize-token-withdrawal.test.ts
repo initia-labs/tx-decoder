@@ -1,12 +1,12 @@
 import {
   mockApiResponsesForFinalizeTokenWithdrawal,
-  mockMsgFinalizeTokenWithdrawal,
+  mockMsgFinalizeTokenWithdrawal
 } from "../fixtures/op-init/finalize-token-withdrawal.fixture";
 import {
   initialize,
   mockedAxios,
   resetMockApi,
-  setupMockApi,
+  setupMockApi
 } from "../helpers";
 
 jest.mock("axios");
@@ -34,33 +34,33 @@ describe("Finalize Token Withdrawal Message", () => {
         denom: "uinit",
         from: "init1r9th529cekjd0v3kryamks7yf6z832pqsapys7",
         srcChainId: "civitia-1",
-        to: "init1r9th529cekjd0v3kryamks7yf6z832pqsapys7",
+        to: "init1r9th529cekjd0v3kryamks7yf6z832pqsapys7"
       },
       isIbc: false,
-      isOp: true,
+      isOp: true
     });
     expect(decoded.messages[0].balanceChanges).toEqual({
       ft: {
         init1cc52z3ylcts534nwf9vnk5f8fa47r0xeekwalrvrpgk464ud336srpv5mk: {
-          uinit: "-716000000",
+          uinit: "-716000000"
         },
         init1r9th529cekjd0v3kryamks7yf6z832pqsapys7: {
-          uinit: "716000000",
-        },
+          uinit: "716000000"
+        }
       },
-      object: {},
+      object: {}
     });
 
     expect(decoded.totalBalanceChanges).toEqual({
       ft: {
         init1cc52z3ylcts534nwf9vnk5f8fa47r0xeekwalrvrpgk464ud336srpv5mk: {
-          uinit: "-716000000",
+          uinit: "-716000000"
         },
         init1r9th529cekjd0v3kryamks7yf6z832pqsapys7: {
-          uinit: "716000000",
-        },
+          uinit: "716000000"
+        }
       },
-      object: {},
+      object: {}
     });
   });
 });

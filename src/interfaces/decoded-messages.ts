@@ -6,13 +6,20 @@ interface DecodedMessageBase {
 }
 
 export type DecodedMessage =
+  | DecodedClaimMinitswapMessage
   | DecodedDelegateMessage
+  | DecodedDepositLiquidityMessage
+  | DecodedDepositMinitswapMessage
+  | DecodedDepositStakeLiquidityMessage
+  | DecodedDepositStakeLockLiquidityMessage
+  | DecodedExtendLiquidityMessage
   | DecodedFinalizeTokenWithdrawalMessage
   | DecodedIbcFtReceiveMessage
   | DecodedIbcFtSendMessage
   | DecodedIbcNftReceiveMessage
   | DecodedIbcNftSendMessage
   | DecodedInitiateTokenDepositMessage
+  | DecodedMergeLiquidityMessage
   | DecodedNftBurnMessage
   | DecodedNftMintMessage
   | DecodedNotSupportedMessage
@@ -21,7 +28,11 @@ export type DecodedMessage =
   | DecodedSendMessage
   | DecodedSwapMessage
   | DecodedUndelegateMessage
-  | DecodedWithdrawDelegatorRewardMessage;
+  | DecodedVipClaimEsinitMessage
+  | DecodedVipGaugeVoteMessage
+  | DecodedWithdrawDelegatorRewardMessage
+  | DecodedWithdrawLiquidityMessage
+  | DecodedWithdrawMinitswapMessage;
 
 interface DecodedSendMessage extends DecodedMessageBase {
   action: "send";
@@ -45,9 +56,15 @@ interface DecodedIbcFtSendMessage extends DecodedMessageBase {
     dstPort: string;
     receiver: string;
     sender: string;
+    sequence: string;
     srcChainId: string;
     srcChannel: string;
     srcPort: string;
+    timeoutHeight: {
+      revision_height: string;
+      revision_number: string;
+    };
+    timeoutTimestamp: string;
   };
 }
 
@@ -61,9 +78,15 @@ interface DecodedIbcFtReceiveMessage extends DecodedMessageBase {
     dstPort: string;
     receiver: string;
     sender: string;
+    sequence: string;
     srcChainId: string;
     srcChannel: string;
     srcPort: string;
+    timeoutHeight: {
+      revision_height: string;
+      revision_number: string;
+    };
+    timeoutTimestamp: string;
   };
 }
 
@@ -177,6 +200,7 @@ interface DecodedObjectTransferMessage extends DecodedMessageBase {
 interface DecodedNftBurnMessage extends DecodedMessageBase {
   action: "nft_burn";
   data: {
+    collection: CollectionResource["data"];
     collectionAddress: string;
     from: string;
     tokenAddress: string;
@@ -199,9 +223,16 @@ interface DecodedIbcNftSendMessage extends DecodedMessageBase {
     dstPort: string;
     receiver: string;
     sender: string;
+    sequence: string;
     srcChainId: string;
     srcChannel: string;
     srcPort: string;
+    timeoutHeight: {
+      revision_height: string;
+      revision_number: string;
+    };
+    timeoutTimestamp: string;
+    tokenAddress: string;
     tokenIds: string[];
     tokenUris: string[];
   };
@@ -222,10 +253,154 @@ interface DecodedIbcNftReceiveMessage extends DecodedMessageBase {
     dstPort: string;
     receiver: string;
     sender: string;
+    sequence: string;
     srcChainId: string;
     srcChannel: string;
     srcPort: string;
+    timeoutHeight: {
+      revision_height: string;
+      revision_number: string;
+    };
+    timeoutTimestamp: string;
+    tokenAddress: string;
     tokenIds: string[];
     tokenUris: string[];
+  };
+}
+
+interface DecodedDepositMinitswapMessage extends DecodedMessageBase {
+  action: "deposit_minitswap";
+  data: {
+    amountDeposited: string;
+    amountReceived: string;
+    denomDeposited: string;
+    denomReceived: string;
+    from: string;
+  };
+}
+
+interface DecodedWithdrawMinitswapMessage extends DecodedMessageBase {
+  action: "withdraw_minitswap";
+  data: {
+    amountReceived: string;
+    amountWithdrawn: string;
+    denomReceived: string;
+    denomWithdrawn: string;
+    from: string;
+    releaseTime: string;
+  };
+}
+
+interface DecodedClaimMinitswapMessage extends DecodedMessageBase {
+  action: "claim_minitswap";
+  data: {
+    amountReceived: string;
+    amountWithdrawn: string;
+    denomReceived: string;
+    denomWithdrawn: string;
+    from: string;
+  };
+}
+
+interface DecodedDepositLiquidityMessage extends DecodedMessageBase {
+  action: "deposit_liquidity";
+  data: {
+    amountA: string;
+    amountB: string;
+    denomA: string;
+    denomB: string;
+    from: string;
+    liquidity: string;
+    liquidityDenom: string;
+  };
+}
+
+interface DecodedWithdrawLiquidityMessage extends DecodedMessageBase {
+  action: "withdraw_liquidity";
+  data: {
+    amountA: string;
+    amountB: string;
+    denomA: string;
+    denomB: string;
+    from: string;
+    liquidity: string;
+    liquidityDenom: string;
+  };
+}
+
+interface DecodedDepositStakeLiquidityMessage extends DecodedMessageBase {
+  action: "deposit_stake_liquidity";
+  data: {
+    amountA: string;
+    amountB: string;
+    denomA: string;
+    denomB: string;
+    from: string;
+    liquidity: string;
+    liquidityDenom: string;
+    validator: Validator | null;
+    validatorAddress: string;
+  };
+}
+
+interface DecodedDepositStakeLockLiquidityMessage extends DecodedMessageBase {
+  action: "deposit_stake_lock_liquidity";
+  data: {
+    amountA: string;
+    amountB: string;
+    denomA: string;
+    denomB: string;
+    from: string;
+    liquidity: string;
+    liquidityDenom: string;
+    releaseTimestamp: string;
+    validator: Validator | null;
+    validatorAddress: string;
+  };
+}
+
+interface DecodedVipClaimEsinitMessage extends DecodedMessageBase {
+  action: "vip_claim_esinit";
+  data: {
+    amount: string;
+    denom: string;
+    from: string;
+  };
+}
+
+interface DecodedVipGaugeVoteMessage extends DecodedMessageBase {
+  action: "vip_gauge_vote";
+  data: {
+    from: string;
+    votes: Array<{
+      amount: number;
+      rollup: string;
+    }>;
+  };
+}
+
+interface DecodedExtendLiquidityMessage extends DecodedMessageBase {
+  action: "extend_liquidity";
+  data: {
+    from: string;
+    initialReleaseTimestamp: string;
+    liquidity: string;
+    liquidityDenom: string;
+    newReleaseTimestamp: string;
+    validator: Validator | null;
+    validatorAddress: string;
+  };
+}
+
+interface DecodedMergeLiquidityMessage extends DecodedMessageBase {
+  action: "merge_liquidity";
+  data: {
+    from: string;
+    initialReleaseTimestamp: string;
+    liquidity: string;
+    liquidityDenom: string;
+    newReleaseTimestamp: string;
+    validator: Validator | null;
+    validatorAddress: string;
   };
 }

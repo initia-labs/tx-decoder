@@ -26,11 +26,12 @@ export const resetMockApi = (mockedAxios: MockedAxios) => {
 export const createMockApiHandlers = (responses: MockApiResponses) => {
   const getPath = (url: string) => {
     const urlObject = new URL(url);
-    return urlObject.pathname;
+    return urlObject.pathname + urlObject.search;
   };
 
   const getHandler = (url: string) => {
     const path = getPath(url);
+
     if (responses.GET && responses.GET[path]) {
       return Promise.resolve({ data: responses.GET[path] });
     }
@@ -72,6 +73,6 @@ export const createMockApiHandlers = (responses: MockApiResponses) => {
 
   return {
     get: getHandler,
-    post: postHandler,
+    post: postHandler
   };
 };

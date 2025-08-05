@@ -4,7 +4,7 @@ import {
   Log,
   Message,
   zMsgMoveObjectTransfer,
-  zMsgMoveObjectTransferEvent,
+  zMsgMoveObjectTransferEvent
 } from "@/schema";
 import { findMoveEvent, toBech32 } from "@/utils";
 
@@ -33,12 +33,12 @@ export const objectTransferDecoder: MessageDecoder = {
       data: {
         from: toBech32(transferEvent.from),
         object: toBech32(transferEvent.object),
-        to: toBech32(transferEvent.to),
+        to: toBech32(transferEvent.to)
       },
       isIbc: false,
-      isOp: false,
+      isOp: false
     };
-  },
+  }
 };
 
 const findTransferEvent = (log: Log) =>

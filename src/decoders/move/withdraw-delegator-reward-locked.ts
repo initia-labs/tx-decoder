@@ -45,12 +45,12 @@ export const withdrawDelegatorRewardLockedDecoder: MessageDecoder = {
         coins,
         delegatorAddress: sender,
         validator,
-        validatorAddress,
+        validatorAddress
       },
       isIbc: false,
-      isOp: false,
+      isOp: false
     };
 
     return decodedMessage;
-  },
+  }
 };

@@ -44,8 +44,8 @@ export const mintEventProcessor: BalanceEventProcessor = {
       return {
         ft: {},
         object: {
-          [toBech32(owner)]: { [toBech32(mintEvent.nft)]: "1" },
-        },
+          [toBech32(owner)]: { [toBech32(mintEvent.nft)]: "1" }
+        }
       };
     } catch (error) {
       console.error(`Failed to process ${mintEventProcessor.type_tag}:`, error);
@@ -53,5 +53,5 @@ export const mintEventProcessor: BalanceEventProcessor = {
 
     return DEFAULT_BALANCE_CHANGES;
   },
-  type_tag: "0x1::collection::MintEvent",
+  type_tag: "0x1::collection::MintEvent"
 };

@@ -2,11 +2,11 @@ import type { DecodedMessage, MessageDecoder } from "@/interfaces";
 import type { Log, Message } from "@/schema";
 
 import { ApiClient } from "@/api";
-import { LOCK_STAKING_MODULE_ADDRESS } from "@/constants";
+import { INITIA_VAULT_MODULE_ADDRESS } from "@/constants";
 import {
   zDepositDelegationEvent,
   zMsgRedelegateLocked,
-  zWithdrawDelegationEvent,
+  zWithdrawDelegationEvent
 } from "@/schema";
 import { findMoveEvent } from "@/utils";
 
@@ -22,7 +22,7 @@ export const redelegateLockedDecoder: MessageDecoder = {
 
     const withdrawDelegationEvent = findMoveEvent(
       log.events,
-      `${LOCK_STAKING_MODULE_ADDRESS}::lock_staking::WithdrawDelegationEvent`,
+      `${INITIA_VAULT_MODULE_ADDRESS}::lock_staking::WithdrawDelegationEvent`,
       zWithdrawDelegationEvent
     );
     if (!withdrawDelegationEvent) {
@@ -33,7 +33,7 @@ export const redelegateLockedDecoder: MessageDecoder = {
 
     const delegateLockedEvent = findMoveEvent(
       log.events,
-      `${LOCK_STAKING_MODULE_ADDRESS}::lock_staking::DepositDelegationEvent`,
+      `${INITIA_VAULT_MODULE_ADDRESS}::lock_staking::DepositDelegationEvent`,
       zDepositDelegationEvent
     );
     if (!delegateLockedEvent) {
@@ -52,12 +52,12 @@ export const redelegateLockedDecoder: MessageDecoder = {
 
     const redelegateLockedCoin = {
       amount: withdrawDelegationEvent.locked_share,
-      denom,
+      denom
     };
 
     const [validatorDst, validatorSrc] = await Promise.all([
       apiClient.findValidator(delegateLockedEvent.validator),
-      apiClient.findValidator(withdrawDelegationEvent.validator),
+      apiClient.findValidator(withdrawDelegationEvent.validator)
     ]);
 
     const decodedMessage: DecodedMessage = {
@@ -68,12 +68,12 @@ export const redelegateLockedDecoder: MessageDecoder = {
         validatorDst,
         validatorDstAddress: delegateLockedEvent.validator,
         validatorSrc,
-        validatorSrcAddress: withdrawDelegationEvent.validator,
+        validatorSrcAddress: withdrawDelegationEvent.validator
       },
       isIbc: false,
-      isOp: false,
+      isOp: false
     };
 
     return decodedMessage;
-  },
+  }
 };

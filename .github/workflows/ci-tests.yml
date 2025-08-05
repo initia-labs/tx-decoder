@@ -1,4 +1,4 @@
-name: Unit Tests
+name: CI Tests
 
 on:
   push:
@@ -16,7 +16,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version-file: ".nvmrc"
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v2
@@ -39,5 +39,14 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
+      - name: Run TypeScript typecheck
+        run: pnpm typecheck
+
+      - name: Run ESLint
+        run: pnpm lint
+
       - name: Run tests
         run: pnpm test
+
+      - name: Check Prettier formatting
+        run: pnpm prettier --check "**/*.{ts,md}"

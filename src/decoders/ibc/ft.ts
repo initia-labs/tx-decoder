@@ -1,3 +1,5 @@
+import { fromBase64, fromUtf8 } from "@cosmjs/encoding";
+
 import { ApiClient } from "@/api";
 import { MessageDecoder } from "@/interfaces";
 import {
@@ -5,8 +7,9 @@ import {
   Message,
   zIbcTransferRecvPacket,
   zMsgIbcRecvPacket,
-  zMsgIbcTransfer,
+  zMsgIbcTransfer
 } from "@/schema";
+import { getIbcDenom } from "@/utils";
 
 export const ibcSendFtDecoder: MessageDecoder = {
   check: (message: Message, _log: Log) => {
@@ -15,7 +18,15 @@ export const ibcSendFtDecoder: MessageDecoder = {
   },
   decode: async (message: Message, log: Log, apiClient: ApiClient) => {
     const parsed = zMsgIbcTransfer.parse(message);
-    const { receiver, sender, source_channel, source_port, token } = parsed;
+    const {
+      receiver,
+      sender,
+      source_channel,
+      source_port,
+      timeout_height,
+      timeout_timestamp,
+      token
+    } = parsed;
 
     const event = log.events.find((event) => event.type === "send_packet");
 
@@ -30,6 +41,11 @@ export const ibcSendFtDecoder: MessageDecoder = {
       (attr) => attr.key === "packet_dst_port"
     )?.value;
     if (!dstPort) throw new Error(`IBC Transfer dst port not found`);
+
+    const sequence = event.attributes.find(
+      (attr) => attr.key === "packet_sequence"
+    )?.value;
+    if (!sequence) throw new Error(`IBC Transfer sequence not found`);
 
     const srcChainId = await apiClient.getChainId();
 
@@ -50,14 +66,17 @@ export const ibcSendFtDecoder: MessageDecoder = {
         dstPort,
         receiver,
         sender,
+        sequence,
         srcChainId,
         srcChannel: source_channel,
         srcPort: source_port,
+        timeoutHeight: timeout_height,
+        timeoutTimestamp: timeout_timestamp
       },
       isIbc: true,
-      isOp: false,
+      isOp: false
     };
-  },
+  }
 };
 
 export const ibcReceiveFtDecoder: MessageDecoder = {
@@ -72,13 +91,16 @@ export const ibcReceiveFtDecoder: MessageDecoder = {
         data,
         destination_channel,
         destination_port,
+        sequence,
         source_channel,
         source_port,
-      },
+        timeout_height,
+        timeout_timestamp
+      }
     } = parsed;
 
     const parsedPacket = zIbcTransferRecvPacket.parse(
-      Buffer.from(data, "base64").toString()
+      fromUtf8(fromBase64(data))
     );
 
     const dstChainId = await apiClient.getChainId();
@@ -90,22 +112,27 @@ export const ibcReceiveFtDecoder: MessageDecoder = {
     );
     if (!srcChainId) throw new Error(`IBC Transfer src chain id not found`);
 
+    const denom = getIbcDenom(destination_channel, parsedPacket.denom);
+
     return {
       action: "ibc_ft_receive",
       data: {
         amount: parsedPacket.amount,
-        denom: parsedPacket.denom,
+        denom,
         dstChainId,
         dstChannel: destination_channel,
         dstPort: destination_port,
         receiver: parsedPacket.receiver,
         sender: parsedPacket.sender,
+        sequence,
         srcChainId,
         srcChannel: source_channel,
         srcPort: source_port,
+        timeoutHeight: timeout_height,
+        timeoutTimestamp: timeout_timestamp
       },
       isIbc: true,
-      isOp: false,
+      isOp: false
     };
-  },
+  }
 };

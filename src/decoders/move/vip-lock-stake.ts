@@ -2,7 +2,7 @@ import type { DecodedMessage, MessageDecoder } from "@/interfaces";
 import type { Log, Message } from "@/schema";
 
 import { ApiClient } from "@/api";
-import { LOCK_STAKING_MODULE_ADDRESS } from "@/constants";
+import { INITIA_VAULT_MODULE_ADDRESS } from "@/constants";
 import { zDepositDelegationEvent, zMsgVipLockStake } from "@/schema";
 import { findMoveEvent } from "@/utils";
 
@@ -17,7 +17,7 @@ export const vipLockStakeDecoder: MessageDecoder = {
     const { sender } = parsed.data;
     const depositDelegationEvent = findMoveEvent(
       log.events,
-      `${LOCK_STAKING_MODULE_ADDRESS}::lock_staking::DepositDelegationEvent`,
+      `${INITIA_VAULT_MODULE_ADDRESS}::lock_staking::DepositDelegationEvent`,
       zDepositDelegationEvent
     );
     if (!depositDelegationEvent) {
@@ -38,7 +38,7 @@ export const vipLockStakeDecoder: MessageDecoder = {
 
     const vipLockStakeCoin = {
       amount: depositDelegationEvent.locked_share,
-      denom,
+      denom
     };
 
     const validator = await apiClient.findValidator(
@@ -52,12 +52,12 @@ export const vipLockStakeDecoder: MessageDecoder = {
         delegatorAddress: sender,
         releaseTimestamp: depositDelegationEvent.release_time,
         validator,
-        validatorAddress: depositDelegationEvent.validator,
+        validatorAddress: depositDelegationEvent.validator
       },
       isIbc: false,
-      isOp: false,
+      isOp: false
     };
 
     return decodedMessage;
-  },
+  }
 };

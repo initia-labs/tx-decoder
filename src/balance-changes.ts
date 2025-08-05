@@ -10,7 +10,7 @@ const allBalanceEventProcessors: BalanceEventProcessor[] = [
   Processors.withdrawEventProcessor,
   Processors.mintEventProcessor,
   Processors.objectTransferEventProcessor,
-  Processors.burnEventProcessor,
+  Processors.burnEventProcessor
   // Add other event processors here...
 ];
 
@@ -24,12 +24,12 @@ export async function processLogForBalanceChanges(
 ): Promise<BalanceChanges> {
   const balanceChangePromises: Promise<BalanceChanges>[] = [];
 
-  for (const event of log.events) {
+  for (const [index, event] of log.events.entries()) {
     const processor = findProcessorForEvent(event);
 
     if (processor) {
       balanceChangePromises.push(
-        processor.process(event, log.events, apiClient)
+        processor.process(event, log.events, apiClient, index)
       );
     }
   }

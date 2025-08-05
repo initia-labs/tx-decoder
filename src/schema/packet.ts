@@ -7,6 +7,6 @@ export const zIbcTransferRecvPacket = zJsonString.pipe(
     amount: z.string(),
     denom: z.string(),
     receiver: z.string(),
-    sender: z.string(),
+    sender: z.string()
   })
 );

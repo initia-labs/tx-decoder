@@ -2,7 +2,7 @@ import { TxDecoder } from "@/decoder";
 
 export const initialize = (endpoint?: string) => {
   return new TxDecoder({
-    registryUrls: ["https://test.url"],
-    restUrl: endpoint ?? "https://test.url",
+    registryUrl: "https://registry.test.url",
+    restUrl: endpoint ?? "https://rest.test.url"
   });
 };

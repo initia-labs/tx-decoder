@@ -2,7 +2,7 @@ import {
   fromBech32,
   fromHex,
   toBech32 as toBech32Addr,
-  toHex as toHexAddr,
+  toHex as toHexAddr
 } from "@cosmjs/encoding";
 
 const HEX_WALLET_ADDRESS_LENGTH = 40;

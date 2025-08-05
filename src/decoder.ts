@@ -6,7 +6,7 @@ import {
   DecodedTx,
   DecoderConfig,
   MessageDecoder,
-  ProcessedMessage,
+  ProcessedMessage
 } from "./interfaces";
 import { resolveMetadata } from "./metadata-resolver";
 import { Log, Message, TxResponse, zTxResponse } from "./schema";
@@ -15,10 +15,17 @@ import { createNotSupportedMessage } from "./utils";
 
 // Array of decoders ordered by priority
 const messageDecoders: MessageDecoder[] = [
+  Decoders.claimMinitswapDecoder,
   Decoders.delegateDecoder,
   Decoders.delegateLockedDecoder,
+  Decoders.depositMinitswapDecoder,
+  Decoders.depositLiquidityDecoder,
+  Decoders.depositStakeLiquidityDecoder,
+  Decoders.depositStakeLockLiquidityDecoder,
   Decoders.dexSwapDecoder,
+  Decoders.extendLiquidityDecoder,
   Decoders.finalizeTokenWithdrawalDecoder,
+  Decoders.mergeLiquidityDecoder,
   Decoders.ibcReceiveNftDecoder,
   Decoders.ibcSendNftDecoder,
   Decoders.ibcSendFtDecoder,
@@ -33,9 +40,13 @@ const messageDecoders: MessageDecoder[] = [
   Decoders.stableSwapDecoder,
   Decoders.undelegateDecoder,
   Decoders.undelegateLockedDecoder,
+  Decoders.vipClaimEsinitDecoder,
+  Decoders.vipGaugeVoteDecoder,
   Decoders.vipLockStakeDecoder,
   Decoders.withdrawDelegatorRewardDecoder,
   Decoders.withdrawDelegatorRewardLockedDecoder,
+  Decoders.withdrawLiquidityDecoder,
+  Decoders.withdrawMinitswapDecoder
   // Add more decoders here in order of priority
 ];
 
@@ -57,11 +68,14 @@ export class TxDecoder {
       return {
         messages: [],
         metadata: {},
-        totalBalanceChanges: DEFAULT_BALANCE_CHANGES,
+        totalBalanceChanges: DEFAULT_BALANCE_CHANGES
       };
     }
 
-    if (txResponse.logs.length !== txResponse.tx.body.messages.length) {
+    if (
+      txResponse.code === 0 &&
+      txResponse.logs.length !== txResponse.tx.body.messages.length
+    ) {
       throw new Error(
         `Invalid tx response: ${txResponse.logs.length} logs found for ${txResponse.tx.body.messages.length} messages`
       );
@@ -79,19 +93,24 @@ export class TxDecoder {
     return {
       messages: processedMessages,
       metadata,
-      totalBalanceChanges,
+      totalBalanceChanges
     };
   }
 
   private async _decodeMessage(
     message: Message,
-    log: Log
+    log: Log | undefined
   ): ReturnType<MessageDecoder["decode"]> {
     const notSupportedMessage = createNotSupportedMessage(message["@type"]);
 
-    const decoder = this._findDecoderForMessage(message, log);
-    if (!decoder) return notSupportedMessage;
+    if (!log) {
+      return notSupportedMessage;
+    }
+
     try {
+      const decoder = this._findDecoderForMessage(message, log);
+      if (!decoder) return notSupportedMessage;
+
       return await decoder.decode(message, log, this.apiClient);
     } catch (e) {
       console.error(e);
@@ -113,10 +132,9 @@ export class TxDecoder {
       const log = txResponse.logs[index];
 
       const decodedMessage = await this._decodeMessage(message, log);
-      const balanceChanges = await processLogForBalanceChanges(
-        log,
-        this.apiClient
-      );
+      const balanceChanges = log
+        ? await processLogForBalanceChanges(log, this.apiClient)
+        : DEFAULT_BALANCE_CHANGES;
 
       return { balanceChanges, decodedMessage };
     });

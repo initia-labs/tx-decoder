@@ -2,7 +2,7 @@ import type { DecodedMessage, MessageDecoder } from "@/interfaces";
 import type { Log, Message } from "@/schema";
 
 import { ApiClient } from "@/api";
-import { LOCK_STAKING_MODULE_ADDRESS } from "@/constants";
+import { INITIA_VAULT_MODULE_ADDRESS } from "@/constants";
 import { zMsgUndelegateLocked, zWithdrawDelegationEvent } from "@/schema";
 import { findMoveEvent } from "@/utils";
 
@@ -17,7 +17,7 @@ export const undelegateLockedDecoder: MessageDecoder = {
     const { sender } = parsed.data;
     const undelegateLockedEvent = findMoveEvent(
       log.events,
-      `${LOCK_STAKING_MODULE_ADDRESS}::lock_staking::WithdrawDelegationEvent`,
+      `${INITIA_VAULT_MODULE_ADDRESS}::lock_staking::WithdrawDelegationEvent`,
       zWithdrawDelegationEvent
     );
     if (!undelegateLockedEvent) {
@@ -36,7 +36,7 @@ export const undelegateLockedDecoder: MessageDecoder = {
 
     const undelegateLockedCoin = {
       amount: undelegateLockedEvent.locked_share,
-      denom,
+      denom
     };
 
     const validator = await apiClient.findValidator(
@@ -50,12 +50,12 @@ export const undelegateLockedDecoder: MessageDecoder = {
         delegatorAddress: sender,
         unlockTimestamp: undelegateLockedEvent.release_time,
         validator,
-        validatorAddress: undelegateLockedEvent.validator,
+        validatorAddress: undelegateLockedEvent.validator
       },
       isIbc: false,
-      isOp: false,
+      isOp: false
     };
 
     return decodedMessage;
-  },
+  }
 };
