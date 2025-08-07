@@ -363,6 +363,7 @@ interface DecodedVipClaimEsinitMessage extends DecodedMessageBase {
   action: "vip_claim_esinit";
   data: {
     amount: string;
+    chainId: string;
     denom: string;
     from: string;
   };

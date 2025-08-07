@@ -1789,6 +1789,16 @@ export const mockMsgVipClaimEsinitZero = {
 
 export const mockApiResponsesForVipClaimEsinit = {
   GET: {
+    "/chains.json": [
+      {
+        chain_id: "inertia-2",
+        chain_name: "inertia",
+        metadata: {
+          ibc_channels: [],
+          op_bridge_id: "32"
+        }
+      }
+    ],
     "/initia/move/v1/accounts/0x39e454a8b7b1b71b2c0c27bf4ce1fbe234652f2c40f1fc209b023beaa7ece013/resources":
       {
         pagination: {
@@ -2072,6 +2082,19 @@ export const mockApiResponsesForVipClaimEsinit = {
       {
         denom:
           "move/0x3a886b32a802582f2e446e74d4a24d1d7ed01adf46d2a8f65c5723887e708789::ESESIN"
+      },
+    "/initia/mstaking/v1/validators/initvaloper1cmlx2pqfgt2kpshe2fmc40epzvg699eqv3ax66":
+      {
+        validator: {
+          description: {
+            details: "Provides secure validation services for dPoS networks",
+            identity: "8957C5091FBF4192",
+            moniker: "B-Harvest",
+            security_contact: "contact@bharvest.io",
+            website: "https://bharvest.io"
+          },
+          operator_address: "initvaloper1cmlx2pqfgt2kpshe2fmc40epzvg699eqv3ax66"
+        }
       }
   }
 };
