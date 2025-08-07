@@ -1,7 +1,8 @@
+import { InitiaAddress } from "@initia/utils";
+
 import { DEFAULT_BALANCE_CHANGES } from "@/constants";
 import { BalanceEventProcessor } from "@/interfaces";
 import { zMsgMoveObjectTransferEvent } from "@/schema";
-import { toBech32 } from "@/utils";
 
 export const objectTransferEventProcessor: BalanceEventProcessor = {
   async process(currentEvent, _allEvents, _apiClient) {
@@ -17,14 +18,18 @@ export const objectTransferEventProcessor: BalanceEventProcessor = {
         dataAttribute.value
       );
 
+      const fromAddress = InitiaAddress(transferEvent.from).bech32;
+      const toAddress = InitiaAddress(transferEvent.to).bech32;
+      const objectAddress = InitiaAddress(transferEvent.object).bech32;
+
       return {
         ft: {},
         object: {
-          [toBech32(transferEvent.from)]: {
-            [toBech32(transferEvent.object)]: "-1"
+          [fromAddress]: {
+            [objectAddress]: "-1"
           },
-          [toBech32(transferEvent.to)]: {
-            [toBech32(transferEvent.object)]: "1"
+          [toAddress]: {
+            [objectAddress]: "1"
           }
         }
       };

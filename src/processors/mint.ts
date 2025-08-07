@@ -1,7 +1,8 @@
+import { InitiaAddress } from "@initia/utils";
+
 import { DEFAULT_BALANCE_CHANGES } from "@/constants";
 import { BalanceEventProcessor } from "@/interfaces";
 import { zCreateEvent, zMintNftEvent } from "@/schema";
-import { toBech32 } from "@/utils";
 
 export const mintEventProcessor: BalanceEventProcessor = {
   async process(currentEvent, allEvents, _apiClient) {
@@ -44,7 +45,9 @@ export const mintEventProcessor: BalanceEventProcessor = {
       return {
         ft: {},
         object: {
-          [toBech32(owner)]: { [toBech32(mintEvent.nft)]: "1" }
+          [InitiaAddress(owner).bech32]: {
+            [InitiaAddress(mintEvent.nft).bech32]: "1"
+          }
         }
       };
     } catch (error) {

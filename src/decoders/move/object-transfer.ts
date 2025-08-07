@@ -1,3 +1,5 @@
+import { InitiaAddress } from "@initia/utils";
+
 import { ApiClient } from "@/api";
 import { MessageDecoder } from "@/interfaces";
 import {
@@ -6,7 +8,7 @@ import {
   zMsgMoveObjectTransfer,
   zMsgMoveObjectTransferEvent
 } from "@/schema";
-import { findMoveEvent, toBech32 } from "@/utils";
+import { findMoveEvent } from "@/utils";
 
 export const objectTransferDecoder: MessageDecoder = {
   check: (message: Message, log: Log) => {
@@ -31,9 +33,9 @@ export const objectTransferDecoder: MessageDecoder = {
     return {
       action: "object_transfer",
       data: {
-        from: toBech32(transferEvent.from),
-        object: toBech32(transferEvent.object),
-        to: toBech32(transferEvent.to)
+        from: InitiaAddress(transferEvent.from).bech32,
+        object: InitiaAddress(transferEvent.object).bech32,
+        to: InitiaAddress(transferEvent.to).bech32
       },
       isIbc: false,
       isOp: false

@@ -1,3 +1,5 @@
+import { InitiaAddress } from "@initia/utils";
+
 import { ApiClient } from "@/api";
 import { MessageDecoder } from "@/interfaces";
 import {
@@ -9,7 +11,7 @@ import {
   zMsgMoveNftMint,
   zMsgMoveObjectCreateEvent
 } from "@/schema";
-import { findMoveEvent, toBech32 } from "@/utils";
+import { findMoveEvent } from "@/utils";
 
 export const nftMintDecoder: MessageDecoder = {
   check: (_message: Message, log: Log) =>
@@ -51,14 +53,14 @@ export const nftMintDecoder: MessageDecoder = {
       action: "nft_mint",
       data: {
         collection: {
-          creator: toBech32(collection.data.creator),
+          creator: InitiaAddress(collection.data.creator).bech32,
           description: collection.data.description,
           name: collection.data.name,
           uri: collection.data.uri
         },
-        collectionAddress: toBech32(mintEvent.collection),
+        collectionAddress: InitiaAddress(mintEvent.collection).bech32,
         from: parsed.sender,
-        tokenAddress: toBech32(mintEvent.nft),
+        tokenAddress: InitiaAddress(mintEvent.nft).bech32,
         tokenId: mintEvent.token_id,
         // in case of burn, the tokenUri is not available
         tokenUri: nftData?.data.uri
@@ -100,14 +102,14 @@ export const nftBurnDecoder: MessageDecoder = {
       action: "nft_burn",
       data: {
         collection: {
-          creator: toBech32(collection.data.creator),
+          creator: InitiaAddress(collection.data.creator).bech32,
           description: collection.data.description,
           name: collection.data.name,
           uri: collection.data.uri
         },
-        collectionAddress: toBech32(burnEvent.collection),
+        collectionAddress: InitiaAddress(burnEvent.collection).bech32,
         from: parsed.sender,
-        tokenAddress: toBech32(burnEvent.nft),
+        tokenAddress: InitiaAddress(burnEvent.nft).bech32,
         tokenId: burnEvent.token_id
       },
       isIbc: false,

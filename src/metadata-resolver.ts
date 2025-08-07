@@ -1,6 +1,7 @@
+import { InitiaAddress } from "@initia/utils";
+
 import { ApiClient } from "./api";
 import { BalanceChanges, Metadata } from "./interfaces";
-import { toBech32 } from "./utils";
 
 // We only support NFT metadata for now
 export const resolveMetadata = async (
@@ -44,12 +45,12 @@ export const resolveMetadata = async (
 
       acc[tokenAddresses[index]] = {
         collection: {
-          creator: toBech32(collection.data.creator),
+          creator: InitiaAddress(collection.data.creator).bech32,
           description: collection.data.description,
           name: collection.data.name,
           uri: collection.data.uri
         },
-        collectionAddress: toBech32(nft.data.collection.inner),
+        collectionAddress: InitiaAddress(nft.data.collection.inner).bech32,
         tokenId: nft.data.token_id,
         tokenUri: nft.data.uri,
         type: "nft"

@@ -1,4 +1,5 @@
 import { fromBase64, fromUtf8 } from "@cosmjs/encoding";
+import { getIbcDenom } from "@initia/utils";
 
 import { ApiClient } from "@/api";
 import { MessageDecoder } from "@/interfaces";
@@ -9,7 +10,6 @@ import {
   zMsgIbcRecvPacket,
   zMsgIbcTransfer
 } from "@/schema";
-import { getIbcDenom } from "@/utils";
 
 export const ibcSendFtDecoder: MessageDecoder = {
   check: (message: Message, _log: Log) => {
