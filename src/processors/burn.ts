@@ -1,7 +1,8 @@
+import { InitiaAddress } from "@initia/utils";
+
 import { DEFAULT_BALANCE_CHANGES } from "@/constants";
 import { BalanceEventProcessor } from "@/interfaces";
 import { zMsgMoveNftBurnEvent } from "@/schema";
-import { toBech32 } from "@/utils";
 
 export const burnEventProcessor: BalanceEventProcessor = {
   async process(currentEvent, allEvents, _apiClient) {
@@ -25,7 +26,9 @@ export const burnEventProcessor: BalanceEventProcessor = {
       return {
         ft: {},
         object: {
-          [toBech32(owner)]: { [toBech32(burnEvent.nft)]: "-1" }
+          [InitiaAddress(owner).bech32]: {
+            [InitiaAddress(burnEvent.nft).bech32]: "-1"
+          }
         }
       };
     } catch (error) {
