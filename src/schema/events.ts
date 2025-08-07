@@ -202,3 +202,15 @@ export const zDexWithdrawEvent = zJsonString.pipe(
     liquidity_token: z.string()
   })
 );
+
+export const zUserVestingCreateEvent = zJsonString.pipe(
+  z.object({
+    account: z.string(),
+    bridge_id: z.string(),
+    end_stage: z.string(),
+    initial_reward: z.string(),
+    l2_score: z.string(),
+    minimum_score: z.string(),
+    start_stage: z.string()
+  })
+);

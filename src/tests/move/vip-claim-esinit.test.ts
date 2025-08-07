@@ -27,6 +27,7 @@ describe("VIP Claim Esinit Message", () => {
       action: "vip_claim_esinit",
       data: {
         amount: "11190511",
+        chainId: "inertia-2",
         denom: "uinit",
         from: "init1mnthd2lz2eltmchrkep3quw2um38fy47qw43u6"
       },
@@ -68,6 +69,7 @@ describe("VIP Claim Esinit Message", () => {
       action: "vip_claim_esinit",
       data: {
         amount: "0",
+        chainId: "inertia-2",
         denom: "uinit",
         from: "init1lxg0lx9009kxd77q4uyj2t683f3kvuhdxafwd5"
       },

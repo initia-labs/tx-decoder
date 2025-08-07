@@ -1111,6 +1111,16 @@ export const mockMsgVipLockStake = {
 
 export const mockApiResponsesForVipLockStake = {
   GET: {
+    "/chains.json": [
+      {
+        chain_id: "echelon-1",
+        chain_name: "echelon",
+        metadata: {
+          ibc_channels: [],
+          op_bridge_id: "16"
+        }
+      }
+    ],
     "/initia/move/v1/accounts/0x4b1bd70991e1ebd13a221530a74891cfc6a47e12bbe13b87e4948cf7d5b16bd8/resources":
       {
         pagination: { next_key: null, total: "0" },
