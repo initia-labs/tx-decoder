@@ -35,7 +35,6 @@ export const vipClaimEsinitDecoder: MessageDecoder = {
     const srcChainId = await apiClient.findRollupChainId(
       userVestingCreateEvent.bridge_id
     );
-
     if (!srcChainId) {
       throw new Error(
         `Source chain ID not found for bridge ID: ${userVestingCreateEvent.bridge_id}`
