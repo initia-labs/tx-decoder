@@ -1,3 +1,5 @@
+import big from "big.js";
+
 import type { DecodedMessage, MessageDecoder } from "@/interfaces";
 import type { Log, Message } from "@/schema";
 
@@ -30,9 +32,11 @@ export const vipGaugeVoteDecoder: MessageDecoder = {
     const votes = await Promise.all(
       voteEvent.weights.map(async (weight) => {
         const rollup = await apiClient.findRollupChainId(weight.bridge_id);
+        const weightBig = big(weight.weight);
         return {
-          amount: parseFloat(weight.weight),
-          rollup: rollup || `bridge-${weight.bridge_id}`
+          amount: weightBig.mul(voteEvent.voting_power).toNumber(),
+          rollup: rollup || `bridge-${weight.bridge_id}`,
+          weight: weightBig.toNumber()
         };
       })
     );
@@ -40,8 +44,11 @@ export const vipGaugeVoteDecoder: MessageDecoder = {
     const decodedMessage: DecodedMessage = {
       action: "vip_gauge_vote",
       data: {
+        epoch: voteEvent.cycle,
         from: sender,
-        votes
+        maxVotingPower: voteEvent.max_voting_power,
+        votes,
+        votingPower: voteEvent.voting_power
       },
       isIbc: false,
       isOp: false
