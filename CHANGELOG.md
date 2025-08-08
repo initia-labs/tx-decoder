@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.3.0](https://github.com/initia-labs/tx-decoder/compare/v0.2.1...v0.3.0) (2025-08-08)
+
+
+### Features
+
+* add chain id to vip claim esinit ([#51](https://github.com/initia-labs/tx-decoder/issues/51)) ([1dfe9b5](https://github.com/initia-labs/tx-decoder/commit/1dfe9b514bf22d378e407d8e0f63246f4940a62f))
+* enhance merge liquidity decoder to support multiple positions ([#53](https://github.com/initia-labs/tx-decoder/issues/53)) ([4c26ccd](https://github.com/initia-labs/tx-decoder/commit/4c26ccdce277f6faa99cdfa115e4792e57c26854))
+* integrate @initia/utils for address handling ([#50](https://github.com/initia-labs/tx-decoder/issues/50)) ([3650833](https://github.com/initia-labs/tx-decoder/commit/36508336445de731a9a2bc7b76e3d771173e021e))
+
 ## [0.2.1](https://github.com/initia-labs/tx-decoder/compare/v0.2.0...v0.2.1) (2025-08-04)
 
 
