@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.0](https://github.com/initia-labs/tx-decoder/compare/v0.3.0...v0.4.0) (2025-08-08)
+
+
+### Features
+
+* update message decoders to include txResponse and enhance data structures ([#54](https://github.com/initia-labs/tx-decoder/issues/54)) ([5dcafcb](https://github.com/initia-labs/tx-decoder/commit/5dcafcbcdb4888368c7d4b683013863362e2ad6e))
+
 ## [0.3.0](https://github.com/initia-labs/tx-decoder/compare/v0.2.1...v0.3.0) (2025-08-08)
 
 
