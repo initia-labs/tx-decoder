@@ -1,3 +1,5 @@
+import big from "big.js";
+
 import { ApiClient } from "@/api";
 import { INITIA_VAULT_MODULE_ADDRESS } from "@/constants";
 import { DecodedMessage, MessageDecoder } from "@/interfaces";
@@ -8,7 +10,7 @@ import {
   zMsgMergeLiquidity,
   zWithdrawDelegationEvent
 } from "@/schema";
-import { findMoveEvent } from "@/utils";
+import { findAllMoveEvents, findMoveEvent } from "@/utils";
 
 export const mergeLiquidityDecoder: MessageDecoder = {
   check: (message: Message, _log: Log) =>
@@ -17,17 +19,26 @@ export const mergeLiquidityDecoder: MessageDecoder = {
     const parsed = zMsgMergeLiquidity.parse(message);
     const { sender } = parsed;
 
-    // Find the WithdrawDelegationEvent to get initial release time
-    const withdrawDelegationEvent = findMoveEvent(
+    // Find the all WithdrawDelegationEvents to get initial release time and initial amount of each position
+    const withdrawDelegationEvents = findAllMoveEvents(
       log.events,
       `${INITIA_VAULT_MODULE_ADDRESS}::lock_staking::WithdrawDelegationEvent`,
       zWithdrawDelegationEvent
     );
-    if (!withdrawDelegationEvent) {
+    if (!withdrawDelegationEvents) {
       throw new Error("WithdrawDelegationEvent not found");
     }
+    const initialPositions = withdrawDelegationEvents.map((event) => ({
+      amount: event.locked_share,
+      initialReleaseTimestamp: event.release_time
+    }));
 
-    // Find the DepositDelegationEvent to get new release time
+    const mergedLiquidity = withdrawDelegationEvents.reduce(
+      (acc, event) => big(acc).plus(event.locked_share).toString(),
+      "0"
+    );
+
+    // Find the DepositDelegationEvent to get new release time, validator and liquidity denom
     const depositDelegationEvent = findMoveEvent(
       log.events,
       `${INITIA_VAULT_MODULE_ADDRESS}::lock_staking::DepositDelegationEvent`,
@@ -52,9 +63,9 @@ export const mergeLiquidityDecoder: MessageDecoder = {
       action: "merge_liquidity",
       data: {
         from: sender,
-        initialReleaseTimestamp: withdrawDelegationEvent.release_time,
-        liquidity: depositDelegationEvent.locked_share,
+        initialPositions,
         liquidityDenom,
+        mergedLiquidity,
         newReleaseTimestamp: depositDelegationEvent.release_time,
         validator: validatorData,
         validatorAddress: depositDelegationEvent.validator
