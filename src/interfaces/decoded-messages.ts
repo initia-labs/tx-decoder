@@ -397,9 +397,12 @@ interface DecodedMergeLiquidityMessage extends DecodedMessageBase {
   action: "merge_liquidity";
   data: {
     from: string;
-    initialReleaseTimestamp: string;
-    liquidity: string;
+    initialPositions: {
+      amount: string;
+      initialReleaseTimestamp: string;
+    }[];
     liquidityDenom: string;
+    mergedLiquidity: string;
     newReleaseTimestamp: string;
     validator: Validator | null;
     validatorAddress: string;
