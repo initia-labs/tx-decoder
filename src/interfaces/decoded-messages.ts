@@ -287,7 +287,7 @@ interface DecodedWithdrawMinitswapMessage extends DecodedMessageBase {
     denomReceived: string;
     denomWithdrawn: string;
     from: string;
-    releaseTime: string;
+    releaseTimestamp: string;
   };
 }
 
@@ -353,6 +353,7 @@ interface DecodedDepositStakeLockLiquidityMessage extends DecodedMessageBase {
     from: string;
     liquidity: string;
     liquidityDenom: string;
+    lockTime: number;
     releaseTimestamp: string;
     validator: Validator | null;
     validatorAddress: string;
@@ -372,11 +373,15 @@ interface DecodedVipClaimEsinitMessage extends DecodedMessageBase {
 interface DecodedVipGaugeVoteMessage extends DecodedMessageBase {
   action: "vip_gauge_vote";
   data: {
+    epoch: string;
     from: string;
+    maxVotingPower: string;
     votes: Array<{
       amount: number;
       rollup: string;
+      weight: number;
     }>;
+    votingPower: string;
   };
 }
 

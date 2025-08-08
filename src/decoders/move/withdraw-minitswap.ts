@@ -53,7 +53,7 @@ export const withdrawMinitswapDecoder: MessageDecoder = {
         denomReceived: "uinit",
         denomWithdrawn: shareTokenDenom,
         from: sender,
-        releaseTime: unbondEvent.release_time
+        releaseTimestamp: unbondEvent.release_time
       },
       isIbc: false,
       isOp: false
