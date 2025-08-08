@@ -25,7 +25,7 @@ export const mergeLiquidityDecoder: MessageDecoder = {
       `${INITIA_VAULT_MODULE_ADDRESS}::lock_staking::WithdrawDelegationEvent`,
       zWithdrawDelegationEvent
     );
-    if (!withdrawDelegationEvents) {
+    if (withdrawDelegationEvents.length === 0) {
       throw new Error("WithdrawDelegationEvent not found");
     }
     const initialPositions = withdrawDelegationEvents.map((event) => ({
