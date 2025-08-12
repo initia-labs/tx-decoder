@@ -13,7 +13,7 @@ importers:
         version: 0.33.1
       '@initia/utils':
         specifier: 2.0.0-alpha.3
-        version: 2.0.0-alpha.3(@cosmjs/encoding@0.33.1)(@mysten/bcs@1.7.0)(@noble/hashes@1.8.0)(bignumber.js@9.3.1)(viem@2.33.2(typescript@5.8.3)(zod@3.25.62))
+        version: 2.0.0-alpha.3(@cosmjs/encoding@0.33.1)(@mysten/bcs@1.7.0)(@noble/hashes@1.8.0)(bignumber.js@9.3.1)(viem@2.33.2(typescript@5.8.3)(zod@4.0.17))
       '@noble/hashes':
         specifier: ^1.8.0
         version: 1.8.0
@@ -30,8 +30,8 @@ importers:
         specifier: ^10.1.1
         version: 10.1.1
       zod:
-        specifier: ^3.25.62
-        version: 3.25.62
+        specifier: ^4.0.17
+        version: 4.0.17
     devDependencies:
       '@eslint/js':
         specifier: ^9.28.0
@@ -2460,8 +2460,8 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
 
-  zod@3.25.62:
-    resolution: {integrity: sha512-YCxsr4DmhPcrKPC9R1oBHQNlQzlJEyPAId//qTau/vBee9uO8K6prmRq4eMkOyxvBfH4wDPIPdLx9HVMWIY3xA==}
+  zod@4.0.17:
+    resolution: {integrity: sha512-1PHjlYRevNxxdy2JZ8JcNAw7rX8V9P1AKkP+x/xZfxB0K5FYfuV+Ug6P/6NVSR2jHQ+FzDDoDHS04nYUsOIyLQ==}
 
 snapshots:
 
@@ -2801,13 +2801,13 @@ snapshots:
 
   '@humanwhocodes/retry@0.4.3': {}
 
-  '@initia/utils@2.0.0-alpha.3(@cosmjs/encoding@0.33.1)(@mysten/bcs@1.7.0)(@noble/hashes@1.8.0)(bignumber.js@9.3.1)(viem@2.33.2(typescript@5.8.3)(zod@3.25.62))':
+  '@initia/utils@2.0.0-alpha.3(@cosmjs/encoding@0.33.1)(@mysten/bcs@1.7.0)(@noble/hashes@1.8.0)(bignumber.js@9.3.1)(viem@2.33.2(typescript@5.8.3)(zod@4.0.17))':
     dependencies:
       '@cosmjs/encoding': 0.33.1
       '@mysten/bcs': 1.7.0
       '@noble/hashes': 1.8.0
       bignumber.js: 9.3.1
-      viem: 2.33.2(typescript@5.8.3)(zod@3.25.62)
+      viem: 2.33.2(typescript@5.8.3)(zod@4.0.17)
 
   '@isaacs/cliui@8.0.2':
     dependencies:
@@ -3285,10 +3285,10 @@ snapshots:
       '@typescript-eslint/types': 8.34.0
       eslint-visitor-keys: 4.2.1
 
-  abitype@1.0.8(typescript@5.8.3)(zod@3.25.62):
+  abitype@1.0.8(typescript@5.8.3)(zod@4.0.17):
     optionalDependencies:
       typescript: 5.8.3
-      zod: 3.25.62
+      zod: 4.0.17
 
   acorn-jsx@5.3.2(acorn@8.15.0):
     dependencies:
@@ -4536,7 +4536,7 @@ snapshots:
       type-check: 0.4.0
       word-wrap: 1.2.5
 
-  ox@0.8.6(typescript@5.8.3)(zod@3.25.62):
+  ox@0.8.6(typescript@5.8.3)(zod@4.0.17):
     dependencies:
       '@adraffy/ens-normalize': 1.11.0
       '@noble/ciphers': 1.3.0
@@ -4544,7 +4544,7 @@ snapshots:
       '@noble/hashes': 1.8.0
       '@scure/bip32': 1.7.0
       '@scure/bip39': 1.6.0
-      abitype: 1.0.8(typescript@5.8.3)(zod@3.25.62)
+      abitype: 1.0.8(typescript@5.8.3)(zod@4.0.17)
       eventemitter3: 5.0.1
     optionalDependencies:
       typescript: 5.8.3
@@ -4968,15 +4968,15 @@ snapshots:
       '@types/istanbul-lib-coverage': 2.0.6
       convert-source-map: 2.0.0
 
-  viem@2.33.2(typescript@5.8.3)(zod@3.25.62):
+  viem@2.33.2(typescript@5.8.3)(zod@4.0.17):
     dependencies:
       '@noble/curves': 1.9.2
       '@noble/hashes': 1.8.0
       '@scure/bip32': 1.7.0
       '@scure/bip39': 1.6.0
-      abitype: 1.0.8(typescript@5.8.3)(zod@3.25.62)
+      abitype: 1.0.8(typescript@5.8.3)(zod@4.0.17)
       isows: 1.0.7(ws@8.18.2)
-      ox: 0.8.6(typescript@5.8.3)(zod@3.25.62)
+      ox: 0.8.6(typescript@5.8.3)(zod@4.0.17)
       ws: 8.18.2
     optionalDependencies:
       typescript: 5.8.3
@@ -5052,4 +5052,4 @@ snapshots:
 
   yocto-queue@0.1.0: {}
 
-  zod@3.25.62: {}
+  zod@4.0.17: {}
