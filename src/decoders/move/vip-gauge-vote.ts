@@ -34,7 +34,7 @@ export const vipGaugeVoteDecoder: MessageDecoder = {
         const rollup = await apiClient.findRollupChainId(weight.bridge_id);
         const weightBig = big(weight.weight);
         return {
-          amount: weightBig.mul(voteEvent.voting_power).toNumber(),
+          amount: weightBig.mul(voteEvent.max_voting_power).toNumber(),
           rollup: rollup || `bridge-${weight.bridge_id}`,
           weight: weightBig.toNumber()
         };
