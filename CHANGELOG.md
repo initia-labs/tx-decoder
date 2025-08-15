@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.1](https://github.com/initia-labs/tx-decoder/compare/v0.4.0...v0.4.1) (2025-08-15)
+
+
+### Bug Fixes
+
+* update vip gauge vote decoder to use max voting power and enhance test coverage ([#57](https://github.com/initia-labs/tx-decoder/issues/57)) ([cdd4302](https://github.com/initia-labs/tx-decoder/commit/cdd430296ecc5e69f72e72807388a91f6bb57dc1))
+
 ## [0.4.0](https://github.com/initia-labs/tx-decoder/compare/v0.3.0...v0.4.0) (2025-08-08)
 
 
