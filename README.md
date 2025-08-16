@@ -50,10 +50,7 @@ import { TxDecoder } from "@initia/tx-decoder";
 
 // Decode a transaction
 const decoder = new TxDecoder({
-  registryUrls: [
-    "https://registry.initia.xyz/",
-    "https://registry.testnet.initia.xyz/"
-  ],
+  registryUrl: "https://registry.initia.xyz/",
   restUrl: "https://rest.initia.xyz"
 });
 
@@ -77,7 +74,7 @@ new TxDecoder(config: DecoderConfig)
 **Parameters:**
 
 - `config: DecoderConfig` - Configuration object with the following properties:
-  - `registryUrls: string[]` - Array of registry URLs to retrieve chain registries
+  - `registryUrl: string` - Registry URL to retrieve chain registries
   - `restUrl: string` - REST endpoint of the Initia chain to query on-chain data
 
 #### Methods
