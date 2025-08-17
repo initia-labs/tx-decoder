@@ -9,7 +9,8 @@
     "decoder"
   ],
   "license": "MIT",
-  "author": "Kanisorn",
+  "author": "Initia (https://initia.xyz)",
+  "repository": "github:initia-labs/tx-decoder",
   "type": "module",
   "exports": {
     ".": {
