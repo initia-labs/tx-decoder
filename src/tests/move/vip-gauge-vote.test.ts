@@ -32,12 +32,12 @@ describe("VIP Gauge Vote Message", () => {
         maxVotingPower: "8310741",
         votes: [
           {
-            amount: 166215,
+            amount: 166214.82,
             rollup: "inertia-2",
             weight: 0.02
           },
           {
-            amount: 83107,
+            amount: 83107.41,
             rollup: "intergaze-1",
             weight: 0.01
           }
@@ -77,27 +77,27 @@ describe("VIP Gauge Vote Message", () => {
         maxVotingPower: "903526",
         votes: [
           {
-            amount: 90353,
+            amount: 90352.6,
             rollup: "echelon-1",
             weight: 0.1
           },
           {
-            amount: 271058,
+            amount: 271057.8,
             rollup: "ingnetwork-1",
             weight: 0.3
           },
           {
-            amount: 361410,
+            amount: 361410.4,
             rollup: "rave-1",
             weight: 0.4
           },
           {
-            amount: 90353,
+            amount: 90352.6,
             rollup: "intergaze-1",
             weight: 0.1
           },
           {
-            amount: 90353,
+            amount: 90352.6,
             rollup: "inertia-2",
             weight: 0.1
           }

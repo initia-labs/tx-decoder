@@ -1,4 +1,4 @@
-import big, { roundHalfUp } from "big.js";
+import big from "big.js";
 
 import type { DecodedMessage, MessageDecoder } from "@/interfaces";
 import type { Log, Message } from "@/schema";
@@ -34,10 +34,7 @@ export const vipGaugeVoteDecoder: MessageDecoder = {
         const rollup = await apiClient.findRollupChainId(weight.bridge_id);
         const weightBig = big(weight.weight);
         return {
-          amount: weightBig
-            .mul(voteEvent.max_voting_power)
-            .round(0, roundHalfUp)
-            .toNumber(),
+          amount: weightBig.mul(voteEvent.max_voting_power).toNumber(),
           rollup: rollup || `bridge-${weight.bridge_id}`,
           weight: weightBig.toNumber()
         };
