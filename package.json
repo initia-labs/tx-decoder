@@ -12,6 +12,10 @@
   "author": "Initia (https://initia.xyz)",
   "repository": "github:initia-labs/tx-decoder",
   "type": "module",
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "packageManager": "pnpm@10.0.0",
   "exports": {
     ".": {
       "import": {
