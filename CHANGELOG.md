@@ -1,5 +1,28 @@
 # Changelog
 
+## [0.4.1](https://github.com/initia-labs/tx-decoder/compare/v0.4.0...v0.4.1) (2025-08-15)
+
+
+### Bug Fixes
+
+* update vip gauge vote decoder to use max voting power and enhance test coverage ([#57](https://github.com/initia-labs/tx-decoder/issues/57)) ([cdd4302](https://github.com/initia-labs/tx-decoder/commit/cdd430296ecc5e69f72e72807388a91f6bb57dc1))
+
+## [0.4.0](https://github.com/initia-labs/tx-decoder/compare/v0.3.0...v0.4.0) (2025-08-08)
+
+
+### Features
+
+* update message decoders to include txResponse and enhance data structures ([#54](https://github.com/initia-labs/tx-decoder/issues/54)) ([5dcafcb](https://github.com/initia-labs/tx-decoder/commit/5dcafcbcdb4888368c7d4b683013863362e2ad6e))
+
+## [0.3.0](https://github.com/initia-labs/tx-decoder/compare/v0.2.1...v0.3.0) (2025-08-08)
+
+
+### Features
+
+* add chain id to vip claim esinit ([#51](https://github.com/initia-labs/tx-decoder/issues/51)) ([1dfe9b5](https://github.com/initia-labs/tx-decoder/commit/1dfe9b514bf22d378e407d8e0f63246f4940a62f))
+* enhance merge liquidity decoder to support multiple positions ([#53](https://github.com/initia-labs/tx-decoder/issues/53)) ([4c26ccd](https://github.com/initia-labs/tx-decoder/commit/4c26ccdce277f6faa99cdfa115e4792e57c26854))
+* integrate @initia/utils for address handling ([#50](https://github.com/initia-labs/tx-decoder/issues/50)) ([3650833](https://github.com/initia-labs/tx-decoder/commit/36508336445de731a9a2bc7b76e3d771173e021e))
+
 ## [0.2.1](https://github.com/initia-labs/tx-decoder/compare/v0.2.0...v0.2.1) (2025-08-04)
 
 

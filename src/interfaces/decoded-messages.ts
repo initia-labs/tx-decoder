@@ -287,7 +287,7 @@ interface DecodedWithdrawMinitswapMessage extends DecodedMessageBase {
     denomReceived: string;
     denomWithdrawn: string;
     from: string;
-    releaseTime: string;
+    releaseTimestamp: string;
   };
 }
 
@@ -353,6 +353,7 @@ interface DecodedDepositStakeLockLiquidityMessage extends DecodedMessageBase {
     from: string;
     liquidity: string;
     liquidityDenom: string;
+    lockTime: number;
     releaseTimestamp: string;
     validator: Validator | null;
     validatorAddress: string;
@@ -363,6 +364,7 @@ interface DecodedVipClaimEsinitMessage extends DecodedMessageBase {
   action: "vip_claim_esinit";
   data: {
     amount: string;
+    chainId: string;
     denom: string;
     from: string;
   };
@@ -371,11 +373,15 @@ interface DecodedVipClaimEsinitMessage extends DecodedMessageBase {
 interface DecodedVipGaugeVoteMessage extends DecodedMessageBase {
   action: "vip_gauge_vote";
   data: {
+    epoch: string;
     from: string;
+    maxVotingPower: string;
     votes: Array<{
       amount: number;
       rollup: string;
+      weight: number;
     }>;
+    votingPower: string;
   };
 }
 
@@ -396,9 +402,12 @@ interface DecodedMergeLiquidityMessage extends DecodedMessageBase {
   action: "merge_liquidity";
   data: {
     from: string;
-    initialReleaseTimestamp: string;
-    liquidity: string;
+    initialPositions: {
+      amount: string;
+      initialReleaseTimestamp: string;
+    }[];
     liquidityDenom: string;
+    mergedLiquidity: string;
     newReleaseTimestamp: string;
     validator: Validator | null;
     validatorAddress: string;

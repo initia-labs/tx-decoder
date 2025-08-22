@@ -186,6 +186,7 @@ describe("Deposit Liquidity Message", () => {
         liquidity: "8391799",
         liquidityDenom:
           "move/543b35a39cfadad3da3c23249c474455d15efd2f94f849473226dee8a3c7a9e1",
+        lockTime: 2592593,
         releaseTimestamp: "1755418211",
         validator: {
           description: {

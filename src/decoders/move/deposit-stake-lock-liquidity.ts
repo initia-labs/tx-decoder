@@ -4,6 +4,7 @@ import { DecodedMessage, MessageDecoder } from "@/interfaces";
 import {
   Log,
   Message,
+  TxResponse,
   zDepositDelegationEvent,
   zMsgDepositStakeLockLiquidity,
   zProvideEvent
@@ -13,7 +14,12 @@ import { findMoveEvent } from "@/utils";
 export const depositStakeLockLiquidityDecoder: MessageDecoder = {
   check: (message: Message, _log: Log) =>
     zMsgDepositStakeLockLiquidity.safeParse(message).success,
-  decode: async (message: Message, log: Log, apiClient: ApiClient) => {
+  decode: async (
+    message: Message,
+    log: Log,
+    apiClient: ApiClient,
+    txResponse: TxResponse
+  ) => {
     const parsed = zMsgDepositStakeLockLiquidity.parse(message);
     const { sender } = parsed;
 
@@ -68,6 +74,11 @@ export const depositStakeLockLiquidityDecoder: MessageDecoder = {
       );
     }
 
+    const blockTimestamp = txResponse.timestamp.getTime();
+    const lockTime =
+      parseInt(depositDelegationEvent.release_time) -
+      Math.floor(blockTimestamp / 1000);
+
     const decodedMessage: DecodedMessage = {
       action: "deposit_stake_lock_liquidity",
       data: {
@@ -78,6 +89,7 @@ export const depositStakeLockLiquidityDecoder: MessageDecoder = {
         from: sender,
         liquidity: provideEvent.liquidity,
         liquidityDenom,
+        lockTime,
         releaseTimestamp: depositDelegationEvent.release_time,
         validator: validatorData,
         validatorAddress

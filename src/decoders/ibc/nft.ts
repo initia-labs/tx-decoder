@@ -1,3 +1,5 @@
+import { InitiaAddress } from "@initia/utils";
+
 import { ApiClient } from "@/api";
 import { MessageDecoder } from "@/interfaces";
 import {
@@ -9,7 +11,7 @@ import {
   zMsgMoveCreateCollectionEvent,
   zMsgMoveObjectTransferEvent
 } from "@/schema";
-import { denomToHex, findMoveEvent, toBech32, toHex } from "@/utils";
+import { denomToHex, findMoveEvent } from "@/utils";
 
 export const ibcSendNftDecoder: MessageDecoder = {
   check: (message: Message, _log: Log) => {
@@ -47,14 +49,13 @@ export const ibcSendNftDecoder: MessageDecoder = {
       throw new Error("IBC NFT Send packet data attribute not found");
     }
 
+    const classIdAddress = InitiaAddress(denomToHex(class_id));
     const collection = await apiClient.findCollectionFromCollectionAddr(
-      toBech32(denomToHex(class_id))
+      classIdAddress.bech32
     );
     if (!collection) {
       throw new Error(
-        `Collection data not found for collection address ${toBech32(
-          denomToHex(class_id)
-        )}`
+        `Collection data not found for collection address ${classIdAddress.bech32}`
       );
     }
 
@@ -101,12 +102,12 @@ export const ibcSendNftDecoder: MessageDecoder = {
       action: "ibc_nft_send",
       data: {
         collection: {
-          creator: toBech32(collection.data.creator),
+          creator: InitiaAddress(collection.data.creator).bech32,
           description: collection.data.description,
           name: collection.data.name,
           uri: collection.data.uri || parsedData.data.classUri
         },
-        collectionId: toBech32(denomToHex(class_id)),
+        collectionId: InitiaAddress(denomToHex(class_id)).bech32,
         dstChainId,
         dstChannel,
         dstPort,
@@ -118,7 +119,7 @@ export const ibcSendNftDecoder: MessageDecoder = {
         srcPort: source_port,
         timeoutHeight: timeout_height,
         timeoutTimestamp: timeout_timestamp,
-        tokenAddress: toBech32(tokenAddress),
+        tokenAddress: InitiaAddress(tokenAddress).bech32,
         tokenIds: parsedData.data.tokenIds,
         tokenUris: parsedData.data.tokenUris
       },
@@ -175,7 +176,7 @@ export const ibcReceiveNftDecoder: MessageDecoder = {
     } else {
       collection_id = parsedData.data.classId.includes("nft-transfer/")
         ? denomToHex(parsedData.data.classId)
-        : toHex(parsedData.data.classId);
+        : InitiaAddress(parsedData.data.classId).hex;
     }
 
     const collection =
@@ -224,12 +225,12 @@ export const ibcReceiveNftDecoder: MessageDecoder = {
       action: "ibc_nft_receive",
       data: {
         collection: {
-          creator: toBech32(collection.data.creator),
+          creator: InitiaAddress(collection.data.creator).bech32,
           description: collection.data.description,
           name: collection.data.name,
           uri: collection.data.uri || parsedData.data.classUri
         },
-        collectionId: toBech32(collection_id),
+        collectionId: InitiaAddress(collection_id).bech32,
         dstChainId,
         dstChannel: destination_channel,
         dstPort: destination_port,
@@ -241,7 +242,7 @@ export const ibcReceiveNftDecoder: MessageDecoder = {
         srcPort,
         timeoutHeight: timeout_height,
         timeoutTimestamp: timeout_timestamp,
-        tokenAddress: toBech32(tokenAddress),
+        tokenAddress: InitiaAddress(tokenAddress).bech32,
         tokenIds: parsedData.data.tokenIds,
         tokenUris: parsedData.data.tokenUris
       },

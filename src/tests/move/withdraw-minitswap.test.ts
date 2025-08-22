@@ -30,7 +30,7 @@ describe("Withdraw Minitswap Message", () => {
         denomReceived: "uinit",
         denomWithdrawn: "uoinit",
         from: "init15j9nswsatns09fnru6ww9jjljg07r87kr56mdc",
-        releaseTime: "1753430669"
+        releaseTimestamp: "1753430669"
       },
       isIbc: false,
       isOp: false

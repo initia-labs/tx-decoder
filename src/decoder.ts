@@ -99,7 +99,8 @@ export class TxDecoder {
 
   private async _decodeMessage(
     message: Message,
-    log: Log | undefined
+    log: Log | undefined,
+    txResponse: TxResponse
   ): ReturnType<MessageDecoder["decode"]> {
     const notSupportedMessage = createNotSupportedMessage(message["@type"]);
 
@@ -111,7 +112,7 @@ export class TxDecoder {
       const decoder = this._findDecoderForMessage(message, log);
       if (!decoder) return notSupportedMessage;
 
-      return await decoder.decode(message, log, this.apiClient);
+      return await decoder.decode(message, log, this.apiClient, txResponse);
     } catch (e) {
       console.error(e);
       return notSupportedMessage;
@@ -131,7 +132,11 @@ export class TxDecoder {
     const promises = txResponse.tx.body.messages.map(async (message, index) => {
       const log = txResponse.logs[index];
 
-      const decodedMessage = await this._decodeMessage(message, log);
+      const decodedMessage = await this._decodeMessage(
+        message,
+        log,
+        txResponse
+      );
       const balanceChanges = log
         ? await processLogForBalanceChanges(log, this.apiClient)
         : DEFAULT_BALANCE_CHANGES;

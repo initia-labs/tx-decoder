@@ -1,16 +1,10 @@
 import { toHex } from "@cosmjs/encoding";
-import { sha256 } from "@noble/hashes/sha2";
 import { sha3_256 } from "@noble/hashes/sha3";
 import { toBytes } from "@noble/hashes/utils";
 
 export const denomToHex = (denom: string) => {
   return `0x${denom.split("/").pop()}`;
 };
-
-export function getIbcDenom(channelId: string, denom: string) {
-  const path = `transfer/${channelId}/${denom}`;
-  return `ibc/${toHex(sha256(path)).toUpperCase()}`;
-}
 
 function u64BE(num: bigint): Uint8Array {
   // Ensure the number fits in 8 bytes
