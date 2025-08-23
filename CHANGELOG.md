@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.5.0](https://github.com/initia-labs/tx-decoder/compare/v0.4.1...v0.5.0) (2025-08-23)
+
+
+### Features
+
+* support `0x1::dex::provide_liquidity_script` ([#63](https://github.com/initia-labs/tx-decoder/issues/63)) ([605fd18](https://github.com/initia-labs/tx-decoder/commit/605fd18711be89a95c20aef31774041001a960f6))
+
+
+### Bug Fixes
+
+* revert rounding in vip gauge ([3a24fc5](https://github.com/initia-labs/tx-decoder/commit/3a24fc5d2c73297285266310cd93d560d30fc0eb))
+* rouding mode in vip gauge vote ([6c7fe54](https://github.com/initia-labs/tx-decoder/commit/6c7fe5424c4606b9133462a9f09205ce2907b575))
+* update vip gauge vote decoder to use string representation and divide by 10^6 ([#62](https://github.com/initia-labs/tx-decoder/issues/62)) ([435d5c0](https://github.com/initia-labs/tx-decoder/commit/435d5c0ce516e87b99d292feebe9ea69ba25f155))
+
 ## [0.4.1](https://github.com/initia-labs/tx-decoder/compare/v0.4.0...v0.4.1) (2025-08-15)
 
 
