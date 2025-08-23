@@ -377,9 +377,9 @@ interface DecodedVipGaugeVoteMessage extends DecodedMessageBase {
     from: string;
     maxVotingPower: string;
     votes: Array<{
-      amount: number;
+      amount: string;
       rollup: string;
-      weight: number;
+      weight: string;
     }>;
     votingPower: string;
   };

@@ -9,6 +9,8 @@ import { zMsgVipGaugeVote } from "@/schema";
 import { zVoteEvent } from "@/schema/events";
 import { findMoveEvent } from "@/utils";
 
+const DIVISOR = 1_000_000;
+
 export const vipGaugeVoteDecoder: MessageDecoder = {
   check: (message: Message, _log: Log) =>
     zMsgVipGaugeVote.safeParse(message).success,
@@ -28,15 +30,18 @@ export const vipGaugeVoteDecoder: MessageDecoder = {
       throw new Error("VoteEvent not found");
     }
 
+    const maxVotingPower = big(voteEvent.max_voting_power).div(DIVISOR);
+    const votingPower = big(voteEvent.voting_power).div(DIVISOR);
+
     // Map weights to votes with rollup names
     const votes = await Promise.all(
       voteEvent.weights.map(async (weight) => {
         const rollup = await apiClient.findRollupChainId(weight.bridge_id);
         const weightBig = big(weight.weight);
         return {
-          amount: weightBig.mul(voteEvent.max_voting_power).toNumber(),
+          amount: weightBig.mul(maxVotingPower).toString(),
           rollup: rollup || `bridge-${weight.bridge_id}`,
-          weight: weightBig.toNumber()
+          weight: weightBig.toString()
         };
       })
     );
@@ -46,9 +51,9 @@ export const vipGaugeVoteDecoder: MessageDecoder = {
       data: {
         epoch: voteEvent.cycle,
         from: sender,
-        maxVotingPower: voteEvent.max_voting_power,
+        maxVotingPower: maxVotingPower.toString(),
         votes,
-        votingPower: voteEvent.voting_power
+        votingPower: votingPower.toString()
       },
       isIbc: false,
       isOp: false
