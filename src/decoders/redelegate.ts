@@ -1,5 +1,5 @@
 import type { DecodedMessage, MessageDecoder } from "@/interfaces";
-import type { Log, Message } from "@/schema";
+import type { Log, Message, TxResponse } from "@/schema";
 
 import { ApiClient } from "@/api";
 import { SUPPORTED_MESSAGE_TYPES } from "@/message-types";
@@ -8,7 +8,12 @@ import { zMsgRedelegate } from "@/schema";
 export const redelegateDecoder: MessageDecoder = {
   check: (message: Message, _log: Log) =>
     message["@type"] === SUPPORTED_MESSAGE_TYPES.MsgRedelegate,
-  decode: async (message: Message, _log: Log, apiClient: ApiClient) => {
+  decode: async (
+    message: Message,
+    _log: Log,
+    apiClient: ApiClient,
+    _txResponse: TxResponse
+  ) => {
     const parsed = zMsgRedelegate.safeParse(message);
     if (!parsed.success) {
       throw new Error("Invalid redelegate message");

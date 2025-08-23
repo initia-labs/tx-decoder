@@ -5,6 +5,7 @@ import { MessageDecoder } from "@/interfaces";
 import {
   Log,
   Message,
+  TxResponse,
   zMsgIbcNftTransferSendPacketEvent,
   zMsgIbcRecvPacket,
   zMsgIbcSendNft,
@@ -18,7 +19,12 @@ export const ibcSendNftDecoder: MessageDecoder = {
     const parsed = zMsgIbcSendNft.safeParse(message);
     return parsed.success && parsed.data.source_port === "nft-transfer";
   },
-  decode: async (message: Message, log: Log, apiClient: ApiClient) => {
+  decode: async (
+    message: Message,
+    log: Log,
+    apiClient: ApiClient,
+    _txResponse: TxResponse
+  ) => {
     const parsed = zMsgIbcSendNft.parse(message);
     const {
       class_id,
@@ -136,7 +142,12 @@ export const ibcReceiveNftDecoder: MessageDecoder = {
       parsed.success && parsed.data.packet.destination_port === "nft-transfer"
     );
   },
-  decode: async (message: Message, log: Log, apiClient: ApiClient) => {
+  decode: async (
+    message: Message,
+    log: Log,
+    apiClient: ApiClient,
+    _txResponse: TxResponse
+  ) => {
     const parsed = zMsgIbcRecvPacket.parse(message);
     const {
       destination_channel,

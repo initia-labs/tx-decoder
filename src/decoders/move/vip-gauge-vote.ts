@@ -1,7 +1,7 @@
 import big from "big.js";
 
 import type { DecodedMessage, MessageDecoder } from "@/interfaces";
-import type { Log, Message } from "@/schema";
+import type { Log, Message, TxResponse } from "@/schema";
 
 import { ApiClient } from "@/api";
 import { INITIA_VAULT_MODULE_ADDRESS } from "@/constants";
@@ -13,7 +13,12 @@ export const vipGaugeVoteDecoder: MessageDecoder = {
   check: (message: Message, _log: Log) =>
     zMsgVipGaugeVote.safeParse(message).success,
 
-  decode: async (message: Message, log: Log, apiClient: ApiClient) => {
+  decode: async (
+    message: Message,
+    log: Log,
+    apiClient: ApiClient,
+    _txResponse: TxResponse
+  ) => {
     const parsed = zMsgVipGaugeVote.parse(message);
     const { sender } = parsed;
 

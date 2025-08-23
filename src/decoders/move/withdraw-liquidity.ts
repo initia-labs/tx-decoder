@@ -3,6 +3,7 @@ import { DecodedMessage, MessageDecoder } from "@/interfaces";
 import {
   Log,
   Message,
+  TxResponse,
   zDexWithdrawEvent,
   zMsgWithdrawLiquidity
 } from "@/schema";
@@ -11,7 +12,12 @@ import { findMoveEvent } from "@/utils";
 export const withdrawLiquidityDecoder: MessageDecoder = {
   check: (message: Message, _log: Log) =>
     zMsgWithdrawLiquidity.safeParse(message).success,
-  decode: async (message: Message, log: Log, apiClient: ApiClient) => {
+  decode: async (
+    message: Message,
+    log: Log,
+    apiClient: ApiClient,
+    _txResponse: TxResponse
+  ) => {
     const parsed = zMsgWithdrawLiquidity.parse(message);
     const { sender } = parsed;
 

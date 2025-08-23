@@ -1,5 +1,5 @@
 import type { DecodedMessage, MessageDecoder } from "@/interfaces";
-import type { Log, Message } from "@/schema";
+import type { Log, Message, TxResponse } from "@/schema";
 
 import { ApiClient } from "@/api";
 import { zMsgWithdrawMinitswap } from "@/schema";
@@ -10,7 +10,12 @@ export const withdrawMinitswapDecoder: MessageDecoder = {
   check: (message: Message, _log: Log) =>
     zMsgWithdrawMinitswap.safeParse(message).success,
 
-  decode: async (message: Message, log: Log, apiClient: ApiClient) => {
+  decode: async (
+    message: Message,
+    log: Log,
+    apiClient: ApiClient,
+    _txResponse: TxResponse
+  ) => {
     const parsed = zMsgWithdrawMinitswap.parse(message);
     const { sender } = parsed;
 

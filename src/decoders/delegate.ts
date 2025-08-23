@@ -2,12 +2,17 @@ import type { DecodedMessage, MessageDecoder } from "@/interfaces";
 
 import { ApiClient } from "@/api";
 import { SUPPORTED_MESSAGE_TYPES } from "@/message-types";
-import { Log, Message, zMsgDelegate } from "@/schema";
+import { Log, Message, TxResponse, zMsgDelegate } from "@/schema";
 
 export const delegateDecoder: MessageDecoder = {
   check: (message, _log) =>
     message["@type"] === SUPPORTED_MESSAGE_TYPES.MsgDelegate,
-  decode: async (message: Message, _log: Log, apiClient: ApiClient) => {
+  decode: async (
+    message: Message,
+    _log: Log,
+    apiClient: ApiClient,
+    _txResponse: TxResponse
+  ) => {
     const parsed = zMsgDelegate.safeParse(message);
     if (!parsed.success) {
       throw new Error("Invalid delegate message");

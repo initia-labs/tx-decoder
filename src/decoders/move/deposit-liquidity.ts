@@ -1,12 +1,23 @@
 import { ApiClient } from "@/api";
 import { DecodedMessage, MessageDecoder } from "@/interfaces";
-import { Log, Message, zMsgDepositLiquidity, zProvideEvent } from "@/schema";
+import {
+  Log,
+  Message,
+  TxResponse,
+  zMsgDepositLiquidity,
+  zProvideEvent
+} from "@/schema";
 import { findMoveEvent } from "@/utils";
 
 export const depositLiquidityDecoder: MessageDecoder = {
   check: (message: Message, _log: Log) =>
     zMsgDepositLiquidity.safeParse(message).success,
-  decode: async (message: Message, log: Log, apiClient: ApiClient) => {
+  decode: async (
+    message: Message,
+    log: Log,
+    apiClient: ApiClient,
+    _txResponse: TxResponse
+  ) => {
     const parsed = zMsgDepositLiquidity.parse(message);
     const { sender } = parsed;
 

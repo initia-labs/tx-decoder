@@ -1,5 +1,5 @@
 import type { DecodedMessage, MessageDecoder } from "@/interfaces";
-import type { Log, Message } from "@/schema";
+import type { Log, Message, TxResponse } from "@/schema";
 
 import { ApiClient } from "@/api";
 import { zMsgWithdrawDelegatorRewardLocked } from "@/schema";
@@ -8,7 +8,12 @@ import { parseCoins } from "@/utils";
 export const withdrawDelegatorRewardLockedDecoder: MessageDecoder = {
   check: (message: Message, _log: Log) =>
     zMsgWithdrawDelegatorRewardLocked.safeParse(message).success,
-  decode: async (message: Message, log: Log, apiClient: ApiClient) => {
+  decode: async (
+    message: Message,
+    log: Log,
+    apiClient: ApiClient,
+    _txResponse: TxResponse
+  ) => {
     const parsed = zMsgWithdrawDelegatorRewardLocked.safeParse(message);
     if (!parsed.success) {
       throw new Error("Invalid withdraw delegator reward locked message");

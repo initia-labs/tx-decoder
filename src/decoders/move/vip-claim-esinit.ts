@@ -1,5 +1,5 @@
 import type { DecodedMessage, MessageDecoder } from "@/interfaces";
-import type { Log, Message } from "@/schema";
+import type { Log, Message, TxResponse } from "@/schema";
 
 import { ApiClient } from "@/api";
 import { INITIA_VAULT_MODULE_ADDRESS } from "@/constants";
@@ -11,7 +11,12 @@ export const vipClaimEsinitDecoder: MessageDecoder = {
   check: (message: Message, _log: Log) =>
     zMsgVipClaimEsinit.safeParse(message).success,
 
-  decode: async (message: Message, log: Log, apiClient: ApiClient) => {
+  decode: async (
+    message: Message,
+    log: Log,
+    apiClient: ApiClient,
+    _txResponse: TxResponse
+  ) => {
     const parsed = zMsgVipClaimEsinit.parse(message);
     const { sender } = parsed;
     const denom = "uinit";

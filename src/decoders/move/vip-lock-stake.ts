@@ -1,5 +1,5 @@
 import type { DecodedMessage, MessageDecoder } from "@/interfaces";
-import type { Log, Message } from "@/schema";
+import type { Log, Message, TxResponse } from "@/schema";
 
 import { ApiClient } from "@/api";
 import { INITIA_VAULT_MODULE_ADDRESS } from "@/constants";
@@ -9,7 +9,12 @@ import { findMoveEvent } from "@/utils";
 export const vipLockStakeDecoder: MessageDecoder = {
   check: (message: Message, _log: Log) =>
     zMsgVipLockStake.safeParse(message).success,
-  decode: async (message: Message, log: Log, apiClient: ApiClient) => {
+  decode: async (
+    message: Message,
+    log: Log,
+    apiClient: ApiClient,
+    _txResponse: TxResponse
+  ) => {
     const parsed = zMsgVipLockStake.safeParse(message);
     if (!parsed.success) {
       throw new Error("Invalid VIP lock stake message");
