@@ -5,6 +5,7 @@ import { MessageDecoder } from "@/interfaces";
 import {
   Log,
   Message,
+  TxResponse,
   zMsgMoveObjectTransfer,
   zMsgMoveObjectTransferEvent
 } from "@/schema";
@@ -24,7 +25,12 @@ export const objectTransferDecoder: MessageDecoder = {
 
     return true;
   },
-  decode: async (_message: Message, log: Log, _apiClient: ApiClient) => {
+  decode: async (
+    _message: Message,
+    log: Log,
+    _apiClient: ApiClient,
+    _txResponse: TxResponse
+  ) => {
     const transferEvent = findTransferEvent(log);
     if (!transferEvent) {
       throw new Error("Object Transfer event not found");

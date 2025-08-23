@@ -2,13 +2,23 @@ import type { DecodedMessage, MessageDecoder } from "@/interfaces";
 
 import { ApiClient } from "@/api";
 import { SUPPORTED_MESSAGE_TYPES } from "@/message-types";
-import { type Log, type Message, zMsgWithdrawDelegatorReward } from "@/schema";
+import {
+  type Log,
+  type Message,
+  type TxResponse,
+  zMsgWithdrawDelegatorReward
+} from "@/schema";
 import { findAttribute, parseCoins } from "@/utils";
 
 export const withdrawDelegatorRewardDecoder: MessageDecoder = {
   check: (message: Message, _log: Log) =>
     message["@type"] === SUPPORTED_MESSAGE_TYPES.MsgWithdrawDelegatorReward,
-  decode: async (message: Message, log: Log, apiClient: ApiClient) => {
+  decode: async (
+    message: Message,
+    log: Log,
+    apiClient: ApiClient,
+    _txResponse: TxResponse
+  ) => {
     const parsed = zMsgWithdrawDelegatorReward.safeParse(message);
     if (!parsed.success) {
       throw new Error("Invalid withdraw delegator reward message");

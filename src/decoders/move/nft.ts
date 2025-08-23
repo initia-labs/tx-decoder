@@ -5,6 +5,7 @@ import { MessageDecoder } from "@/interfaces";
 import {
   Log,
   Message,
+  TxResponse,
   zMintNftEvent,
   zMsgMoveExecute,
   zMsgMoveNftBurnEvent,
@@ -16,7 +17,12 @@ import { findMoveEvent } from "@/utils";
 export const nftMintDecoder: MessageDecoder = {
   check: (_message: Message, log: Log) =>
     !!findMoveEvent(log.events, "0x1::collection::MintEvent", zMintNftEvent),
-  decode: async (message: Message, log: Log, apiClient: ApiClient) => {
+  decode: async (
+    message: Message,
+    log: Log,
+    apiClient: ApiClient,
+    _txResponse: TxResponse
+  ) => {
     const parsed = zMsgMoveNftMint.parse(message);
     const mintEvent = findMoveEvent(
       log.events,
@@ -78,7 +84,12 @@ export const nftBurnDecoder: MessageDecoder = {
       "0x1::collection::BurnEvent",
       zMsgMoveNftBurnEvent
     ),
-  decode: async (message: Message, log: Log, apiClient: ApiClient) => {
+  decode: async (
+    message: Message,
+    log: Log,
+    apiClient: ApiClient,
+    _txResponse: TxResponse
+  ) => {
     const parsed = zMsgMoveExecute.parse(message);
     const burnEvent = findMoveEvent(
       log.events,

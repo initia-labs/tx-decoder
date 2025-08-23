@@ -1,5 +1,5 @@
 import type { DecodedMessage, MessageDecoder } from "@/interfaces";
-import type { Log, Message } from "@/schema";
+import type { Log, Message, TxResponse } from "@/schema";
 
 import { ApiClient } from "@/api";
 import { SUPPORTED_MESSAGE_TYPES } from "@/message-types";
@@ -8,7 +8,12 @@ import { zMsgFinalizeTokenWithdrawal } from "@/schema";
 export const finalizeTokenWithdrawalDecoder: MessageDecoder = {
   check: (message: Message, _log: Log) =>
     message["@type"] === SUPPORTED_MESSAGE_TYPES.MsgFinalizeTokenWithdrawal,
-  decode: async (message: Message, _log: Log, _apiClient: ApiClient) => {
+  decode: async (
+    message: Message,
+    _log: Log,
+    _apiClient: ApiClient,
+    _txResponse: TxResponse
+  ) => {
     const parsed = zMsgFinalizeTokenWithdrawal.safeParse(message);
     if (!parsed.success) {
       throw new Error("Invalid finalize token withdrawal message");

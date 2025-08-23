@@ -20,6 +20,7 @@ const messageDecoders: MessageDecoder[] = [
   Decoders.delegateLockedDecoder,
   Decoders.depositMinitswapDecoder,
   Decoders.depositLiquidityDecoder,
+  Decoders.directDepositLiquidityDecoder,
   Decoders.depositStakeLiquidityDecoder,
   Decoders.depositStakeLockLiquidityDecoder,
   Decoders.dexSwapDecoder,

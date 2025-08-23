@@ -1,12 +1,17 @@
 import type { DecodedMessage, MessageDecoder } from "@/interfaces";
 
 import { SUPPORTED_MESSAGE_TYPES } from "@/message-types";
-import { Log, Message, zMsgSend } from "@/schema";
+import { Log, Message, TxResponse, zMsgSend } from "@/schema";
 
 export const sendDecoder: MessageDecoder = {
   check: (message, _log) =>
     message["@type"] === SUPPORTED_MESSAGE_TYPES.MsgSend,
-  decode: async (message: Message, _log: Log, _apiClient) => {
+  decode: async (
+    message: Message,
+    _log: Log,
+    _apiClient,
+    _txResponse: TxResponse
+  ) => {
     const parsed = zMsgSend.safeParse(message);
     if (!parsed.success) {
       throw new Error("Invalid send message");

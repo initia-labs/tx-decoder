@@ -6,6 +6,7 @@ import { MessageDecoder } from "@/interfaces";
 import {
   Log,
   Message,
+  TxResponse,
   zIbcTransferRecvPacket,
   zMsgIbcRecvPacket,
   zMsgIbcTransfer
@@ -16,7 +17,12 @@ export const ibcSendFtDecoder: MessageDecoder = {
     const parsed = zMsgIbcTransfer.safeParse(message);
     return parsed.success && parsed.data.source_port === "transfer";
   },
-  decode: async (message: Message, log: Log, apiClient: ApiClient) => {
+  decode: async (
+    message: Message,
+    log: Log,
+    apiClient: ApiClient,
+    _txResponse: TxResponse
+  ) => {
     const parsed = zMsgIbcTransfer.parse(message);
     const {
       receiver,
@@ -84,7 +90,12 @@ export const ibcReceiveFtDecoder: MessageDecoder = {
     const parsed = zMsgIbcRecvPacket.safeParse(message);
     return parsed.success && parsed.data.packet.source_port === "transfer";
   },
-  decode: async (message: Message, _log: Log, apiClient: ApiClient) => {
+  decode: async (
+    message: Message,
+    _log: Log,
+    apiClient: ApiClient,
+    _txResponse: TxResponse
+  ) => {
     const parsed = zMsgIbcRecvPacket.parse(message);
     const {
       packet: {

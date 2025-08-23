@@ -4,21 +4,21 @@ import {
   Log,
   Message,
   TxResponse,
-  zMsgDepositStakeLiquidity,
+  zMsgDirectDepositLiquidity,
   zProvideEvent
 } from "@/schema";
 import { findMoveEvent } from "@/utils";
 
-export const depositStakeLiquidityDecoder: MessageDecoder = {
+export const directDepositLiquidityDecoder: MessageDecoder = {
   check: (message: Message, _log: Log) =>
-    zMsgDepositStakeLiquidity.safeParse(message).success,
+    zMsgDirectDepositLiquidity.safeParse(message).success,
   decode: async (
     message: Message,
     log: Log,
     apiClient: ApiClient,
     _txResponse: TxResponse
   ) => {
-    const parsed = zMsgDepositStakeLiquidity.parse(message);
+    const parsed = zMsgDirectDepositLiquidity.parse(message);
     const { sender } = parsed;
 
     const provideEvent = findMoveEvent(
@@ -30,22 +30,10 @@ export const depositStakeLiquidityDecoder: MessageDecoder = {
       throw new Error("Provide event not found");
     }
 
-    // Find the delegate event to extract validator information
-    const delegateEvent = log.events.find((event) => event.type === "delegate");
-
-    const validatorAddress = delegateEvent?.attributes.find(
-      (attr) => attr.key === "validator"
-    )?.value;
-
-    if (!validatorAddress) {
-      throw new Error("Validator is missing from the delegate event");
-    }
-
-    const [denomA, denomB, liquidityDenom, validatorData] = await Promise.all([
+    const [denomA, denomB, liquidityDenom] = await Promise.all([
       apiClient.findDenomFromMetadataAddr(provideEvent.coin_a),
       apiClient.findDenomFromMetadataAddr(provideEvent.coin_b),
-      apiClient.findDenomFromMetadataAddr(provideEvent.liquidity_token),
-      apiClient.findValidator(validatorAddress)
+      apiClient.findDenomFromMetadataAddr(provideEvent.liquidity_token)
     ]);
 
     if (!denomA) {
@@ -63,7 +51,7 @@ export const depositStakeLiquidityDecoder: MessageDecoder = {
     }
 
     const decodedMessage: DecodedMessage = {
-      action: "deposit_stake_liquidity",
+      action: "deposit_liquidity",
       data: {
         amountA: provideEvent.coin_a_amount,
         amountB: provideEvent.coin_b_amount,
@@ -71,9 +59,7 @@ export const depositStakeLiquidityDecoder: MessageDecoder = {
         denomB,
         from: sender,
         liquidity: provideEvent.liquidity,
-        liquidityDenom,
-        validator: validatorData,
-        validatorAddress
+        liquidityDenom
       },
       isIbc: false,
       isOp: false

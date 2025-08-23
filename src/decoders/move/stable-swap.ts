@@ -1,13 +1,24 @@
 import { ApiClient } from "@/api";
 import { DecodedMessage } from "@/index";
 import { MessageDecoder } from "@/interfaces";
-import { Log, Message, zMsgMoveStableSwap, zSwapEvent } from "@/schema";
+import {
+  Log,
+  Message,
+  TxResponse,
+  zMsgMoveStableSwap,
+  zSwapEvent
+} from "@/schema";
 import { findMoveEvent } from "@/utils";
 
 export const stableSwapDecoder: MessageDecoder = {
   check: (message: Message, _log: Log) =>
     zMsgMoveStableSwap.safeParse(message).success,
-  decode: async (message: Message, log: Log, apiClient: ApiClient) => {
+  decode: async (
+    message: Message,
+    log: Log,
+    apiClient: ApiClient,
+    _txResponse: TxResponse
+  ) => {
     const parsed = zMsgMoveStableSwap.parse(message);
     const { sender } = parsed;
 

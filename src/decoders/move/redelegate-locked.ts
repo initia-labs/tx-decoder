@@ -1,5 +1,5 @@
 import type { DecodedMessage, MessageDecoder } from "@/interfaces";
-import type { Log, Message } from "@/schema";
+import type { Log, Message, TxResponse } from "@/schema";
 
 import { ApiClient } from "@/api";
 import { INITIA_VAULT_MODULE_ADDRESS } from "@/constants";
@@ -13,7 +13,12 @@ import { findMoveEvent } from "@/utils";
 export const redelegateLockedDecoder: MessageDecoder = {
   check: (message: Message, _log: Log) =>
     zMsgRedelegateLocked.safeParse(message).success,
-  decode: async (message: Message, log: Log, apiClient: ApiClient) => {
+  decode: async (
+    message: Message,
+    log: Log,
+    apiClient: ApiClient,
+    _txResponse: TxResponse
+  ) => {
     const parsed = zMsgRedelegateLocked.safeParse(message);
     if (!parsed.success) {
       throw new Error("Invalid redelegate locked message");
