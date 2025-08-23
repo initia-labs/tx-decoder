@@ -5,6 +5,7 @@ export * from "./deposit-minitswap";
 export * from "./deposit-stake-liquidity";
 export * from "./deposit-stake-lock-liquidity";
 export * from "./dex-swap";
+export * from "./direct-deposit-liquidity";
 export * from "./extend-liquidity";
 export * from "./merge-liquidity";
 export * from "./nft";

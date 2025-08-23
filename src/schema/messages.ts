@@ -251,6 +251,12 @@ export const zMsgDepositLiquidity = zMsgMoveExecute.extend({
   module_name: z.literal("dex_utils")
 });
 
+export const zMsgDirectDepositLiquidity = zMsgMoveExecute.extend({
+  function_name: z.literal("provide_liquidity_script"),
+  module_address: z.literal("0x1"),
+  module_name: z.literal("dex")
+});
+
 export const zMsgDepositStakeLockLiquidity = zMsgMoveExecute.extend({
   function_name: z.literal("unproportional_provide_lock_stake"),
   module_address: z.literal(DEX_UTILS_MODULE_ADDRESS),
