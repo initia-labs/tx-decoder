@@ -19,3 +19,4 @@ export * from "./vip-lock-stake";
 export * from "./withdraw-delegator-reward-locked";
 export * from "./withdraw-liquidity";
 export * from "./withdraw-minitswap";
+export * from "./withdraw-stableswap";

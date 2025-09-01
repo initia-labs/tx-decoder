@@ -38,7 +38,7 @@ const messageDecoders: MessageDecoder[] = [
   Decoders.redelegateDecoder,
   Decoders.redelegateLockedDecoder,
   Decoders.sendDecoder,
-  Decoders.stableSwapDecoder,
+  Decoders.stableswapDecoder,
   Decoders.undelegateDecoder,
   Decoders.undelegateLockedDecoder,
   Decoders.vipClaimEsinitDecoder,
@@ -47,7 +47,8 @@ const messageDecoders: MessageDecoder[] = [
   Decoders.withdrawDelegatorRewardDecoder,
   Decoders.withdrawDelegatorRewardLockedDecoder,
   Decoders.withdrawLiquidityDecoder,
-  Decoders.withdrawMinitswapDecoder
+  Decoders.withdrawMinitswapDecoder,
+  Decoders.withdrawStableswapDecoder
   // Add more decoders here in order of priority
 ];
 
