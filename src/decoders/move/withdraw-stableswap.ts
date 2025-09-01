@@ -30,6 +30,13 @@ export const withdrawStableswapDecoder: MessageDecoder = {
       throw new Error("Stableswap withdraw event not found");
     }
 
+    if (
+      withdrawEvent.coin_amounts.length !== withdrawEvent.coins.length ||
+      withdrawEvent.fee_amounts.length !== withdrawEvent.coins.length
+    ) {
+      throw new Error("Malformed withdraw event: array lengths do not match");
+    }
+
     const [liquidityDenom, ...coinDenoms] = await Promise.all([
       apiClient.findDenomFromMetadataAddr(withdrawEvent.liquidity_token),
       ...withdrawEvent.coins.map((coin) =>
@@ -43,9 +50,16 @@ export const withdrawStableswapDecoder: MessageDecoder = {
       );
     }
 
-    const validCoinDenoms = coinDenoms.filter((denom) => denom !== null);
+    const validCoinDenoms = coinDenoms.filter(
+      (denom): denom is string => denom !== null
+    );
     if (validCoinDenoms.length !== withdrawEvent.coins.length) {
-      throw new Error("Some coin denoms are not found");
+      const missing = withdrawEvent.coins.filter(
+        (_, i) => coinDenoms[i] === null
+      );
+      throw new Error(
+        `Coin denoms not found for tokens: ${missing.join(", ")}`
+      );
     }
 
     const decodedMessage: DecodedMessage = {
