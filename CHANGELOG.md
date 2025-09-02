@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.0](https://github.com/initia-labs/tx-decoder/compare/v0.5.0...v0.6.0) (2025-09-02)
+
+
+### Features
+
+* add stableswap decoder and update related schemas and types ([#64](https://github.com/initia-labs/tx-decoder/issues/64)) ([61ae397](https://github.com/initia-labs/tx-decoder/commit/61ae39787010a5ea36339c9684d14bde84c19588))
+
 ## [0.5.0](https://github.com/initia-labs/tx-decoder/compare/v0.4.1...v0.5.0) (2025-08-23)
 
 
