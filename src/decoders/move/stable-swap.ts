@@ -10,7 +10,7 @@ import {
 } from "@/schema";
 import { findMoveEvent } from "@/utils";
 
-export const stableSwapDecoder: MessageDecoder = {
+export const stableswapDecoder: MessageDecoder = {
   check: (message: Message, _log: Log) =>
     zMsgMoveStableSwap.safeParse(message).success,
   decode: async (

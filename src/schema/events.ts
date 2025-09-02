@@ -203,6 +203,16 @@ export const zDexWithdrawEvent = zJsonString.pipe(
   })
 );
 
+export const zStableswapWithdrawEvent = zJsonString.pipe(
+  z.object({
+    coin_amounts: z.array(z.string()),
+    coins: z.array(z.string()),
+    fee_amounts: z.array(z.string()),
+    liquidity: z.string(),
+    liquidity_token: z.string()
+  })
+);
+
 export const zUserVestingCreateEvent = zJsonString.pipe(
   z.object({
     account: z.string(),

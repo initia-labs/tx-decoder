@@ -279,3 +279,9 @@ export const zMsgWithdrawLiquidity = zMsgMoveExecute.extend({
   module_address: z.literal("0x1"),
   module_name: z.literal("dex")
 });
+
+export const zMsgStableswapWithdrawLiquidity = zMsgMoveExecute.extend({
+  function_name: z.literal("withdraw_liquidity_script"),
+  module_address: z.literal("0x1"),
+  module_name: z.literal("stableswap")
+});

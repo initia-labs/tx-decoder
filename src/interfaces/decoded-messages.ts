@@ -32,7 +32,8 @@ export type DecodedMessage =
   | DecodedVipGaugeVoteMessage
   | DecodedWithdrawDelegatorRewardMessage
   | DecodedWithdrawLiquidityMessage
-  | DecodedWithdrawMinitswapMessage;
+  | DecodedWithdrawMinitswapMessage
+  | DecodedWithdrawStableswapMessage;
 
 interface DecodedSendMessage extends DecodedMessageBase {
   action: "send";
@@ -411,5 +412,17 @@ interface DecodedMergeLiquidityMessage extends DecodedMessageBase {
     newReleaseTimestamp: string;
     validator: Validator | null;
     validatorAddress: string;
+  };
+}
+
+interface DecodedWithdrawStableswapMessage extends DecodedMessageBase {
+  action: "withdraw_stableswap";
+  data: {
+    coinAmounts: string[];
+    coinDenoms: string[];
+    feeAmounts: string[];
+    from: string;
+    liquidity: string;
+    liquidityDenom: string;
   };
 }
