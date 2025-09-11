@@ -10,6 +10,7 @@ export * from "./extend-liquidity";
 export * from "./merge-liquidity";
 export * from "./nft";
 export * from "./object-transfer";
+export * from "./provide-stableswap";
 export * from "./redelegate-locked";
 export * from "./stable-swap";
 export * from "./undelegate-locked";
