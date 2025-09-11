@@ -35,6 +35,7 @@ const messageDecoders: MessageDecoder[] = [
   Decoders.nftBurnDecoder,
   Decoders.nftMintDecoder,
   Decoders.objectTransferDecoder,
+  Decoders.provideStableswapDecoder,
   Decoders.redelegateDecoder,
   Decoders.redelegateLockedDecoder,
   Decoders.sendDecoder,

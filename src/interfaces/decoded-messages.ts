@@ -24,6 +24,7 @@ export type DecodedMessage =
   | DecodedNftMintMessage
   | DecodedNotSupportedMessage
   | DecodedObjectTransferMessage
+  | DecodedProvideStableswapMessage
   | DecodedRedelegateMessage
   | DecodedSendMessage
   | DecodedSwapMessage
@@ -417,6 +418,18 @@ interface DecodedMergeLiquidityMessage extends DecodedMessageBase {
 
 interface DecodedWithdrawStableswapMessage extends DecodedMessageBase {
   action: "withdraw_stableswap";
+  data: {
+    coinAmounts: string[];
+    coinDenoms: string[];
+    feeAmounts: string[];
+    from: string;
+    liquidity: string;
+    liquidityDenom: string;
+  };
+}
+
+interface DecodedProvideStableswapMessage extends DecodedMessageBase {
+  action: "provide_stableswap";
   data: {
     coinAmounts: string[];
     coinDenoms: string[];
