@@ -57,7 +57,7 @@ const decoder = new TxDecoder({
 const decodedTx = await decoder.decodeTransaction(txResponse);
 console.log(decodedTx);
 
-// Decode a transaction for Evm L2
+// Decode a transaction for EVM L2
 const decodedEvmTx = await decoder.decodeEvmTransaction(txResponse);
 console.log(decodedTx);
 ```
@@ -79,6 +79,7 @@ new TxDecoder(config: DecoderConfig)
 - `config: DecoderConfig` - Configuration object with the following properties:
   - `registryUrl: string` - Registry URL to retrieve chain registries
   - `restUrl: string` - REST endpoint of the Initia chain to query on-chain data
+  - `jsonRpcUrl?: string` - JSON-RPC endpoint for EVM L2 chains
 
 #### Methods
 
@@ -93,6 +94,8 @@ Decodes a transaction response into a human-readable format.
 **Returns:** `Promise<DecodedTx>` - A promise that resolves to a decoded transaction object
 
 ##### `decodeEvmTransaction(txResponse: TxResponse): Promise<DecodedTx>`
+
+Note: Requires providing `jsonRpcUrl` in `TxDecoder` config to resolve EVM denominations.
 
 Decodes a transaction response, processing only general message types (excludes `/initia.move` and `/opinit` prefixes).
 
