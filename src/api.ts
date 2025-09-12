@@ -1,5 +1,6 @@
 import { InitiaAddress } from "@initia/utils";
 import axios from "axios";
+import { decodeFunctionResult, encodeFunctionData, getAddress } from "viem";
 import { z } from "zod";
 
 import type {
@@ -13,17 +14,51 @@ import { DecoderConfig } from "./interfaces";
 import * as schema from "./schema";
 
 export class ApiClient {
-  private readonly cache: Map<string, unknown> = new Map();
+  public get jsonRpcUrl(): string {
+    if (!this._jsonRpcUrl) {
+      throw new Error(
+        "jsonRpcUrl is required (Please provide it when decoding EVM transactions)"
+      );
+    }
 
+    return this._jsonRpcUrl;
+  }
+
+  private readonly _jsonRpcUrl?: string;
+  private readonly cache: Map<string, unknown> = new Map();
   private registries: Registry[] = [];
   private registriesUpdatePromise: Promise<void> | null = null;
-
   private readonly registryUrl: string;
   private readonly restUrl: string;
 
   constructor(config: DecoderConfig) {
     this.registryUrl = config.registryUrl;
     this.restUrl = config.restUrl;
+    this._jsonRpcUrl = config.jsonRpcUrl;
+  }
+
+  public async convertToEvmDenom(denom: string): Promise<string> {
+    if (!denom.startsWith("ibc/") && !denom.startsWith("l2/")) {
+      return denom;
+    }
+
+    const { address: remoteTokenAddress } = await this._fetchWithCache(
+      `${this.restUrl}/minievm/evm/v1/contracts/by_denom?denom=${encodeURIComponent(denom)}`,
+      z.object({ address: z.string() })
+    );
+
+    const { address: erc20WrapperAddress } = await this._fetchWithCache(
+      `${this.restUrl}/minievm/evm/v1/contracts/erc20_wrapper`,
+      z.object({ address: z.string() })
+    );
+
+    const evmTokenAddress = await this._getEvmTokenAddress(
+      this.jsonRpcUrl,
+      erc20WrapperAddress,
+      remoteTokenAddress
+    );
+
+    return `evm/${evmTokenAddress.slice(2)}`;
   }
 
   public async findCollectionFromCollectionAddr(
@@ -188,6 +223,80 @@ export class ApiClient {
         .resources;
     } catch {
       return null;
+    }
+  }
+
+  private async _getEvmTokenAddress(
+    jsonRpcUrl: string,
+    erc20WrapperAddress: string,
+    remoteTokenAddress: string
+  ): Promise<string> {
+    const remoteToken = getAddress(remoteTokenAddress);
+    const abi = [
+      {
+        inputs: [
+          {
+            internalType: "address",
+            name: "remoteToken",
+            type: "address"
+          },
+          {
+            internalType: "uint8",
+            name: "decimals",
+            type: "uint8"
+          }
+        ],
+        name: "localTokens",
+        outputs: [
+          {
+            internalType: "address",
+            name: "localToken",
+            type: "address"
+          }
+        ],
+        stateMutability: "view",
+        type: "function"
+      }
+    ];
+
+    const encodedData = encodeFunctionData({
+      abi,
+      args: [remoteToken, 6],
+      functionName: "localTokens"
+    });
+
+    try {
+      const response = await axios.post(jsonRpcUrl, {
+        id: 1,
+        jsonrpc: "2.0",
+        method: "eth_call",
+        params: [
+          {
+            data: encodedData,
+            to: erc20WrapperAddress
+          },
+          "latest"
+        ]
+      });
+
+      if (response.data.error) {
+        throw new Error(`EVM call failed: ${response.data.error.message}`);
+      }
+
+      const result = response.data.result;
+      if (!result || result === "0x") {
+        throw new Error("No result returned from EVM call");
+      }
+
+      const evmTokenAddress = decodeFunctionResult({
+        abi,
+        data: result,
+        functionName: "localTokens"
+      }) as string;
+      return evmTokenAddress;
+    } catch (error) {
+      console.error("Failed to get EVM token address:", error);
+      return remoteTokenAddress;
     }
   }
 

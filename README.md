@@ -48,14 +48,17 @@ bun add @initia/tx-decoder
 ```typescript
 import { TxDecoder } from "@initia/tx-decoder";
 
-// Decode a transaction
 const decoder = new TxDecoder({
   registryUrl: "https://registry.initia.xyz/",
   restUrl: "https://rest.initia.xyz"
 });
 
-// Decode a transaction
+// Decode a transaction for L1 and Move L2
 const decodedTx = await decoder.decodeTransaction(txResponse);
+console.log(decodedTx);
+
+// Decode a transaction for Evm L2
+const decodedEvmTx = await decoder.decodeEvmTransaction(txResponse);
 console.log(decodedTx);
 ```
 
@@ -88,6 +91,21 @@ Decodes a transaction response into a human-readable format.
 - `txResponse: TxResponse` - The raw transaction response from the blockchain
 
 **Returns:** `Promise<DecodedTx>` - A promise that resolves to a decoded transaction object
+
+##### `decodeEvmTransaction(txResponse: TxResponse): Promise<DecodedTx>`
+
+Decodes a transaction response, processing only general message types (excludes `/initia.move` and `/opinit` prefixes).
+
+**Parameters:**
+
+- `txResponse: TxResponse` - The raw transaction response from the blockchain
+
+**Returns:** `Promise<DecodedTx>` - A promise that resolves to a decoded transaction object
+
+**Supported Message Types:**
+
+- Cosmos: `/cosmos.bank.v1beta1.MsgSend`
+- IBC: `/ibc.applications.transfer.v1.MsgTransfer`, `/ibc.core.channel.v1.MsgRecvPacket` (only fungible token)
 
 ### Type Definitions
 
@@ -253,15 +271,15 @@ pnpm build
 tx-decoder/
 ├── src/
 │   ├── constants.ts              # Application constants and configuration
-│   ├── decoder.ts                # Main transaction decoding logic
+│   ├── decoder.ts                # Main transaction decoding logic (includes EVM support)
 │   ├── index.ts                  # Entry point for exports
 │   ├── message-types.ts          # Supported message types
 │   ├── metadata-resolver.ts      # Resolves and fetches NFT metadata for token addresses
-│   ├── decoders/                 # Message decoder
+│   ├── decoders/                 # Message decoders
 │   ├── interfaces/               # TypeScript interfaces and types
-│   ├── processors/               # Event processor
+│   ├── processors/               # Event processors
 │   ├── schema/                   # Zod schemas for validation
-│   ├── utils/                    # Utility functions
+│   ├── utils/                    # Utility functions (includes EVM denom utilities)
 │   └── tests/                    # Unit tests
 │       ├── fixtures/             # Mock data for tests
 │       └── withdraw-delegator-reward.test.ts

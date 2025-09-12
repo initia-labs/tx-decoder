@@ -14,6 +14,7 @@ export interface ProcessedMessage {
 }
 
 export interface DecoderConfig {
+  jsonRpcUrl?: string;
   registryUrl: string;
   restUrl: string;
 }

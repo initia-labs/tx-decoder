@@ -3,6 +3,7 @@ import { Coin, CollectionResource, Validator } from "@/schema";
 interface DecodedMessageBase {
   isIbc: boolean;
   isOp: boolean;
+  vm?: "evm" | "move" | "wasm";
 }
 
 export type DecodedMessage =

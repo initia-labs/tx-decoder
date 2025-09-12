@@ -13,8 +13,15 @@ import { Log, Message, TxResponse, zTxResponse } from "./schema";
 import { attachTxLogs, mergeBalanceChanges } from "./utils";
 import { createNotSupportedMessage } from "./utils";
 
-// Array of decoders ordered by priority
-const messageDecoders: MessageDecoder[] = [
+const evmMessageDecoders: MessageDecoder[] = [
+  Decoders.sendDecoder,
+  Decoders.ibcSendFtDecoder,
+  Decoders.ibcReceiveFtDecoder,
+  Decoders.ibcSendNftDecoder,
+  Decoders.ibcReceiveNftDecoder
+];
+
+const moveMessageDecoders: MessageDecoder[] = [
   Decoders.claimMinitswapDecoder,
   Decoders.delegateDecoder,
   Decoders.delegateLockedDecoder,
@@ -49,7 +56,6 @@ const messageDecoders: MessageDecoder[] = [
   Decoders.withdrawLiquidityDecoder,
   Decoders.withdrawMinitswapDecoder,
   Decoders.withdrawStableswapDecoder
-  // Add more decoders here in order of priority
 ];
 
 export class TxDecoder {
@@ -63,6 +69,48 @@ export class TxDecoder {
     this.apiClient = new ApiClient(config);
   }
 
+  /**
+   * Decodes an EVM transaction, processing only general message types
+   */
+  public async decodeEvmTransaction(tx: unknown): Promise<DecodedTx> {
+    const txResponse = this._validateAndPrepareTx(tx);
+
+    if (txResponse.tx.body.messages.length === 0) {
+      return {
+        messages: [],
+        metadata: {},
+        totalBalanceChanges: DEFAULT_BALANCE_CHANGES
+      };
+    }
+
+    if (
+      txResponse.code === 0 &&
+      txResponse.logs.length !== txResponse.tx.body.messages.length
+    ) {
+      throw new Error(
+        `Invalid tx response: ${txResponse.logs.length} logs found for ${txResponse.tx.body.messages.length} messages`
+      );
+    }
+
+    const processedMessages = await this._processEvmMessage(txResponse);
+
+    const totalBalanceChanges = processedMessages.reduce(
+      (acc, message) => mergeBalanceChanges(acc, message.balanceChanges),
+      DEFAULT_BALANCE_CHANGES
+    );
+
+    const metadata = await resolveMetadata(this.apiClient, totalBalanceChanges);
+
+    return {
+      messages: processedMessages,
+      metadata,
+      totalBalanceChanges
+    };
+  }
+
+  /**
+   * Decodes a transaction, processing all supported message types for L1 and Move L2.
+   */
   public async decodeTransaction(tx: unknown): Promise<DecodedTx> {
     const txResponse = this._validateAndPrepareTx(tx);
 
@@ -99,6 +147,38 @@ export class TxDecoder {
     };
   }
 
+  private async _decodeEvmMessage(
+    message: Message,
+    log: Log | undefined,
+    txResponse: TxResponse
+  ): ReturnType<MessageDecoder["decode"]> {
+    const notSupportedMessage = createNotSupportedMessage(message["@type"]);
+
+    if (!log) {
+      return notSupportedMessage;
+    }
+
+    try {
+      const decoder = this._findDecoderForMessage(
+        message,
+        log,
+        evmMessageDecoders
+      );
+      if (!decoder) return notSupportedMessage;
+
+      return await decoder.decode(
+        message,
+        log,
+        this.apiClient,
+        txResponse,
+        "evm"
+      );
+    } catch (e) {
+      console.error(e);
+      return notSupportedMessage;
+    }
+  }
+
   private async _decodeMessage(
     message: Message,
     log: Log | undefined,
@@ -111,10 +191,20 @@ export class TxDecoder {
     }
 
     try {
-      const decoder = this._findDecoderForMessage(message, log);
+      const decoder = this._findDecoderForMessage(
+        message,
+        log,
+        moveMessageDecoders
+      );
       if (!decoder) return notSupportedMessage;
 
-      return await decoder.decode(message, log, this.apiClient, txResponse);
+      return await decoder.decode(
+        message,
+        log,
+        this.apiClient,
+        txResponse,
+        "move"
+      );
     } catch (e) {
       console.error(e);
       return notSupportedMessage;
@@ -123,9 +213,31 @@ export class TxDecoder {
 
   private _findDecoderForMessage(
     message: Message,
-    log: Log
+    log: Log,
+    decoders: MessageDecoder[]
   ): MessageDecoder | undefined {
-    return messageDecoders.find((decoder) => decoder.check(message, log));
+    return decoders.find((decoder) => decoder.check(message, log));
+  }
+
+  private async _processEvmMessage(
+    txResponse: TxResponse
+  ): Promise<ProcessedMessage[]> {
+    const promises = txResponse.tx.body.messages.map(async (message, index) => {
+      const log = txResponse.logs[index];
+
+      const decodedMessage = await this._decodeEvmMessage(
+        message,
+        log,
+        txResponse
+      );
+      const balanceChanges = log
+        ? await processLogForBalanceChanges(log, this.apiClient)
+        : DEFAULT_BALANCE_CHANGES;
+
+      return { balanceChanges, decodedMessage };
+    });
+
+    return Promise.all(promises);
   }
 
   private async _processMessage(

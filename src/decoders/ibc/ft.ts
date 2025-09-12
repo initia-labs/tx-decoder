@@ -21,7 +21,8 @@ export const ibcSendFtDecoder: MessageDecoder = {
     message: Message,
     log: Log,
     apiClient: ApiClient,
-    _txResponse: TxResponse
+    _txResponse: TxResponse,
+    vm
   ) => {
     const parsed = zMsgIbcTransfer.parse(message);
     const {
@@ -62,11 +63,16 @@ export const ibcSendFtDecoder: MessageDecoder = {
     );
     if (!dstChainId) throw new Error(`IBC Transfer dst chain id not found`);
 
+    const denom =
+      vm === "evm"
+        ? await apiClient.convertToEvmDenom(token.denom)
+        : token.denom;
+
     return {
       action: "ibc_ft_send",
       data: {
         amount: token.amount,
-        denom: token.denom,
+        denom,
         dstChainId,
         dstChannel,
         dstPort,
@@ -94,7 +100,8 @@ export const ibcReceiveFtDecoder: MessageDecoder = {
     message: Message,
     _log: Log,
     apiClient: ApiClient,
-    _txResponse: TxResponse
+    _txResponse: TxResponse,
+    vm
   ) => {
     const parsed = zMsgIbcRecvPacket.parse(message);
     const {
@@ -123,7 +130,10 @@ export const ibcReceiveFtDecoder: MessageDecoder = {
     );
     if (!srcChainId) throw new Error(`IBC Transfer src chain id not found`);
 
-    const denom = getIbcDenom(destination_channel, parsedPacket.denom);
+    let denom = getIbcDenom(destination_channel, parsedPacket.denom);
+    if (vm === "evm") {
+      denom = await apiClient.convertToEvmDenom(denom);
+    }
 
     return {
       action: "ibc_ft_receive",

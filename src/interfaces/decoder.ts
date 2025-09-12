@@ -10,6 +10,7 @@ export type MessageDecoder<M = Message, L = Log> = {
     message: M,
     log: L,
     apiClient: ApiClient,
-    txResponse: TxResponse
+    txResponse: TxResponse,
+    vm: "evm" | "move" | "wasm"
   ) => Promise<DecodedMessage>;
 };
