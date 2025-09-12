@@ -271,7 +271,7 @@ pnpm build
 tx-decoder/
 ├── src/
 │   ├── constants.ts              # Application constants and configuration
-│   ├── decoder.ts                # Main transaction decoding logic (includes EVM support)
+│   ├── decoder.ts                # Main transaction decoding logic
 │   ├── index.ts                  # Entry point for exports
 │   ├── message-types.ts          # Supported message types
 │   ├── metadata-resolver.ts      # Resolves and fetches NFT metadata for token addresses
@@ -279,7 +279,7 @@ tx-decoder/
 │   ├── interfaces/               # TypeScript interfaces and types
 │   ├── processors/               # Event processors
 │   ├── schema/                   # Zod schemas for validation
-│   ├── utils/                    # Utility functions (includes EVM denom utilities)
+│   ├── utils/                    # Utility functions
 │   └── tests/                    # Unit tests
 │       ├── fixtures/             # Mock data for tests
 │       └── withdraw-delegator-reward.test.ts
