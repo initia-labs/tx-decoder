@@ -10,8 +10,7 @@ export const sendDecoder: MessageDecoder = {
     message: Message,
     _log: Log,
     _apiClient,
-    _txResponse: TxResponse,
-    vm = "move"
+    _txResponse: TxResponse
   ) => {
     const parsed = zMsgSend.safeParse(message);
     if (!parsed.success) {
@@ -20,20 +19,10 @@ export const sendDecoder: MessageDecoder = {
 
     const { amount, from_address, to_address } = parsed.data;
 
-    const convertedAmounts = await Promise.all(
-      amount.map(async (coin) => ({
-        ...coin,
-        denom:
-          vm === "evm"
-            ? await _apiClient.convertToEvmDenom(coin.denom)
-            : coin.denom
-      }))
-    );
-
     const decodedMessage: DecodedMessage = {
       action: "send",
       data: {
-        coins: convertedAmounts,
+        coins: amount,
         from: from_address,
         to: to_address
       },
