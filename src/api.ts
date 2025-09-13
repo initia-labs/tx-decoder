@@ -1,6 +1,11 @@
 import { InitiaAddress } from "@initia/utils";
 import axios from "axios";
-import { decodeFunctionResult, encodeFunctionData, getAddress } from "viem";
+import {
+  Address,
+  decodeFunctionResult,
+  encodeFunctionData,
+  getAddress
+} from "viem";
 import { z } from "zod";
 
 import type {
@@ -42,23 +47,37 @@ export class ApiClient {
       return denom;
     }
 
-    const { address: remoteTokenAddress } = await this._fetchWithCache(
-      `${this.restUrl}/minievm/evm/v1/contracts/by_denom?denom=${encodeURIComponent(denom)}`,
-      z.object({ address: z.string() })
-    );
+    const cacheKey = `evm-denom:${denom}`;
+    const cached = this.cache.get(cacheKey) as string | undefined;
+    if (cached) return cached;
 
-    const { address: erc20WrapperAddress } = await this._fetchWithCache(
-      `${this.restUrl}/minievm/evm/v1/contracts/erc20_wrapper`,
-      z.object({ address: z.string() })
-    );
+    try {
+      const { address: remoteTokenAddressRaw } = await this._fetchWithCache(
+        `${this.restUrl}/minievm/evm/v1/contracts/by_denom?denom=${encodeURIComponent(denom)}`,
+        z.object({ address: z.string() })
+      );
+      const remoteTokenAddress = getAddress(remoteTokenAddressRaw);
 
-    const evmTokenAddress = await this._getEvmTokenAddress(
-      this.jsonRpcUrl,
-      erc20WrapperAddress,
-      remoteTokenAddress
-    );
+      const { address: erc20WrapperAddressRaw } = await this._fetchWithCache(
+        `${this.restUrl}/minievm/evm/v1/contracts/erc20_wrapper`,
+        z.object({ address: z.string() })
+      );
+      const erc20WrapperAddress = getAddress(erc20WrapperAddressRaw);
 
-    return `evm/${evmTokenAddress.slice(2)}`;
+      const evmTokenAddress = await this._getEvmTokenAddress(
+        this.jsonRpcUrl,
+        erc20WrapperAddress,
+        remoteTokenAddress
+      );
+      this.cache.set(cacheKey, evmTokenAddress);
+      return `evm/${evmTokenAddress.slice(2)}`;
+    } catch (e) {
+      console.error(
+        "convertToEvmDenom fallback to original denom due to error:",
+        e
+      );
+      return denom;
+    }
   }
 
   public async findCollectionFromCollectionAddr(
@@ -229,8 +248,9 @@ export class ApiClient {
   private async _getEvmTokenAddress(
     jsonRpcUrl: string,
     erc20WrapperAddress: string,
-    remoteTokenAddress: string
-  ): Promise<string> {
+    remoteTokenAddress: string,
+    decimals: number = 6
+  ): Promise<Address> {
     const remoteToken = getAddress(remoteTokenAddress);
     const abi = [
       {
@@ -261,43 +281,38 @@ export class ApiClient {
 
     const encodedData = encodeFunctionData({
       abi,
-      args: [remoteToken, 6],
+      args: [remoteToken, decimals],
       functionName: "localTokens"
     });
 
-    try {
-      const response = await axios.post(jsonRpcUrl, {
-        id: 1,
-        jsonrpc: "2.0",
-        method: "eth_call",
-        params: [
-          {
-            data: encodedData,
-            to: erc20WrapperAddress
-          },
-          "latest"
-        ]
-      });
+    const response = await axios.post(jsonRpcUrl, {
+      id: 1,
+      jsonrpc: "2.0",
+      method: "eth_call",
+      params: [
+        {
+          data: encodedData,
+          to: erc20WrapperAddress
+        },
+        "latest"
+      ]
+    });
 
-      if (response.data.error) {
-        throw new Error(`EVM call failed: ${response.data.error.message}`);
-      }
-
-      const result = response.data.result;
-      if (!result || result === "0x") {
-        throw new Error("No result returned from EVM call");
-      }
-
-      const evmTokenAddress = decodeFunctionResult({
-        abi,
-        data: result,
-        functionName: "localTokens"
-      }) as string;
-      return evmTokenAddress;
-    } catch (error) {
-      console.error("Failed to get EVM token address:", error);
-      return remoteTokenAddress;
+    if (response.data.error) {
+      throw new Error(`EVM call failed: ${response.data.error.message}`);
     }
+
+    const result = response.data.result;
+    if (!result || result === "0x") {
+      throw new Error("No result returned from EVM call");
+    }
+
+    const evmTokenAddress = decodeFunctionResult({
+      abi,
+      data: result,
+      functionName: "localTokens"
+    }) as string;
+    return getAddress(evmTokenAddress);
   }
 
   private async _updateRegistries() {
