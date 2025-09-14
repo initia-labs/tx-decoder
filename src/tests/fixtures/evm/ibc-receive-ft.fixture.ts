@@ -1963,6 +1963,8 @@ export const mockApiResponsesForIbcReceiveFtEvmTransaction = {
   },
   POST: {
     "/": {
+      id: 1,
+      jsonrpc: "2.0",
       result:
         "0x000000000000000000000000e1ff7038eaaaf027031688e1535a055b2bac2546"
     }
