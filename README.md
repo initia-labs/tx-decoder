@@ -48,14 +48,17 @@ bun add @initia/tx-decoder
 ```typescript
 import { TxDecoder } from "@initia/tx-decoder";
 
-// Decode a transaction
 const decoder = new TxDecoder({
   registryUrl: "https://registry.initia.xyz/",
   restUrl: "https://rest.initia.xyz"
 });
 
-// Decode a transaction
+// Decode a transaction for L1 and Move L2
 const decodedTx = await decoder.decodeTransaction(txResponse);
+console.log(decodedTx);
+
+// Decode a transaction for EVM L2
+const decodedEvmTx = await decoder.decodeEvmTransaction(txResponse);
 console.log(decodedTx);
 ```
 
@@ -76,6 +79,7 @@ new TxDecoder(config: DecoderConfig)
 - `config: DecoderConfig` - Configuration object with the following properties:
   - `registryUrl: string` - Registry URL to retrieve chain registries
   - `restUrl: string` - REST endpoint of the Initia chain to query on-chain data
+  - `jsonRpcUrl?: string` - JSON-RPC endpoint for EVM L2 chains
 
 #### Methods
 
@@ -88,6 +92,23 @@ Decodes a transaction response into a human-readable format.
 - `txResponse: TxResponse` - The raw transaction response from the blockchain
 
 **Returns:** `Promise<DecodedTx>` - A promise that resolves to a decoded transaction object
+
+##### `decodeEvmTransaction(txResponse: TxResponse): Promise<DecodedTx>`
+
+Note: Requires providing `jsonRpcUrl` in `TxDecoder` config to resolve EVM denominations.
+
+Decodes a transaction response, processing only general message types (excludes `/initia.move` and `/opinit` prefixes).
+
+**Parameters:**
+
+- `txResponse: TxResponse` - The raw transaction response from the blockchain
+
+**Returns:** `Promise<DecodedTx>` - A promise that resolves to a decoded transaction object
+
+**Supported Message Types:**
+
+- Cosmos: `/cosmos.bank.v1beta1.MsgSend`
+- IBC: `/ibc.applications.transfer.v1.MsgTransfer`, `/ibc.core.channel.v1.MsgRecvPacket` (only fungible token)
 
 ### Type Definitions
 
@@ -257,9 +278,9 @@ tx-decoder/
 │   ├── index.ts                  # Entry point for exports
 │   ├── message-types.ts          # Supported message types
 │   ├── metadata-resolver.ts      # Resolves and fetches NFT metadata for token addresses
-│   ├── decoders/                 # Message decoder
+│   ├── decoders/                 # Message decoders
 │   ├── interfaces/               # TypeScript interfaces and types
-│   ├── processors/               # Event processor
+│   ├── processors/               # Event processors
 │   ├── schema/                   # Zod schemas for validation
 │   ├── utils/                    # Utility functions
 │   └── tests/                    # Unit tests
