@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.7.0](https://github.com/initia-labs/tx-decoder/compare/v0.6.0...v0.7.0) (2025-09-15)
+
+
+### Features
+
+* add EVM transaction decoding support and enhance existing decoders ([#68](https://github.com/initia-labs/tx-decoder/issues/68)) ([4bd6b33](https://github.com/initia-labs/tx-decoder/commit/4bd6b33d31a4fcc26a4614da2c2dd03fb010c7e3))
+* support provide liquidity stableswap ([#66](https://github.com/initia-labs/tx-decoder/issues/66)) ([4936b9a](https://github.com/initia-labs/tx-decoder/commit/4936b9abe0aa9b8d19bf36a16a071e7ba152d192))
+
 ## [0.6.0](https://github.com/initia-labs/tx-decoder/compare/v0.5.0...v0.6.0) (2025-09-02)
 
 
