@@ -43,10 +43,6 @@ export class ApiClient {
   }
 
   public async convertToEvmDenom(denom: string): Promise<string> {
-    if (!denom.startsWith("ibc/") && !denom.startsWith("l2/")) {
-      return denom;
-    }
-
     const cacheKey = `evm-denom:${denom}`;
     const cached = this.cache.get(cacheKey) as string | undefined;
     if (cached) return cached;
@@ -69,12 +65,12 @@ export class ApiClient {
         erc20WrapperAddress,
         remoteTokenAddress
       );
-      this.cache.set(cacheKey, evmTokenAddress);
-      return `evm/${evmTokenAddress.slice(2)}`;
-    } catch (e) {
+      const evmDenom = `evm/${evmTokenAddress.slice(2)}`;
+      this.cache.set(cacheKey, evmDenom);
+      return evmDenom;
+    } catch {
       console.error(
-        "convertToEvmDenom fallback to original denom due to error:",
-        e
+        "convertToEvmDenom fallback to original denom due to error"
       );
       return denom;
     }

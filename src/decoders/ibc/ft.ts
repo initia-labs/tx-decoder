@@ -130,10 +130,15 @@ export const ibcReceiveFtDecoder: MessageDecoder = {
     );
     if (!srcChainId) throw new Error(`IBC Transfer src chain id not found`);
 
-    let denom = getIbcDenom(destination_channel, parsedPacket.denom);
-    if (vm === "evm") {
-      denom = await apiClient.convertToEvmDenom(denom);
-    }
+    const ibcPrefix = `${source_port}/${source_channel}/`;
+    const initialDenom = parsedPacket.denom.startsWith(ibcPrefix)
+      ? parsedPacket.denom.replace(ibcPrefix, "")
+      : getIbcDenom(destination_channel, parsedPacket.denom);
+
+    const denom =
+      vm === "evm"
+        ? await apiClient.convertToEvmDenom(initialDenom)
+        : initialDenom;
 
     return {
       action: "ibc_ft_receive",
