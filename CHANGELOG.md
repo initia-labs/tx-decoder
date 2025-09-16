@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.7.1](https://github.com/initia-labs/tx-decoder/compare/v0.7.0...v0.7.1) (2025-09-16)
+
+
+### Bug Fixes
+
+* evm denom parser ([#69](https://github.com/initia-labs/tx-decoder/issues/69)) ([42364fb](https://github.com/initia-labs/tx-decoder/commit/42364fb1a6284def99d83d07e220d2ce73fbec01))
+
 ## [0.7.0](https://github.com/initia-labs/tx-decoder/compare/v0.6.0...v0.7.0) (2025-09-15)
 
 
