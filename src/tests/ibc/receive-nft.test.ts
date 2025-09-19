@@ -1,15 +1,16 @@
 import {
-  mockApiResponsesForIbcReceiveNftRemoteToken,
-  mockApiResponsesForIbcReceiveNftSourceToken,
-  mockMsgIbcReceiveNftRemoteToken,
-  mockMsgIbcReceiveNftSourceToken
-} from "../fixtures/ibc/receive-nft.fixture";
-import {
   initialize,
   mockedAxios,
   resetMockApi,
   setupMockApi
-} from "../helpers";
+} from "@/tests/_shared/helpers";
+
+import {
+  mockApiResponsesForIbcReceiveNftRemoteToken,
+  mockApiResponsesForIbcReceiveNftSourceToken,
+  mockMsgIbcReceiveNftRemoteToken,
+  mockMsgIbcReceiveNftSourceToken
+} from "./receive-nft.fixture";
 
 jest.mock("axios");
 

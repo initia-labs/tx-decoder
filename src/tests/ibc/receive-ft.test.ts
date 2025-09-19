@@ -1,17 +1,17 @@
 import { TxDecoder } from "@/index";
+import {
+  initialize,
+  mockedAxios,
+  resetMockApi,
+  setupMockApi
+} from "@/tests/_shared/helpers";
 
 import {
   mockApiResponsesForMsgIbcRecvPacket,
   mockApiResponsesForMsgIbcRecvPacketFromL2,
   mockMsgIbcFtReceive,
   mockMsgIbcFtReceiveFromL2
-} from "../fixtures/ibc/receive-ft.fixture";
-import {
-  initialize,
-  mockedAxios,
-  resetMockApi,
-  setupMockApi
-} from "../helpers";
+} from "./receive-ft.fixture";
 
 jest.mock("axios");
 let decoder: TxDecoder;

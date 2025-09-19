@@ -1,13 +1,14 @@
 import {
-  mockApiResponsesForIbcSendNft,
-  mockMsgIbcSendNft
-} from "../fixtures/ibc/send-nft.fixture";
-import {
   initialize,
   mockedAxios,
   resetMockApi,
   setupMockApi
-} from "../helpers";
+} from "@/tests/_shared/helpers";
+
+import {
+  mockApiResponsesForIbcSendNft,
+  mockMsgIbcSendNft
+} from "./send-nft.fixture";
 
 jest.mock("axios");
 const decoder = initialize();

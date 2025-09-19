@@ -1,13 +1,14 @@
 import {
-  mockApiResponsesForInitiateTokenDeposit,
-  mockMsgInitiateTokenDeposit
-} from "../fixtures/op-init/initiate-token-deposit.fixture";
-import {
   initialize,
   mockedAxios,
   resetMockApi,
   setupMockApi
-} from "../helpers";
+} from "@/tests/_shared/helpers";
+
+import {
+  mockApiResponsesForInitiateTokenDeposit,
+  mockMsgInitiateTokenDeposit
+} from "./initiate-token-deposit.fixture";
 
 jest.mock("axios");
 

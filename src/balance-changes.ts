@@ -1,22 +1,9 @@
 import { ApiClient } from "./api";
 import { DEFAULT_BALANCE_CHANGES } from "./constants";
-import { BalanceChanges, BalanceEventProcessor } from "./interfaces";
-import * as Processors from "./processors";
+import { AnyBalanceEventProcessor, BalanceChanges } from "./interfaces";
+import { evmProcessorRegistry, moveProcessorRegistry } from "./processors";
 import { Event, Log } from "./schema";
 import { mergeBalanceChanges } from "./utils";
-
-const allBalanceEventProcessors: BalanceEventProcessor[] = [
-  Processors.depositEventProcessor,
-  Processors.withdrawEventProcessor,
-  Processors.mintEventProcessor,
-  Processors.objectTransferEventProcessor,
-  Processors.burnEventProcessor
-  // Add other event processors here...
-];
-
-const eventProcessors = new Map<string, BalanceEventProcessor>(
-  allBalanceEventProcessors.map((p) => [p.type_tag, p])
-);
 
 export async function processLogForBalanceChanges(
   log: Log,
@@ -52,11 +39,23 @@ export async function processLogForBalanceChanges(
   return fulfilledChanges.reduce(mergeBalanceChanges, DEFAULT_BALANCE_CHANGES);
 }
 
-const findProcessorForEvent = (event: Event): BalanceEventProcessor | null => {
-  if (event.type !== "move") return null;
+const findProcessorForEvent = (
+  event: Event
+): AnyBalanceEventProcessor | null => {
+  if (event.type === "move") {
+    const typeTagAttr = event.attributes.find(
+      (attr) => attr.key === "type_tag"
+    );
+    if (!typeTagAttr) return null;
+    return moveProcessorRegistry.get(typeTagAttr.value) || null;
+  }
 
-  const typeTagAttr = event.attributes.find((attr) => attr.key === "type_tag");
-  if (!typeTagAttr) return null;
+  if (event.type === "evm") {
+    // TODO: This is a hack to get the event signature hash from the log
+    const eventSigAttr = event.attributes.find((attr) => attr.key === "log");
+    if (!eventSigAttr) return null;
+    return evmProcessorRegistry.get(eventSigAttr.value) || null;
+  }
 
-  return eventProcessors.get(typeTagAttr.value) || null;
+  return null;
 };
