@@ -1,13 +1,14 @@
 import {
-  mockApiResponsesForFinalizeTokenWithdrawal,
-  mockMsgFinalizeTokenWithdrawal
-} from "../fixtures/op-init/finalize-token-withdrawal.fixture";
-import {
   initialize,
   mockedAxios,
   resetMockApi,
   setupMockApi
-} from "../helpers";
+} from "@/tests/_shared/helpers";
+
+import {
+  mockApiResponsesForFinalizeTokenWithdrawal,
+  mockMsgFinalizeTokenWithdrawal
+} from "./finalize-token-withdrawal.fixture";
 
 jest.mock("axios");
 

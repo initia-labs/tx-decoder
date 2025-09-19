@@ -1,13 +1,14 @@
 import {
-  mockApiResponsesForMsgIbcSend,
-  mockMsgIbcSendFt
-} from "../fixtures/ibc/send-ft.fixture";
-import {
   initialize,
   mockedAxios,
   resetMockApi,
   setupMockApi
-} from "../helpers";
+} from "@/tests/_shared/helpers";
+
+import {
+  mockApiResponsesForMsgIbcSend,
+  mockMsgIbcSendFt
+} from "./send-ft.fixture";
 
 jest.mock("axios");
 const decoder = initialize();

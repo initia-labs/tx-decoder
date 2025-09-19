@@ -1,13 +1,14 @@
 import {
-  mockApiResponsesForIbcReceiveFtEvmTransaction,
-  mockIbcReceiveFtEvmTransaction
-} from "../fixtures/evm/ibc-receive-ft.fixture";
-import {
   initialize,
   mockedAxios,
   resetMockApi,
   setupMockApi
-} from "../helpers";
+} from "@/tests/_shared/helpers";
+
+import {
+  mockApiResponsesForIbcReceiveFtEvmTransaction,
+  mockIbcReceiveFtEvmTransaction
+} from "./ibc-receive-ft.fixture";
 
 jest.mock("axios");
 
