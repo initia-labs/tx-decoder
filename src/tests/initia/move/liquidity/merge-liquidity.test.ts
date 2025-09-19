@@ -58,12 +58,14 @@ describe("Merge Liquidity Message", () => {
 
     expect(decoded.messages[0].balanceChanges).toEqual({
       ft: {},
-      object: {}
+      object: {},
+      vm: "move"
     });
 
     expect(decoded.totalBalanceChanges).toEqual({
       ft: {},
-      object: {}
+      object: {},
+      vm: "move"
     });
   });
 
@@ -114,12 +116,14 @@ describe("Merge Liquidity Message", () => {
 
     expect(decoded.messages[0].balanceChanges).toEqual({
       ft: {},
-      object: {}
+      object: {},
+      vm: "move"
     });
 
     expect(decoded.totalBalanceChanges).toEqual({
       ft: {},
-      object: {}
+      object: {},
+      vm: "move"
     });
   });
 });

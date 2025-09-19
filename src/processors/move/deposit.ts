@@ -1,7 +1,7 @@
 import { InitiaAddress } from "@initia/utils";
 
 import { ApiClient } from "@/api";
-import { DEFAULT_BALANCE_CHANGES } from "@/constants";
+import { createDefaultMoveBalanceChanges } from "@/constants";
 import { MoveEventProcessor } from "@/interfaces";
 import { Event, zDepositEvent, zDepositOwnerEvent } from "@/schema";
 
@@ -36,18 +36,19 @@ export const depositEventProcessor: MoveEventProcessor = {
         ft: {
           [owner]: { [denom]: data.amount }
         },
-        object: {}
+        object: {},
+        vm: "move"
       };
     } catch (error) {
       console.error(
-        `Failed to process ${depositEventProcessor.type_tag}:`,
+        `Failed to process ${depositEventProcessor.typeTag}:`,
         error
       );
     }
 
-    return DEFAULT_BALANCE_CHANGES;
+    return createDefaultMoveBalanceChanges();
   },
-  type_tag: "0x1::fungible_asset::DepositEvent"
+  typeTag: "0x1::fungible_asset::DepositEvent"
 };
 
 const _getDepositOwner = async (

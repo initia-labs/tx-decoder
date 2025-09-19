@@ -43,7 +43,8 @@ describe("Withdraw Minitswap Message", () => {
           uoinit: "-1000000"
         }
       },
-      object: {}
+      object: {},
+      vm: "move"
     });
 
     expect(decoded.totalBalanceChanges).toEqual({
@@ -52,7 +53,8 @@ describe("Withdraw Minitswap Message", () => {
           uoinit: "-1000000"
         }
       },
-      object: {}
+      object: {},
+      vm: "move"
     });
   });
 });

@@ -1,61 +1,111 @@
 import { ApiClient } from "./api";
-import { DEFAULT_BALANCE_CHANGES } from "./constants";
-import { AnyBalanceEventProcessor, BalanceChanges } from "./interfaces";
+import {
+  createDefaultEvmBalanceChanges,
+  createDefaultMoveBalanceChanges
+} from "./constants";
+import {
+  BalanceChanges,
+  EvmBalanceChanges,
+  MoveBalanceChanges
+} from "./interfaces";
 import { evmProcessorRegistry, moveProcessorRegistry } from "./processors";
-import { Event, Log } from "./schema";
+import { Log, zEvmLog } from "./schema";
 import { mergeBalanceChanges } from "./utils";
 
-export async function processLogForBalanceChanges(
-  log: Log,
-  apiClient: ApiClient
-): Promise<BalanceChanges> {
-  const balanceChangePromises: Promise<BalanceChanges>[] = [];
-
-  for (const [index, event] of log.events.entries()) {
-    const processor = findProcessorForEvent(event);
-
-    if (processor) {
-      balanceChangePromises.push(
-        processor.process(event, log.events, apiClient, index)
-      );
-    }
+async function _resolveAndMergeChanges<T extends BalanceChanges>(
+  promises: Promise<T>[],
+  defaultChanges: () => T
+): Promise<T> {
+  if (promises.length === 0) {
+    return defaultChanges();
   }
 
-  if (balanceChangePromises.length === 0) {
-    return DEFAULT_BALANCE_CHANGES;
-  }
+  const results = await Promise.allSettled(promises);
 
-  const results = await Promise.allSettled(balanceChangePromises);
-
-  const fulfilledChanges = results.reduce<BalanceChanges[]>((acc, result) => {
+  const fulfilledChanges = results.reduce<T[]>((acc, result) => {
     if (result.status === "fulfilled") {
       acc.push(result.value);
     } else {
-      console.error("An event processor failed:", result.reason);
+      console.error(`An event processor failed:`, result.reason);
     }
     return acc;
   }, []);
 
-  return fulfilledChanges.reduce(mergeBalanceChanges, DEFAULT_BALANCE_CHANGES);
+  if (fulfilledChanges.length === 0) {
+    return defaultChanges();
+  }
+
+  return fulfilledChanges.reduce(
+    (acc, changes) => mergeBalanceChanges(acc, changes),
+    defaultChanges()
+  );
 }
 
-const findProcessorForEvent = (
-  event: Event
-): AnyBalanceEventProcessor | null => {
-  if (event.type === "move") {
+async function _processMoveLog(
+  log: Log,
+  apiClient: ApiClient
+): Promise<MoveBalanceChanges> {
+  const promises: Promise<MoveBalanceChanges>[] = [];
+
+  for (const [index, event] of log.events.entries()) {
+    if (event.type !== "move") continue;
+
     const typeTagAttr = event.attributes.find(
       (attr) => attr.key === "type_tag"
     );
-    if (!typeTagAttr) return null;
-    return moveProcessorRegistry.get(typeTagAttr.value) || null;
+    if (!typeTagAttr) continue;
+
+    const processor = moveProcessorRegistry.get(typeTagAttr.value);
+    if (!processor) continue;
+
+    promises.push(processor.process(event, log.events, apiClient, index));
   }
 
-  if (event.type === "evm") {
-    // TODO: This is a hack to get the event signature hash from the log
-    const eventSigAttr = event.attributes.find((attr) => attr.key === "log");
-    if (!eventSigAttr) return null;
-    return evmProcessorRegistry.get(eventSigAttr.value) || null;
+  return _resolveAndMergeChanges(promises, createDefaultMoveBalanceChanges);
+}
+
+async function _processEvmLog(
+  log: Log,
+  apiClient: ApiClient
+): Promise<EvmBalanceChanges> {
+  const promises: Promise<EvmBalanceChanges>[] = [];
+
+  for (const event of log.events) {
+    if (event.type !== "evm") continue;
+
+    const eventAttributes = event.attributes.filter(
+      (attr) => attr.key === "log"
+    );
+
+    for (const eventAttribute of eventAttributes) {
+      try {
+        const parsed = zEvmLog.parse(eventAttribute.value);
+        const topic0 = parsed.topics[0].toLowerCase();
+
+        const processor = evmProcessorRegistry.get(topic0);
+        if (!processor) continue;
+
+        promises.push(processor.process(eventAttribute, apiClient));
+      } catch (error) {
+        console.error("Failed to parse EVM log attribute:", error);
+      }
+    }
   }
 
-  return null;
-};
+  return _resolveAndMergeChanges(promises, createDefaultEvmBalanceChanges);
+}
+
+export async function calculateBalanceChangesFromLog(
+  log: Log,
+  apiClient: ApiClient,
+  vm: "evm" | "move"
+): Promise<BalanceChanges> {
+  switch (vm) {
+    case "evm":
+      return _processEvmLog(log, apiClient);
+    case "move":
+      return _processMoveLog(log, apiClient);
+    default:
+      throw new Error(`Invalid VM: ${vm}`);
+  }
+}

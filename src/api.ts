@@ -17,6 +17,7 @@ import type {
 
 import { DecoderConfig } from "./interfaces";
 import * as schema from "./schema";
+import { getEvmDenom } from "./utils";
 
 export class ApiClient {
   public get jsonRpcUrl(): string {
@@ -65,7 +66,7 @@ export class ApiClient {
         erc20WrapperAddress,
         remoteTokenAddress
       );
-      const evmDenom = `evm/${evmTokenAddress.slice(2)}`;
+      const evmDenom = getEvmDenom(evmTokenAddress);
       this.cache.set(cacheKey, evmDenom);
       return evmDenom;
     } catch {

@@ -58,7 +58,8 @@ describe("Stableswap Provide Liquidity Message", () => {
           uinit: "1486"
         }
       },
-      object: {}
+      object: {},
+      vm: "move"
     });
     expect(decoded.totalBalanceChanges).toEqual({
       ft: {
@@ -75,7 +76,8 @@ describe("Stableswap Provide Liquidity Message", () => {
           uinit: "1486"
         }
       },
-      object: {}
+      object: {},
+      vm: "move"
     });
   });
 });

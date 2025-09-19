@@ -1,7 +1,19 @@
-export interface BalanceChanges {
+export interface BaseBalanceChanges {
   ft: { [address: string]: FtChange };
-  object: { [address: string]: ObjectChange };
 }
 
+export interface EvmBalanceChanges extends BaseBalanceChanges {
+  nft: { [address: string]: NftChange };
+  vm: "evm";
+}
+
+export interface MoveBalanceChanges extends BaseBalanceChanges {
+  object: { [address: string]: ObjectChange };
+  vm: "move";
+}
+
+export type BalanceChanges = EvmBalanceChanges | MoveBalanceChanges;
+
 export type FtChange = { [denom: string]: string };
+export type NftChange = { [token: string]: string };
 export type ObjectChange = { [address: string]: string };

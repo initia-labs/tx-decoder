@@ -44,7 +44,8 @@ describe("Object Transfer Message", () => {
         init1ulw753hxh4mrc9ss7p2y7h8emjxxyw6uce0hk9: {
           init1fqd4u2jnjusml20ekd08q2kmve7qt8g23cdqxzlysvtc40vjsg6sk4p0kn: "-1"
         }
-      }
+      },
+      vm: "move"
     });
 
     expect(decoded.totalBalanceChanges).toEqual({
@@ -56,7 +57,8 @@ describe("Object Transfer Message", () => {
         init1ulw753hxh4mrc9ss7p2y7h8emjxxyw6uce0hk9: {
           init1fqd4u2jnjusml20ekd08q2kmve7qt8g23cdqxzlysvtc40vjsg6sk4p0kn: "-1"
         }
-      }
+      },
+      vm: "move"
     });
 
     expect(decoded.metadata).toEqual({

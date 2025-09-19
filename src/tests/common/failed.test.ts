@@ -15,7 +15,8 @@ describe("Failed Transaction", () => {
     expect(messages[0]).toEqual({
       balanceChanges: {
         ft: {},
-        object: {}
+        object: {},
+        vm: "move"
       },
       decodedMessage: {
         action: "not_supported",
@@ -30,7 +31,8 @@ describe("Failed Transaction", () => {
     // Failed transactions should have no balance changes
     expect(totalBalanceChanges).toEqual({
       ft: {},
-      object: {}
+      object: {},
+      vm: "move"
     });
     expect(metadata).toEqual({});
   });

@@ -45,7 +45,8 @@ describe("VIP Claim Esinit Message", () => {
           uinit: "-11190511"
         }
       },
-      object: {}
+      object: {},
+      vm: "move"
     });
 
     expect(decoded.totalBalanceChanges).toEqual({
@@ -57,7 +58,8 @@ describe("VIP Claim Esinit Message", () => {
           uinit: "-11190511"
         }
       },
-      object: {}
+      object: {},
+      vm: "move"
     });
   });
 
@@ -80,7 +82,8 @@ describe("VIP Claim Esinit Message", () => {
 
     expect(decoded.messages[0].balanceChanges).toEqual({
       ft: {},
-      object: {}
+      object: {},
+      vm: "move"
     });
   });
 });

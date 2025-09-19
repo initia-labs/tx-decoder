@@ -79,7 +79,8 @@ describe("IBC Receive NFT Message", () => {
           init1t9k78msywte6jx4zrxkp94pa9u9laa9pqfpytk: {
             init1rf9acg4cee5welf4jqqhrwx3pv4f695ae0jtaze2tksxywsg76msp3qj9a: "1"
           }
-        }
+        },
+        vm: "move"
       });
 
       expect(metadata).toEqual({
@@ -154,7 +155,8 @@ describe("IBC Receive NFT Message", () => {
 
       expect(messages[0].balanceChanges).toEqual({
         ft: {},
-        object: {}
+        object: {},
+        vm: "move"
       });
 
       expect(messages[1].balanceChanges).toEqual({
@@ -166,7 +168,8 @@ describe("IBC Receive NFT Message", () => {
           init18cd6ufdufm4crr4tjr23uwhn26qz6ndea57aya: {
             init1t64cqru8efqzzrmfqkkrzdqn2ft453pyvvpvtvnlgw8f0qr3haeslr0899: "1"
           }
-        }
+        },
+        vm: "move"
       });
 
       expect(totalBalanceChanges).toEqual({
@@ -178,7 +181,8 @@ describe("IBC Receive NFT Message", () => {
           init18cd6ufdufm4crr4tjr23uwhn26qz6ndea57aya: {
             init1t64cqru8efqzzrmfqkkrzdqn2ft453pyvvpvtvnlgw8f0qr3haeslr0899: "1"
           }
-        }
+        },
+        vm: "move"
       });
 
       expect(metadata).toEqual({

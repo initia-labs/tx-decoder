@@ -45,7 +45,8 @@ describe("Claim Minitswap Message", () => {
           uinit: "103338"
         }
       },
-      object: {}
+      object: {},
+      vm: "move"
     });
 
     expect(decoded.totalBalanceChanges).toEqual({
@@ -57,7 +58,8 @@ describe("Claim Minitswap Message", () => {
           uinit: "103338"
         }
       },
-      object: {}
+      object: {},
+      vm: "move"
     });
   });
 });

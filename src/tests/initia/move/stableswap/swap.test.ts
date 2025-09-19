@@ -50,7 +50,8 @@ describe("Stableswap Swap Message", () => {
           uinit: "-1016957925"
         }
       },
-      object: {}
+      object: {},
+      vm: "move"
     });
     expect(decoded.totalBalanceChanges).toEqual({
       ft: {
@@ -65,7 +66,8 @@ describe("Stableswap Swap Message", () => {
           uinit: "-1016957925"
         }
       },
-      object: {}
+      object: {},
+      vm: "move"
     });
   });
 });

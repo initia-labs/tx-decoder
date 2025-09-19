@@ -56,7 +56,8 @@ describe("Withdraw Liquidity Message", () => {
           uinit: "1006848"
         }
       },
-      object: {}
+      object: {},
+      vm: "move"
     });
 
     expect(decoded.totalBalanceChanges).toEqual({
@@ -74,7 +75,8 @@ describe("Withdraw Liquidity Message", () => {
           uinit: "1006848"
         }
       },
-      object: {}
+      object: {},
+      vm: "move"
     });
   });
 });

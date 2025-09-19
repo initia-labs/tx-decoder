@@ -60,7 +60,8 @@ describe("Distribution Messages", () => {
           init1jv65s3grqf6v6jl3dp4t6c9t9rk99cd8ffy0za: { uinit: "-33490255" },
           init13thkj7pxgr3l6hzymklfeprh0fka8n6mzckr78: { uinit: "33490255" }
         },
-        object: {}
+        object: {},
+        vm: "move"
       });
 
       expect(totalBalanceChanges).toEqual({
@@ -72,7 +73,8 @@ describe("Distribution Messages", () => {
             uinit: "33490255"
           }
         },
-        object: {}
+        object: {},
+        vm: "move"
       });
     });
 
@@ -120,7 +122,8 @@ describe("Distribution Messages", () => {
             uinit: "0"
           }
         },
-        object: {}
+        object: {},
+        vm: "move"
       });
 
       expect(totalBalanceChanges).toEqual({
@@ -135,7 +138,8 @@ describe("Distribution Messages", () => {
             uinit: "0"
           }
         },
-        object: {}
+        object: {},
+        vm: "move"
       });
     });
   });

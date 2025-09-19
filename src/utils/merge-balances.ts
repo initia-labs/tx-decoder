@@ -1,7 +1,11 @@
 import big from "big.js";
 import { produce } from "immer";
 
-import { BalanceChanges } from "@/interfaces";
+import {
+  BalanceChanges,
+  EvmBalanceChanges,
+  MoveBalanceChanges
+} from "@/interfaces";
 
 const mergeNestedBalances = (
   target: Record<string, Record<string, string>>,
@@ -13,23 +17,41 @@ const mergeNestedBalances = (
     for (const key in source[address]) {
       const existingAmount = big(target[address][key] || "0");
       const newAmount = big(source[address][key]);
+      const result = existingAmount.plus(newAmount);
 
-      target[address][key] = existingAmount.plus(newAmount).toString();
+      target[address][key] = result.toString();
     }
   }
 };
 
-export const mergeBalanceChanges = (
-  target: BalanceChanges,
-  source: Partial<BalanceChanges>
-): BalanceChanges => {
-  return produce(target, (draft) => {
-    if (source.ft) {
-      mergeNestedBalances(draft.ft, source.ft);
-    }
+const isMoveBalanceChanges = (
+  changes: BalanceChanges
+): changes is MoveBalanceChanges => changes.vm === "move";
 
-    if (source.object) {
+const isEvmBalanceChanges = (
+  changes: BalanceChanges
+): changes is EvmBalanceChanges => changes.vm === "evm";
+
+export const mergeBalanceChanges = <T extends BalanceChanges>(
+  target: T,
+  source: BalanceChanges
+): T => {
+  if (isMoveBalanceChanges(target) && isMoveBalanceChanges(source)) {
+    return produce(target, (draft) => {
+      mergeNestedBalances(draft.ft, source.ft);
       mergeNestedBalances(draft.object, source.object);
-    }
-  });
+    });
+  }
+
+  if (isEvmBalanceChanges(target) && isEvmBalanceChanges(source)) {
+    return produce(target, (draft) => {
+      mergeNestedBalances(draft.ft, source.ft);
+      mergeNestedBalances(draft.nft, source.nft);
+    });
+  }
+
+  console.warn(
+    "mergeBalanceChanges received mismatched balance change variants; ignoring source"
+  );
+  return target;
 };

@@ -28,7 +28,8 @@ describe("VIP Lock Stake Message", () => {
     expect(messages).toHaveLength(2);
     expect(messages[0].balanceChanges).toEqual({
       ft: {},
-      object: {}
+      object: {},
+      vm: "move"
     });
 
     expect(messages[1].balanceChanges).toEqual({
@@ -54,7 +55,8 @@ describe("VIP Lock Stake Message", () => {
           uinit: "-1000000"
         }
       },
-      object: {}
+      object: {},
+      vm: "move"
     });
     expect(messages[1].decodedMessage).toEqual({
       action: "delegate",
@@ -108,7 +110,8 @@ describe("VIP Lock Stake Message", () => {
           uinit: "-1000000"
         }
       },
-      object: {}
+      object: {},
+      vm: "move"
     });
   });
 });

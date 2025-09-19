@@ -79,7 +79,8 @@ describe("Staking Messages - Redelegate", () => {
           uinit: "2"
         }
       },
-      object: {}
+      object: {},
+      vm: "move"
     });
 
     // This is staking reward
@@ -92,7 +93,8 @@ describe("Staking Messages - Redelegate", () => {
           uinit: "2"
         }
       },
-      object: {}
+      object: {},
+      vm: "move"
     });
   });
 
@@ -155,7 +157,8 @@ describe("Staking Messages - Redelegate", () => {
         init1jv65s3grqf6v6jl3dp4t6c9t9rk99cd8ffy0za: { uinit: "-33" },
         init1tacytfqagzjv73v5ke2s4qj8l68c2w0q4v0q0n: { uinit: "33" }
       },
-      object: {}
+      object: {},
+      vm: "move"
     });
 
     expect(totalBalanceChanges).toEqual({
@@ -166,7 +169,8 @@ describe("Staking Messages - Redelegate", () => {
         init1jv65s3grqf6v6jl3dp4t6c9t9rk99cd8ffy0za: { uinit: "-33" },
         init1tacytfqagzjv73v5ke2s4qj8l68c2w0q4v0q0n: { uinit: "33" }
       },
-      object: {}
+      object: {},
+      vm: "move"
     });
   });
 });

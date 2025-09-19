@@ -1,7 +1,7 @@
 import { InitiaAddress } from "@initia/utils";
 
 import { ApiClient } from "@/api";
-import { DEFAULT_BALANCE_CHANGES } from "@/constants";
+import { createDefaultMoveBalanceChanges } from "@/constants";
 import { MoveEventProcessor } from "@/interfaces";
 import { Event, zWithdrawEvent, zWithdrawOwnerEvent } from "@/schema";
 
@@ -40,18 +40,19 @@ export const withdrawEventProcessor: MoveEventProcessor = {
         ft: {
           [owner]: { [denom]: `-${data.amount}` }
         },
-        object: {}
+        object: {},
+        vm: "move"
       };
     } catch (error) {
       console.error(
-        `Failed to process ${withdrawEventProcessor.type_tag}:`,
+        `Failed to process ${withdrawEventProcessor.typeTag}:`,
         error
       );
     }
 
-    return DEFAULT_BALANCE_CHANGES;
+    return createDefaultMoveBalanceChanges();
   },
-  type_tag: "0x1::fungible_asset::WithdrawEvent"
+  typeTag: "0x1::fungible_asset::WithdrawEvent"
 };
 
 const _getWithdrawOwner = async (

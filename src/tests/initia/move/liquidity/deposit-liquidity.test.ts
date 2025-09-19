@@ -64,7 +64,8 @@ describe("Deposit Liquidity Message", () => {
           uinit: "-8415380"
         }
       },
-      object: {}
+      object: {},
+      vm: "move"
     });
 
     expect(decoded.totalBalanceChanges).toEqual({
@@ -82,7 +83,8 @@ describe("Deposit Liquidity Message", () => {
           uinit: "-8415380"
         }
       },
-      object: {}
+      object: {},
+      vm: "move"
     });
   });
 
@@ -141,7 +143,8 @@ describe("Deposit Liquidity Message", () => {
           uinit: "-841538"
         }
       },
-      object: {}
+      object: {},
+      vm: "move"
     });
 
     expect(decoded.totalBalanceChanges).toEqual({
@@ -163,7 +166,8 @@ describe("Deposit Liquidity Message", () => {
           uinit: "-841538"
         }
       },
-      object: {}
+      object: {},
+      vm: "move"
     });
   });
 
@@ -231,7 +235,8 @@ describe("Deposit Liquidity Message", () => {
           uinit: "-8449271"
         }
       },
-      object: {}
+      object: {},
+      vm: "move"
     });
 
     expect(decoded.totalBalanceChanges).toEqual({
@@ -260,7 +265,8 @@ describe("Deposit Liquidity Message", () => {
           uinit: "-8449271"
         }
       },
-      object: {}
+      object: {},
+      vm: "move"
     });
   });
 });

@@ -49,7 +49,8 @@ describe("Initiate Token Deposit Message", () => {
           uinit: "-360000000"
         }
       },
-      object: {}
+      object: {},
+      vm: "move"
     });
 
     expect(decoded.totalBalanceChanges).toEqual({
@@ -61,7 +62,8 @@ describe("Initiate Token Deposit Message", () => {
           uinit: "-360000000"
         }
       },
-      object: {}
+      object: {},
+      vm: "move"
     });
   });
 });
