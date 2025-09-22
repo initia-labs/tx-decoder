@@ -24,6 +24,27 @@ const mergeNestedBalances = (
   }
 };
 
+const mergeNftBalances = (
+  target: Record<string, Record<string, Record<string, string>>>,
+  source: Record<string, Record<string, Record<string, string>>>
+) => {
+  for (const address in source) {
+    target[address] ??= {};
+
+    for (const contract in source[address]) {
+      target[address][contract] ??= {};
+
+      for (const tokenId in source[address][contract]) {
+        const existingAmount = big(target[address][contract][tokenId] || "0");
+        const newAmount = big(source[address][contract][tokenId]);
+        const result = existingAmount.plus(newAmount);
+
+        target[address][contract][tokenId] = result.toString();
+      }
+    }
+  }
+};
+
 const isMoveBalanceChanges = (
   changes: BalanceChanges
 ): changes is MoveBalanceChanges => changes.vm === "move";
@@ -46,7 +67,7 @@ export const mergeBalanceChanges = <T extends BalanceChanges>(
   if (isEvmBalanceChanges(target) && isEvmBalanceChanges(source)) {
     return produce(target, (draft) => {
       mergeNestedBalances(draft.ft, source.ft);
-      mergeNestedBalances(draft.nft, source.nft);
+      mergeNftBalances(draft.nft, source.nft);
     });
   }
 

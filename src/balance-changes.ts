@@ -58,7 +58,13 @@ async function _processMoveLog(
     const processor = moveProcessorRegistry.get(typeTagAttr.value);
     if (!processor) continue;
 
-    promises.push(processor.process(event, log.events, apiClient, index));
+    try {
+      promises.push(
+        Promise.resolve(processor.process(event, log.events, apiClient, index))
+      );
+    } catch (error) {
+      console.error(`Failed to process ${processor.typeTag}:`, error);
+    }
   }
 
   return _resolveAndMergeChanges(promises, createDefaultMoveBalanceChanges);

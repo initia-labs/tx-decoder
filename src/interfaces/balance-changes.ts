@@ -15,5 +15,5 @@ export interface MoveBalanceChanges extends BaseBalanceChanges {
 export type BalanceChanges = EvmBalanceChanges | MoveBalanceChanges;
 
 export type FtChange = { [denom: string]: string };
-export type NftChange = { [token: string]: string };
+export type NftChange = { [contract: string]: { [tokenId: string]: string } };
 export type ObjectChange = { [address: string]: string };

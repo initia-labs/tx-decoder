@@ -1,62 +1,99 @@
 import { produce } from "immer";
 import { decodeEventLog } from "viem";
 
+import { ERC20_TRANSFER_ABI, EVENT_SIGNATURES } from "@/api/constants";
+import { ERC721_TRANSFER_ABI } from "@/api/constants/evm-abis";
 import { createDefaultEvmBalanceChanges } from "@/constants";
-import { EvmEventProcessor } from "@/interfaces";
-import { zEvmLog, zEvmTransferEventLog } from "@/schema";
+import { EvmBalanceChanges, EvmEventProcessor } from "@/interfaces";
+import {
+  zEvmLog,
+  zEvmNftTransferEventLog,
+  zEvmTransferEventLog
+} from "@/schema";
 import { getEvmDenom } from "@/utils";
 
-const TRANSFER_EVENT_TOPIC =
-  "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef";
+function processNftTransfer(
+  draft: EvmBalanceChanges,
+  contractAddress: string,
+  decodedArgs: unknown
+) {
+  const validated = zEvmNftTransferEventLog.parse(decodedArgs);
+  const { from, to, tokenId } = validated;
+  const tokenIdStr = tokenId.toString();
 
-const transferAbi = [
-  {
-    inputs: [
-      { indexed: true, name: "from", type: "address" },
-      { indexed: true, name: "to", type: "address" },
-      { indexed: false, name: "value", type: "uint256" }
-    ],
-    name: "Transfer",
-    type: "event"
+  if (from) {
+    draft.nft[from] ??= {};
+    draft.nft[from][contractAddress] ??= {};
+    draft.nft[from][contractAddress][tokenIdStr] = "-1";
   }
-] as const;
+
+  draft.nft[to] ??= {};
+  draft.nft[to][contractAddress] ??= {};
+  draft.nft[to][contractAddress][tokenIdStr] = "1";
+}
+
+function processTokenTransfer(
+  draft: ReturnType<typeof createDefaultEvmBalanceChanges>,
+  contractAddress: string,
+  decodedArgs: unknown
+) {
+  const validated = zEvmTransferEventLog.parse(decodedArgs);
+  const { from, to, value } = validated;
+  const denom = getEvmDenom(contractAddress);
+  const amount = value.toString();
+
+  if (from === to) {
+    draft.ft[from] ??= {};
+    draft.ft[from][denom] = "0";
+  } else {
+    if (from) {
+      draft.ft[from] ??= {};
+      draft.ft[from][denom] = `-${amount}`;
+    }
+    if (to) {
+      draft.ft[to] ??= {};
+      draft.ft[to][denom] = amount;
+    }
+  }
+}
 
 export const evmTransferEventProcessor: EvmEventProcessor = {
-  eventSignatureHash: TRANSFER_EVENT_TOPIC,
-  async process(eventAttribute) {
+  eventSignatureHash: EVENT_SIGNATURES.TRANSFER,
+  async process(eventAttribute, apiClient) {
     try {
       if (eventAttribute.key !== "log") {
         throw new Error("EVM log attribute not found");
       }
 
       const parsedLog = zEvmLog.parse(eventAttribute.value);
+      const contractAddress = parsedLog.address;
 
-      const decoded = decodeEventLog({
-        abi: transferAbi,
-        data: parsedLog.data,
-        topics: parsedLog.topics
-      });
-
-      if (decoded.eventName !== "Transfer") {
-        throw new Error(`Unexpected event: ${decoded.eventName}`);
-      }
-
-      const validated = zEvmTransferEventLog.parse(decoded.args);
-
-      const { from, to, value } = validated;
-      const denom = getEvmDenom(parsedLog.address);
-      const amount = value.toString();
+      const isNft = await apiClient.isErc721Contract(contractAddress);
 
       return produce(createDefaultEvmBalanceChanges(), (draft) => {
-        if (from) {
-          draft.ft[from] = {
-            [denom]: `-${amount}`
-          };
+        try {
+          if (isNft) {
+            const decoded = decodeEventLog({
+              abi: ERC721_TRANSFER_ABI,
+              data: parsedLog.data,
+              topics: parsedLog.topics
+            });
+            processNftTransfer(draft, contractAddress, decoded.args);
+          } else {
+            const decoded = decodeEventLog({
+              abi: ERC20_TRANSFER_ABI,
+              data: parsedLog.data,
+              topics: parsedLog.topics
+            });
+            processTokenTransfer(draft, contractAddress, decoded.args);
+          }
+        } catch (processingError) {
+          console.error(
+            `Failed to process ${isNft ? "NFT" : "token"} transfer for contract ${contractAddress}:`,
+            processingError
+          );
+          throw processingError;
         }
-
-        draft.ft[to] = {
-          [denom]: amount
-        };
       });
     } catch (error) {
       console.error("Failed to decode EVM transfer log:", error);

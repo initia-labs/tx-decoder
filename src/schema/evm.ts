@@ -19,3 +19,9 @@ export const zEvmTransferEventLog = z.object({
   to: zHexString.transform((address) => getAddress(address)),
   value: z.bigint().nonnegative()
 });
+
+export const zEvmNftTransferEventLog = z.object({
+  from: zHexString.transform((address) => getAddress(address)).optional(),
+  to: zHexString.transform((address) => getAddress(address)),
+  tokenId: z.bigint().nonnegative()
+});

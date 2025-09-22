@@ -329,3 +329,14 @@ export const bankSendWithEvmLogTxResponse = {
   },
   txhash: "DBDD90F11308953311401F446D5942AE744A36D2FB82C302B6E275BCE22E9B6F"
 };
+
+export const mockApiResponsesForBankSendWithEvmLogTxResponse = {
+  POST: {
+    "/": {
+      id: 1,
+      jsonrpc: "2.0",
+      result:
+        "0x0000000000000000000000000000000000000000000000000000000000000000"
+    }
+  }
+};
