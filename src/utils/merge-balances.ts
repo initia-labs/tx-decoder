@@ -4,45 +4,51 @@ import { produce } from "immer";
 import {
   BalanceChanges,
   EvmBalanceChanges,
-  MoveBalanceChanges
+  FtChange,
+  MoveBalanceChanges,
+  NftChange
 } from "@/interfaces";
 
 const mergeNestedBalances = (
-  target: Record<string, Record<string, string>>,
-  source: Record<string, Record<string, string>>
-) => {
-  for (const address in source) {
-    target[address] ??= {};
+  target: { [address: string]: FtChange },
+  source: { [address: string]: FtChange }
+): { [address: string]: FtChange } => {
+  return produce(target, (draft) => {
+    for (const address in source) {
+      draft[address] ??= {};
 
-    for (const key in source[address]) {
-      const existingAmount = big(target[address][key] || "0");
-      const newAmount = big(source[address][key]);
-      const result = existingAmount.plus(newAmount);
+      for (const key in source[address]) {
+        const existingAmount = big(draft[address][key] || "0");
+        const newAmount = big(source[address][key]);
+        const result = existingAmount.plus(newAmount);
 
-      target[address][key] = result.toString();
+        draft[address][key] = result.toString();
+      }
     }
-  }
+  });
 };
 
 const mergeNftBalances = (
-  target: Record<string, Record<string, Record<string, string>>>,
-  source: Record<string, Record<string, Record<string, string>>>
-) => {
-  for (const address in source) {
-    target[address] ??= {};
+  target: { [address: string]: NftChange },
+  source: { [address: string]: NftChange }
+): { [address: string]: NftChange } => {
+  return produce(target, (draft) => {
+    for (const address in source) {
+      draft[address] ??= {};
 
-    for (const contract in source[address]) {
-      target[address][contract] ??= {};
+      for (const contract in source[address]) {
+        draft[address][contract] ??= {};
 
-      for (const tokenId in source[address][contract]) {
-        const existingAmount = big(target[address][contract][tokenId] || "0");
-        const newAmount = big(source[address][contract][tokenId]);
-        const result = existingAmount.plus(newAmount);
+        for (const tokenId in source[address][contract]) {
+          const existingAmount = big(draft[address][contract][tokenId] || "0");
+          const newAmount = big(source[address][contract][tokenId]);
+          const result = existingAmount.plus(newAmount);
 
-        target[address][contract][tokenId] = result.toString();
+          draft[address][contract][tokenId] = result.toString();
+        }
       }
     }
-  }
+  });
 };
 
 const isMoveBalanceChanges = (
@@ -58,17 +64,19 @@ export const mergeBalanceChanges = <T extends BalanceChanges>(
   source: BalanceChanges
 ): T => {
   if (isMoveBalanceChanges(target) && isMoveBalanceChanges(source)) {
-    return produce(target, (draft) => {
-      mergeNestedBalances(draft.ft, source.ft);
-      mergeNestedBalances(draft.object, source.object);
-    });
+    return {
+      ...target,
+      ft: mergeNestedBalances(target.ft, source.ft),
+      object: mergeNestedBalances(target.object, source.object)
+    };
   }
 
   if (isEvmBalanceChanges(target) && isEvmBalanceChanges(source)) {
-    return produce(target, (draft) => {
-      mergeNestedBalances(draft.ft, source.ft);
-      mergeNftBalances(draft.nft, source.nft);
-    });
+    return {
+      ...target,
+      ft: mergeNestedBalances(target.ft, source.ft),
+      nft: mergeNftBalances(target.nft, source.nft)
+    };
   }
 
   console.warn(
