@@ -1,17 +1,8 @@
-import {
-  Address,
-  decodeFunctionResult,
-  encodeFunctionData,
-  getAddress,
-  Hex
-} from "viem";
-
 import type { CollectionResource, NftResource } from "@/schema";
 
 import { DecoderConfig } from "@/interfaces";
 import { getEvmDenom } from "@/utils";
 
-import { ERC20_WRAPPER_ABI } from "./constants";
 import { CacheService } from "./services/cache";
 import { CosmosClient } from "./services/cosmos";
 import { EvmService } from "./services/evm";
@@ -44,7 +35,7 @@ export class ApiClient {
     this._jsonRpcUrl = config.jsonRpcUrl;
     this.cacheService = new CacheService();
     this.cosmosClient = new CosmosClient(config.restUrl, this.cacheService);
-    this.evmService = new EvmService(config.jsonRpcUrl as string);
+    this.evmService = new EvmService(config.jsonRpcUrl);
     this.minievmClient = new MinievmClient(config.restUrl, this.cacheService);
     this.moveClient = new MoveClient(config.restUrl, this.cacheService);
     this.mstakingClient = new MstakingClient(config.restUrl, this.cacheService);
@@ -65,7 +56,7 @@ export class ApiClient {
         this.minievmClient.fetchErc20WrapperAddress()
       ]);
 
-      const evmTokenAddress = await this._getEvmTokenAddress(
+      const evmTokenAddress = await this.evmService.getEvmTokenAddress(
         erc20WrapperAddress,
         remoteTokenAddress
       );
@@ -132,30 +123,5 @@ export class ApiClient {
 
   public async isErc721Contract(contractAddress: string): Promise<boolean> {
     return this.evmService.isErc721Contract(contractAddress);
-  }
-
-  private async _getEvmTokenAddress(
-    erc20WrapperAddress: string,
-    remoteTokenAddress: string,
-    decimals: number = 6
-  ): Promise<Address> {
-    const remoteToken = getAddress(remoteTokenAddress);
-    const encodedData: Hex = encodeFunctionData({
-      abi: ERC20_WRAPPER_ABI,
-      args: [remoteToken, decimals],
-      functionName: "localTokens"
-    });
-
-    const result = await this.evmService.ethCall(
-      erc20WrapperAddress,
-      encodedData
-    );
-
-    const evmTokenAddress = decodeFunctionResult({
-      abi: ERC20_WRAPPER_ABI,
-      data: result,
-      functionName: "localTokens"
-    }) as string;
-    return getAddress(evmTokenAddress);
   }
 }

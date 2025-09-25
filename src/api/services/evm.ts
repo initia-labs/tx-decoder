@@ -1,10 +1,26 @@
 import axios from "axios";
-import { Hex } from "viem";
+import {
+  Address,
+  decodeFunctionResult,
+  encodeFunctionData,
+  getAddress,
+  Hex
+} from "viem";
 
-import { ERC_INTERFACE_IDS } from "@/api/constants";
+import { ERC20_WRAPPER_ABI, ERC_INTERFACE_IDS } from "@/api/constants";
 
 export class EvmService {
-  constructor(private readonly jsonRpcUrl: string) {}
+  private get jsonRpcUrl(): string {
+    if (!this._jsonRpcUrl) {
+      throw new Error(
+        "jsonRpcUrl is required to initialize EvmService. Please provide a valid JSON-RPC endpoint in the DecoderConfig."
+      );
+    }
+
+    return this._jsonRpcUrl;
+  }
+
+  constructor(private readonly _jsonRpcUrl?: string) {}
 
   public async ethCall(to: string, data: Hex): Promise<Hex> {
     try {
@@ -25,7 +41,7 @@ export class EvmService {
         throw new Error(response.data.error.message);
       }
 
-      const result = response.data.result as `0x${string}` | undefined;
+      const result = response.data.result as Hex | undefined;
       if (!result || result === "0x") {
         throw new Error("No result returned from eth_call");
       }
@@ -35,6 +51,29 @@ export class EvmService {
       console.error(`eth_call to ${to} failed`, error);
       throw error;
     }
+  }
+
+  public async getEvmTokenAddress(
+    erc20WrapperAddress: string,
+    remoteTokenAddress: string,
+    decimals: number = 6
+  ): Promise<Address> {
+    const remoteToken = getAddress(remoteTokenAddress);
+    const encodedData: Hex = encodeFunctionData({
+      abi: ERC20_WRAPPER_ABI,
+      args: [remoteToken, decimals],
+      functionName: "localTokens"
+    });
+
+    const result = await this.ethCall(erc20WrapperAddress, encodedData);
+
+    const evmTokenAddress = decodeFunctionResult({
+      abi: ERC20_WRAPPER_ABI,
+      data: result,
+      functionName: "localTokens"
+    });
+
+    return getAddress(evmTokenAddress);
   }
 
   public async isErc721Contract(contractAddress: string): Promise<boolean> {
@@ -48,7 +87,12 @@ export class EvmService {
 
       const result = await this.ethCall(contractAddress, data);
 
-      return result.toLowerCase().endsWith("1");
+      const normalized = result.toLowerCase();
+      if (!normalized.startsWith("0x")) {
+        return false;
+      }
+
+      return BigInt(normalized) === 1n;
     } catch (error) {
       console.warn(
         `Could not determine if ${contractAddress} is ERC-721. Assuming false.`,
