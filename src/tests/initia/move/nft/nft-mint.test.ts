@@ -49,7 +49,8 @@ describe("NFT Mint Message", () => {
         init1ulw753hxh4mrc9ss7p2y7h8emjxxyw6uce0hk9: {
           init1ata7vteyg83wen5emdx0h2effa6594uvutvzeg5duy76p2w5rwrqy2y24c: "1"
         }
-      }
+      },
+      vm: "move"
     });
 
     expect(decoded.totalBalanceChanges).toEqual({
@@ -58,7 +59,8 @@ describe("NFT Mint Message", () => {
         init1ulw753hxh4mrc9ss7p2y7h8emjxxyw6uce0hk9: {
           init1ata7vteyg83wen5emdx0h2effa6594uvutvzeg5duy76p2w5rwrqy2y24c: "1"
         }
-      }
+      },
+      vm: "move"
     });
 
     expect(decoded.metadata).toEqual({

@@ -1,6 +1,6 @@
 import { InitiaAddress } from "@initia/utils";
 
-import { DEFAULT_BALANCE_CHANGES } from "@/constants";
+import { createDefaultMoveBalanceChanges } from "@/constants";
 import { MoveEventProcessor } from "@/interfaces";
 import { zMsgMoveObjectTransferEvent } from "@/schema";
 
@@ -31,16 +31,17 @@ export const objectTransferEventProcessor: MoveEventProcessor = {
           [toAddress]: {
             [objectAddress]: "1"
           }
-        }
+        },
+        vm: "move"
       };
     } catch (error) {
       console.error(
-        `Failed to process ${objectTransferEventProcessor.type_tag}:`,
+        `Failed to process ${objectTransferEventProcessor.typeTag}:`,
         error
       );
     }
 
-    return DEFAULT_BALANCE_CHANGES;
+    return createDefaultMoveBalanceChanges();
   },
-  type_tag: "0x1::object::TransferEvent"
+  typeTag: "0x1::object::TransferEvent"
 };

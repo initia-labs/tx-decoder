@@ -1,6 +1,7 @@
 import { toHex } from "@cosmjs/encoding";
 import { sha3_256 } from "@noble/hashes/sha3";
 import { toBytes } from "@noble/hashes/utils";
+import { getAddress } from "viem";
 
 export const denomToHex = (denom: string) => {
   return `0x${denom.split("/").pop()}`;
@@ -30,4 +31,8 @@ export function getOpDenom(id: bigint, l1Denom: string): string {
   // Hash using sha3_256 and convert to hex
   const hash = sha3_256(input);
   return `l2/${toHex(hash)}`;
+}
+
+export function getEvmDenom(address: string): string {
+  return `evm/${getAddress(address).replace(/^0x/, "")}`;
 }

@@ -38,7 +38,8 @@ describe("Staking Messages - Delegate", () => {
             uinit: "-100000"
           }
         },
-        object: {}
+        object: {},
+        vm: "move"
       },
       decodedMessage: {
         action: "delegate",
@@ -77,7 +78,8 @@ describe("Staking Messages - Delegate", () => {
           uinit: "-100000"
         }
       },
-      object: {}
+      object: {},
+      vm: "move"
     });
   });
 
@@ -126,7 +128,8 @@ describe("Staking Messages - Delegate", () => {
           uinit: "0"
         }
       },
-      object: {}
+      object: {},
+      vm: "move"
     });
 
     expect(decoded.totalBalanceChanges).toEqual({
@@ -141,7 +144,8 @@ describe("Staking Messages - Delegate", () => {
           uinit: "0"
         }
       },
-      object: {}
+      object: {},
+      vm: "move"
     });
   });
 });

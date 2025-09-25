@@ -1975,18 +1975,17 @@ async function testDecodeEvmTransaction(): Promise<void> {
 
       // Show balance changes if any
       const hasFtChanges = Object.keys(balanceChanges.ft).length > 0;
-      const hasObjectChanges = Object.keys(balanceChanges.object).length > 0;
+      const hasNftChanges =
+        balanceChanges.vm === "evm" &&
+        Object.keys(balanceChanges.nft).length > 0;
 
-      if (hasFtChanges || hasObjectChanges) {
+      if (hasFtChanges || hasNftChanges) {
         console.log(`  - Balance Changes:`);
         if (hasFtChanges) {
           console.log(`    FT:`, JSON.stringify(balanceChanges.ft, null, 6));
         }
-        if (hasObjectChanges) {
-          console.log(
-            `    Objects:`,
-            JSON.stringify(balanceChanges.object, null, 6)
-          );
+        if (hasNftChanges) {
+          console.log(`    NFTs:`, JSON.stringify(balanceChanges.nft, null, 6));
         }
       }
     });
@@ -1999,14 +1998,15 @@ async function testDecodeEvmTransaction(): Promise<void> {
 
     // Show total balance changes
     const totalFt = Object.keys(evmDecodedTx.totalBalanceChanges.ft).length;
-    const totalObjects = Object.keys(
-      evmDecodedTx.totalBalanceChanges.object
-    ).length;
+    const totalNfts =
+      evmDecodedTx.totalBalanceChanges.vm === "evm"
+        ? Object.keys(evmDecodedTx.totalBalanceChanges.nft).length
+        : 0;
 
-    if (totalFt > 0 || totalObjects > 0) {
+    if (totalFt > 0 || totalNfts > 0) {
       console.log("\n💰 Total Balance Changes Summary:");
       console.log(`- FT Changes: ${totalFt} addresses affected`);
-      console.log(`- Object Changes: ${totalObjects} addresses affected`);
+      console.log(`- NFT Changes: ${totalNfts} addresses affected`);
     }
 
     console.log("\n🎉 EVM transaction decoding completed successfully!");

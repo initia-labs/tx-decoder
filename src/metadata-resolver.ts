@@ -8,9 +8,20 @@ export const resolveMetadata = async (
   apiClient: ApiClient,
   balanceChanges: BalanceChanges
 ) => {
-  const tokenAddresses = Object.values(balanceChanges.object).flatMap(
-    (innerObject) => Object.keys(innerObject)
-  );
+  // We don't support EVM metadata for now
+  if (balanceChanges.vm === "evm") {
+    return {};
+  }
+
+  const tokenAddresses: string[] = [];
+
+  if (balanceChanges.vm === "move") {
+    tokenAddresses.push(
+      ...Object.values(balanceChanges.object).flatMap((innerObject) =>
+        Object.keys(innerObject)
+      )
+    );
+  }
 
   const nftMetadata = await Promise.allSettled(
     tokenAddresses.map(async (address) => {

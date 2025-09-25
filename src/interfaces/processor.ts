@@ -1,25 +1,21 @@
 import { ApiClient } from "@/api";
-import { BalanceChanges } from "@/interfaces";
-import { Event } from "@/schema";
+import { EvmBalanceChanges, MoveBalanceChanges } from "@/interfaces";
+import { Event, EventAttribute } from "@/schema";
 
 export interface MoveEventProcessor {
   process: (
-    currentEvent: Event,
+    event: Event,
     allEvents: Event[],
     apiClient: ApiClient,
     eventIndex: number
-  ) => Promise<BalanceChanges>;
-  type_tag: string;
+  ) => Promise<MoveBalanceChanges>;
+  typeTag: string;
 }
 
 export interface EvmEventProcessor {
-  event_signature_hash: string;
+  eventSignatureHash: string;
   process: (
-    currentEvent: Event,
-    allEvents: Event[],
-    apiClient: ApiClient,
-    eventIndex: number
-  ) => Promise<BalanceChanges>;
+    eventAttribute: EventAttribute,
+    apiClient: ApiClient
+  ) => Promise<EvmBalanceChanges>;
 }
-
-export type AnyBalanceEventProcessor = EvmEventProcessor | MoveEventProcessor;

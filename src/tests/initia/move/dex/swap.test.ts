@@ -47,7 +47,8 @@ describe("Dex Swap Message", () => {
           uinit: "-7100000000"
         }
       },
-      object: {}
+      object: {},
+      vm: "move"
     });
 
     expect(decoded.totalBalanceChanges).toEqual({
@@ -63,7 +64,8 @@ describe("Dex Swap Message", () => {
           uinit: "-7100000000"
         }
       },
-      object: {}
+      object: {},
+      vm: "move"
     });
   });
 });

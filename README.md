@@ -22,10 +22,11 @@ A TypeScript library for decoding Cosmos SDK transactions, providing human-reada
 ## ✨ [Features](#-features)
 
 - **Human-Readable Output**: Decodes Cosmos SDK transaction messages into a clear, human-readable JSON format.
-- **Balance Tracking**: Automatically tracks changes in fungible (FT) and non-fungible tokens (NFT) for any given transaction.
+- **Balance Tracking**: Tracks fungible token deltas and correlates Move objects or EVM NFTs with specific tokenId tracking based on the originating VM.
 - **Type-Safe**: Built with TypeScript and validated with Zod for robust, type-safe operations.
 - **Extensible**: Features a flexible handler system that can be easily extended to support new message types.
 - **Immutable State**: Uses Immer for safe and predictable state management.
+- **ABI-driven EVM Support**: Uses `viem` to decode EVM event logs (ERC-20 and ERC-721 `Transfer` events) without relying on Cosmos `coin_spent` events.
 
 ## 📦 [Installation](#-installation)
 
@@ -59,8 +60,10 @@ console.log(decodedTx);
 
 // Decode a transaction for EVM L2
 const decodedEvmTx = await decoder.decodeEvmTransaction(txResponse);
-console.log(decodedTx);
+console.log(decodedEvmTx);
 ```
+
+Each decoded message includes a `balanceChanges` object tagged with `vm: "move"` or `vm: "evm"`. EVM balance deltas are sourced from decoded log events via `viem` rather than Cosmos bank events.
 
 ## 📖 [API Reference](#-api-reference)
 
@@ -80,6 +83,7 @@ new TxDecoder(config: DecoderConfig)
   - `registryUrl: string` - Registry URL to retrieve chain registries
   - `restUrl: string` - REST endpoint of the Initia chain to query on-chain data
   - `jsonRpcUrl?: string` - JSON-RPC endpoint for EVM L2 chains
+  - `timeoutMs?: number` - HTTP request timeout in milliseconds (default: 10000)
 
 #### Methods
 
@@ -134,11 +138,34 @@ interface ProcessedMessage {
 #### `BalanceChanges`
 
 ```typescript
-interface BalanceChanges {
+interface BaseBalanceChanges {
   ft: { [address: string]: FtChange };
+}
+
+interface MoveBalanceChanges extends BaseBalanceChanges {
+  vm: "move";
   object: { [address: string]: ObjectChange };
 }
+
+interface EvmBalanceChanges extends BaseBalanceChanges {
+  vm: "evm";
+  nft: { [address: string]: NftChange };
+}
+
+type BalanceChanges = MoveBalanceChanges | EvmBalanceChanges;
+
+// Type aliases
+type FtChange = { [denom: string]: string };
+type NftChange = { [contract: string]: { [tokenId: string]: string } };
+type ObjectChange = { [address: string]: string };
 ```
+
+**Note on NFT Balance Changes:**
+
+- NFT balance changes are tracked with 3-level nesting: `address → contract → tokenId → value`
+- Each NFT transfer shows `"1"` for receiving and `"-1"` for sending
+- This structure allows tracking specific NFT tokens rather than just contract-level changes
+- Example: `nft["0x123..."]["0xNFTContract"]["42"] = "1"` means address `0x123...` received NFT token #42 from contract `0xNFTContract`
 
 #### `DecodedMessage`
 
@@ -148,11 +175,14 @@ Please see [here](src/interfaces/decoded-messages.ts)
 
 The decoder returns a structured object with the following format:
 
+#### Move VM Example (Bank Send)
+
 ```typescript
 {
   messages: [
     {
       balanceChanges: {
+        vm: "move",
         ft: {
           "init1...": { "uinit": "-1000000" },
           "init1...": { "uinit": "1000000" }
@@ -178,11 +208,70 @@ The decoder returns a structured object with the following format:
   ],
   metadata: {},
   totalBalanceChanges: {
+    vm: "move",
     ft: {
       "init1...": { "uinit": "-1000000" },
       "init1...": { "uinit": "1000000" }
     },
     object: {}
+  }
+}
+```
+
+#### EVM Example (NFT Transfer)
+
+```typescript
+{
+  messages: [
+    {
+      balanceChanges: {
+        vm: "evm",
+        ft: {
+          "0x19f8a98c...": { "evm/E1Ff7038eAAAF027031688E1535a055B2Bac2546": "-24400000000001" },
+          "0xf1829676...": { "evm/E1Ff7038eAAAF027031688E1535a055B2Bac2546": "737822500000" }
+        },
+        nft: {
+          "0x19f8a98c...": {
+            "0x5d4376b62fa8AC16dFabe6a9861E11c33A48C677": {
+              "4561": "-1"
+            }
+          },
+          "0x8f433715...": {
+            "0x5d4376b62fa8AC16dFabe6a9861E11c33A48C677": {
+              "4561": "1"
+            }
+          }
+        }
+      },
+      decodedMessage: {
+        action: "not_supported",
+        data: {
+          msgType: "/minievm.evm.v1.MsgCall"
+        },
+        isIbc: false,
+        isOp: false
+      }
+    }
+  ],
+  metadata: {},
+  totalBalanceChanges: {
+    vm: "evm",
+    ft: {
+      "0x19f8a98c...": { "evm/E1Ff7038eAAAF027031688E1535a055B2Bac2546": "-24400000000001" },
+      "0xf1829676...": { "evm/E1Ff7038eAAAF027031688E1535a055B2Bac2546": "737822500000" }
+    },
+    nft: {
+      "0x19f8a98c...": {
+        "0x5d4376b62fa8AC16dFabe6a9861E11c33A48C677": {
+          "4561": "-1"
+        }
+      },
+      "0x8f433715...": {
+        "0x5d4376b62fa8AC16dFabe6a9861E11c33A48C677": {
+          "4561": "1"
+        }
+      }
+    }
   }
 }
 ```
@@ -246,6 +335,11 @@ The decoder returns a structured object with the following format:
   - `transfer`
   - `nft-transfer`
 
+### EVM Events
+
+- `Transfer(address indexed from, address indexed to, uint256 value)` (ERC-20)
+- `Transfer(address indexed from, address indexed to, uint256 indexed tokenId)` (ERC-721)
+
 ## 💻 [Development](#-development)
 
 ### Prerequisites
@@ -273,22 +367,47 @@ pnpm build
 ```
 tx-decoder/
 ├── src/
-│   ├── constants.ts              # Application constants and configuration
-│   ├── decoder.ts                # Main transaction decoding logic
-│   ├── index.ts                  # Entry point for exports
-│   ├── message-types.ts          # Supported message types
-│   ├── metadata-resolver.ts      # Resolves and fetches NFT metadata for token addresses
-│   ├── decoders/                 # Message decoders
-│   ├── interfaces/               # TypeScript interfaces and types
-│   ├── processors/               # Event processors
-│   ├── schema/                   # Zod schemas for validation
-│   ├── utils/                    # Utility functions
-│   └── tests/                    # Unit tests
-│       ├── fixtures/             # Mock data for tests
-│       └── withdraw-delegator-reward.test.ts
-├── package.json                  # Project metadata and dependencies
-├── README.md                     # Project documentation
-└── ...                           # Config and other files
+│   ├── api/                     # API client architecture
+│   │   ├── api.ts               # Main API client with service composition
+│   │   ├── services/            # Modular API services
+│   │   │   ├── cache.ts         # Caching service for API responses
+│   │   │   ├── cosmos.ts        # Cosmos chain API interactions
+│   │   │   └── evm.ts           # EVM-specific API calls (contract detection, etc.)
+│   │   └── constants/           # API-related constants
+│   │       ├── index.ts         # Main constants export
+│   │       ├── evm-abis.ts      # EVM contract ABIs (ERC20, ERC721, etc.)
+│   │       └── evm-selectors.ts # EVM interface IDs and event signatures
+│   ├── balance-changes.ts       # Balance aggregation helpers per VM
+│   ├── constants.ts             # Application constants and configuration
+│   ├── decoder.ts               # Main transaction decoding logic
+│   ├── index.ts                 # Entry point for exports
+│   ├── message-types.ts         # Supported message types
+│   ├── metadata-resolver.ts     # Resolves and fetches NFT metadata for token addresses
+│   ├── decoders/                # Message decoders (cosmos, move, op-init, evm, etc.)
+│   ├── interfaces/              # TypeScript interfaces and discriminated unions
+│   ├── processors/              # Event processors
+│   │   ├── evm/                 # ABI-driven EVM event processors
+│   │   │   └── transfer.ts      # ERC-20/ERC-721 Transfer event processor
+│   │   └── move/                # Move event processors
+│   ├── schema/                  # Zod schemas for validation
+│   │   ├── common.ts            # Common validation schemas
+│   │   └── evm.ts               # EVM-specific schemas (logs, transfers, NFTs)
+│   ├── utils/                   # Utility helpers
+│   │   ├── index.ts             # Utility exports
+│   │   ├── denom.ts             # Denomination handling utilities
+│   │   └── merge-balances.ts    # Balance merging logic (supports 3-level NFT nesting)
+│   └── tests/                   # Jest unit tests grouped by domain
+│       ├── _shared/             # Shared test utilities and helpers
+│       ├── common/              # Common functionality tests
+│       ├── cosmos/              # Cosmos message decoder tests
+│       ├── evm/                 # EVM-specific tests (bank, IBC, NFT transfers)
+│       ├── ibc/                 # IBC message tests
+│       ├── initia/              # Initia-specific tests (Move, staking, etc.)
+│       ├── op-init/             # OpInit message tests
+│       └── utils/               # Utility function tests
+├── package.json                 # Project metadata and dependencies
+├── README.md                    # Project documentation
+└── ...                          # Config and other files
 ```
 
 See [CONTRIBUTING.md](./CONTRIBUTING.md) for development setup and guidelines.

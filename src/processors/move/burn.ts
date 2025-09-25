@@ -1,6 +1,6 @@
 import { InitiaAddress } from "@initia/utils";
 
-import { DEFAULT_BALANCE_CHANGES } from "@/constants";
+import { createDefaultMoveBalanceChanges } from "@/constants";
 import { MoveEventProcessor } from "@/interfaces";
 import { zMsgMoveNftBurnEvent } from "@/schema";
 
@@ -29,13 +29,14 @@ export const burnEventProcessor: MoveEventProcessor = {
           [InitiaAddress(owner).bech32]: {
             [InitiaAddress(burnEvent.nft).bech32]: "-1"
           }
-        }
+        },
+        vm: "move"
       };
     } catch (error) {
-      console.error(`Failed to process ${burnEventProcessor.type_tag}:`, error);
+      console.error(`Failed to process ${burnEventProcessor.typeTag}:`, error);
     }
 
-    return DEFAULT_BALANCE_CHANGES;
+    return createDefaultMoveBalanceChanges();
   },
-  type_tag: "0x1::collection::BurnEvent"
+  typeTag: "0x1::collection::BurnEvent"
 };

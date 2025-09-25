@@ -109,7 +109,8 @@ describe("IBC Receive FT Message", () => {
         },
         init14dsj37rd5690dla64jl0mznuyhkqejhuyxc6sx: { uinit: "40801114" }
       },
-      object: {}
+      object: {},
+      vm: "move"
     });
 
     expect(decoded.totalBalanceChanges).toEqual({
@@ -132,7 +133,8 @@ describe("IBC Receive FT Message", () => {
         },
         init14dsj37rd5690dla64jl0mznuyhkqejhuyxc6sx: { uinit: "40801114" }
       },
-      object: {}
+      object: {},
+      vm: "move"
     });
   });
 });

@@ -47,7 +47,8 @@ describe("Deposit Minitswap Message", () => {
           uoinit: "967693"
         }
       },
-      object: {}
+      object: {},
+      vm: "move"
     });
 
     expect(decoded.totalBalanceChanges).toEqual({
@@ -60,7 +61,8 @@ describe("Deposit Minitswap Message", () => {
           uoinit: "967693"
         }
       },
-      object: {}
+      object: {},
+      vm: "move"
     });
   });
 });

@@ -1,6 +1,6 @@
 import { InitiaAddress } from "@initia/utils";
 
-import { DEFAULT_BALANCE_CHANGES } from "@/constants";
+import { createDefaultMoveBalanceChanges } from "@/constants";
 import { MoveEventProcessor } from "@/interfaces";
 import { zCreateEvent, zMintNftEvent } from "@/schema";
 
@@ -48,13 +48,14 @@ export const mintEventProcessor: MoveEventProcessor = {
           [InitiaAddress(owner).bech32]: {
             [InitiaAddress(mintEvent.nft).bech32]: "1"
           }
-        }
+        },
+        vm: "move"
       };
     } catch (error) {
-      console.error(`Failed to process ${mintEventProcessor.type_tag}:`, error);
+      console.error(`Failed to process ${mintEventProcessor.typeTag}:`, error);
     }
 
-    return DEFAULT_BALANCE_CHANGES;
+    return createDefaultMoveBalanceChanges();
   },
-  type_tag: "0x1::collection::MintEvent"
+  typeTag: "0x1::collection::MintEvent"
 };

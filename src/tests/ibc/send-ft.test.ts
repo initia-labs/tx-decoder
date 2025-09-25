@@ -56,7 +56,8 @@ describe("IBC Send FT Message", () => {
           uinit: "-200000"
         }
       },
-      object: {}
+      object: {},
+      vm: "move"
     });
     expect(decoded.totalBalanceChanges).toEqual({
       ft: {
@@ -67,7 +68,8 @@ describe("IBC Send FT Message", () => {
           uinit: "-200000"
         }
       },
-      object: {}
+      object: {},
+      vm: "move"
     });
   });
 });

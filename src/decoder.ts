@@ -1,6 +1,9 @@
 import { ApiClient } from "./api";
-import { processLogForBalanceChanges } from "./balance-changes";
-import { DEFAULT_BALANCE_CHANGES } from "./constants";
+import { calculateBalanceChangesFromLog } from "./balance-changes";
+import {
+  createDefaultEvmBalanceChanges,
+  createDefaultMoveBalanceChanges
+} from "./constants";
 import * as Decoders from "./decoders";
 import {
   DecodedTx,
@@ -80,7 +83,7 @@ export class TxDecoder {
       return {
         messages: [],
         metadata: {},
-        totalBalanceChanges: DEFAULT_BALANCE_CHANGES
+        totalBalanceChanges: createDefaultEvmBalanceChanges()
       };
     }
 
@@ -97,7 +100,7 @@ export class TxDecoder {
 
     const totalBalanceChanges = processedMessages.reduce(
       (acc, message) => mergeBalanceChanges(acc, message.balanceChanges),
-      DEFAULT_BALANCE_CHANGES
+      createDefaultEvmBalanceChanges()
     );
 
     const metadata = await resolveMetadata(this.apiClient, totalBalanceChanges);
@@ -119,7 +122,7 @@ export class TxDecoder {
       return {
         messages: [],
         metadata: {},
-        totalBalanceChanges: DEFAULT_BALANCE_CHANGES
+        totalBalanceChanges: createDefaultMoveBalanceChanges()
       };
     }
 
@@ -136,7 +139,7 @@ export class TxDecoder {
 
     const totalBalanceChanges = processedMessages.reduce(
       (acc, message) => mergeBalanceChanges(acc, message.balanceChanges),
-      DEFAULT_BALANCE_CHANGES
+      createDefaultMoveBalanceChanges()
     );
 
     const metadata = await resolveMetadata(this.apiClient, totalBalanceChanges);
@@ -232,8 +235,8 @@ export class TxDecoder {
         txResponse
       );
       const balanceChanges = log
-        ? await processLogForBalanceChanges(log, this.apiClient)
-        : DEFAULT_BALANCE_CHANGES;
+        ? await calculateBalanceChangesFromLog(log, this.apiClient, "evm")
+        : createDefaultEvmBalanceChanges();
 
       return { balanceChanges, decodedMessage };
     });
@@ -253,8 +256,8 @@ export class TxDecoder {
         txResponse
       );
       const balanceChanges = log
-        ? await processLogForBalanceChanges(log, this.apiClient)
-        : DEFAULT_BALANCE_CHANGES;
+        ? await calculateBalanceChangesFromLog(log, this.apiClient, "move")
+        : createDefaultMoveBalanceChanges();
 
       return { balanceChanges, decodedMessage };
     });

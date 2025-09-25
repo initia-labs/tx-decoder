@@ -15,7 +15,7 @@ const moveEventProcessors: MoveEventProcessor[] = [
 ];
 
 export const moveProcessorRegistry = new Map<string, MoveEventProcessor>(
-  moveEventProcessors.map((p) => [p.type_tag, p])
+  moveEventProcessors.map((p) => [p.typeTag, p])
 );
 
 export {

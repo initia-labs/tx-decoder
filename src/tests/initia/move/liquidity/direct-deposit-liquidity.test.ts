@@ -58,7 +58,8 @@ describe("Direct Deposit Liquidity Message", () => {
           uinit: "11000"
         }
       },
-      object: {}
+      object: {},
+      vm: "move"
     });
 
     expect(decoded.totalBalanceChanges).toEqual({
@@ -76,7 +77,8 @@ describe("Direct Deposit Liquidity Message", () => {
           uinit: "11000"
         }
       },
-      object: {}
+      object: {},
+      vm: "move"
     });
   });
 });

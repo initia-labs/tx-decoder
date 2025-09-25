@@ -36,7 +36,8 @@ describe("Bank Messages", () => {
                 init1kw2unuhgfa6mz6r0ehrzlr9k9ftjk7pql8u5fm: { uinit: "-100" },
                 init1nyky4mrxx69l4zpqtdldkk9rlf9grlnn77djlh: { uinit: "100" }
               },
-              object: {}
+              object: {},
+              vm: "move"
             },
             decodedMessage: {
               action: "send",
@@ -55,7 +56,8 @@ describe("Bank Messages", () => {
             init1kw2unuhgfa6mz6r0ehrzlr9k9ftjk7pql8u5fm: { uinit: "-100" },
             init1nyky4mrxx69l4zpqtdldkk9rlf9grlnn77djlh: { uinit: "100" }
           },
-          object: {}
+          object: {},
+          vm: "move"
         },
         mockApiResponses: mockApiResponsesForSingleCoin,
         mockData: mockMsgSendWithSingleCoin
@@ -77,7 +79,8 @@ describe("Bank Messages", () => {
                   uusdc: "1024"
                 }
               },
-              object: {}
+              object: {},
+              vm: "move"
             },
             decodedMessage: {
               action: "send",
@@ -108,7 +111,8 @@ describe("Bank Messages", () => {
               uusdc: "1024"
             }
           },
-          object: {}
+          object: {},
+          vm: "move"
         },
         mockApiResponses: mockApiResponsesForMultipleCoins,
         mockData: mockMsgSendWithMultipleCoins
@@ -145,7 +149,8 @@ describe("Bank Messages", () => {
             init1h8lpl5qcs5k5nngxvdum5v20jnww2lckg3n2ta: { uinit: "-1000000" },
             init1926svvgllca2lzr3lp98h29xshsztka6vua3wf: { uinit: "1000000" }
           },
-          object: {}
+          object: {},
+          vm: "move"
         },
         decodedMessage: {
           action: "send",
@@ -174,7 +179,8 @@ describe("Bank Messages", () => {
             uinit: "4000000"
           }
         },
-        object: {}
+        object: {},
+        vm: "move"
       });
     });
 
@@ -203,7 +209,8 @@ describe("Bank Messages", () => {
           },
           init1xt4ggu8tqvzj5mt0xlftdnuq6cw8ax8lp593zf: { uinit: "34365658000" }
         },
-        object: {}
+        object: {},
+        vm: "move"
       });
       expect(decoded.totalBalanceChanges).toEqual({
         ft: {
@@ -212,7 +219,8 @@ describe("Bank Messages", () => {
           },
           init1xt4ggu8tqvzj5mt0xlftdnuq6cw8ax8lp593zf: { uinit: "34365658000" }
         },
-        object: {}
+        object: {},
+        vm: "move"
       });
     });
   });

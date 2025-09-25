@@ -1,5 +1,6 @@
 export * from "./common";
 export * from "./events";
+export * from "./evm";
 export * from "./messages";
 export * from "./packet";
 export * from "./registry";

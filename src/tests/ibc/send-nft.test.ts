@@ -67,7 +67,8 @@ describe("IBC Send NFT Message", () => {
         init1j0kfut4t788gs9e6l4aqyh7s3pgwtwegnqn6qr: {
           init1v2xnnl08y508ec6q4q4hxqr2avdeyu3cew5rxghwnn5t3y4jhd2smmah7n: "1"
         }
-      }
+      },
+      vm: "move"
     });
 
     expect(decoded.totalBalanceChanges).toEqual({
@@ -79,7 +80,8 @@ describe("IBC Send NFT Message", () => {
         init1j0kfut4t788gs9e6l4aqyh7s3pgwtwegnqn6qr: {
           init1v2xnnl08y508ec6q4q4hxqr2avdeyu3cew5rxghwnn5t3y4jhd2smmah7n: "1"
         }
-      }
+      },
+      vm: "move"
     });
 
     expect(decoded.metadata).toEqual({

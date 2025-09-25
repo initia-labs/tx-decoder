@@ -72,7 +72,8 @@ describe("Staking Messages - Undelegate", () => {
         },
         init15elwv4zlwas7zz8mw7lhlcfc3j64uea0dzkew0: { uinit: "776583" }
       },
-      object: {}
+      object: {},
+      vm: "move"
     });
 
     expect(totalBalanceChanges).toEqual({
@@ -88,7 +89,8 @@ describe("Staking Messages - Undelegate", () => {
         },
         init15elwv4zlwas7zz8mw7lhlcfc3j64uea0dzkew0: { uinit: "776583" }
       },
-      object: {}
+      object: {},
+      vm: "move"
     });
   });
 
@@ -148,7 +150,8 @@ describe("Staking Messages - Undelegate", () => {
         },
         init1xqrvfuga56m4alc7lz0rhnkwy5z8d5pefg8vz9: { uinit: "10169" }
       },
-      object: {}
+      object: {},
+      vm: "move"
     });
 
     expect(totalBalanceChanges).toEqual({
@@ -167,7 +170,8 @@ describe("Staking Messages - Undelegate", () => {
         },
         init1xqrvfuga56m4alc7lz0rhnkwy5z8d5pefg8vz9: { uinit: "10169" }
       },
-      object: {}
+      object: {},
+      vm: "move"
     });
   });
 });
