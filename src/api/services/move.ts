@@ -114,7 +114,7 @@ export class MoveClient extends BaseClient {
         args,
         function_name: functionName,
         module_name: moduleName,
-        typeArgs
+        type_args: typeArgs
       },
       url
     });
@@ -134,7 +134,7 @@ export class MoveClient extends BaseClient {
           args,
           function_name: functionName,
           module_name: moduleName,
-          typeArgs
+          type_args: typeArgs
         },
         {
           timeout: this.timeoutMs
