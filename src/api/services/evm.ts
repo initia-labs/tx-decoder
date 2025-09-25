@@ -10,6 +10,9 @@ import {
 import { ERC20_WRAPPER_ABI, ERC_INTERFACE_IDS } from "@/api/constants";
 
 export class EvmService {
+  private static readonly DEFAULT_DECIMALS = 6;
+  private static readonly DEFAULT_TIMEOUT_MS = 10000;
+
   private get jsonRpcUrl(): string {
     if (!this._jsonRpcUrl) {
       throw new Error(
@@ -20,22 +23,31 @@ export class EvmService {
     return this._jsonRpcUrl;
   }
 
-  constructor(private readonly _jsonRpcUrl?: string) {}
+  constructor(
+    private readonly _jsonRpcUrl?: string,
+    private readonly timeoutMs: number = EvmService.DEFAULT_TIMEOUT_MS
+  ) {}
 
   public async ethCall(to: string, data: Hex): Promise<Hex> {
     try {
-      const response = await axios.post(this.jsonRpcUrl, {
-        id: 1,
-        jsonrpc: "2.0",
-        method: "eth_call",
-        params: [
-          {
-            data,
-            to
-          },
-          "latest"
-        ]
-      });
+      const response = await axios.post(
+        this.jsonRpcUrl,
+        {
+          id: 1,
+          jsonrpc: "2.0",
+          method: "eth_call",
+          params: [
+            {
+              data,
+              to
+            },
+            "latest"
+          ]
+        },
+        {
+          timeout: this.timeoutMs
+        }
+      );
 
       if (response.data.error) {
         throw new Error(response.data.error.message);
@@ -55,13 +67,12 @@ export class EvmService {
 
   public async getEvmTokenAddress(
     erc20WrapperAddress: string,
-    remoteTokenAddress: string,
-    decimals: number = 6
+    remoteTokenAddress: string
   ): Promise<Address> {
     const remoteToken = getAddress(remoteTokenAddress);
     const encodedData: Hex = encodeFunctionData({
       abi: ERC20_WRAPPER_ABI,
-      args: [remoteToken, decimals],
+      args: [remoteToken, EvmService.DEFAULT_DECIMALS],
       functionName: "localTokens"
     });
 

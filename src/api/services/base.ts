@@ -4,9 +4,12 @@ import { z } from "zod";
 import { CacheService } from "./cache";
 
 export class BaseClient {
+  protected static readonly DEFAULT_TIMEOUT_MS = 10000;
+
   constructor(
     protected readonly restUrl: string,
-    protected readonly cacheService: CacheService
+    protected readonly cacheService: CacheService,
+    protected readonly timeoutMs: number = BaseClient.DEFAULT_TIMEOUT_MS
   ) {}
 
   protected async fetchWithCache<T>(
@@ -23,7 +26,9 @@ export class BaseClient {
     }
 
     try {
-      const response = await axios.get(url);
+      const response = await axios.get(url, {
+        timeout: this.timeoutMs
+      });
       const parsed = parser.parse(response.data);
       this.cacheService.set(url, parsed);
       return parsed;

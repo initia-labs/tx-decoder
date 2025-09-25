@@ -34,11 +34,27 @@ export class ApiClient {
   constructor(config: DecoderConfig) {
     this._jsonRpcUrl = config.jsonRpcUrl;
     this.cacheService = new CacheService();
-    this.cosmosClient = new CosmosClient(config.restUrl, this.cacheService);
-    this.evmService = new EvmService(config.jsonRpcUrl);
-    this.minievmClient = new MinievmClient(config.restUrl, this.cacheService);
-    this.moveClient = new MoveClient(config.restUrl, this.cacheService);
-    this.mstakingClient = new MstakingClient(config.restUrl, this.cacheService);
+    this.cosmosClient = new CosmosClient(
+      config.restUrl,
+      this.cacheService,
+      config.timeoutMs
+    );
+    this.evmService = new EvmService(config.jsonRpcUrl, config.timeoutMs);
+    this.minievmClient = new MinievmClient(
+      config.restUrl,
+      this.cacheService,
+      config.timeoutMs
+    );
+    this.moveClient = new MoveClient(
+      config.restUrl,
+      this.cacheService,
+      config.timeoutMs
+    );
+    this.mstakingClient = new MstakingClient(
+      config.restUrl,
+      this.cacheService,
+      config.timeoutMs
+    );
     this.registryService = new RegistryService(
       config.registryUrl,
       this.cacheService

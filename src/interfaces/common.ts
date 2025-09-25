@@ -17,4 +17,5 @@ export interface DecoderConfig {
   jsonRpcUrl?: string;
   registryUrl: string;
   restUrl: string;
+  timeoutMs?: number;
 }

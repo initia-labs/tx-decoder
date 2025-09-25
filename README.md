@@ -83,6 +83,7 @@ new TxDecoder(config: DecoderConfig)
   - `registryUrl: string` - Registry URL to retrieve chain registries
   - `restUrl: string` - REST endpoint of the Initia chain to query on-chain data
   - `jsonRpcUrl?: string` - JSON-RPC endpoint for EVM L2 chains
+  - `timeoutMs?: number` - HTTP request timeout in milliseconds (default: 10000)
 
 #### Methods
 

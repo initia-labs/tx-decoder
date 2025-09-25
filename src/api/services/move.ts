@@ -125,13 +125,19 @@ export class MoveClient extends BaseClient {
     }
 
     try {
-      const response = await axios.post(url, {
-        address,
-        args,
-        function_name: functionName,
-        module_name: moduleName,
-        typeArgs
-      });
+      const response = await axios.post(
+        url,
+        {
+          address,
+          args,
+          function_name: functionName,
+          module_name: moduleName,
+          typeArgs
+        },
+        {
+          timeout: MoveClient.DEFAULT_TIMEOUT_MS
+        }
+      );
 
       const result = schema.zMoveViewResponse.parse(response.data);
       this.cacheService.set(cacheKey, result);
