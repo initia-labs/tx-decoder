@@ -1,12 +1,4 @@
 /**
- * ERC-165 Function Selectors
- */
-export const ERC165_SELECTORS = {
-  /** bytes4(keccak256("supportsInterface(bytes4)")) */
-  SUPPORTS_INTERFACE: "0x01ffc9a7"
-} as const;
-
-/**
  * ERC Interface Identifiers
  */
 export const ERC_INTERFACE_IDS = {
