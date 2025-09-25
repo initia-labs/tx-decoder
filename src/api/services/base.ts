@@ -7,33 +7,34 @@ export class BaseClient {
   protected static readonly DEFAULT_TIMEOUT_MS = 10000;
 
   constructor(
-    protected readonly restUrl: string,
+    protected readonly baseUrl: string,
     protected readonly cacheService: CacheService,
     protected readonly timeoutMs: number = BaseClient.DEFAULT_TIMEOUT_MS
   ) {}
 
   protected async fetchWithCache<T>(
-    url: string,
+    path: string,
     parser: z.ZodType<T>
   ): Promise<T> {
-    const cached = this.cacheService.get<T>(url);
+    const fullUrl = `${this.baseUrl}${path}`;
+    const cached = this.cacheService.get<T>(fullUrl);
     if (cached !== undefined) {
       try {
         return parser.parse(cached);
       } catch {
-        this.cacheService.delete(url);
+        this.cacheService.delete(fullUrl);
       }
     }
 
     try {
-      const response = await axios.get(url, {
+      const response = await axios.get(fullUrl, {
         timeout: this.timeoutMs
       });
       const parsed = parser.parse(response.data);
-      this.cacheService.set(url, parsed);
+      this.cacheService.set(fullUrl, parsed);
       return parsed;
     } catch (error) {
-      console.error(`Failed to fetch or parse data from ${url}:`, error);
+      console.error(`Failed to fetch or parse data from ${fullUrl}:`, error);
       throw error;
     }
   }

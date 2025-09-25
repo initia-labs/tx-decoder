@@ -1,19 +1,20 @@
-import axios from "axios";
-import { z } from "zod";
-
 import * as schema from "@/schema";
 import { Registry } from "@/schema";
 
+import { BaseClient } from "./base";
 import { CacheService } from "./cache";
 
-export class RegistryService {
+export class RegistryService extends BaseClient {
   private registries: Registry[] = [];
   private registriesUpdatePromise: Promise<void> | null = null;
 
   constructor(
-    private readonly registryUrl: string,
-    private readonly cacheService: CacheService
-  ) {}
+    registryUrl: string,
+    cacheService: CacheService,
+    timeoutMs?: number
+  ) {
+    super(registryUrl, cacheService, timeoutMs);
+  }
 
   public async findIbcCounterPartyChainId(
     chainId: string,
@@ -48,30 +49,6 @@ export class RegistryService {
     )?.chain_id;
   }
 
-  private async fetchWithCache<T>(
-    url: string,
-    parser: z.ZodType<T>
-  ): Promise<T> {
-    const cached = this.cacheService.get<T>(url);
-    if (cached !== undefined) {
-      try {
-        return parser.parse(cached);
-      } catch {
-        this.cacheService.delete(url);
-      }
-    }
-
-    try {
-      const response = await axios.get(url);
-      const parsed = parser.parse(response.data);
-      this.cacheService.set(url, parsed);
-      return parsed;
-    } catch (error) {
-      console.error(`Failed to fetch or parse data from ${url}:`, error);
-      throw error;
-    }
-  }
-
   private async updateRegistries() {
     if (this.registriesUpdatePromise) {
       return this.registriesUpdatePromise;
@@ -80,11 +57,11 @@ export class RegistryService {
     this.registriesUpdatePromise = (async () => {
       try {
         this.registries = await this.fetchWithCache(
-          `${this.registryUrl}/chains.json`,
+          "/chains.json",
           schema.zRegistries
         );
       } catch (error) {
-        console.error(`Failed to fetch data from ${this.registryUrl}:`, error);
+        console.error(`Failed to fetch registry data:`, error);
         this.registries = [];
       } finally {
         this.registriesUpdatePromise = null;

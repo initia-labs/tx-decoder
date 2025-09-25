@@ -7,7 +7,11 @@ import {
   Hex
 } from "viem";
 
-import { ERC20_WRAPPER_ABI, ERC_INTERFACE_IDS } from "@/api/constants";
+import {
+  ERC20_WRAPPER_ABI,
+  ERC165_ABI,
+  ERC_INTERFACE_IDS
+} from "@/api/constants";
 
 export class EvmService {
   private static readonly DEFAULT_DECIMALS = 6;
@@ -89,21 +93,21 @@ export class EvmService {
 
   public async isErc721Contract(contractAddress: string): Promise<boolean> {
     try {
-      const erc721InterfaceId = ERC_INTERFACE_IDS.ERC721.slice(2);
-      const data: Hex =
-        `${ERC_INTERFACE_IDS.ERC165}${erc721InterfaceId.padStart(
-          64,
-          "0"
-        )}` as Hex;
+      const data = encodeFunctionData({
+        abi: ERC165_ABI,
+        args: [ERC_INTERFACE_IDS.ERC721],
+        functionName: "supportsInterface"
+      });
 
       const result = await this.ethCall(contractAddress, data);
 
-      const normalized = result.toLowerCase();
-      if (!normalized.startsWith("0x")) {
-        return false;
-      }
+      const supportsErc721 = decodeFunctionResult({
+        abi: ERC165_ABI,
+        data: result,
+        functionName: "supportsInterface"
+      });
 
-      return BigInt(normalized) === 1n;
+      return supportsErc721;
     } catch (error) {
       console.warn(
         `Could not determine if ${contractAddress} is ERC-721. Assuming false.`,

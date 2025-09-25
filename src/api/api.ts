@@ -57,7 +57,8 @@ export class ApiClient {
     );
     this.registryService = new RegistryService(
       config.registryUrl,
-      this.cacheService
+      this.cacheService,
+      config.timeoutMs
     );
   }
 

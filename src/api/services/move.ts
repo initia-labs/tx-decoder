@@ -36,7 +36,7 @@ export class MoveClient extends BaseClient {
   ): Promise<string | null> {
     try {
       const result = await this.fetchWithCache(
-        `${this.restUrl}/initia/move/v1/denom?metadata=${metadataAddr}`,
+        `/initia/move/v1/denom?metadata=${metadataAddr}`,
         zDenomResponse
       );
 
@@ -88,11 +88,14 @@ export class MoveClient extends BaseClient {
     address: string
   ): Promise<AccountResource[] | null> {
     const hexAddress = InitiaAddress(address).hex;
-    const url = `${this.restUrl}/initia/move/v1/accounts/${hexAddress}/resources`;
 
     try {
-      return (await this.fetchWithCache(url, schema.zAccountResources))
-        .resources;
+      return (
+        await this.fetchWithCache(
+          `/initia/move/v1/accounts/${hexAddress}/resources`,
+          schema.zAccountResources
+        )
+      ).resources;
     } catch {
       return null;
     }
@@ -105,7 +108,7 @@ export class MoveClient extends BaseClient {
     args: string[],
     typeArgs: string[]
   ) {
-    const url = `${this.restUrl}/initia/move/v1/view/json`;
+    const url = `${this.baseUrl}/initia/move/v1/view/json`;
     const cacheKey = JSON.stringify({
       payload: {
         address,
@@ -135,7 +138,7 @@ export class MoveClient extends BaseClient {
           typeArgs
         },
         {
-          timeout: MoveClient.DEFAULT_TIMEOUT_MS
+          timeout: this.timeoutMs
         }
       );
 

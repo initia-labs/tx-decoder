@@ -6,7 +6,7 @@ export class CosmosClient extends BaseClient {
   public async getChainId(): Promise<string> {
     try {
       const result = await this.fetchWithCache(
-        `${this.restUrl}/cosmos/base/tendermint/v1beta1/node_info`,
+        `/cosmos/base/tendermint/v1beta1/node_info`,
         schema.zNodeInfo
       );
       return result.default_node_info.network;

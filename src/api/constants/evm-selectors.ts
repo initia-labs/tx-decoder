@@ -12,8 +12,6 @@ export const ERC165_SELECTORS = {
 export const ERC_INTERFACE_IDS = {
   /** ERC-20 interface identifier */
   ERC20: "0x36372b07",
-  /** ERC-165 interface identifier */
-  ERC165: "0x01ffc9a7",
   /** ERC-721 interface identifier */
   ERC721: "0x80ac58cd",
   /** ERC-1155 interface identifier */
