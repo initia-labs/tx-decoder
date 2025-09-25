@@ -87,9 +87,8 @@ export class MoveClient extends BaseClient {
   public async getAccountResources(
     address: string
   ): Promise<AccountResource[] | null> {
-    const hexAddress = InitiaAddress(address).hex;
-
     try {
+      const hexAddress = InitiaAddress(address).hex;
       return (
         await this.fetchWithCache(
           `/initia/move/v1/accounts/${hexAddress}/resources`,
