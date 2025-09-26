@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.7.2](https://github.com/initia-labs/tx-decoder/compare/v0.7.1...v0.7.2) (2025-09-26)
+
+
+### Bug Fixes
+
+* apply evm amount multiplier for ibc in evm ([f2ab6be](https://github.com/initia-labs/tx-decoder/commit/f2ab6bebc189dff2060a551b2a3415185fa1eb0f))
+
 ## [0.7.1](https://github.com/initia-labs/tx-decoder/compare/v0.7.0...v0.7.1) (2025-09-16)
 
 
