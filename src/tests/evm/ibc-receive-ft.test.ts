@@ -37,7 +37,7 @@ describe("EVM Transaction Decoder", () => {
     expect(decoded.messages[1].decodedMessage).toEqual({
       action: "ibc_ft_receive",
       data: {
-        amount: "10",
+        amount: "10000000000000",
         denom: "evm/E1Ff7038eAAAF027031688E1535a055B2Bac2546",
         dstChainId: "yominet-1",
         dstChannel: "channel-0",
