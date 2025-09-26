@@ -73,7 +73,7 @@ export class ApiClient {
     amount: string;
     denom: string;
   }): Promise<{ amount: string; denom: string }> {
-    const convertedAmount = big(amount).mul(EVM_AMOUNT_MULTIPLIER).toFixed();
+    const convertedAmount = big(amount).mul(EVM_AMOUNT_MULTIPLIER).toFixed(0);
     const cacheKey = `evm-denom:${denom}`;
     const cached = this.cacheService.get<string>(cacheKey);
     if (cached)
