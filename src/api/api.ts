@@ -101,7 +101,7 @@ export class ApiClient {
         `Failed to convert denom '${denom}' to EVM denom. Falling back to original denom.`,
         error
       );
-      return { amount: convertedAmount, denom };
+      return { amount, denom };
     }
   }
 
