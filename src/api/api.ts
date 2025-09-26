@@ -2,8 +2,6 @@ import big from "big.js";
 
 import type { CollectionResource, NftResource } from "@/schema";
 
-const EVM_AMOUNT_MULTIPLIER = big(10).pow(12);
-
 import { DecoderConfig } from "@/interfaces";
 import { getEvmDenom } from "@/utils";
 
@@ -14,6 +12,8 @@ import { MinievmClient } from "./services/minievm";
 import { MoveClient } from "./services/move";
 import { MstakingClient } from "./services/mstaking";
 import { RegistryService } from "./services/registry";
+
+const EVM_AMOUNT_MULTIPLIER = big(10).pow(12);
 
 export class ApiClient {
   public get jsonRpcUrl(): string {
