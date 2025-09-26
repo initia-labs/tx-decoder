@@ -1,4 +1,8 @@
+import big from "big.js";
+
 import type { CollectionResource, NftResource } from "@/schema";
+
+const EVM_AMOUNT_MULTIPLIER = big(10).pow(12);
 
 import { DecoderConfig } from "@/interfaces";
 import { getEvmDenom } from "@/utils";
@@ -62,10 +66,21 @@ export class ApiClient {
     );
   }
 
-  public async convertToEvmDenom(denom: string): Promise<string> {
+  public async convertToEvmAmount({
+    amount,
+    denom
+  }: {
+    amount: string;
+    denom: string;
+  }): Promise<{ amount: string; denom: string }> {
+    const convertedAmount = big(amount).mul(EVM_AMOUNT_MULTIPLIER).toFixed();
     const cacheKey = `evm-denom:${denom}`;
     const cached = this.cacheService.get<string>(cacheKey);
-    if (cached) return cached;
+    if (cached)
+      return {
+        amount: convertedAmount,
+        denom: cached
+      };
 
     try {
       const [remoteTokenAddress, erc20WrapperAddress] = await Promise.all([
@@ -80,13 +95,13 @@ export class ApiClient {
 
       const evmDenom = getEvmDenom(evmTokenAddress);
       this.cacheService.set(cacheKey, evmDenom);
-      return evmDenom;
+      return { amount: convertedAmount, denom: evmDenom };
     } catch (error) {
       console.error(
         `Failed to convert denom '${denom}' to EVM denom. Falling back to original denom.`,
         error
       );
-      return denom;
+      return { amount: convertedAmount, denom };
     }
   }
 
