@@ -17,6 +17,7 @@ export const SUPPORTED_MESSAGE_TYPES = {
   // opinit messages
   MsgInitiateTokenDeposit: "/opinit.ophost.v1.MsgInitiateTokenDeposit",
   MsgFinalizeTokenWithdrawal: "/opinit.ophost.v1.MsgFinalizeTokenWithdrawal",
+  MsgFinalizeTokenDeposit: "/opinit.opchild.v1.MsgFinalizeTokenDeposit",
 
   // ibc messages
   MsgIbcTransfer: "/ibc.applications.transfer.v1.MsgTransfer",
