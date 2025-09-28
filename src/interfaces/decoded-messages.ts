@@ -20,6 +20,7 @@ export type DecodedMessage =
   | DecodedIbcNftReceiveMessage
   | DecodedIbcNftSendMessage
   | DecodedInitiateTokenDepositMessage
+  | DecodedInitiateTokenWithdrawalMessage
   | DecodedMergeLiquidityMessage
   | DecodedNftBurnMessage
   | DecodedNftMintMessage
@@ -156,6 +157,18 @@ interface DecodedInitiateTokenDepositMessage extends DecodedMessageBase {
     denom: string;
     dstChainId: string;
     from: string;
+    to: string;
+  };
+}
+
+interface DecodedInitiateTokenWithdrawalMessage extends DecodedMessageBase {
+  action: "op_initiate_withdraw";
+  data: {
+    amount: string;
+    baseDenom: string;
+    denom: string;
+    from: string;
+    l2Sequence: string;
     to: string;
   };
 }
