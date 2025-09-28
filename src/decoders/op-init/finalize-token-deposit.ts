@@ -51,10 +51,10 @@ export const finalizeTokenDepositDecoder: MessageDecoder = {
         from,
         height,
         l1Sequence,
-        reason,
         sequence,
         success: success === "true",
-        to
+        to,
+        ...(reason !== undefined ? { reason } : {})
       },
       isIbc: false,
       isOp: true
