@@ -19,6 +19,7 @@ import { createNotSupportedMessage } from "./utils";
 const evmMessageDecoders: MessageDecoder[] = [
   Decoders.sendDecoder,
   Decoders.finalizeTokenDepositDecoder,
+  Decoders.initiateTokenWithdrawalDecoder,
   Decoders.ibcSendFtDecoder,
   Decoders.ibcReceiveFtDecoder,
   Decoders.ibcSendNftDecoder,
@@ -43,6 +44,7 @@ const moveMessageDecoders: MessageDecoder[] = [
   Decoders.ibcSendFtDecoder,
   Decoders.ibcReceiveFtDecoder,
   Decoders.initiateTokenDepositDecoder,
+  Decoders.initiateTokenWithdrawalDecoder,
   Decoders.nftBurnDecoder,
   Decoders.nftMintDecoder,
   Decoders.objectTransferDecoder,
