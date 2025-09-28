@@ -326,6 +326,8 @@ The decoder returns a structured object with the following format:
 
 - `/opinit.ophost.v1.MsgInitiateTokenDeposit`
 - `/opinit.ophost.v1.MsgFinalizeTokenWithdrawal`
+- `/opinit.opchild.v1.MsgFinalizeTokenDeposit`
+- `/opinit.opchild.v1.MsgInitiateTokenWithdrawal`
 
 ### IBC Messages
 
