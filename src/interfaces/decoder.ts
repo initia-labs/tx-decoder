@@ -2,7 +2,7 @@ import type { Log, Message, TxResponse } from "@/schema";
 
 import { ApiClient } from "@/api";
 
-import { DecodedMessage } from "./decoded-messages";
+import { DecodedMessage } from "./cosmos";
 
 export type MessageDecoder<M = Message, L = Log> = {
   check: (message: M, log: L) => boolean;

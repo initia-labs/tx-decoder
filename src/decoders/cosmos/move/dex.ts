@@ -1,7 +1,7 @@
 import { ApiClient } from "@/api";
 import { DecodedMessage, MessageDecoder } from "@/interfaces";
 import { Log, Message, TxResponse, zMsgMoveDexSwap } from "@/schema";
-import { zSwapEvent } from "@/schema/events";
+import { zSwapEvent } from "@/schema";
 import { findMoveEvent } from "@/utils";
 
 export const dexSwapDecoder: MessageDecoder = {

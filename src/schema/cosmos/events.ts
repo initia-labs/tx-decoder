@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { zJsonString } from "./common";
+import { zJsonString } from "../common";
 
 export const zSwapEvent = zJsonString.pipe(
   z.object({
