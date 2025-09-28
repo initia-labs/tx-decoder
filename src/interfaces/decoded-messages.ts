@@ -13,6 +13,7 @@ export type DecodedMessage =
   | DecodedDepositStakeLiquidityMessage
   | DecodedDepositStakeLockLiquidityMessage
   | DecodedExtendLiquidityMessage
+  | DecodedFinalizeTokenDepositMessage
   | DecodedFinalizeTokenWithdrawalMessage
   | DecodedIbcFtReceiveMessage
   | DecodedIbcFtSendMessage
@@ -167,6 +168,22 @@ interface DecodedFinalizeTokenWithdrawalMessage extends DecodedMessageBase {
     denom: string;
     from: string;
     srcChainId: string;
+    to: string;
+  };
+}
+
+interface DecodedFinalizeTokenDepositMessage extends DecodedMessageBase {
+  action: "op_finalize_deposit";
+  data: {
+    amount: string;
+    baseDenom: string;
+    denom: string;
+    from: string;
+    height: string;
+    l1Sequence: string;
+    reason?: string;
+    sequence: string;
+    success: boolean;
     to: string;
   };
 }

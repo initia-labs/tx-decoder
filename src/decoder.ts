@@ -18,6 +18,7 @@ import { createNotSupportedMessage } from "./utils";
 
 const evmMessageDecoders: MessageDecoder[] = [
   Decoders.sendDecoder,
+  Decoders.finalizeTokenDepositDecoder,
   Decoders.ibcSendFtDecoder,
   Decoders.ibcReceiveFtDecoder,
   Decoders.ibcSendNftDecoder,

@@ -69,6 +69,18 @@ export const zMsgFinalizeTokenWithdrawal = z.object({
   withdrawal_proofs: z.array(z.string())
 });
 
+export const zMsgFinalizeTokenDeposit = z.object({
+  "@type": z.literal(SUPPORTED_MESSAGE_TYPES.MsgFinalizeTokenDeposit),
+  amount: zCoin,
+  base_denom: z.string(),
+  data: z.string(),
+  from: z.string(),
+  height: z.string(),
+  sender: z.string(),
+  sequence: z.string(),
+  to: z.string()
+});
+
 export const zMsgWithdrawDelegatorReward = z.object({
   "@type": z.literal(SUPPORTED_MESSAGE_TYPES.MsgWithdrawDelegatorReward),
   delegator_address: z.string(),
