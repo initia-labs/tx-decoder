@@ -1,5 +1,5 @@
 import { BalanceChanges } from "./balance-changes";
-import { DecodedMessage } from "./decoded-messages";
+import { DecodedMessage } from "./cosmos";
 import { Metadata } from "./metadata";
 
 export interface DecodedTx {

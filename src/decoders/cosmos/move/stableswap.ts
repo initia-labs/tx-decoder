@@ -10,7 +10,7 @@ import {
   zStableswapProvideEvent,
   zStableswapWithdrawEvent
 } from "@/schema";
-import { zSwapEvent } from "@/schema/events";
+import { zSwapEvent } from "@/schema";
 import { findMoveEvent } from "@/utils";
 
 export const provideStableswapDecoder: MessageDecoder = {

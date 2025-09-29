@@ -16,7 +16,7 @@ import {
   zMinitswapWithdrawUnbondEvent,
   zMintEvent,
   zWithdrawEvent
-} from "@/schema/events";
+} from "@/schema";
 import { findMoveEvent } from "@/utils";
 
 export const claimMinitswapDecoder: MessageDecoder = {

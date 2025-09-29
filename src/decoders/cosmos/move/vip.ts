@@ -13,7 +13,7 @@ import {
   zMsgVipLockStake,
   zVoteEvent
 } from "@/schema";
-import { zDepositEvent, zUserVestingCreateEvent } from "@/schema/events";
+import { zDepositEvent, zUserVestingCreateEvent } from "@/schema";
 import { findMoveEvent } from "@/utils";
 
 const DIVISOR = 1_000_000;
