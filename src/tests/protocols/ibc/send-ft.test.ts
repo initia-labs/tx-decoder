@@ -21,7 +21,7 @@ describe("IBC Send FT Message", () => {
   it("should decode IBC transfer message", async () => {
     setupMockApi(mockedAxios, mockApiResponsesForMsgIbcSend);
 
-    const decoded = await decoder.decodeTransaction(mockMsgIbcSendFt);
+    const decoded = await decoder.decodeCosmosTransaction(mockMsgIbcSendFt);
 
     expect(decoded.messages).toHaveLength(1);
     expect(decoded.messages[0].decodedMessage).toEqual({

@@ -23,7 +23,7 @@ describe("VIP Lock Stake Message", () => {
     setupMockApi(mockedAxios, mockApiResponsesForVipLockStake);
 
     const { messages, totalBalanceChanges } =
-      await decoder.decodeTransaction(mockMsgVipLockStake);
+      await decoder.decodeCosmosTransaction(mockMsgVipLockStake);
 
     expect(messages).toHaveLength(2);
     expect(messages[0].balanceChanges).toEqual({

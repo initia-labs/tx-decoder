@@ -10,5 +10,3 @@ export {
   MstakingClient,
   RegistryService
 } from "./services";
-
-export * from "./constants";

@@ -20,7 +20,9 @@ describe("Withdraw Minitswap Message", () => {
 
   it("should decode a withdraw minitswap message correctly", async () => {
     setupMockApi(mockedAxios, mockApiResponsesForWithdrawMinitswap);
-    const decoded = await decoder.decodeTransaction(mockMsgWithdrawMinitswap);
+    const decoded = await decoder.decodeCosmosTransaction(
+      mockMsgWithdrawMinitswap
+    );
 
     expect(decoded.messages).toHaveLength(1);
     expect(decoded.messages[0].decodedMessage).toEqual({

@@ -22,7 +22,7 @@ describe("VIP Gauge Vote Message", () => {
 
   it("should decode a VIP gauge vote message correctly", async () => {
     setupMockApi(mockedAxios, mockApiResponsesForVipGaugeVote);
-    const decoded = await decoder.decodeTransaction(mockMsgVipGaugeVote);
+    const decoded = await decoder.decodeCosmosTransaction(mockMsgVipGaugeVote);
 
     expect(decoded.messages).toHaveLength(1);
     expect(decoded.messages[0].decodedMessage).toEqual({
@@ -67,7 +67,7 @@ describe("VIP Gauge Vote Message", () => {
       mockedAxios,
       mockApiResponsesForVipGaugeVoteWithMaxVotingPower
     );
-    const decoded = await decoder.decodeTransaction(
+    const decoded = await decoder.decodeCosmosTransaction(
       mockMsgVipGaugeVoteWithMaxVotingPower
     );
 

@@ -21,7 +21,7 @@ describe("Stableswap Swap Message", () => {
   it("should decode a stable swap move message correctly", async () => {
     setupMockApi(mockedAxios, mockApiResponsesForStableSwap);
 
-    const decoded = await decoder.decodeTransaction(mockMsgStableSwap);
+    const decoded = await decoder.decodeCosmosTransaction(mockMsgStableSwap);
 
     expect(decoded.messages).toHaveLength(1);
     expect(decoded.messages[0].decodedMessage).toEqual({

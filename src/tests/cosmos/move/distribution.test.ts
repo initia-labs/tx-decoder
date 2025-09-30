@@ -25,9 +25,8 @@ describe("Distribution Messages", () => {
     it("should decode a withdraw delegator reward message correctly", async () => {
       setupMockApi(mockedAxios, mockApiResponsesForWithdrawDelegatorReward);
 
-      const { messages, totalBalanceChanges } = await decoder.decodeTransaction(
-        mockMsgWithdrawDelegatorReward
-      );
+      const { messages, totalBalanceChanges } =
+        await decoder.decodeCosmosTransaction(mockMsgWithdrawDelegatorReward);
 
       const { balanceChanges, decodedMessage } = messages[0];
 
@@ -84,9 +83,10 @@ describe("Distribution Messages", () => {
         mockApiResponsesForWithdrawDelegatorRewardLocked
       );
 
-      const { messages, totalBalanceChanges } = await decoder.decodeTransaction(
-        mockMsgWithdrawDelegatorRewardLocked
-      );
+      const { messages, totalBalanceChanges } =
+        await decoder.decodeCosmosTransaction(
+          mockMsgWithdrawDelegatorRewardLocked
+        );
 
       const { balanceChanges, decodedMessage } = messages[0];
 

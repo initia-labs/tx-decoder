@@ -21,7 +21,9 @@ describe("Deposit Minitswap Message", () => {
   it("should decode a deposit minitswap message correctly", async () => {
     setupMockApi(mockedAxios, mockApiResponsesForDepositMinitswap);
 
-    const decoded = await decoder.decodeTransaction(mockMsgDepositMinitswap);
+    const decoded = await decoder.decodeCosmosTransaction(
+      mockMsgDepositMinitswap
+    );
 
     expect(decoded.messages).toHaveLength(1);
     expect(decoded.messages[0].decodedMessage).toEqual({

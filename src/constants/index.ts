@@ -21,3 +21,6 @@ export const DEX_UTILS_MODULE_ADDRESS =
 
 export const INITIA_VAULT_MODULE_ADDRESS =
   "0x3a886b32a802582f2e446e74d4a24d1d7ed01adf46d2a8f65c5723887e708789"; // mainnet
+
+// EVM ABI constants and selectors
+export * from "./evm-abis";

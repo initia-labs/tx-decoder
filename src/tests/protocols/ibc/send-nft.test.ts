@@ -20,7 +20,7 @@ describe("IBC Send NFT Message", () => {
   });
 
   it("should decode an IBC NFT send message correctly", async () => {
-    const decoded = await decoder.decodeTransaction(mockMsgIbcSendNft);
+    const decoded = await decoder.decodeCosmosTransaction(mockMsgIbcSendNft);
 
     expect(decoded.messages).toHaveLength(1);
     expect(decoded.messages[0].decodedMessage).toEqual({
@@ -104,7 +104,7 @@ describe("IBC Send NFT Message", () => {
   });
 
   it("should handle the correct message type", async () => {
-    const decoded = await decoder.decodeTransaction(mockMsgIbcSendNft);
+    const decoded = await decoder.decodeCosmosTransaction(mockMsgIbcSendNft);
 
     expect(decoded.messages[0].decodedMessage.action).toBe("ibc_nft_send");
     expect(decoded.messages[0].decodedMessage.isIbc).toBe(true);
@@ -112,7 +112,7 @@ describe("IBC Send NFT Message", () => {
   });
 
   it("should extract correct NFT metadata from packet data", async () => {
-    const decoded = await decoder.decodeTransaction(mockMsgIbcSendNft);
+    const decoded = await decoder.decodeCosmosTransaction(mockMsgIbcSendNft);
     const decodedMessage = decoded.messages[0].decodedMessage;
 
     // Type guard to ensure we have the correct message type
@@ -132,7 +132,7 @@ describe("IBC Send NFT Message", () => {
   });
 
   it("should include correct IBC channel information", async () => {
-    const decoded = await decoder.decodeTransaction(mockMsgIbcSendNft);
+    const decoded = await decoder.decodeCosmosTransaction(mockMsgIbcSendNft);
     const decodedMessage = decoded.messages[0].decodedMessage;
 
     // Type guard to ensure we have the correct message type
@@ -148,7 +148,7 @@ describe("IBC Send NFT Message", () => {
   });
 
   it("should include correct sender and receiver addresses", async () => {
-    const decoded = await decoder.decodeTransaction(mockMsgIbcSendNft);
+    const decoded = await decoder.decodeCosmosTransaction(mockMsgIbcSendNft);
     const decodedMessage = decoded.messages[0].decodedMessage;
 
     // Type guard to ensure we have the correct message type

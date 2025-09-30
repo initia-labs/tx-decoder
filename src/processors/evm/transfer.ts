@@ -1,15 +1,14 @@
 import { produce } from "immer";
 import { decodeEventLog } from "viem";
 
-import { ERC20_TRANSFER_ABI, EVENT_SIGNATURES } from "@/api/constants";
-import { ERC721_TRANSFER_ABI } from "@/api/constants/evm-abis";
+import {
+  ERC20_TRANSFER_EVENT_ABI,
+  ERC721_TRANSFER_EVENT_ABI,
+  EVENT_SIGNATURES
+} from "@/constants";
 import { createDefaultEvmBalanceChanges } from "@/constants";
 import { EvmBalanceChanges, EvmEventProcessor } from "@/interfaces";
-import {
-  zEvmLog,
-  zEvmNftTransferEventLog,
-  zEvmTransferEventLog
-} from "@/schema";
+import { zEvmNftTransferEventLog, zEvmTransferEventLog } from "@/schema";
 import { getEvmDenom } from "@/utils";
 
 function processNftTransfer(
@@ -59,14 +58,9 @@ function processTokenTransfer(
 
 export const evmTransferEventProcessor: EvmEventProcessor = {
   eventSignatureHash: EVENT_SIGNATURES.TRANSFER,
-  async process(eventAttribute, apiClient) {
+  async process(evmLog, apiClient) {
     try {
-      if (eventAttribute.key !== "log") {
-        throw new Error("EVM log attribute not found");
-      }
-
-      const parsedLog = zEvmLog.parse(eventAttribute.value);
-      const contractAddress = parsedLog.address;
+      const contractAddress = evmLog.address;
 
       const isNft = await apiClient.isErc721Contract(contractAddress);
 
@@ -74,16 +68,16 @@ export const evmTransferEventProcessor: EvmEventProcessor = {
         try {
           if (isNft) {
             const decoded = decodeEventLog({
-              abi: ERC721_TRANSFER_ABI,
-              data: parsedLog.data,
-              topics: parsedLog.topics
+              abi: ERC721_TRANSFER_EVENT_ABI,
+              data: evmLog.data,
+              topics: evmLog.topics
             });
             processNftTransfer(draft, contractAddress, decoded.args);
           } else {
             const decoded = decodeEventLog({
-              abi: ERC20_TRANSFER_ABI,
-              data: parsedLog.data,
-              topics: parsedLog.topics
+              abi: ERC20_TRANSFER_EVENT_ABI,
+              data: evmLog.data,
+              topics: evmLog.topics
             });
             processTokenTransfer(draft, contractAddress, decoded.args);
           }

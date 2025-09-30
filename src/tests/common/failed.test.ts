@@ -8,7 +8,7 @@ const decoder = initialize();
 describe("Failed Transaction", () => {
   it("should handle failed transaction correctly", async () => {
     const { messages, metadata, totalBalanceChanges } =
-      await decoder.decodeTransaction(mockMsgFailed);
+      await decoder.decodeCosmosTransaction(mockMsgFailed);
 
     expect(messages).toHaveLength(1);
 

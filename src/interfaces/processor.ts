@@ -1,6 +1,8 @@
+import { z } from "zod";
+
 import { ApiClient } from "@/api";
 import { EvmBalanceChanges, MoveBalanceChanges } from "@/interfaces";
-import { Event, EventAttribute } from "@/schema";
+import { Event, zEvmLog } from "@/schema";
 
 export interface MoveEventProcessor {
   process: (
@@ -15,7 +17,7 @@ export interface MoveEventProcessor {
 export interface EvmEventProcessor {
   eventSignatureHash: string;
   process: (
-    eventAttribute: EventAttribute,
+    evmLog: z.infer<typeof zEvmLog>,
     apiClient: ApiClient
   ) => Promise<EvmBalanceChanges>;
 }

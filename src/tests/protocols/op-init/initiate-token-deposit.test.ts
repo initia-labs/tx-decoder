@@ -22,7 +22,7 @@ describe("Initiate Token Deposit Message", () => {
   it("should decode an initiate token deposit message correctly", async () => {
     setupMockApi(mockedAxios, mockApiResponsesForInitiateTokenDeposit);
 
-    const decoded = await decoder.decodeTransaction(
+    const decoded = await decoder.decodeCosmosTransaction(
       mockMsgInitiateTokenDeposit
     );
 

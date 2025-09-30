@@ -7,11 +7,7 @@ import {
   Hex
 } from "viem";
 
-import {
-  ERC20_WRAPPER_ABI,
-  ERC165_ABI,
-  ERC_INTERFACE_IDS
-} from "@/api/constants";
+import { ERC20_WRAPPER_ABI, ERC165_ABI, ERC_INTERFACE_IDS } from "@/constants";
 
 export class EvmService {
   private static readonly DEFAULT_DECIMALS = 6;

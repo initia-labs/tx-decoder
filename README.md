@@ -54,13 +54,20 @@ const decoder = new TxDecoder({
   restUrl: "https://rest.initia.xyz"
 });
 
-// Decode a transaction for L1 and Move L2
-const decodedTx = await decoder.decodeTransaction(txResponse);
+// Decode a Cosmos transaction for L1 and Move L2
+const decodedTx = await decoder.decodeCosmosTransaction(txResponse);
 console.log(decodedTx);
 
-// Decode a transaction for EVM L2
-const decodedEvmTx = await decoder.decodeEvmTransaction(txResponse);
+// Decode a Cosmos transaction for EVM L2
+const decodedEvmTx = await decoder.decodeCosmosEvmTransaction(txResponse);
 console.log(decodedEvmTx);
+
+// Decode a native Ethereum RPC transaction
+const ethereumTx = await decoder.decodeEthereumTransaction({
+  tx: ethereumTransaction,
+  txReceipt: ethereumTransactionReceipt
+});
+console.log(ethereumTx);
 ```
 
 Each decoded message includes a `balanceChanges` object tagged with `vm: "move"` or `vm: "evm"`. EVM balance deltas are sourced from decoded log events via `viem` rather than Cosmos bank events.
@@ -87,9 +94,9 @@ new TxDecoder(config: DecoderConfig)
 
 #### Methods
 
-##### `decodeTransaction(txResponse: TxResponse): Promise<DecodedTx>`
+##### `decodeCosmosTransaction(txResponse: TxResponse): Promise<DecodedTx>`
 
-Decodes a transaction response into a human-readable format.
+Decodes a Cosmos transaction response for L1 and Move L2 chains into a human-readable format.
 
 **Parameters:**
 
@@ -97,11 +104,11 @@ Decodes a transaction response into a human-readable format.
 
 **Returns:** `Promise<DecodedTx>` - A promise that resolves to a decoded transaction object
 
-##### `decodeEvmTransaction(txResponse: TxResponse): Promise<DecodedTx>`
+##### `decodeCosmosEvmTransaction(txResponse: TxResponse): Promise<DecodedTx>`
 
-Note: Requires providing `jsonRpcUrl` in `TxDecoder` config to resolve EVM denominations.
+Decodes a Cosmos transaction response for EVM L2 chains, processing only general message types (excludes `/initia.move` and `/opinit` prefixes).
 
-Decodes a transaction response, processing only general message types (excludes `/initia.move` and `/opinit` prefixes).
+**Note:** Requires providing `jsonRpcUrl` in `TxDecoder` config to resolve EVM denominations.
 
 **Parameters:**
 
@@ -114,15 +121,86 @@ Decodes a transaction response, processing only general message types (excludes 
 - Cosmos: `/cosmos.bank.v1beta1.MsgSend`
 - IBC: `/ibc.applications.transfer.v1.MsgTransfer`, `/ibc.core.channel.v1.MsgRecvPacket` (only fungible token)
 
+##### `decodeEthereumTransaction(payload: EthereumRpcPayload): Promise<DecodedEthereumTx>`
+
+Decodes a native Ethereum RPC transaction with balance change tracking from transaction receipt logs.
+
+**Parameters:**
+
+- `payload: EthereumRpcPayload` - Object containing:
+  - `tx: EthereumTransaction` - The Ethereum transaction object from `eth_getTransactionByHash`
+  - `txReceipt: EthereumTransactionReceipt` - The transaction receipt from `eth_getTransactionReceipt`
+
+**Returns:** `Promise<DecodedEthereumTx>` - A promise that resolves to a decoded Ethereum transaction object
+
+**Supported Transaction Types:**
+
+- ERC-20 `transfer(address to, uint256 amount)`
+- ERC-20 `transferFrom(address from, address to, uint256 amount)`
+
+**Balance Changes:** Automatically calculated from transaction receipt logs (Transfer events)
+
 ### Type Definitions
 
-#### `DecodedTx`
+#### `DecodedTx` (Cosmos Transactions)
 
 ```typescript
 interface DecodedTx {
   messages: ProcessedMessage[];
   metadata: Metadata;
   totalBalanceChanges: BalanceChanges;
+}
+```
+
+#### `DecodedEthereumTx` (Ethereum RPC Transactions)
+
+```typescript
+interface DecodedEthereumTx {
+  decodedTransaction: DecodedEthereumCall;
+  metadata: Metadata;
+  totalBalanceChanges: EvmBalanceChanges;
+}
+```
+
+#### `DecodedEthereumCall`
+
+```typescript
+type DecodedEthereumCall =
+  | DecodedErc20TransferCall
+  | DecodedErc20TransferFromCall
+  | DecodedNotSupportedCall;
+
+interface DecodedErc20TransferCall {
+  action: "erc20_transfer";
+  data: {
+    amount: string;
+    contract: string;
+    denom: string; // Format: "evm/{checksummedAddress}"
+    from: string;
+    to: string;
+  };
+}
+
+interface DecodedErc20TransferFromCall {
+  action: "erc20_transfer_from";
+  data: {
+    amount: string;
+    contract: string;
+    denom: string; // Format: "evm/{checksummedAddress}"
+    from: string;
+    owner: string;
+    to: string;
+  };
+}
+
+interface DecodedNotSupportedCall {
+  action: "not_supported";
+  data: {
+    from: string;
+    input: string;
+    to: string | null;
+    value: string;
+  };
 }
 ```
 
@@ -371,29 +449,42 @@ tx-decoder/
 ├── src/
 │   ├── api/                     # API client architecture
 │   │   ├── api.ts               # Main API client with service composition
-│   │   ├── services/            # Modular API services
-│   │   │   ├── cache.ts         # Caching service for API responses
-│   │   │   ├── cosmos.ts        # Cosmos chain API interactions
-│   │   │   └── evm.ts           # EVM-specific API calls (contract detection, etc.)
-│   │   └── constants/           # API-related constants
-│   │       ├── index.ts         # Main constants export
-│   │       ├── evm-abis.ts      # EVM contract ABIs (ERC20, ERC721, etc.)
-│   │       └── evm-selectors.ts # EVM interface IDs and event signatures
+│   │   └── services/            # Modular API services
+│   │       ├── base.ts          # Base service with caching
+│   │       ├── cosmos.ts        # Cosmos chain API interactions
+│   │       ├── evm.ts           # EVM-specific API calls (contract detection, etc.)
+│   │       └── move.ts          # Move VM API interactions
 │   ├── balance-changes.ts       # Balance aggregation helpers per VM
-│   ├── constants.ts             # Application constants and configuration
+│   ├── constants/               # Application constants
+│   │   ├── index.ts             # Main constants export
+│   │   ├── evm-abis.ts          # EVM contract ABIs (ERC20, ERC721, etc.)
+│   │   └── evm-selectors.ts     # EVM function selectors and event signatures
 │   ├── decoder.ts               # Main transaction decoding logic
 │   ├── index.ts                 # Entry point for exports
 │   ├── message-types.ts         # Supported message types
 │   ├── metadata-resolver.ts     # Resolves and fetches NFT metadata for token addresses
-│   ├── decoders/                # Message decoders (cosmos, move, op-init, evm, etc.)
+│   ├── decoders/                # Message decoders
+│   │   ├── cosmos/              # Cosmos SDK message decoders
+│   │   ├── ethereum/            # Ethereum RPC transaction decoders
+│   │   │   └── erc20/           # ERC-20 transfer and transferFrom decoders
+│   │   ├── ibc/                 # IBC message decoders
+│   │   ├── move/                # Move message decoders
+│   │   └── op-init/             # OpInit message decoders
 │   ├── interfaces/              # TypeScript interfaces and discriminated unions
+│   │   ├── balance-changes.ts   # Balance change type definitions
+│   │   ├── decoder.ts           # Decoder interface definitions
+│   │   ├── ethereum.ts          # Ethereum transaction type definitions
+│   │   └── processor.ts         # Event processor interfaces
 │   ├── processors/              # Event processors
 │   │   ├── evm/                 # ABI-driven EVM event processors
+│   │   │   ├── index.ts         # EVM processor registry
 │   │   │   └── transfer.ts      # ERC-20/ERC-721 Transfer event processor
 │   │   └── move/                # Move event processors
 │   ├── schema/                  # Zod schemas for validation
 │   │   ├── common.ts            # Common validation schemas
-│   │   └── evm.ts               # EVM-specific schemas (logs, transfers, NFTs)
+│   │   ├── cosmos/              # Cosmos transaction schemas
+│   │   ├── ethereum/            # Ethereum RPC transaction schemas
+│   │   └── evm.ts               # EVM log schemas
 │   ├── utils/                   # Utility helpers
 │   │   ├── index.ts             # Utility exports
 │   │   ├── denom.ts             # Denomination handling utilities
@@ -402,10 +493,9 @@ tx-decoder/
 │       ├── _shared/             # Shared test utilities and helpers
 │       ├── common/              # Common functionality tests
 │       ├── cosmos/              # Cosmos message decoder tests
-│       ├── evm/                 # EVM-specific tests (bank, IBC, NFT transfers)
-│       ├── ibc/                 # IBC message tests
-│       ├── initia/              # Initia-specific tests (Move, staking, etc.)
-│       ├── op-init/             # OpInit message tests
+│       ├── ethereum/            # Ethereum RPC transaction tests
+│       │   └── erc20/           # ERC-20 transfer and transferFrom tests
+│       ├── protocols/           # Protocol-specific tests (IBC, OpInit)
 │       └── utils/               # Utility function tests
 ├── package.json                 # Project metadata and dependencies
 ├── README.md                    # Project documentation

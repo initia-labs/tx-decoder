@@ -19,7 +19,7 @@ describe("NFT Mint Message", () => {
   it("should decode an NFT mint message correctly", async () => {
     setupMockApi(mockedAxios, mockApiResponsesForNftMint);
 
-    const decoded = await decoder.decodeTransaction(mockMsgNftMint);
+    const decoded = await decoder.decodeCosmosTransaction(mockMsgNftMint);
 
     expect(decoded.messages).toHaveLength(1);
     expect(decoded.messages[0].decodedMessage).toEqual({

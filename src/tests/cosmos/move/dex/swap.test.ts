@@ -18,7 +18,7 @@ describe("Dex Swap Message", () => {
   it("should decode a dex swap move message correctly", async () => {
     setupMockApi(mockedAxios, mockApiResponsesForDexSwap);
 
-    const decoded = await decoder.decodeTransaction(mockMsgDexSwap);
+    const decoded = await decoder.decodeCosmosTransaction(mockMsgDexSwap);
 
     expect(decoded.messages).toHaveLength(1);
     expect(decoded.messages[0].decodedMessage).toEqual({

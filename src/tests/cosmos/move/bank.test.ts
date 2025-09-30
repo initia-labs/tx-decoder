@@ -127,7 +127,7 @@ describe("Bank Messages", () => {
       }) => {
         setupMockApi(mockedAxios, mockApiResponses);
 
-        const decoded = await decoder.decodeTransaction(mockData);
+        const decoded = await decoder.decodeCosmosTransaction(mockData);
 
         expect(decoded.messages).toEqual(expectedProcessedMessages);
         expect(decoded.totalBalanceChanges).toEqual(
@@ -139,7 +139,7 @@ describe("Bank Messages", () => {
     it("should decode multiple send messages correctly", async () => {
       setupMockApi(mockedAxios, mockApiResponsesForMultipleMessages);
 
-      const decoded = await decoder.decodeTransaction(
+      const decoded = await decoder.decodeCosmosTransaction(
         mockMsgSendWithMultipleMessages
       );
 
@@ -187,7 +187,7 @@ describe("Bank Messages", () => {
     it("should decode a send message with owner event correctly", async () => {
       setupMockApi(mockedAxios, mockApiResponsesForOwnerEvent);
 
-      const decoded = await decoder.decodeTransaction(
+      const decoded = await decoder.decodeCosmosTransaction(
         mockMsgSendWithOwnerEvent
       );
 

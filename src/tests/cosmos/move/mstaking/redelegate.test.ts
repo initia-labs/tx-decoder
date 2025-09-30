@@ -25,7 +25,7 @@ describe("Staking Messages - Redelegate", () => {
     setupMockApi(mockedAxios, mockApiResponsesForRedelegate);
 
     const { messages, totalBalanceChanges } =
-      await decoder.decodeTransaction(mockMsgRedelegate);
+      await decoder.decodeCosmosTransaction(mockMsgRedelegate);
     const { balanceChanges, decodedMessage } = messages[0];
 
     expect(messages).toHaveLength(1);
@@ -100,9 +100,8 @@ describe("Staking Messages - Redelegate", () => {
 
   it("should decode a redelegate locked message correctly", async () => {
     setupMockApi(mockedAxios, mockApiResponsesForRedelegateLocked);
-    const { messages, totalBalanceChanges } = await decoder.decodeTransaction(
-      mockMsgRedelegateLocked
-    );
+    const { messages, totalBalanceChanges } =
+      await decoder.decodeCosmosTransaction(mockMsgRedelegateLocked);
 
     const { balanceChanges, decodedMessage } = messages[0];
 
