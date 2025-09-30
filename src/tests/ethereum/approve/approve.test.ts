@@ -1,13 +1,6 @@
-import {
-  initialize,
-  mockedAxios,
-  resetMockApi,
-  setupMockApi
-} from "@/tests/_shared/helpers";
+import { initialize } from "@/tests/_shared/helpers";
 
 import {
-  mockApiResponsesForErc20Approve,
-  mockApiResponsesForErc721Approve,
   mockErc20ApprovePayload,
   mockErc721ApprovePayload
 } from "./approve.fixture";
@@ -17,13 +10,7 @@ jest.mock("axios");
 const decoder = initialize();
 
 describe("Approve Decoder", () => {
-  beforeEach(() => {
-    resetMockApi(mockedAxios);
-  });
-
   it("should decode ERC20 approve transaction correctly", async () => {
-    setupMockApi(mockedAxios, mockApiResponsesForErc20Approve);
-
     const decoded = await decoder.decodeEthereumTransaction(
       mockErc20ApprovePayload
     );
@@ -48,8 +35,6 @@ describe("Approve Decoder", () => {
   });
 
   it("should decode ERC721 approve transaction correctly", async () => {
-    setupMockApi(mockedAxios, mockApiResponsesForErc721Approve);
-
     const decoded = await decoder.decodeEthereumTransaction(
       mockErc721ApprovePayload
     );
