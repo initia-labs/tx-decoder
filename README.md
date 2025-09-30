@@ -135,10 +135,13 @@ Decodes a native Ethereum RPC transaction with balance change tracking from tran
 
 **Supported Transaction Types:**
 
+- ERC-20 `approve(address spender, uint256 amount)` / ERC-721 `approve(address spender, uint256 tokenId)`
 - ERC-20 `transfer(address to, uint256 amount)`
 - ERC-20 `transferFrom(address from, address to, uint256 amount)`
 
 **Balance Changes:** Automatically calculated from transaction receipt logs (Transfer events)
+
+**Note:** The `approve` function selector (0x095ea7b3) is shared between ERC-20 and ERC-721. The decoder automatically detects the token standard by examining the `Approval` event log's data field (ERC-721 has all indexed parameters with no data, while ERC-20 has the amount in the data field) and returns the appropriate action type (`erc20_approve` or `erc721_approve`).
 
 ### Type Definitions
 
@@ -166,42 +169,11 @@ interface DecodedEthereumTx {
 
 ```typescript
 type DecodedEthereumCall =
+  | DecodedErc20ApproveCall
   | DecodedErc20TransferCall
   | DecodedErc20TransferFromCall
+  | DecodedErc721ApproveCall
   | DecodedNotSupportedCall;
-
-interface DecodedErc20TransferCall {
-  action: "erc20_transfer";
-  data: {
-    amount: string;
-    contract: string;
-    denom: string; // Format: "evm/{checksummedAddress}"
-    from: string;
-    to: string;
-  };
-}
-
-interface DecodedErc20TransferFromCall {
-  action: "erc20_transfer_from";
-  data: {
-    amount: string;
-    contract: string;
-    denom: string; // Format: "evm/{checksummedAddress}"
-    from: string;
-    owner: string;
-    to: string;
-  };
-}
-
-interface DecodedNotSupportedCall {
-  action: "not_supported";
-  data: {
-    from: string;
-    input: string;
-    to: string | null;
-    value: string;
-  };
-}
 ```
 
 #### `ProcessedMessage`

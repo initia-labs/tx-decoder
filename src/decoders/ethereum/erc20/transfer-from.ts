@@ -25,10 +25,10 @@ export const erc20TransferFromDecoder: EthereumDecoder = {
     const MIN_CALLDATA_LENGTH = 2 + 100 * 2; // 202 characters
     if (tx.input.length < MIN_CALLDATA_LENGTH) return false;
 
-    // Check if input starts with ERC-20 transferFrom function selector
+    // Check if input starts with transferFrom function selector (shared by ERC-20 and ERC-721)
     const input = tx.input.toLowerCase();
 
-    return input.startsWith(FUNCTION_SELECTORS.ERC20_TRANSFER_FROM);
+    return input.startsWith(FUNCTION_SELECTORS.TRANSFER_FROM);
   },
 
   decode: async (payload: EthereumRpcPayload, _apiClient: ApiClient) => {
