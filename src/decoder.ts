@@ -1,18 +1,29 @@
 import { ApiClient } from "./api";
-import { calculateBalanceChangesFromLog } from "./balance-changes";
+import {
+  calculateBalanceChangesFromEthereumLogs,
+  calculateBalanceChangesFromLog
+} from "./balance-changes";
 import {
   createDefaultEvmBalanceChanges,
   createDefaultMoveBalanceChanges
 } from "./constants";
 import * as Decoders from "./decoders";
 import {
+  DecodedEthereumTx,
   DecodedTx,
   DecoderConfig,
   MessageDecoder,
   ProcessedMessage
 } from "./interfaces";
 import { resolveMetadata } from "./metadata-resolver";
-import { Log, Message, TxResponse, zTxResponse } from "./schema";
+import {
+  EthereumRpcPayload,
+  Log,
+  Message,
+  TxResponse,
+  zEthereumRpcPayload,
+  zTxResponse
+} from "./schema";
 import { attachTxLogs, mergeBalanceChanges } from "./utils";
 import { createNotSupportedMessage } from "./utils";
 
@@ -65,6 +76,11 @@ const moveMessageDecoders: MessageDecoder[] = [
   Decoders.withdrawStableswapDecoder
 ];
 
+const ethereumDecoders = [
+  Decoders.erc20TransferDecoder,
+  Decoders.erc20TransferFromDecoder
+];
+
 export class TxDecoder {
   private readonly apiClient: ApiClient;
 
@@ -77,9 +93,9 @@ export class TxDecoder {
   }
 
   /**
-   * Decodes an EVM transaction, processing only general message types
+   * Decodes a Cosmos EVM transaction, processing only general message types
    */
-  public async decodeEvmTransaction(tx: unknown): Promise<DecodedTx> {
+  public async decodeCosmosEvmTransaction(tx: unknown): Promise<DecodedTx> {
     const txResponse = this._validateAndPrepareTx(tx);
 
     if (txResponse.tx.body.messages.length === 0) {
@@ -116,9 +132,9 @@ export class TxDecoder {
   }
 
   /**
-   * Decodes a transaction, processing all supported message types for L1 and Move L2.
+   * Decodes a Cosmos transaction, processing all supported message types for L1 and Move L2.
    */
-  public async decodeTransaction(tx: unknown): Promise<DecodedTx> {
+  public async decodeCosmosTransaction(tx: unknown): Promise<DecodedTx> {
     const txResponse = this._validateAndPrepareTx(tx);
 
     if (txResponse.tx.body.messages.length === 0) {
@@ -151,6 +167,53 @@ export class TxDecoder {
       messages: processedMessages,
       metadata,
       totalBalanceChanges
+    };
+  }
+
+  /**
+   * Decodes a native Ethereum RPC transaction
+   */
+  public async decodeEthereumTransaction(
+    payload: unknown
+  ): Promise<DecodedEthereumTx> {
+    const ethereumPayload = this._validateAndPrepareEthereumPayload(payload);
+
+    const decoder = this._findEthereumDecoder(ethereumPayload);
+
+    if (!decoder) {
+      // Return not supported transaction
+      const defaultBalanceChanges = createDefaultEvmBalanceChanges();
+      return {
+        decodedTransaction: {
+          action: "not_supported",
+          data: {
+            from: ethereumPayload.tx.from,
+            input: ethereumPayload.tx.input,
+            to: ethereumPayload.tx.to,
+            value: ethereumPayload.tx.value
+          }
+        },
+        metadata: {},
+        totalBalanceChanges: defaultBalanceChanges
+      };
+    }
+
+    const decodedTransaction = await decoder.decode(
+      ethereumPayload,
+      this.apiClient
+    );
+
+    const balanceChanges = await calculateBalanceChangesFromEthereumLogs(
+      ethereumPayload.txReceipt.logs,
+      this.apiClient
+    );
+
+    const metadata = await resolveMetadata(this.apiClient, balanceChanges);
+
+    return {
+      decodedTransaction,
+      metadata,
+      totalBalanceChanges: balanceChanges
     };
   }
 
@@ -226,6 +289,10 @@ export class TxDecoder {
     return decoders.find((decoder) => decoder.check(message, log));
   }
 
+  private _findEthereumDecoder(payload: EthereumRpcPayload) {
+    return ethereumDecoders.find((decoder) => decoder.check(payload));
+  }
+
   private async _processEvmMessage(
     txResponse: TxResponse
   ): Promise<ProcessedMessage[]> {
@@ -266,6 +333,17 @@ export class TxDecoder {
     });
 
     return Promise.all(promises);
+  }
+
+  private _validateAndPrepareEthereumPayload(
+    payload: unknown
+  ): EthereumRpcPayload {
+    const parsed = zEthereumRpcPayload.safeParse(payload);
+    if (!parsed.success) {
+      throw new Error(`Invalid EthereumRpcPayload: ${parsed.error.message}`);
+    }
+
+    return parsed.data;
   }
 
   private _validateAndPrepareTx(tx: unknown): TxResponse {

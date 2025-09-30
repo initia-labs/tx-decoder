@@ -25,7 +25,7 @@ describe("Staking Messages - Undelegate", () => {
     setupMockApi(mockedAxios, mockApiResponseForUndelegate);
 
     const { messages, totalBalanceChanges } =
-      await decoder.decodeTransaction(mockMsgUndelegate);
+      await decoder.decodeCosmosTransaction(mockMsgUndelegate);
 
     const { balanceChanges, decodedMessage } = messages[0];
 
@@ -97,9 +97,8 @@ describe("Staking Messages - Undelegate", () => {
   it("should decode an undelegate locked message correctly", async () => {
     setupMockApi(mockedAxios, mockApiResponseForUndelegateLocked);
 
-    const { messages, totalBalanceChanges } = await decoder.decodeTransaction(
-      mockMsgUndelegateLocked
-    );
+    const { messages, totalBalanceChanges } =
+      await decoder.decodeCosmosTransaction(mockMsgUndelegateLocked);
 
     const { balanceChanges, decodedMessage } = messages[0];
 

@@ -1957,7 +1957,8 @@ async function testDecodeEvmTransaction(): Promise<void> {
     });
 
     // Decode using EVM transaction decoder (excludes initia.move and opinit)
-    const evmDecodedTx = await decoder.decodeEvmTransaction(realTxResponse);
+    const evmDecodedTx =
+      await decoder.decodeCosmosEvmTransaction(realTxResponse);
 
     console.log("\n✅ EVM Decoding Results:");
     console.log(`- Processed Messages: ${evmDecodedTx.messages.length}`);

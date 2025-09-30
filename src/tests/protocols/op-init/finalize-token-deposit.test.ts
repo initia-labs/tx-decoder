@@ -23,7 +23,7 @@ describe("Finalize Token Deposit Message", () => {
   it("should decode a finalize token deposit message success correctly", async () => {
     setupMockApi(mockedAxios, mockApiResponsesForFinalizeTokenDeposit);
 
-    const decoded = await decoder.decodeEvmTransaction(
+    const decoded = await decoder.decodeCosmosEvmTransaction(
       mockMsgFinalizeTokenDepositSuccess
     );
 
@@ -93,7 +93,7 @@ describe("Finalize Token Deposit Message", () => {
   it("should decode a finalize token deposit message error correctly and provide detailed error info", async () => {
     setupMockApi(mockedAxios, mockApiResponsesForFinalizeTokenDeposit);
 
-    const decoded = await decoder.decodeEvmTransaction(
+    const decoded = await decoder.decodeCosmosEvmTransaction(
       mockMsgFinalizeTokenDepositError
     );
 

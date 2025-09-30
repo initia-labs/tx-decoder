@@ -21,7 +21,7 @@ describe("Direct Deposit Liquidity Message", () => {
   it("should decode a direct deposit liquidity move message correctly", async () => {
     setupMockApi(mockedAxios, mockApiResponsesForDirectDepositLiquidity);
 
-    const decoded = await decoder.decodeTransaction(
+    const decoded = await decoder.decodeCosmosTransaction(
       mockMsgDirectDepositLiquidity
     );
 

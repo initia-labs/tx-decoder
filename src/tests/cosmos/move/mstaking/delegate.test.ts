@@ -25,7 +25,7 @@ describe("Staking Messages - Delegate", () => {
     setupMockApi(mockedAxios, mockApiResponsesForDelegate);
 
     const { messages, totalBalanceChanges } =
-      await decoder.decodeTransaction(mockMsgDelegate);
+      await decoder.decodeCosmosTransaction(mockMsgDelegate);
 
     expect(messages).toHaveLength(1);
     expect(messages[0]).toEqual({
@@ -86,7 +86,9 @@ describe("Staking Messages - Delegate", () => {
   it("should decode a delegate locked message correctly", async () => {
     setupMockApi(mockedAxios, mockApiResponsesForDelegateLocked);
 
-    const decoded = await decoder.decodeTransaction(mockMsgDelegateLocked);
+    const decoded = await decoder.decodeCosmosTransaction(
+      mockMsgDelegateLocked
+    );
 
     expect(decoded.messages).toHaveLength(1);
     expect(decoded.messages[0].decodedMessage).toEqual({

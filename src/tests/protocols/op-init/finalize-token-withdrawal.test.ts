@@ -22,7 +22,7 @@ describe("Finalize Token Withdrawal Message", () => {
   it("should decode a finalize token withdrawal message correctly", async () => {
     setupMockApi(mockedAxios, mockApiResponsesForFinalizeTokenWithdrawal);
 
-    const decoded = await decoder.decodeTransaction(
+    const decoded = await decoder.decodeCosmosTransaction(
       mockMsgFinalizeTokenWithdrawal
     );
 

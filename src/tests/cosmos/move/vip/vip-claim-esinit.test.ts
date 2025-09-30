@@ -21,7 +21,9 @@ describe("VIP Claim Esinit Message", () => {
 
   it("should decode a VIP claim esinit message correctly", async () => {
     setupMockApi(mockedAxios, mockApiResponsesForVipClaimEsinit);
-    const decoded = await decoder.decodeTransaction(mockMsgVipClaimEsinit);
+    const decoded = await decoder.decodeCosmosTransaction(
+      mockMsgVipClaimEsinit
+    );
 
     expect(decoded.messages).toHaveLength(1);
     expect(decoded.messages[0].decodedMessage).toEqual({
@@ -65,7 +67,9 @@ describe("VIP Claim Esinit Message", () => {
 
   it("should decode a VIP claim esinit message with zero amount", async () => {
     setupMockApi(mockedAxios, mockApiResponsesForVipClaimEsinit);
-    const decoded = await decoder.decodeTransaction(mockMsgVipClaimEsinitZero);
+    const decoded = await decoder.decodeCosmosTransaction(
+      mockMsgVipClaimEsinitZero
+    );
 
     expect(decoded.messages).toHaveLength(2);
     expect(decoded.messages[0].decodedMessage).toEqual({

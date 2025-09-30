@@ -25,7 +25,7 @@ describe("IBC Receive FT Message", () => {
   it("should decode IBC transfer receive message", async () => {
     setupMockApi(mockedAxios, mockApiResponsesForMsgIbcRecvPacket);
 
-    const decoded = await decoder.decodeTransaction(mockMsgIbcFtReceive);
+    const decoded = await decoder.decodeCosmosTransaction(mockMsgIbcFtReceive);
 
     expect(decoded.messages).toHaveLength(2);
     expect(decoded.messages[1].decodedMessage).toEqual({
@@ -57,7 +57,9 @@ describe("IBC Receive FT Message", () => {
   it("should decode IBC FT receive message from L2 correctly", async () => {
     setupMockApi(mockedAxios, mockApiResponsesForMsgIbcRecvPacketFromL2);
 
-    const decoded = await decoder.decodeTransaction(mockMsgIbcFtReceiveFromL2);
+    const decoded = await decoder.decodeCosmosTransaction(
+      mockMsgIbcFtReceiveFromL2
+    );
 
     expect(decoded.messages).toHaveLength(2); // UpdateClient + RecvPacket
 

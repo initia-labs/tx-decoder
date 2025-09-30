@@ -22,7 +22,7 @@ describe("EVM Transaction Decoder", () => {
   it("should decode IBC receive FT transaction correctly", async () => {
     setupMockApi(mockedAxios, mockApiResponsesForIbcReceiveFtEvmTransaction);
 
-    const decoded = await decoder.decodeEvmTransaction(
+    const decoded = await decoder.decodeCosmosEvmTransaction(
       mockIbcReceiveFtEvmTransaction
     );
 

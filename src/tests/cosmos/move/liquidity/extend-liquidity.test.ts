@@ -21,7 +21,9 @@ describe("Extend Liquidity Message", () => {
   it("should decode an extend liquidity move message correctly", async () => {
     setupMockApi(mockedAxios, mockApiResponsesForExtendLiquidity);
 
-    const decoded = await decoder.decodeTransaction(mockMsgExtendLiquidity);
+    const decoded = await decoder.decodeCosmosTransaction(
+      mockMsgExtendLiquidity
+    );
 
     expect(decoded.messages).toHaveLength(1);
     expect(decoded.messages[0].decodedMessage).toEqual({

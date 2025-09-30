@@ -29,7 +29,9 @@ describe("Deposit Liquidity Message", () => {
   it("should decode a deposit liquidity move message correctly", async () => {
     setupMockApi(mockedAxios, mockApiResponsesForDepositLiquidity);
 
-    const decoded = await decoder.decodeTransaction(mockMsgDepositLiquidity);
+    const decoded = await decoder.decodeCosmosTransaction(
+      mockMsgDepositLiquidity
+    );
 
     expect(decoded.messages).toHaveLength(1);
     expect(decoded.messages[0].decodedMessage).toEqual({
@@ -91,7 +93,7 @@ describe("Deposit Liquidity Message", () => {
   it("should decode a deposit stake liquidity move message correctly", async () => {
     setupMockApi(mockedAxios, mockApiResponsesForDepositStakeLiquidity);
 
-    const decoded = await decoder.decodeTransaction(
+    const decoded = await decoder.decodeCosmosTransaction(
       mockMsgDepositStakeLiquidity
     );
 
@@ -174,7 +176,7 @@ describe("Deposit Liquidity Message", () => {
   it("should decode a deposit stake lock liquidity move message correctly", async () => {
     setupMockApi(mockedAxios, mockApiResponsesForDepositStakeLockLiquidity);
 
-    const decoded = await decoder.decodeTransaction(
+    const decoded = await decoder.decodeCosmosTransaction(
       mockMsgDepositStakeLockLiquidity
     );
 

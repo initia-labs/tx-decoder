@@ -23,7 +23,9 @@ describe("Merge Liquidity Message", () => {
   it("should decode a merge liquidity move message correctly", async () => {
     setupMockApi(mockedAxios, mockApiResponsesForMergeLiquidity);
 
-    const decoded = await decoder.decodeTransaction(mockMsgMergeLiquidity);
+    const decoded = await decoder.decodeCosmosTransaction(
+      mockMsgMergeLiquidity
+    );
 
     expect(decoded.messages).toHaveLength(1);
     expect(decoded.messages[0].decodedMessage).toEqual({
@@ -75,7 +77,7 @@ describe("Merge Liquidity Message", () => {
       mockApiResponsesForMergeLiquidityMultiplePositions
     );
 
-    const decoded = await decoder.decodeTransaction(
+    const decoded = await decoder.decodeCosmosTransaction(
       mockMsgMergeLiquidityMultiplePositions
     );
 

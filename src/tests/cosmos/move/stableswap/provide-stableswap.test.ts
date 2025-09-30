@@ -21,7 +21,7 @@ describe("Stableswap Provide Liquidity Message", () => {
   it("should decode a stableswap provide liquidity move message correctly", async () => {
     setupMockApi(mockedAxios, mockApiResponsesForStableswapProvideLiquidity);
 
-    const decoded = await decoder.decodeTransaction(
+    const decoded = await decoder.decodeCosmosTransaction(
       mockMsgStableswapProvideLiquidity
     );
 

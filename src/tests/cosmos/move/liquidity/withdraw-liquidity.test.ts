@@ -21,7 +21,9 @@ describe("Withdraw Liquidity Message", () => {
   it("should decode a withdraw liquidity move message correctly", async () => {
     setupMockApi(mockedAxios, mockApiResponsesForWithdrawLiquidity);
 
-    const decoded = await decoder.decodeTransaction(mockMsgWithdrawLiquidity);
+    const decoded = await decoder.decodeCosmosTransaction(
+      mockMsgWithdrawLiquidity
+    );
 
     expect(decoded.messages).toHaveLength(1);
     expect(decoded.messages[0].decodedMessage).toEqual({

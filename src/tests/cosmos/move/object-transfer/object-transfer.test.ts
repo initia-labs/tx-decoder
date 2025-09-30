@@ -21,7 +21,9 @@ describe("Object Transfer Message", () => {
 
   it("should decode an object transfer message correctly", async () => {
     setupMockApi(mockedAxios, mockApiResponsesForObjectTransfer);
-    const decoded = await decoder.decodeTransaction(mockMsgObjectTransfer);
+    const decoded = await decoder.decodeCosmosTransaction(
+      mockMsgObjectTransfer
+    );
 
     expect(decoded.messages).toHaveLength(1);
     expect(decoded.messages[0].decodedMessage).toEqual({

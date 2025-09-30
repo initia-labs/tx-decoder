@@ -17,7 +17,7 @@ describe("NFT Burn Message", () => {
 
   it("should decode an NFT burn message correctly", async () => {
     setupMockApi(mockedAxios, mockApiResponsesForNftBurn);
-    const decoded = await decoder.decodeTransaction(mockMsgNftBurn);
+    const decoded = await decoder.decodeCosmosTransaction(mockMsgNftBurn);
 
     expect(decoded.messages).toHaveLength(1);
     expect(decoded.messages[0].decodedMessage).toEqual({

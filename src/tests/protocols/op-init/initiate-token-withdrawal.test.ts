@@ -22,7 +22,7 @@ describe("Initiate Token Withdrawal Message", () => {
   it("should decode an initiate token withdrawal message correctly", async () => {
     setupMockApi(mockedAxios, mockApiResponsesForInitiateTokenWithdrawal);
 
-    const decoded = await decoder.decodeEvmTransaction(
+    const decoded = await decoder.decodeCosmosEvmTransaction(
       mockInitiateTokenWithdrawal
     );
 

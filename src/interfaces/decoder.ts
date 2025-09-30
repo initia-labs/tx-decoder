@@ -1,8 +1,9 @@
-import type { Log, Message, TxResponse } from "@/schema";
+import type { EthereumRpcPayload, Log, Message, TxResponse } from "@/schema";
 
 import { ApiClient } from "@/api";
 
 import { DecodedMessage } from "./cosmos";
+import { DecodedEthereumCall } from "./ethereum";
 
 export type MessageDecoder<M = Message, L = Log> = {
   check: (message: M, log: L) => boolean;
@@ -14,3 +15,11 @@ export type MessageDecoder<M = Message, L = Log> = {
     vm: "evm" | "move" | "wasm"
   ) => Promise<DecodedMessage>;
 };
+
+export interface EthereumDecoder {
+  check: (payload: EthereumRpcPayload) => boolean;
+  decode: (
+    payload: EthereumRpcPayload,
+    apiClient: ApiClient
+  ) => Promise<DecodedEthereumCall>;
+}

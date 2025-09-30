@@ -22,7 +22,7 @@ describe("Bank Send with EVM Log", () => {
   it("should decode bank send with EVM log correctly", async () => {
     setupMockApi(mockedAxios, mockApiResponsesForBankSendWithEvmLogTxResponse);
 
-    const decoded = await decoder.decodeEvmTransaction(
+    const decoded = await decoder.decodeCosmosEvmTransaction(
       bankSendWithEvmLogTxResponse
     );
 
