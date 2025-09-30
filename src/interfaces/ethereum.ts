@@ -4,10 +4,22 @@ import { Metadata } from "./metadata";
 interface DecodedEthereumCallBase {}
 
 export type DecodedEthereumCall =
+  | DecodedErc20ApproveCall
   | DecodedErc20TransferCall
   | DecodedErc20TransferFromCall
   | DecodedEthTransferCall
   | DecodedNotSupportedCall;
+
+export interface DecodedErc20ApproveCall extends DecodedEthereumCallBase {
+  action: "erc20_approve";
+  data: {
+    amount: string;
+    contract: string;
+    denom: string;
+    from: string;
+    spender: string;
+  };
+}
 
 export interface DecodedErc20TransferCall extends DecodedEthereumCallBase {
   action: "erc20_transfer";

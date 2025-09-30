@@ -156,16 +156,16 @@ export const ERC_INTERFACE_IDS = {
 
 // Common function selectors for quick identification
 export const FUNCTION_SELECTORS = {
-  // Function selectors
-  ERC20_APPROVE: "0x095ea7b3",
   // ERC-20
+  ERC20_APPROVE: "0x095ea7b3",
   ERC20_TRANSFER: "0xa9059cbb",
   ERC20_TRANSFER_FROM: "0x23b872dd",
+
+  // ERC-721
   ERC721_APPROVE: "0x095ea7b3",
   ERC721_SAFE_TRANSFER_FROM: "0x42842e0e",
   ERC721_SAFE_TRANSFER_FROM_WITH_DATA: "0xb88d4fde",
   ERC721_SET_APPROVAL_FOR_ALL: "0xa22cb465",
-  // ERC-721
   ERC721_TRANSFER_FROM: "0x23b872dd"
 } as const;
 
