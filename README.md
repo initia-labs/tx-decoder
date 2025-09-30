@@ -140,7 +140,7 @@ Decodes a native Ethereum RPC transaction with balance change tracking from tran
 - ERC-20 `transferFrom(address from, address to, uint256 amount)`
 - ERC-721 `safeTransferFrom(address from, address to, uint256 tokenId)`
 
-**Balance Changes:** Automatically calculated from transaction receipt logs (Transfer and Approval events)
+**Balance Changes:** Automatically calculated from transaction receipt logs (Transfer events)
 
 ### Type Definitions
 
