@@ -192,6 +192,16 @@ interface DecodedErc20TransferFromCall {
     to: string;
   };
 }
+
+interface DecodedNotSupportedCall {
+  action: "not_supported";
+  data: {
+    from: string;
+    input: string;
+    to: string | null;
+    value: string;
+  };
+}
 ```
 
 #### `ProcessedMessage`

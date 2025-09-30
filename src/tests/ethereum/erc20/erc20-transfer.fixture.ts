@@ -60,3 +60,14 @@ export const mockErc20TransferPayload = {
     type: "0x2"
   }
 };
+
+export const mockApiResponsesForErc20Transfer = {
+  POST: {
+    "/": {
+      id: 1,
+      jsonrpc: "2.0",
+      result:
+        "0x0000000000000000000000000000000000000000000000000000000000000000"
+    }
+  }
+};

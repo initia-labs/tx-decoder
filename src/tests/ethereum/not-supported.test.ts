@@ -5,7 +5,10 @@ import {
   setupMockApi
 } from "@/tests/_shared/helpers";
 
-import { mockNotSupportedPayload } from "./not-supported.fixture";
+import {
+  mockApiResponsesForNotSupported,
+  mockNotSupportedPayload
+} from "./not-supported.fixture";
 
 jest.mock("axios");
 const decoder = initialize();
@@ -16,7 +19,7 @@ describe("Not Supported Ethereum Transaction", () => {
   });
 
   it("should return not_supported for unsupported transaction", async () => {
-    setupMockApi(mockedAxios, {});
+    setupMockApi(mockedAxios, mockApiResponsesForNotSupported);
 
     const decoded = await decoder.decodeEthereumTransaction(
       mockNotSupportedPayload
@@ -34,7 +37,14 @@ describe("Not Supported Ethereum Transaction", () => {
     });
 
     expect(decoded.totalBalanceChanges).toEqual({
-      ft: {},
+      ft: {
+        "0xbC46524229cFFEf6751E40938BE145EA098a97f6": {
+          "evm/E1Ff7038eAAAF027031688E1535a055B2Bac2546": "-6079250000001"
+        },
+        "0xf1829676DB577682E944fc3493d451B67Ff3E29F": {
+          "evm/E1Ff7038eAAAF027031688E1535a055B2Bac2546": "6079250000001"
+        }
+      },
       nft: {},
       vm: "evm"
     });

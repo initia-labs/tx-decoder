@@ -180,9 +180,13 @@ export class TxDecoder {
 
     const decoder = this._findEthereumDecoder(ethereumPayload);
 
+    const balanceChanges = await calculateBalanceChangesFromEthereumLogs(
+      ethereumPayload.txReceipt.logs,
+      this.apiClient
+    );
+
     if (!decoder) {
       // Return not supported transaction
-      const defaultBalanceChanges = createDefaultEvmBalanceChanges();
       return {
         decodedTransaction: {
           action: "not_supported",
@@ -194,17 +198,12 @@ export class TxDecoder {
           }
         },
         metadata: {},
-        totalBalanceChanges: defaultBalanceChanges
+        totalBalanceChanges: balanceChanges
       };
     }
 
     const decodedTransaction = await decoder.decode(
       ethereumPayload,
-      this.apiClient
-    );
-
-    const balanceChanges = await calculateBalanceChangesFromEthereumLogs(
-      ethereumPayload.txReceipt.logs,
       this.apiClient
     );
 

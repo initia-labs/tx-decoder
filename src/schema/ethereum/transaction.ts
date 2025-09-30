@@ -36,6 +36,29 @@ export const zEthereumLog = z.object({
   transactionIndex: z.string()
 });
 
+const zStatus = z.preprocess((val) => {
+  // If already a boolean, return as-is
+  if (typeof val === "boolean") {
+    return val;
+  }
+
+  // Handle numeric values
+  if (typeof val === "number") {
+    if (val === 1) return true;
+    if (val === 0) return false;
+    throw new Error(`Invalid numeric status value: ${val}`);
+  }
+
+  // Handle hex string values
+  if (typeof val === "string") {
+    if (val === "0x1" || val === "1") return true;
+    if (val === "0x0" || val === "0") return false;
+    throw new Error(`Invalid status string value: ${val}`);
+  }
+
+  throw new Error(`Invalid status type: ${typeof val}`);
+}, z.boolean());
+
 export const zEthereumTransactionReceipt = z.object({
   blockHash: z.string(),
   blockNumber: z.string(),
@@ -46,7 +69,7 @@ export const zEthereumTransactionReceipt = z.object({
   gasUsed: z.string(),
   logs: z.array(zEthereumLog),
   logsBloom: z.string(),
-  status: z.boolean(),
+  status: zStatus,
   to: z.string().nullable(),
   transactionHash: z.string(),
   transactionIndex: z.string(),

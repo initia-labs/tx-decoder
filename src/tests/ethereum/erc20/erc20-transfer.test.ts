@@ -5,7 +5,10 @@ import {
   setupMockApi
 } from "@/tests/_shared/helpers";
 
-import { mockErc20TransferPayload } from "./erc20-transfer.fixture";
+import {
+  mockApiResponsesForErc20Transfer,
+  mockErc20TransferPayload
+} from "./erc20-transfer.fixture";
 
 jest.mock("axios");
 const decoder = initialize();
@@ -16,7 +19,7 @@ describe("ERC-20 Transfer Ethereum Transaction", () => {
   });
 
   it("should decode an ERC-20 transfer transaction correctly", async () => {
-    setupMockApi(mockedAxios, {});
+    setupMockApi(mockedAxios, mockApiResponsesForErc20Transfer);
 
     const decoded = await decoder.decodeEthereumTransaction(
       mockErc20TransferPayload

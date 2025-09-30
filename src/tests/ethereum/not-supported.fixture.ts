@@ -525,3 +525,14 @@ export const mockNotSupportedPayload = {
     type: "0x2"
   }
 };
+
+export const mockApiResponsesForNotSupported = {
+  POST: {
+    "/": {
+      id: 1,
+      jsonrpc: "2.0",
+      result:
+        "0x0000000000000000000000000000000000000000000000000000000000000000"
+    }
+  }
+};

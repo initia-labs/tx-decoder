@@ -110,7 +110,7 @@ export const ERC721_TRANSFER_EVENT_ABI = parseAbi([
 
 // Contract Factory Functions
 export const CONTRACT_FACTORY_CREATE_FUNCTION_ABI = parseAbi([
-  "function create(bytes memory bytecode) returns (address)"
+  "function create(bytes bytecode) returns (address)"
 ]);
 
 export const CONTRACT_FACTORY_CREATE_CLONE_FUNCTION_ABI = parseAbi([
@@ -122,7 +122,7 @@ export const CONTRACT_FACTORY_CREATE_CLONE_WITH_SALT_FUNCTION_ABI = parseAbi([
 ]);
 
 export const CONTRACT_FACTORY_DEPLOY_FUNCTION_ABI = parseAbi([
-  "function deploy(bytes memory bytecode, bytes32 salt) returns (address)"
+  "function deploy(bytes bytecode, bytes32 salt) returns (address)"
 ]);
 
 // Contract Factory Events
@@ -156,10 +156,8 @@ export const ERC_INTERFACE_IDS = {
 
 // Common function selectors for quick identification
 export const FUNCTION_SELECTORS = {
-  // Contract creation patterns
-  CONTRACT_CREATE: "0x", // Empty input for basic contract creation
+  // Function selectors
   ERC20_APPROVE: "0x095ea7b3",
-
   // ERC-20
   ERC20_TRANSFER: "0xa9059cbb",
   ERC20_TRANSFER_FROM: "0x23b872dd",
@@ -167,10 +165,8 @@ export const FUNCTION_SELECTORS = {
   ERC721_SAFE_TRANSFER_FROM: "0x42842e0e",
   ERC721_SAFE_TRANSFER_FROM_WITH_DATA: "0xb88d4fde",
   ERC721_SET_APPROVAL_FOR_ALL: "0xa22cb465",
-
   // ERC-721
-  ERC721_TRANSFER_FROM: "0x23b872dd",
-  FACTORY_CREATE: "0x" // Various patterns, need to check by contract analysis
+  ERC721_TRANSFER_FROM: "0x23b872dd"
 } as const;
 
 // Common Event Signatures (topics[0])
