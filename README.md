@@ -174,60 +174,6 @@ type DecodedEthereumCall =
   | DecodedErc20TransferFromCall
   | DecodedErc721ApproveCall
   | DecodedNotSupportedCall;
-
-interface DecodedErc20ApproveCall {
-  action: "erc20_approve";
-  data: {
-    amount: string;
-    contract: string;
-    denom: string; // Format: "evm/{checksummedAddress}"
-    from: string;
-    spender: string;
-  };
-}
-
-interface DecodedErc20TransferCall {
-  action: "erc20_transfer";
-  data: {
-    amount: string;
-    contract: string;
-    denom: string; // Format: "evm/{checksummedAddress}"
-    from: string;
-    to: string;
-  };
-}
-
-interface DecodedErc20TransferFromCall {
-  action: "erc20_transfer_from";
-  data: {
-    amount: string;
-    contract: string;
-    denom: string; // Format: "evm/{checksummedAddress}"
-    from: string;
-    owner: string;
-    to: string;
-  };
-}
-
-interface DecodedErc721ApproveCall {
-  action: "erc721_approve";
-  data: {
-    contract: string;
-    from: string;
-    spender: string;
-    tokenId: string;
-  };
-}
-
-interface DecodedNotSupportedCall {
-  action: "not_supported";
-  data: {
-    from: string;
-    input: string;
-    to: string | null;
-    value: string;
-  };
-}
 ```
 
 #### `ProcessedMessage`
