@@ -58,11 +58,14 @@ function processTokenTransfer(
 
 export const evmTransferEventProcessor: EvmEventProcessor = {
   eventSignatureHash: EVENT_SIGNATURES.TRANSFER,
-  async process(evmLog, apiClient) {
+  async process(evmLog, _apiClient) {
     try {
       const contractAddress = evmLog.address;
 
-      const isNft = await apiClient.isErc721Contract(contractAddress);
+      // Detect ERC-721 vs ERC-20 by checking Transfer event log data field
+      // ERC-20: Transfer(address indexed from, address indexed to, uint256 value) - has data
+      // ERC-721: Transfer(address indexed from, address indexed to, uint256 indexed tokenId) - no data (all indexed)
+      const isNft = evmLog.data === "0x";
 
       return produce(createDefaultEvmBalanceChanges(), (draft) => {
         try {

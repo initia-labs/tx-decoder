@@ -61,17 +61,6 @@ export const mockErc20ApprovePayload = {
   }
 };
 
-export const mockApiResponsesForErc20Approve = {
-  POST: {
-    "/": {
-      id: 1,
-      jsonrpc: "2.0",
-      result:
-        "0x0000000000000000000000000000000000000000000000000000000000000000"
-    }
-  }
-};
-
 // NOTE: ERC-721 approve fixture is mocked data because we couldn't find a real example on chain
 export const mockErc721ApprovePayload = {
   tx: {
@@ -134,16 +123,5 @@ export const mockErc721ApprovePayload = {
       "0x9876543210fedcba9876543210fedcba9876543210fedcba9876543210fedcba",
     transactionIndex: "0",
     type: "0x2"
-  }
-};
-
-export const mockApiResponsesForErc721Approve = {
-  POST: {
-    "/": {
-      id: 1,
-      jsonrpc: "2.0",
-      result:
-        "0x0000000000000000000000000000000000000000000000000000000000000001"
-    }
   }
 };

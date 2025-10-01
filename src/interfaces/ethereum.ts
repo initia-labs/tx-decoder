@@ -8,6 +8,7 @@ export type DecodedEthereumCall =
   | DecodedErc20TransferCall
   | DecodedErc20TransferFromCall
   | DecodedErc721ApproveCall
+  | DecodedErc721SafeTransferFromCall
   | DecodedEthTransferCall
   | DecodedNotSupportedCall;
 
@@ -28,6 +29,17 @@ export interface DecodedErc721ApproveCall extends DecodedEthereumCallBase {
     contract: string;
     from: string;
     spender: string;
+    tokenId: string;
+  };
+}
+
+export interface DecodedErc721SafeTransferFromCall
+  extends DecodedEthereumCallBase {
+  action: "erc721_safe_transfer_from";
+  data: {
+    contract: string;
+    from: string;
+    to: string;
     tokenId: string;
   };
 }
