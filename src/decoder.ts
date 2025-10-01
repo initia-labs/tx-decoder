@@ -79,7 +79,7 @@ const moveMessageDecoders: MessageDecoder[] = [
 const ethereumDecoders = [
   Decoders.approveDecoder,
   Decoders.erc20TransferDecoder,
-  Decoders.erc20TransferFromDecoder,
+  Decoders.transferFromDecoder,
   Decoders.erc721SafeTransferFromDecoder
 ];
 
