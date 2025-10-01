@@ -69,7 +69,13 @@ export const transferFromDecoder: EthereumDecoder = {
         log.topics[0]?.toLowerCase() === EVENT_SIGNATURES.TRANSFER.toLowerCase()
     );
 
-    const isErc721 = transferLog ? transferLog.data === "0x" : false;
+    if (!transferLog) {
+      throw new Error(
+        `Cannot determine token type for transferFrom call: missing Transfer event log for contract ${contractAddress} in tx ${tx.hash}`
+      );
+    }
+
+    const isErc721 = transferLog.data === "0x";
 
     if (isErc721) {
       return {
