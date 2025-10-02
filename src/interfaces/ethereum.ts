@@ -4,6 +4,7 @@ import { Metadata } from "./metadata";
 interface DecodedEthereumCallBase {}
 
 export type DecodedEthereumCall =
+  | DecodedContractCreationCall
   | DecodedErc20ApproveCall
   | DecodedErc20TransferCall
   | DecodedErc20TransferFromCall
@@ -12,6 +13,15 @@ export type DecodedEthereumCall =
   | DecodedErc721TransferFromCall
   | DecodedEthTransferCall
   | DecodedNotSupportedCall;
+
+export interface DecodedContractCreationCall extends DecodedEthereumCallBase {
+  action: "contract_creation";
+  data: {
+    bytecodeLength: number;
+    contractAddress: string;
+    from: string;
+  };
+}
 
 export interface DecodedErc20ApproveCall extends DecodedEthereumCallBase {
   action: "erc20_approve";

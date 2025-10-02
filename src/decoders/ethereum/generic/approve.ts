@@ -62,7 +62,13 @@ export const approveDecoder: EthereumDecoder = {
         log.topics[0]?.toLowerCase() === EVENT_SIGNATURES.APPROVAL.toLowerCase()
     );
 
-    const isErc721 = approvalLog ? approvalLog.data === "0x" : false;
+    if (!approvalLog) {
+      throw new Error(
+        `Cannot determine token type for approve call: missing Approval event log for contract ${contractAddress} in tx ${tx.hash}`
+      );
+    }
+
+    const isErc721 = approvalLog.data === "0x";
 
     if (isErc721) {
       return {
