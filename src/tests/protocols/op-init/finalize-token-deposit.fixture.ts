@@ -872,12 +872,5 @@ export const mockApiResponsesForFinalizeTokenDeposit = {
       }
     }
   },
-  POST: {
-    "/": {
-      id: 1,
-      jsonrpc: "2.0",
-      result:
-        "0x0000000000000000000000000000000000000000000000000000000000000000"
-    }
-  }
+  POST: {}
 };
