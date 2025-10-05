@@ -65,6 +65,40 @@ export class EvmService {
     }
   }
 
+  public async getCosmosTxHashByEvmTxHash(evmTxHash: string): Promise<string> {
+    try {
+      const response = await axios.post(
+        this.jsonRpcUrl,
+        {
+          id: "1",
+          jsonrpc: "2.0",
+          method: "cosmos_cosmosTxHashByTxHash",
+          params: [evmTxHash]
+        },
+        {
+          timeout: this.timeoutMs
+        }
+      );
+
+      if (response.data.error) {
+        throw new Error(response.data.error.message);
+      }
+
+      const result = response.data.result as string | undefined;
+      if (!result) {
+        throw new Error("No Cosmos tx hash returned");
+      }
+
+      return result;
+    } catch (error) {
+      console.error(
+        `Failed to get Cosmos tx hash for EVM tx ${evmTxHash}`,
+        error
+      );
+      throw error;
+    }
+  }
+
   public async getEvmTokenAddress(
     erc20WrapperAddress: string,
     remoteTokenAddress: string
