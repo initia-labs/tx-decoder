@@ -1,3 +1,4 @@
+import big from "big.js";
 import { produce } from "immer";
 import { decodeEventLog } from "viem";
 
@@ -39,7 +40,7 @@ function processTokenTransfer(
   const validated = zEvmTransferEventLog.parse(decodedArgs);
   const { from, to, value } = validated;
   const denom = getEvmDenom(contractAddress);
-  const amount = value.toString();
+  const amount = big(value.toString()).toFixed(0);
 
   if (from === to) {
     draft.ft[from] ??= {};

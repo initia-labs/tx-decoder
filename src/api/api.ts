@@ -153,6 +153,14 @@ export class ApiClient {
     return this.cosmosClient.getChainId();
   }
 
+  public async getCosmosTx(txHash: string) {
+    return this.cosmosClient.getCosmosTx(txHash);
+  }
+
+  public async getCosmosTxHashByEvmTxHash(evmTxHash: string): Promise<string> {
+    return this.evmService.getCosmosTxHashByEvmTxHash(evmTxHash);
+  }
+
   public async isErc721Contract(contractAddress: string): Promise<boolean> {
     return this.evmService.isErc721Contract(contractAddress);
   }

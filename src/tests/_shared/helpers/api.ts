@@ -14,6 +14,7 @@ export const setupMockApi = (
   responses: MockApiResponses
 ) => {
   const { get, post } = createMockApiHandlers(responses);
+
   mockedAxios.get.mockImplementation(get);
   mockedAxios.post.mockImplementation(post);
 };

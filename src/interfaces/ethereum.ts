@@ -18,7 +18,7 @@ export interface DecodedContractCreationCall extends DecodedEthereumCallBase {
   action: "contract_creation";
   data: {
     bytecodeLength: number;
-    contractAddress: string;
+    contractAddresses: string[];
     from: string;
   };
 }

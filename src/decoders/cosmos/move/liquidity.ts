@@ -390,7 +390,7 @@ export const mergeLiquidityDecoder: MessageDecoder = {
     }));
 
     const mergedLiquidity = withdrawDelegationEvents.reduce(
-      (acc, event) => big(acc).plus(event.locked_share).toString(),
+      (acc, event) => big(acc).plus(event.locked_share).toFixed(0),
       "0"
     );
 

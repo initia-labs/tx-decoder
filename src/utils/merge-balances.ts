@@ -22,7 +22,7 @@ const mergeNestedBalances = (
         const newAmount = big(source[address][key]);
         const result = existingAmount.plus(newAmount);
 
-        draft[address][key] = result.toString();
+        draft[address][key] = result.toFixed(0);
       }
     }
   });
@@ -44,7 +44,7 @@ const mergeNftBalances = (
           const newAmount = big(source[address][contract][tokenId]);
           const result = existingAmount.plus(newAmount);
 
-          draft[address][contract][tokenId] = result.toString();
+          draft[address][contract][tokenId] = result.toFixed(0);
         }
       }
     }
