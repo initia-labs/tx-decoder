@@ -54,7 +54,7 @@ export class EvmService {
       }
 
       const result = response.data.result as Hex | undefined;
-      if (!result || result === "0x") {
+      if (!result || typeof result !== "string" || result === "0x") {
         throw new Error("No result returned from eth_call");
       }
 
@@ -85,7 +85,7 @@ export class EvmService {
       }
 
       const result = response.data.result as string | undefined;
-      if (!result) {
+      if (!result || typeof result !== "string") {
         throw new Error("No Cosmos tx hash returned");
       }
 
