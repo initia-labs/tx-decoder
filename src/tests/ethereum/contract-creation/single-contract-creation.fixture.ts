@@ -608,7 +608,7 @@ export const mockApiResponseForSingleContractCreation = {
     "/": [
       {
         payload: {
-          id: "1",
+          id: 1,
           jsonrpc: "2.0",
           method: "cosmos_cosmosTxHashByTxHash",
           params: [
@@ -616,7 +616,7 @@ export const mockApiResponseForSingleContractCreation = {
           ]
         },
         response: {
-          id: "1",
+          id: 1,
           jsonrpc: "2.0",
           result:
             "1aff42d53077145a32393033f7e53e7562caebf91b9e813a1be0751ef65b981c"
@@ -624,7 +624,7 @@ export const mockApiResponseForSingleContractCreation = {
       },
       {
         payload: {
-          id: "1",
+          id: 1,
           jsonrpc: "2.0",
           method: "cosmos_cosmosTxHashByTxHash",
           params: [
@@ -632,7 +632,7 @@ export const mockApiResponseForSingleContractCreation = {
           ]
         },
         response: {
-          id: "1",
+          id: 1,
           jsonrpc: "2.0",
           result:
             "34c0106862febdd7f580dcae2b1966609ef831ecf1e8a10058deea9e774a5e94"

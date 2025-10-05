@@ -361,7 +361,7 @@ export const mockApiResponseForMultipleContractCreation = {
     "/": [
       {
         payload: {
-          id: "1",
+          id: 1,
           jsonrpc: "2.0",
           method: "cosmos_cosmosTxHashByTxHash",
           params: [
@@ -369,7 +369,7 @@ export const mockApiResponseForMultipleContractCreation = {
           ]
         },
         response: {
-          id: "88e44bf1-ccce-4246-b63a-af629a4989e7",
+          id: 1,
           jsonrpc: "2.0",
           result:
             "f9a0fd48253e7cf74ff07a5fa7123f6203dffa038d15e92848ce0ec8914a2e52"

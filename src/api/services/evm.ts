@@ -70,7 +70,7 @@ export class EvmService {
       const response = await axios.post(
         this.jsonRpcUrl,
         {
-          id: "1",
+          id: 1,
           jsonrpc: "2.0",
           method: "cosmos_cosmosTxHashByTxHash",
           params: [evmTxHash]
