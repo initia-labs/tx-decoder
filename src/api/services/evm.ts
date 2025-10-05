@@ -104,7 +104,7 @@ export class EvmService {
     remoteTokenAddress: string
   ): Promise<Address> {
     const remoteToken = getAddress(remoteTokenAddress);
-    const encodedData: Hex = encodeFunctionData({
+    const encodedData = encodeFunctionData({
       abi: ERC20_WRAPPER_ABI,
       args: [remoteToken, EvmService.DEFAULT_DECIMALS],
       functionName: "localTokens"

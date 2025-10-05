@@ -1962,11 +1962,27 @@ export const mockApiResponsesForIbcReceiveFtEvmTransaction = {
     }
   },
   POST: {
-    "/": {
-      id: 1,
-      jsonrpc: "2.0",
-      result:
-        "0x000000000000000000000000e1ff7038eaaaf027031688e1535a055b2bac2546"
-    }
+    "/": [
+      {
+        payload: {
+          id: 1,
+          jsonrpc: "2.0",
+          method: "eth_call",
+          params: [
+            {
+              data: "0x1efb51e60000000000000000000000004e5f559ff873d84834e4338950d4bb05121f8efc0000000000000000000000000000000000000000000000000000000000000006",
+              to: "0x4eb08D5c1B0A821303A86C7b3AC805c2793dE783"
+            },
+            "latest"
+          ]
+        },
+        response: {
+          id: 1,
+          jsonrpc: "2.0",
+          result:
+            "0x000000000000000000000000e1ff7038eaaaf027031688e1535a055b2bac2546"
+        }
+      }
+    ]
   }
 };
