@@ -1,4 +1,4 @@
-export const mockMsgIbcReceiveNftSourceToken = {
+export const mockNftReceiveMoveSourceTokenTransaction = {
   code: 0,
   codespace: "",
   data: "122D0A2B2F6962632E636F72652E636C69656E742E76312E4D7367557064617465436C69656E74526573706F6E736512300A2A2F6962632E636F72652E6368616E6E656C2E76312E4D7367526563765061636B6574526573706F6E736512020802",
@@ -710,7 +710,7 @@ export const mockMsgIbcReceiveNftSourceToken = {
   txhash: "6D393A7B4C97631996E411DAC52A423471CC855593F3748CEEC90BE29177C66A"
 };
 
-export const mockMsgIbcReceiveNftRemoteToken = {
+export const mockNftReceiveMoveRemoteTokenTransaction = {
   code: 0,
   codespace: "",
   data: "122D0A2B2F6962632E636F72652E636C69656E742E76312E4D7367557064617465436C69656E74526573706F6E736512300A2A2F6962632E636F72652E6368616E6E656C2E76312E4D7367526563765061636B6574526573706F6E736512020802",
@@ -1561,7 +1561,7 @@ export const mockMsgIbcReceiveNftRemoteToken = {
   txhash: "718AFCF8FC3A9940295F8A2CC3FBB035A03D128CC190764946A539D0AE3DDFC1"
 };
 
-export const mockApiResponsesForIbcReceiveNftSourceToken = {
+export const mockApiResponsesForNftReceiveMoveSourceToken = {
   GET: {
     "/chains.json": [
       {
@@ -1701,7 +1701,7 @@ export const mockApiResponsesForIbcReceiveNftSourceToken = {
   POST: {}
 };
 
-export const mockApiResponsesForIbcReceiveNftRemoteToken = {
+export const mockApiResponsesForNftReceiveMoveRemoteToken = {
   GET: {
     "/chains.json": [
       {

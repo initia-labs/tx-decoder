@@ -1,4 +1,4 @@
-export const mockMsgIbcSendNft = {
+export const mockNftSendMoveTransaction = {
   code: 0,
   codespace: "",
   data: "123B0A352F6962632E6170706C69636174696F6E732E6E66745F7472616E736665722E76312E4D73675472616E73666572526573706F6E73651202080D",
@@ -429,7 +429,7 @@ export const mockMsgIbcSendNft = {
   txhash: "799FE662461D38A08D617C4E60025ED373177B9912B6C3468FDDE2B1825CD4AC"
 };
 
-export const mockApiResponsesForIbcSendNft = {
+export const mockApiResponsesForNftSendMove = {
   GET: {
     "/chains.json": [
       {

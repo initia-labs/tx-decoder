@@ -6,11 +6,11 @@ import {
 } from "@/tests/_shared/helpers";
 
 import {
-  mockApiResponsesForIbcReceiveNftRemoteToken,
-  mockApiResponsesForIbcReceiveNftSourceToken,
-  mockMsgIbcReceiveNftRemoteToken,
-  mockMsgIbcReceiveNftSourceToken
-} from "./receive-nft.fixture";
+  mockApiResponsesForNftReceiveMoveRemoteToken,
+  mockApiResponsesForNftReceiveMoveSourceToken,
+  mockNftReceiveMoveRemoteTokenTransaction,
+  mockNftReceiveMoveSourceTokenTransaction
+} from "./receive-nft-move.fixture";
 
 jest.mock("axios");
 
@@ -23,9 +23,9 @@ describe("IBC Receive NFT Message", () => {
 
   describe("Source Token Receive", () => {
     it("should decode an IBC NFT receive message for source token correctly", async () => {
-      setupMockApi(mockedAxios, mockApiResponsesForIbcReceiveNftSourceToken);
+      setupMockApi(mockedAxios, mockApiResponsesForNftReceiveMoveSourceToken);
       const decoded = await decoder.decodeCosmosTransaction(
-        mockMsgIbcReceiveNftSourceToken
+        mockNftReceiveMoveSourceTokenTransaction
       );
 
       expect(decoded.messages).toHaveLength(2); // UpdateClient + RecvPacket
@@ -104,9 +104,9 @@ describe("IBC Receive NFT Message", () => {
 
   describe("Remote Token Receive", () => {
     it("should decode an IBC NFT receive message for remote token correctly", async () => {
-      setupMockApi(mockedAxios, mockApiResponsesForIbcReceiveNftRemoteToken);
+      setupMockApi(mockedAxios, mockApiResponsesForNftReceiveMoveRemoteToken);
       const decoded = await decoder.decodeCosmosTransaction(
-        mockMsgIbcReceiveNftRemoteToken
+        mockNftReceiveMoveRemoteTokenTransaction
       );
 
       expect(decoded.messages).toHaveLength(2); // UpdateClient + RecvPacket

@@ -95,13 +95,37 @@ export const ibcSendNftDecoder: MessageDecoder = {
     )?.value;
     if (!sequence) throw new Error(`IBC NFT Transfer sequence not found`);
 
-    const tokenAddress = findMoveEvent(
-      log.events,
-      "0x1::object::TransferEvent",
-      zMsgMoveObjectTransferEvent
-    )?.object;
-    if (!tokenAddress) {
-      throw new Error("IBC NFT Send packet token address not found");
+    // Check if this is an EVM transaction
+    const isEvmTransaction = log.events.some((event) => event.type === "evm");
+
+    let tokenAddress: string;
+    if (isEvmTransaction) {
+      // For EVM: Look for erc721_burned event
+      const erc721BurnedEvent = log.events.find(
+        (event) => event.type === "erc721_burned"
+      );
+      if (!erc721BurnedEvent) {
+        throw new Error("IBC NFT Send ERC721 burned event not found");
+      }
+
+      const contractAttr = erc721BurnedEvent.attributes.find(
+        (attr) => attr.key === "contract"
+      );
+      if (!contractAttr) {
+        throw new Error("IBC NFT Send contract address not found");
+      }
+      tokenAddress = contractAttr.value;
+    } else {
+      // For Move: Use existing logic
+      const moveTransfer = findMoveEvent(
+        log.events,
+        "0x1::object::TransferEvent",
+        zMsgMoveObjectTransferEvent
+      );
+      if (!moveTransfer) {
+        throw new Error("IBC NFT Send packet token address not found");
+      }
+      tokenAddress = moveTransfer.object;
     }
 
     return {
@@ -181,6 +205,7 @@ export const ibcReceiveNftDecoder: MessageDecoder = {
       "0x1::collection::CreateCollectionEvent",
       zMsgMoveCreateCollectionEvent
     );
+
     let collection_id: string;
     if (createCollection) {
       collection_id = createCollection.collection;

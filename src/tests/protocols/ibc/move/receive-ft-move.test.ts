@@ -7,11 +7,11 @@ import {
 } from "@/tests/_shared/helpers";
 
 import {
-  mockApiResponsesForMsgIbcRecvPacket,
-  mockApiResponsesForMsgIbcRecvPacketFromL2,
-  mockMsgIbcFtReceive,
-  mockMsgIbcFtReceiveFromL2
-} from "./receive-ft.fixture";
+  mockApiResponsesForFtReceiveMove,
+  mockApiResponsesForFtReceiveMoveFromL2,
+  mockFtReceiveMoveFromL2Transaction,
+  mockFtReceiveMoveTransaction
+} from "./receive-ft-move.fixture";
 
 jest.mock("axios");
 let decoder: TxDecoder;
@@ -23,9 +23,11 @@ describe("IBC Receive FT Message", () => {
   });
 
   it("should decode IBC transfer receive message", async () => {
-    setupMockApi(mockedAxios, mockApiResponsesForMsgIbcRecvPacket);
+    setupMockApi(mockedAxios, mockApiResponsesForFtReceiveMove);
 
-    const decoded = await decoder.decodeCosmosTransaction(mockMsgIbcFtReceive);
+    const decoded = await decoder.decodeCosmosTransaction(
+      mockFtReceiveMoveTransaction
+    );
 
     expect(decoded.messages).toHaveLength(2);
     expect(decoded.messages[1].decodedMessage).toEqual({
@@ -55,10 +57,10 @@ describe("IBC Receive FT Message", () => {
   });
 
   it("should decode IBC FT receive message from L2 correctly", async () => {
-    setupMockApi(mockedAxios, mockApiResponsesForMsgIbcRecvPacketFromL2);
+    setupMockApi(mockedAxios, mockApiResponsesForFtReceiveMoveFromL2);
 
     const decoded = await decoder.decodeCosmosTransaction(
-      mockMsgIbcFtReceiveFromL2
+      mockFtReceiveMoveFromL2Transaction
     );
 
     expect(decoded.messages).toHaveLength(2); // UpdateClient + RecvPacket

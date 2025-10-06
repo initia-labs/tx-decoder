@@ -6,9 +6,9 @@ import {
 } from "@/tests/_shared/helpers";
 
 import {
-  mockApiResponsesForMsgIbcSend,
-  mockMsgIbcSendFt
-} from "./send-ft.fixture";
+  mockApiResponsesForFtSendMove,
+  mockFtSendMoveTransaction
+} from "./send-ft-move.fixture";
 
 jest.mock("axios");
 const decoder = initialize();
@@ -19,9 +19,11 @@ describe("IBC Send FT Message", () => {
   });
 
   it("should decode IBC transfer message", async () => {
-    setupMockApi(mockedAxios, mockApiResponsesForMsgIbcSend);
+    setupMockApi(mockedAxios, mockApiResponsesForFtSendMove);
 
-    const decoded = await decoder.decodeCosmosTransaction(mockMsgIbcSendFt);
+    const decoded = await decoder.decodeCosmosTransaction(
+      mockFtSendMoveTransaction
+    );
 
     expect(decoded.messages).toHaveLength(1);
     expect(decoded.messages[0].decodedMessage).toEqual({

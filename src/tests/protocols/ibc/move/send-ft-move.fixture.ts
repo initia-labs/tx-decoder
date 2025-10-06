@@ -1,4 +1,4 @@
-export const mockMsgIbcSendFt = {
+export const mockFtSendMoveTransaction = {
   code: 0,
   codespace: "",
   data: "12380A312F6962632E6170706C69636174696F6E732E7472616E736665722E76312E4D73675472616E73666572526573706F6E7365120308D216",
@@ -540,7 +540,7 @@ export const mockMsgIbcSendFt = {
   txhash: "12B2F51153D9308C079DDF6FD5964B411BA512E52CBF8F6A63D7A0898C580CB4"
 };
 
-export const mockApiResponsesForMsgIbcSend = {
+export const mockApiResponsesForFtSendMove = {
   GET: {
     "/chains.json": [
       {
