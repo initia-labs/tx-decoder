@@ -1,4 +1,4 @@
-export const mockIbcReceiveFtEvmTransaction = {
+export const mockFtReceiveEvmTransaction = {
   code: 0,
   codespace: "",
   data: "122D0A2B2F6962632E636F72652E636C69656E742E76312E4D7367557064617465436C69656E74526573706F6E736512300A2A2F6962632E636F72652E6368616E6E656C2E76312E4D7367526563765061636B6574526573706F6E736512020802",
@@ -1930,7 +1930,7 @@ export const mockIbcReceiveFtEvmTransaction = {
   txhash: "8CCB2C71A326B91A6BB33AE89D82FEAA4DDF12954F13D7968AC846D1BED82411"
 };
 
-export const mockApiResponsesForIbcReceiveFtEvmTransaction = {
+export const mockApiResponsesForFtReceiveEvm = {
   GET: {
     "/chains.json": [
       {

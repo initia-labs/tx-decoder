@@ -6,9 +6,9 @@ import {
 } from "@/tests/_shared/helpers";
 
 import {
-  mockApiResponsesForIbcReceiveFtEvmTransaction,
-  mockIbcReceiveFtEvmTransaction
-} from "./ibc-receive-ft.fixture";
+  mockApiResponsesForFtReceiveEvm,
+  mockFtReceiveEvmTransaction
+} from "./receive-ft-evm.fixture";
 
 jest.mock("axios");
 
@@ -20,10 +20,10 @@ describe("EVM Transaction Decoder", () => {
   });
 
   it("should decode IBC receive FT transaction correctly", async () => {
-    setupMockApi(mockedAxios, mockApiResponsesForIbcReceiveFtEvmTransaction);
+    setupMockApi(mockedAxios, mockApiResponsesForFtReceiveEvm);
 
     const decoded = await decoder.decodeCosmosEvmTransaction(
-      mockIbcReceiveFtEvmTransaction
+      mockFtReceiveEvmTransaction
     );
 
     expect(decoded.messages).toHaveLength(2);

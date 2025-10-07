@@ -1,4 +1,4 @@
-export const mockMsgIbcFtReceive = {
+export const mockFtReceiveMoveTransaction = {
   code: 0,
   codespace: "",
   data: "122D0A2B2F6962632E636F72652E636C69656E742E76312E4D7367557064617465436C69656E74526573706F6E736512300A2A2F6962632E636F72652E6368616E6E656C2E76312E4D7367526563765061636B6574526573706F6E736512020802",
@@ -1795,7 +1795,7 @@ export const mockMsgIbcFtReceive = {
   txhash: "D0A4E774CE1909EAE66C1BB828F2A10687DD6C38198E6D9FB687D9DBD50704C2"
 };
 
-export const mockMsgIbcFtReceiveFromL2 = {
+export const mockFtReceiveMoveFromL2Transaction = {
   code: 0,
   codespace: "",
   data: "122D0A2B2F6962632E636F72652E636C69656E742E76312E4D7367557064617465436C69656E74526573706F6E736512300A2A2F6962632E636F72652E6368616E6E656C2E76312E4D7367526563765061636B6574526573706F6E736512020802",
@@ -2909,7 +2909,7 @@ export const mockMsgIbcFtReceiveFromL2 = {
   txhash: "562A25B8FE28E74B2F59823059ABC6002E58ADD81E11A3A0FBAF710E9D4ADE73"
 };
 
-export const mockApiResponsesForMsgIbcRecvPacket = {
+export const mockApiResponsesForFtReceiveMove = {
   GET: {
     "/chains.json": [
       {
@@ -2956,7 +2956,7 @@ export const mockApiResponsesForMsgIbcRecvPacket = {
   }
 };
 
-export const mockApiResponsesForMsgIbcRecvPacketFromL2 = {
+export const mockApiResponsesForFtReceiveMoveFromL2 = {
   GET: {
     "/chains.json": [
       {

@@ -1,7 +1,7 @@
 import { InitiaAddress } from "@initia/utils";
 
 import { ApiClient } from "@/api";
-import { MessageDecoder } from "@/interfaces";
+import { MessageDecoder, VmType } from "@/interfaces";
 import {
   Log,
   Message,
@@ -14,10 +14,14 @@ import {
 } from "@/schema";
 import { denomToHex, findMoveEvent } from "@/utils";
 
-export const ibcSendNftDecoder: MessageDecoder = {
-  check: (message: Message, _log: Log) => {
+export const ibcSendNftMoveDecoder: MessageDecoder = {
+  check: (message: Message, _log: Log, vm: VmType) => {
     const parsed = zMsgIbcSendNft.safeParse(message);
-    return parsed.success && parsed.data.source_port === "nft-transfer";
+    return (
+      parsed.success &&
+      parsed.data.source_port === "nft-transfer" &&
+      vm === "move"
+    );
   },
   decode: async (
     message: Message,
@@ -105,7 +109,7 @@ export const ibcSendNftDecoder: MessageDecoder = {
     }
 
     return {
-      action: "ibc_nft_send",
+      action: "ibc_nft_send_move",
       data: {
         collection: {
           creator: InitiaAddress(collection.data.creator).bech32,
@@ -113,7 +117,7 @@ export const ibcSendNftDecoder: MessageDecoder = {
           name: collection.data.name,
           uri: collection.data.uri || parsedData.data.classUri
         },
-        collectionId: InitiaAddress(denomToHex(class_id)).bech32,
+        collectionId: classIdAddress.bech32,
         dstChainId,
         dstChannel,
         dstPort,
@@ -135,7 +139,7 @@ export const ibcSendNftDecoder: MessageDecoder = {
   }
 };
 
-export const ibcReceiveNftDecoder: MessageDecoder = {
+export const ibcReceiveNftMoveDecoder: MessageDecoder = {
   check: (message: Message, _log: Log) => {
     const parsed = zMsgIbcRecvPacket.safeParse(message);
     return (
@@ -181,6 +185,7 @@ export const ibcReceiveNftDecoder: MessageDecoder = {
       "0x1::collection::CreateCollectionEvent",
       zMsgMoveCreateCollectionEvent
     );
+
     let collection_id: string;
     if (createCollection) {
       collection_id = createCollection.collection;
@@ -233,7 +238,7 @@ export const ibcReceiveNftDecoder: MessageDecoder = {
     }
 
     return {
-      action: "ibc_nft_receive",
+      action: "ibc_nft_receive_move",
       data: {
         collection: {
           creator: InitiaAddress(collection.data.creator).bech32,

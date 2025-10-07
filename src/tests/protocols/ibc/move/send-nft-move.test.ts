@@ -6,9 +6,9 @@ import {
 } from "@/tests/_shared/helpers";
 
 import {
-  mockApiResponsesForIbcSendNft,
-  mockMsgIbcSendNft
-} from "./send-nft.fixture";
+  mockApiResponsesForNftSendMove,
+  mockNftSendMoveTransaction
+} from "./send-nft-move.fixture";
 
 jest.mock("axios");
 const decoder = initialize();
@@ -16,15 +16,17 @@ const decoder = initialize();
 describe("IBC Send NFT Message", () => {
   beforeEach(() => {
     resetMockApi(mockedAxios);
-    setupMockApi(mockedAxios, mockApiResponsesForIbcSendNft);
+    setupMockApi(mockedAxios, mockApiResponsesForNftSendMove);
   });
 
   it("should decode an IBC NFT send message correctly", async () => {
-    const decoded = await decoder.decodeCosmosTransaction(mockMsgIbcSendNft);
+    const decoded = await decoder.decodeCosmosTransaction(
+      mockNftSendMoveTransaction
+    );
 
     expect(decoded.messages).toHaveLength(1);
     expect(decoded.messages[0].decodedMessage).toEqual({
-      action: "ibc_nft_send",
+      action: "ibc_nft_send_move",
       data: {
         collection: {
           creator:
@@ -98,68 +100,8 @@ describe("IBC Send NFT Message", () => {
           "init1fv3ykwuzzsrpf7lqwp45y8vg0azn96536jkseu4engf9rsrdl2dqzkhn6h",
         tokenId: "1",
         tokenUri: "https://jennie.initia.xyz/data/9_4.json",
-        type: "nft"
+        type: "move_nft"
       }
     });
-  });
-
-  it("should handle the correct message type", async () => {
-    const decoded = await decoder.decodeCosmosTransaction(mockMsgIbcSendNft);
-
-    expect(decoded.messages[0].decodedMessage.action).toBe("ibc_nft_send");
-    expect(decoded.messages[0].decodedMessage.isIbc).toBe(true);
-    expect(decoded.messages[0].decodedMessage.isOp).toBe(false);
-  });
-
-  it("should extract correct NFT metadata from packet data", async () => {
-    const decoded = await decoder.decodeCosmosTransaction(mockMsgIbcSendNft);
-    const decodedMessage = decoded.messages[0].decodedMessage;
-
-    // Type guard to ensure we have the correct message type
-    expect(decodedMessage.action).toBe("ibc_nft_send");
-    if (decodedMessage.action === "ibc_nft_send") {
-      expect(decodedMessage.data.collectionId).toBe(
-        "init1fv3ykwuzzsrpf7lqwp45y8vg0azn96536jkseu4engf9rsrdl2dqzkhn6h"
-      );
-      expect(decodedMessage.data.collection.uri).toBe(
-        "https://jennie.initia.xyz/data/collection.json"
-      );
-      expect(decodedMessage.data.tokenIds).toEqual(["1"]);
-      expect(decodedMessage.data.tokenUris).toEqual([
-        "https://jennie.initia.xyz/data/9_4.json"
-      ]);
-    }
-  });
-
-  it("should include correct IBC channel information", async () => {
-    const decoded = await decoder.decodeCosmosTransaction(mockMsgIbcSendNft);
-    const decodedMessage = decoded.messages[0].decodedMessage;
-
-    // Type guard to ensure we have the correct message type
-    expect(decodedMessage.action).toBe("ibc_nft_send");
-    if (decodedMessage.action === "ibc_nft_send") {
-      expect(decodedMessage.data.srcChainId).toBe("interwoven-1");
-      expect(decodedMessage.data.srcChannel).toBe("channel-28");
-      expect(decodedMessage.data.srcPort).toBe("nft-transfer");
-      expect(decodedMessage.data.dstChainId).toBe("civitia-1");
-      expect(decodedMessage.data.dstChannel).toBe("channel-1");
-      expect(decodedMessage.data.dstPort).toBe("nft-transfer");
-    }
-  });
-
-  it("should include correct sender and receiver addresses", async () => {
-    const decoded = await decoder.decodeCosmosTransaction(mockMsgIbcSendNft);
-    const decodedMessage = decoded.messages[0].decodedMessage;
-
-    // Type guard to ensure we have the correct message type
-    expect(decodedMessage.action).toBe("ibc_nft_send");
-    if (decodedMessage.action === "ibc_nft_send") {
-      expect(decodedMessage.data.sender).toBe(
-        "init1dw49mn7s2r5mskjdmus5hth80zz8wwaywycq06"
-      );
-      expect(decodedMessage.data.receiver).toBe(
-        "init1ulw753hxh4mrc9ss7p2y7h8emjxxyw6uce0hk9"
-      );
-    }
   });
 });

@@ -17,8 +17,9 @@ export type DecodedMessage =
   | DecodedFinalizeTokenWithdrawalMessage
   | DecodedIbcFtReceiveMessage
   | DecodedIbcFtSendMessage
-  | DecodedIbcNftReceiveMessage
-  | DecodedIbcNftSendMessage
+  | DecodedIbcNftReceiveMoveMessage
+  | DecodedIbcNftSendEvmMessage
+  | DecodedIbcNftSendMoveMessage
   | DecodedInitiateTokenDepositMessage
   | DecodedInitiateTokenWithdrawalMessage
   | DecodedMergeLiquidityMessage
@@ -240,8 +241,8 @@ interface DecodedNftBurnMessage extends DecodedMessageBase {
   };
 }
 
-interface DecodedIbcNftSendMessage extends DecodedMessageBase {
-  action: "ibc_nft_send";
+interface DecodedIbcNftSendMoveMessage extends DecodedMessageBase {
+  action: "ibc_nft_send_move";
   data: {
     collection: {
       creator: string;
@@ -270,8 +271,31 @@ interface DecodedIbcNftSendMessage extends DecodedMessageBase {
   };
 }
 
-interface DecodedIbcNftReceiveMessage extends DecodedMessageBase {
-  action: "ibc_nft_receive";
+interface DecodedIbcNftSendEvmMessage extends DecodedMessageBase {
+  action: "ibc_nft_send_evm";
+  data: {
+    contractAddress: string;
+    dstChainId: string;
+    dstChannel: string;
+    dstPort: string;
+    receiver: string;
+    sender: string;
+    sequence: string;
+    srcChainId: string;
+    srcChannel: string;
+    srcPort: string;
+    timeoutHeight: {
+      revision_height: string;
+      revision_number: string;
+    };
+    timeoutTimestamp: string;
+    tokenIds: string[];
+    tokenUris: string[];
+  };
+}
+
+interface DecodedIbcNftReceiveMoveMessage extends DecodedMessageBase {
+  action: "ibc_nft_receive_move";
   data: {
     collection: {
       creator: string;

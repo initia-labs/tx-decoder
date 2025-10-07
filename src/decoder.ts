@@ -13,7 +13,8 @@ import {
   DecodedTx,
   DecoderConfig,
   MessageDecoder,
-  ProcessedMessage
+  ProcessedMessage,
+  VmType
 } from "./interfaces";
 import { resolveMetadata } from "./metadata-resolver";
 import {
@@ -33,8 +34,7 @@ const evmMessageDecoders: MessageDecoder[] = [
   Decoders.initiateTokenWithdrawalDecoder,
   Decoders.ibcSendFtDecoder,
   Decoders.ibcReceiveFtDecoder,
-  Decoders.ibcSendNftDecoder,
-  Decoders.ibcReceiveNftDecoder
+  Decoders.ibcSendNftEvmDecoder
 ];
 
 const moveMessageDecoders: MessageDecoder[] = [
@@ -50,8 +50,8 @@ const moveMessageDecoders: MessageDecoder[] = [
   Decoders.extendLiquidityDecoder,
   Decoders.finalizeTokenWithdrawalDecoder,
   Decoders.mergeLiquidityDecoder,
-  Decoders.ibcReceiveNftDecoder,
-  Decoders.ibcSendNftDecoder,
+  Decoders.ibcReceiveNftMoveDecoder,
+  Decoders.ibcSendNftMoveDecoder,
   Decoders.ibcSendFtDecoder,
   Decoders.ibcReceiveFtDecoder,
   Decoders.initiateTokenDepositDecoder,
@@ -222,7 +222,8 @@ export class TxDecoder {
   private async _decodeEvmMessage(
     message: Message,
     log: Log | undefined,
-    txResponse: TxResponse
+    txResponse: TxResponse,
+    vm: VmType
   ): ReturnType<MessageDecoder["decode"]> {
     const notSupportedMessage = createNotSupportedMessage(message["@type"]);
 
@@ -234,6 +235,7 @@ export class TxDecoder {
       const decoder = this._findDecoderForMessage(
         message,
         log,
+        vm,
         evmMessageDecoders
       );
       if (!decoder) return notSupportedMessage;
@@ -254,7 +256,8 @@ export class TxDecoder {
   private async _decodeMessage(
     message: Message,
     log: Log | undefined,
-    txResponse: TxResponse
+    txResponse: TxResponse,
+    vm: VmType
   ): ReturnType<MessageDecoder["decode"]> {
     const notSupportedMessage = createNotSupportedMessage(message["@type"]);
 
@@ -266,6 +269,7 @@ export class TxDecoder {
       const decoder = this._findDecoderForMessage(
         message,
         log,
+        vm,
         moveMessageDecoders
       );
       if (!decoder) return notSupportedMessage;
@@ -286,9 +290,10 @@ export class TxDecoder {
   private _findDecoderForMessage(
     message: Message,
     log: Log,
+    vm: VmType,
     decoders: MessageDecoder[]
   ): MessageDecoder | undefined {
-    return decoders.find((decoder) => decoder.check(message, log));
+    return decoders.find((decoder) => decoder.check(message, log, vm));
   }
 
   private _findEthereumDecoder(payload: EthereumRpcPayload) {
@@ -298,16 +303,18 @@ export class TxDecoder {
   private async _processEvmMessage(
     txResponse: TxResponse
   ): Promise<ProcessedMessage[]> {
+    const vm = "evm";
     const promises = txResponse.tx.body.messages.map(async (message, index) => {
       const log = txResponse.logs[index];
 
       const decodedMessage = await this._decodeEvmMessage(
         message,
         log,
-        txResponse
+        txResponse,
+        vm
       );
       const balanceChanges = log
-        ? await calculateBalanceChangesFromLog(log, this.apiClient, "evm")
+        ? await calculateBalanceChangesFromLog(log, this.apiClient, vm)
         : createDefaultEvmBalanceChanges();
 
       return { balanceChanges, decodedMessage };
@@ -319,16 +326,18 @@ export class TxDecoder {
   private async _processMessage(
     txResponse: TxResponse
   ): Promise<ProcessedMessage[]> {
+    const vm = "move";
     const promises = txResponse.tx.body.messages.map(async (message, index) => {
       const log = txResponse.logs[index];
 
       const decodedMessage = await this._decodeMessage(
         message,
         log,
-        txResponse
+        txResponse,
+        vm
       );
       const balanceChanges = log
-        ? await calculateBalanceChangesFromLog(log, this.apiClient, "move")
+        ? await calculateBalanceChangesFromLog(log, this.apiClient, vm)
         : createDefaultMoveBalanceChanges();
 
       return { balanceChanges, decodedMessage };
