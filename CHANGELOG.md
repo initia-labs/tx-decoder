@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.8.0](https://github.com/initia-labs/tx-decoder/compare/v0.7.2...v0.8.0) (2025-10-07)
+
+
+### Features
+
+* add contract creation decoder and improve error handling ([#83](https://github.com/initia-labs/tx-decoder/issues/83)) ([f235517](https://github.com/initia-labs/tx-decoder/commit/f23551714b079169de86f8b481f5fbedf128a7b6))
+* add ERC20 / ERC721 approve decoder ([#80](https://github.com/initia-labs/tx-decoder/issues/80)) ([20ac71f](https://github.com/initia-labs/tx-decoder/commit/20ac71f61bffdd8dd939c1f3813ae383f4d5d50e))
+* add ERC721 safeTransferFrom decoder and update README ([#81](https://github.com/initia-labs/tx-decoder/issues/81)) ([eff6acf](https://github.com/initia-labs/tx-decoder/commit/eff6acfa983113e08c36bfad9a0edb9ba7b32b68))
+* add finalize token deposit decoder for evm ([#75](https://github.com/initia-labs/tx-decoder/issues/75)) ([5127bbd](https://github.com/initia-labs/tx-decoder/commit/5127bbd50bd406789d2c6840d0434e65b4685982))
+* add initiate token withdrawal decoder and message type ([#77](https://github.com/initia-labs/tx-decoder/issues/77)) ([92ac3a5](https://github.com/initia-labs/tx-decoder/commit/92ac3a524805ca3abbc0f28445198b12869a5018))
+* enhance IBC NFT transfer decoding for EVM transactions ([#86](https://github.com/initia-labs/tx-decoder/issues/86)) ([036ce88](https://github.com/initia-labs/tx-decoder/commit/036ce882d7b7d3bd46a87d58662f216afc01a110))
+* support single and multiple contract creation in decodeEthereumTransaction ([#84](https://github.com/initia-labs/tx-decoder/issues/84)) ([1243380](https://github.com/initia-labs/tx-decoder/commit/1243380ee3df25839de292efd18c86edcb62af99))
+
 ## [0.7.2](https://github.com/initia-labs/tx-decoder/compare/v0.7.1...v0.7.2) (2025-09-26)
 
 
