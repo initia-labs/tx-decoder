@@ -6,14 +6,14 @@ import { BalanceChanges, Metadata } from "./interfaces";
 export const resolveMetadata = async (
   apiClient: ApiClient,
   balanceChanges: BalanceChanges
-) => {
+): Promise<Metadata> => {
   switch (balanceChanges.vm) {
     case "evm":
       return resolveEvmMetadata(apiClient, balanceChanges);
     case "move":
       return resolveMoveMetadata(apiClient, balanceChanges);
     default:
-      return {};
+      return {} as Metadata;
   }
 };
 
