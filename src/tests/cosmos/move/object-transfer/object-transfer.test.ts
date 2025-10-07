@@ -76,7 +76,7 @@ describe("Object Transfer Message", () => {
           "init1qktu60eh7g04n3m3wvdrr6f2cys57u45lz5x2sdffdg0qvy0fcsqk9gvt9",
         tokenId: "3",
         tokenUri: "https://nft-rho-ten.vercel.app/favoritefood/3",
-        type: "nft"
+        type: "move_nft"
       }
     });
   });

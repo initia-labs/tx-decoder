@@ -319,12 +319,12 @@ export const mockApiResponsesForNftSendEvm = {
   GET: {
     "/chains.json": [
       {
-        chain_id: "yominet-1",
-        chain_name: "yominet",
+        chain_id: "embrmainnet-1",
+        chain_name: "embr",
         metadata: {
           ibc_channels: [
             {
-              chain_id: "civitia-1",
+              chain_id: "interwoven-1",
               channel_id: "channel-1",
               port_id: "nft-transfer",
               version: "ics721-1"
@@ -335,81 +335,9 @@ export const mockApiResponsesForNftSendEvm = {
     ],
     "/cosmos/base/tendermint/v1beta1/node_info": {
       default_node_info: {
-        network: "yominet-1"
+        network: "embrmainnet-1"
       }
-    },
-    "/initia/move/v1/accounts/0x4b224b3b82140614fbe0706b421d887f4532ea91d4ad0cf2b99a1251c06dfa9a/resources":
-      {
-        pagination: { next_key: null, total: "0" },
-        resources: [
-          {
-            address:
-              "0x4b224b3b82140614fbe0706b421d887f4532ea91d4ad0cf2b99a1251c06dfa9a",
-            move_resource:
-              '{"type":"0x1::object::ObjectCore","data":{"guid_creation_num":"2","owner":"0x6baa5dcfd050e9b85a4ddf214baee77884773ba4","allow_ungated_transfer":false}}',
-            raw_bytes:
-              "AAAAAAAAAAAAAAAAa6pdz9BQ6bhaTd8hS67neIR3O6QCAAAAAAAAAAA=",
-            struct_tag: "0x1::object::ObjectCore"
-          },
-          {
-            address:
-              "0x4b224b3b82140614fbe0706b421d887f4532ea91d4ad0cf2b99a1251c06dfa9a",
-            move_resource:
-              '{"type":"0x1::nft::Nft","data":{"collection":"0x28b13b47c4342699063ddd3e07b7bbceedb1cbfbfe2c70296c69a7aa91a14448","description":"Jennie you know and love, now living rent-free in your wallet. She\'ll accompany you wherever you go.","name":"Jennie #1","uri":"https://jennie.initia.xyz/data/9_4.json"}}',
-            raw_bytes:
-              "KBOxtHxDQmmQY933DrcO7O7bHL+/4sQpbGmmerkaFEhmSmVubmllIHlvdSBrbm93IGFuZCBsb3ZlLCBub3cgbGl2aW5nIHJlbnQtZnJlZSBpbiB5b3VyIHdhbGxldC4gU2hlJ2xsIGFjY29tcGFueSB5b3Ugd2hlcmV2ZXIgeW91IGdvLghKZW5uaWUgIzEnaHR0cHM6Ly9qZW5uaWUuaW5pdGlhLnh5ei9kYXRhLzlfNC5qc29u",
-            struct_tag: "0x1::nft::Nft"
-          }
-        ]
-      },
-    "/initia/move/v1/accounts/0x28b13b47c4342699063ddd3e07b7bbceedb1cbfbfe2c70296c69a7aa91a14448/resources":
-      {
-        pagination: { next_key: null, total: "0" },
-        resources: [
-          {
-            address:
-              "0x28b13b47c4342699063ddd3e07b7bbceedb1cbfbfe2c70296c69a7aa91a14448",
-            move_resource:
-              '{"type":"0x1::collection::Collection","data":{"creator":"init13fnzkzrac5lx9xeu5mt80r2w0thl4s9ns7ueg9znn4enhyp4fyrsgkt9zc","description":"Jennie you know and love, now living rent-free in your wallet. She\'ll accompany you wherever you go.","name":"Jennie","uri":"https://jennie.initia.xyz/data/collection.json"}}',
-            raw_bytes:
-              "imYrCH3FPmKbPKbWd41Oeu/6wLOHuZQUU51zO5A1SQdkSmVubmllIHlvdSBrbm93IGFuZCBsb3ZlLCBub3cgbGl2aW5nIHJlbnQtZnJlZSBpbiB5b3VyIHdhbGxldC4gU2hlJ2xsIGFjY29tcGFueSB5b3Ugd2hlcmV2ZXIgeW91IGdvLgZKZW5uaWUuaHR0cHM6Ly9qZW5uaWUuaW5pdGlhLnh5ei9kYXRhL2NvbGxlY3Rpb24uanNvbg==",
-            struct_tag: "0x1::collection::Collection"
-          },
-          {
-            address:
-              "0x28b13b47c4342699063ddd3e07b7bbceedb1cbfbfe2c70296c69a7aa91a14448",
-            move_resource:
-              '{"type":"0x1::object::ObjectCore","data":{"guid_creation_num":"2","owner":"init1v2xnnl08y508ec6q4q4hxqr2avdeyu3cew5rxghwnn5t3y4jhd2smmah7n","allow_ungated_transfer":false}}',
-            raw_bytes:
-              "VqJpfV/7a98fVt9fG4LMy+/Yp8Jewk8sWAAAAAAAAAAAACAAAAAAAAAAAA==",
-            struct_tag: "0x1::object::ObjectCore"
-          }
-        ]
-      },
-    "/initia/move/v1/accounts/0xfbd3b9eab0ca94f25a4e6d9bd1c49df64b6d4abacb0c0c12b43bcdea4a0d1e8b/resources":
-      {
-        pagination: { next_key: null, total: "0" },
-        resources: [
-          {
-            address:
-              "0xfbd3b9eab0ca94f25a4e6d9bd1c49df64b6d4abacb0c0c12b43bcdea4a0d1e8b",
-            move_resource:
-              '{"type":"0x1::collection::Collection","data":{"creator":"init13fnzkzrac5lx9xeu5mt80r2w0thl4s9ns7ueg9znn4enhyp4fyrsgkt9zc","description":"Jennie you know and love, now living rent-free in your wallet. She\'ll accompany you wherever you go.","name":"Jennie","uri":"https://jennie.initia.xyz/data/collection.json"}}',
-            raw_bytes:
-              "imYrCH3FPmKbPKbWd41Oeu/6wLOHuZQUU51zO5A1SQdkSmVubmllIHlvdSBrbm93IGFuZCBsb3ZlLCBub3cgbGl2aW5nIHJlbnQtZnJlZSBpbiB5b3VyIHdhbGxldC4gU2hlJ2xsIGFjY29tcGFueSB5b3Ugd2hlcmV2ZXIgeW91IGdvLgZKZW5uaWUuaHR0cHM6Ly9qZW5uaWUuaW5pdGlhLnh5ei9kYXRhL2NvbGxlY3Rpb24uanNvbg==",
-            struct_tag: "0x1::collection::Collection"
-          },
-          {
-            address:
-              "0xfbd3b9eab0ca94f25a4e6d9bd1c49df64b6d4abacb0c0c12b43bcdea4a0d1e8b",
-            move_resource:
-              '{"type":"0x1::object::ObjectCore","data":{"guid_creation_num":"2","owner":"init1v2xnnl08y508ec6q4q4hxqr2avdeyu3cew5rxghwnn5t3y4jhd2smmah7n","allow_ungated_transfer":false}}',
-            raw_bytes:
-              "VqJpfV/7a98fVt9fG4LMy+/Yp8Jewk8sWAAAAAAAAAAAACAAAAAAAAAAAA==",
-            struct_tag: "0x1::object::ObjectCore"
-          }
-        ]
-      }
+    }
   },
   POST: {}
 };

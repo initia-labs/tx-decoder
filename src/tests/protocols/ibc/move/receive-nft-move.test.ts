@@ -35,7 +35,7 @@ describe("IBC Receive NFT Message", () => {
       expect(messages[0].decodedMessage.action).toEqual("not_supported");
 
       expect(messages[1].decodedMessage).toEqual({
-        action: "ibc_nft_receive",
+        action: "ibc_nft_receive_move",
         data: {
           collection: {
             creator: "init1ulw753hxh4mrc9ss7p2y7h8emjxxyw6uce0hk9",
@@ -96,7 +96,7 @@ describe("IBC Receive NFT Message", () => {
             "init1ntmktkq3yzwnn0f4luwhtaw0pn6xvc7067j52k55sfndkxydvlesl6xnsq",
           tokenId: "1",
           tokenUri: "https://nft-rho-ten.vercel.app/thailand/1",
-          type: "nft"
+          type: "move_nft"
         }
       });
     });
@@ -116,7 +116,7 @@ describe("IBC Receive NFT Message", () => {
       expect(messages[0].decodedMessage.action).toEqual("not_supported");
 
       expect(messages[1].decodedMessage).toEqual({
-        action: "ibc_nft_receive",
+        action: "ibc_nft_receive_move",
         data: {
           collection: {
             creator: "init1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqpqr5e3d",
@@ -199,7 +199,7 @@ describe("IBC Receive NFT Message", () => {
           tokenId: "6089",
           tokenUri:
             "ipfs://bafybeifye6qvvdw45he36lfoqolfxunwvk3k3vh4b2ahloubv7cnstt56i/6089",
-          type: "nft"
+          type: "move_nft"
         }
       });
     });

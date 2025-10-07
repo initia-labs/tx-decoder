@@ -76,7 +76,7 @@ describe("NFT Mint Message", () => {
           "init1qktu60eh7g04n3m3wvdrr6f2cys57u45lz5x2sdffdg0qvy0fcsqk9gvt9",
         tokenId: "1",
         tokenUri: "https://nft-rho-ten.vercel.app/favoritefood/1",
-        type: "nft"
+        type: "move_nft"
       }
     });
   });

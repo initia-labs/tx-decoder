@@ -1,7 +1,7 @@
 import { InitiaAddress } from "@initia/utils";
 
 import { ApiClient } from "@/api";
-import { MessageDecoder } from "@/interfaces";
+import { MessageDecoder, VmType } from "@/interfaces";
 import {
   Log,
   Message,
@@ -14,10 +14,14 @@ import {
 } from "@/schema";
 import { denomToHex, findMoveEvent } from "@/utils";
 
-export const ibcSendNftDecoder: MessageDecoder = {
-  check: (message: Message, _log: Log) => {
+export const ibcSendNftMoveDecoder: MessageDecoder = {
+  check: (message: Message, _log: Log, vm: VmType) => {
     const parsed = zMsgIbcSendNft.safeParse(message);
-    return parsed.success && parsed.data.source_port === "nft-transfer";
+    return (
+      parsed.success &&
+      parsed.data.source_port === "nft-transfer" &&
+      vm === "move"
+    );
   },
   decode: async (
     message: Message,
@@ -95,41 +99,17 @@ export const ibcSendNftDecoder: MessageDecoder = {
     )?.value;
     if (!sequence) throw new Error(`IBC NFT Transfer sequence not found`);
 
-    // Check if this is an EVM transaction
-    const isEvmTransaction = log.events.some((event) => event.type === "evm");
-
-    let tokenAddress: string;
-    if (isEvmTransaction) {
-      // For EVM: Look for erc721_burned event
-      const erc721BurnedEvent = log.events.find(
-        (event) => event.type === "erc721_burned"
-      );
-      if (!erc721BurnedEvent) {
-        throw new Error("IBC NFT Send ERC721 burned event not found");
-      }
-
-      const contractAttr = erc721BurnedEvent.attributes.find(
-        (attr) => attr.key === "contract"
-      );
-      if (!contractAttr) {
-        throw new Error("IBC NFT Send contract address not found");
-      }
-      tokenAddress = contractAttr.value;
-    } else {
-      // For Move: Use existing logic
-      const moveTransfer = findMoveEvent(
-        log.events,
-        "0x1::object::TransferEvent",
-        zMsgMoveObjectTransferEvent
-      );
-      if (!moveTransfer) {
-        throw new Error("IBC NFT Send packet token address not found");
-      }
-      tokenAddress = moveTransfer.object;
+    const tokenAddress = findMoveEvent(
+      log.events,
+      "0x1::object::TransferEvent",
+      zMsgMoveObjectTransferEvent
+    )?.object;
+    if (!tokenAddress) {
+      throw new Error("IBC NFT Send packet token address not found");
     }
 
     return {
-      action: "ibc_nft_send",
+      action: "ibc_nft_send_move",
       data: {
         collection: {
           creator: InitiaAddress(collection.data.creator).bech32,
@@ -137,7 +117,7 @@ export const ibcSendNftDecoder: MessageDecoder = {
           name: collection.data.name,
           uri: collection.data.uri || parsedData.data.classUri
         },
-        collectionId: InitiaAddress(denomToHex(class_id)).bech32,
+        collectionId: classIdAddress.bech32,
         dstChainId,
         dstChannel,
         dstPort,
@@ -159,7 +139,7 @@ export const ibcSendNftDecoder: MessageDecoder = {
   }
 };
 
-export const ibcReceiveNftDecoder: MessageDecoder = {
+export const ibcReceiveNftMoveDecoder: MessageDecoder = {
   check: (message: Message, _log: Log) => {
     const parsed = zMsgIbcRecvPacket.safeParse(message);
     return (
@@ -258,7 +238,7 @@ export const ibcReceiveNftDecoder: MessageDecoder = {
     }
 
     return {
-      action: "ibc_nft_receive",
+      action: "ibc_nft_receive_move",
       data: {
         collection: {
           creator: InitiaAddress(collection.data.creator).bech32,
