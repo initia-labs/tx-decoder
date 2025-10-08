@@ -3,12 +3,25 @@ import { InitiaAddress } from "@initia/utils";
 import { ApiClient } from "./api";
 import { BalanceChanges, Metadata } from "./interfaces";
 
-// We only support NFT metadata for now
 export const resolveMetadata = async (
   apiClient: ApiClient,
   balanceChanges: BalanceChanges
-) => {
-  const tokenAddresses = Object.values(balanceChanges.object).flatMap(
+): Promise<Metadata> => {
+  switch (balanceChanges.vm) {
+    case "evm":
+      return resolveEvmMetadata(apiClient, balanceChanges);
+    case "move":
+      return resolveMoveMetadata(apiClient, balanceChanges);
+    default:
+      return {} as Metadata;
+  }
+};
+
+const resolveMoveMetadata = async (
+  apiClient: ApiClient,
+  balanceChanges: BalanceChanges & { vm: "move" }
+): Promise<Metadata> => {
+  const tokenAddresses: string[] = Object.values(balanceChanges.object).flatMap(
     (innerObject) => Object.keys(innerObject)
   );
 
@@ -53,11 +66,19 @@ export const resolveMetadata = async (
         collectionAddress: InitiaAddress(nft.data.collection.inner).bech32,
         tokenId: nft.data.token_id,
         tokenUri: nft.data.uri,
-        type: "nft"
+        type: "move_nft"
       };
     }
     return acc;
   }, {});
 
   return metadata;
+};
+
+const resolveEvmMetadata = async (
+  _apiClient: ApiClient,
+  _balanceChanges: BalanceChanges & { vm: "evm" }
+): Promise<Metadata> => {
+  // TODO
+  return {};
 };

@@ -1,43 +1,69 @@
 import { ApiClient } from "./api";
-import { processLogForBalanceChanges } from "./balance-changes";
-import { DEFAULT_BALANCE_CHANGES } from "./constants";
+import {
+  calculateBalanceChangesFromEthereumLogs,
+  calculateBalanceChangesFromLog
+} from "./balance-changes";
+import {
+  createDefaultEvmBalanceChanges,
+  createDefaultMoveBalanceChanges
+} from "./constants";
 import * as Decoders from "./decoders";
 import {
+  DecodedEthereumTx,
   DecodedTx,
   DecoderConfig,
   MessageDecoder,
-  ProcessedMessage
+  ProcessedMessage,
+  VmType
 } from "./interfaces";
 import { resolveMetadata } from "./metadata-resolver";
-import { Log, Message, TxResponse, zTxResponse } from "./schema";
+import {
+  EthereumRpcPayload,
+  Log,
+  Message,
+  TxResponse,
+  zEthereumRpcPayload,
+  zTxResponse
+} from "./schema";
 import { attachTxLogs, mergeBalanceChanges } from "./utils";
 import { createNotSupportedMessage } from "./utils";
 
-// Array of decoders ordered by priority
-const messageDecoders: MessageDecoder[] = [
+const evmMessageDecoders: MessageDecoder[] = [
+  Decoders.sendDecoder,
+  Decoders.finalizeTokenDepositDecoder,
+  Decoders.initiateTokenWithdrawalDecoder,
+  Decoders.ibcSendFtDecoder,
+  Decoders.ibcReceiveFtDecoder,
+  Decoders.ibcSendNftEvmDecoder
+];
+
+const moveMessageDecoders: MessageDecoder[] = [
   Decoders.claimMinitswapDecoder,
   Decoders.delegateDecoder,
   Decoders.delegateLockedDecoder,
   Decoders.depositMinitswapDecoder,
   Decoders.depositLiquidityDecoder,
+  Decoders.directDepositLiquidityDecoder,
   Decoders.depositStakeLiquidityDecoder,
   Decoders.depositStakeLockLiquidityDecoder,
   Decoders.dexSwapDecoder,
   Decoders.extendLiquidityDecoder,
   Decoders.finalizeTokenWithdrawalDecoder,
   Decoders.mergeLiquidityDecoder,
-  Decoders.ibcReceiveNftDecoder,
-  Decoders.ibcSendNftDecoder,
+  Decoders.ibcReceiveNftMoveDecoder,
+  Decoders.ibcSendNftMoveDecoder,
   Decoders.ibcSendFtDecoder,
   Decoders.ibcReceiveFtDecoder,
   Decoders.initiateTokenDepositDecoder,
+  Decoders.initiateTokenWithdrawalDecoder,
   Decoders.nftBurnDecoder,
   Decoders.nftMintDecoder,
   Decoders.objectTransferDecoder,
+  Decoders.provideStableswapDecoder,
   Decoders.redelegateDecoder,
   Decoders.redelegateLockedDecoder,
   Decoders.sendDecoder,
-  Decoders.stableSwapDecoder,
+  Decoders.stableswapDecoder,
   Decoders.undelegateDecoder,
   Decoders.undelegateLockedDecoder,
   Decoders.vipClaimEsinitDecoder,
@@ -46,8 +72,16 @@ const messageDecoders: MessageDecoder[] = [
   Decoders.withdrawDelegatorRewardDecoder,
   Decoders.withdrawDelegatorRewardLockedDecoder,
   Decoders.withdrawLiquidityDecoder,
-  Decoders.withdrawMinitswapDecoder
-  // Add more decoders here in order of priority
+  Decoders.withdrawMinitswapDecoder,
+  Decoders.withdrawStableswapDecoder
+];
+
+const ethereumDecoders = [
+  Decoders.contractCreationDecoder,
+  Decoders.approveDecoder,
+  Decoders.erc20TransferDecoder,
+  Decoders.transferFromDecoder,
+  Decoders.erc721SafeTransferFromDecoder
 ];
 
 export class TxDecoder {
@@ -61,14 +95,56 @@ export class TxDecoder {
     this.apiClient = new ApiClient(config);
   }
 
-  public async decodeTransaction(tx: unknown): Promise<DecodedTx> {
+  /**
+   * Decodes a Cosmos EVM transaction, processing only general message types
+   */
+  public async decodeCosmosEvmTransaction(tx: unknown): Promise<DecodedTx> {
     const txResponse = this._validateAndPrepareTx(tx);
 
     if (txResponse.tx.body.messages.length === 0) {
       return {
         messages: [],
         metadata: {},
-        totalBalanceChanges: DEFAULT_BALANCE_CHANGES
+        totalBalanceChanges: createDefaultEvmBalanceChanges()
+      };
+    }
+
+    if (
+      txResponse.code === 0 &&
+      txResponse.logs.length !== txResponse.tx.body.messages.length
+    ) {
+      throw new Error(
+        `Invalid tx response: ${txResponse.logs.length} logs found for ${txResponse.tx.body.messages.length} messages`
+      );
+    }
+
+    const processedMessages = await this._processEvmMessage(txResponse);
+
+    const totalBalanceChanges = processedMessages.reduce(
+      (acc, message) => mergeBalanceChanges(acc, message.balanceChanges),
+      createDefaultEvmBalanceChanges()
+    );
+
+    const metadata = await resolveMetadata(this.apiClient, totalBalanceChanges);
+
+    return {
+      messages: processedMessages,
+      metadata,
+      totalBalanceChanges
+    };
+  }
+
+  /**
+   * Decodes a Cosmos transaction, processing all supported message types for L1 and Move L2.
+   */
+  public async decodeCosmosTransaction(tx: unknown): Promise<DecodedTx> {
+    const txResponse = this._validateAndPrepareTx(tx);
+
+    if (txResponse.tx.body.messages.length === 0) {
+      return {
+        messages: [],
+        metadata: {},
+        totalBalanceChanges: createDefaultMoveBalanceChanges()
       };
     }
 
@@ -85,7 +161,7 @@ export class TxDecoder {
 
     const totalBalanceChanges = processedMessages.reduce(
       (acc, message) => mergeBalanceChanges(acc, message.balanceChanges),
-      DEFAULT_BALANCE_CHANGES
+      createDefaultMoveBalanceChanges()
     );
 
     const metadata = await resolveMetadata(this.apiClient, totalBalanceChanges);
@@ -97,10 +173,57 @@ export class TxDecoder {
     };
   }
 
-  private async _decodeMessage(
+  /**
+   * Decodes a native Ethereum RPC transaction
+   */
+  public async decodeEthereumTransaction(
+    payload: unknown
+  ): Promise<DecodedEthereumTx> {
+    const ethereumPayload = this._validateAndPrepareEthereumPayload(payload);
+
+    const decoder = this._findEthereumDecoder(ethereumPayload);
+
+    const balanceChanges = await calculateBalanceChangesFromEthereumLogs(
+      ethereumPayload.txReceipt.logs,
+      this.apiClient
+    );
+
+    if (!decoder) {
+      // Return not supported transaction
+      return {
+        decodedTransaction: {
+          action: "not_supported",
+          data: {
+            from: ethereumPayload.tx.from,
+            input: ethereumPayload.tx.input,
+            to: ethereumPayload.tx.to,
+            value: ethereumPayload.tx.value
+          }
+        },
+        metadata: {},
+        totalBalanceChanges: balanceChanges
+      };
+    }
+
+    const decodedTransaction = await decoder.decode(
+      ethereumPayload,
+      this.apiClient
+    );
+
+    const metadata = await resolveMetadata(this.apiClient, balanceChanges);
+
+    return {
+      decodedTransaction,
+      metadata,
+      totalBalanceChanges: balanceChanges
+    };
+  }
+
+  private async _decodeEvmMessage(
     message: Message,
     log: Log | undefined,
-    txResponse: TxResponse
+    txResponse: TxResponse,
+    vm: VmType
   ): ReturnType<MessageDecoder["decode"]> {
     const notSupportedMessage = createNotSupportedMessage(message["@type"]);
 
@@ -109,10 +232,55 @@ export class TxDecoder {
     }
 
     try {
-      const decoder = this._findDecoderForMessage(message, log);
+      const decoder = this._findDecoderForMessage(
+        message,
+        log,
+        vm,
+        evmMessageDecoders
+      );
       if (!decoder) return notSupportedMessage;
 
-      return await decoder.decode(message, log, this.apiClient, txResponse);
+      return await decoder.decode(
+        message,
+        log,
+        this.apiClient,
+        txResponse,
+        "evm"
+      );
+    } catch (e) {
+      console.error(e);
+      return notSupportedMessage;
+    }
+  }
+
+  private async _decodeMessage(
+    message: Message,
+    log: Log | undefined,
+    txResponse: TxResponse,
+    vm: VmType
+  ): ReturnType<MessageDecoder["decode"]> {
+    const notSupportedMessage = createNotSupportedMessage(message["@type"]);
+
+    if (!log) {
+      return notSupportedMessage;
+    }
+
+    try {
+      const decoder = this._findDecoderForMessage(
+        message,
+        log,
+        vm,
+        moveMessageDecoders
+      );
+      if (!decoder) return notSupportedMessage;
+
+      return await decoder.decode(
+        message,
+        log,
+        this.apiClient,
+        txResponse,
+        "move"
+      );
     } catch (e) {
       console.error(e);
       return notSupportedMessage;
@@ -121,30 +289,72 @@ export class TxDecoder {
 
   private _findDecoderForMessage(
     message: Message,
-    log: Log
+    log: Log,
+    vm: VmType,
+    decoders: MessageDecoder[]
   ): MessageDecoder | undefined {
-    return messageDecoders.find((decoder) => decoder.check(message, log));
+    return decoders.find((decoder) => decoder.check(message, log, vm));
+  }
+
+  private _findEthereumDecoder(payload: EthereumRpcPayload) {
+    return ethereumDecoders.find((decoder) => decoder.check(payload));
+  }
+
+  private async _processEvmMessage(
+    txResponse: TxResponse
+  ): Promise<ProcessedMessage[]> {
+    const vm = "evm";
+    const promises = txResponse.tx.body.messages.map(async (message, index) => {
+      const log = txResponse.logs[index];
+
+      const decodedMessage = await this._decodeEvmMessage(
+        message,
+        log,
+        txResponse,
+        vm
+      );
+      const balanceChanges = log
+        ? await calculateBalanceChangesFromLog(log, this.apiClient, vm)
+        : createDefaultEvmBalanceChanges();
+
+      return { balanceChanges, decodedMessage };
+    });
+
+    return Promise.all(promises);
   }
 
   private async _processMessage(
     txResponse: TxResponse
   ): Promise<ProcessedMessage[]> {
+    const vm = "move";
     const promises = txResponse.tx.body.messages.map(async (message, index) => {
       const log = txResponse.logs[index];
 
       const decodedMessage = await this._decodeMessage(
         message,
         log,
-        txResponse
+        txResponse,
+        vm
       );
       const balanceChanges = log
-        ? await processLogForBalanceChanges(log, this.apiClient)
-        : DEFAULT_BALANCE_CHANGES;
+        ? await calculateBalanceChangesFromLog(log, this.apiClient, vm)
+        : createDefaultMoveBalanceChanges();
 
       return { balanceChanges, decodedMessage };
     });
 
     return Promise.all(promises);
+  }
+
+  private _validateAndPrepareEthereumPayload(
+    payload: unknown
+  ): EthereumRpcPayload {
+    const parsed = zEthereumRpcPayload.safeParse(payload);
+    if (!parsed.success) {
+      throw new Error(`Invalid EthereumRpcPayload: ${parsed.error.message}`);
+    }
+
+    return parsed.data;
   }
 
   private _validateAndPrepareTx(tx: unknown): TxResponse {

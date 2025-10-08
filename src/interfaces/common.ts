@@ -1,5 +1,5 @@
 import { BalanceChanges } from "./balance-changes";
-import { DecodedMessage } from "./decoded-messages";
+import { DecodedMessage } from "./cosmos";
 import { Metadata } from "./metadata";
 
 export interface DecodedTx {
@@ -14,6 +14,8 @@ export interface ProcessedMessage {
 }
 
 export interface DecoderConfig {
+  jsonRpcUrl?: string;
   registryUrl: string;
   restUrl: string;
+  timeoutMs?: number;
 }

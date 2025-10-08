@@ -1,6 +1,6 @@
 {
   "name": "@initia/tx-decoder",
-  "version": "0.4.2",
+  "version": "0.8.0",
   "description": "A pluggable library to decode Cosmos-based blockchain transactions.",
   "keywords": [
     "cosmos",
@@ -15,7 +15,6 @@
   "engines": {
     "node": ">=22.0.0"
   },
-  "packageManager": "pnpm@>=10.0.0",
   "exports": {
     ".": {
       "import": {
@@ -37,6 +36,7 @@
   "scripts": {
     "build": "tsup",
     "clean": "rimraf dist",
+    "example:evm": "tsx examples/test-decode-evm-transaction.ts",
     "lint": "eslint \"{src,tests}/**/*.ts\" --fix",
     "prepare": "simple-git-hooks",
     "prepublishOnly": "pnpm run build",
@@ -64,6 +64,7 @@
     "big.js": "^7.0.1",
     "cosmjs-types": "^0.9.0",
     "immer": "^10.1.1",
+    "viem": "^2.37.5",
     "zod": "^3.25.62"
   },
   "devDependencies": {
@@ -82,6 +83,7 @@
     "ts-jest": "^29.1.5",
     "ts-node": "^10.9.2",
     "tsup": "^8.1.0",
+    "tsx": "^4.7.1",
     "typescript": "^5.5.2",
     "typescript-eslint": "^8.34.0"
   }
