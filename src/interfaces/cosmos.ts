@@ -17,6 +17,7 @@ export type DecodedMessage =
   | DecodedFinalizeTokenWithdrawalMessage
   | DecodedIbcFtReceiveMessage
   | DecodedIbcFtSendMessage
+  | DecodedIbcNftReceiveEvmMessage
   | DecodedIbcNftReceiveMoveMessage
   | DecodedIbcNftSendEvmMessage
   | DecodedIbcNftSendMoveMessage
@@ -319,6 +320,29 @@ interface DecodedIbcNftReceiveMoveMessage extends DecodedMessageBase {
     };
     timeoutTimestamp: string;
     tokenAddress: string;
+    tokenIds: string[];
+    tokenUris: string[];
+  };
+}
+
+interface DecodedIbcNftReceiveEvmMessage extends DecodedMessageBase {
+  action: "ibc_nft_receive_evm";
+  data: {
+    contractAddress: string;
+    dstChainId: string;
+    dstChannel: string;
+    dstPort: string;
+    receiver: string;
+    sender: string;
+    sequence: string;
+    srcChainId: string;
+    srcChannel: string;
+    srcPort: string;
+    timeoutHeight: {
+      revision_height: string;
+      revision_number: string;
+    };
+    timeoutTimestamp: string;
     tokenIds: string[];
     tokenUris: string[];
   };
