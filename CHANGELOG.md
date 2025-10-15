@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.9.0](https://github.com/initia-labs/tx-decoder/compare/v0.8.0...v0.9.0) (2025-10-15)
+
+
+### Features
+
+* add IBC NFT receive decoder for EVM transactions ([#87](https://github.com/initia-labs/tx-decoder/issues/87)) ([f9ed681](https://github.com/initia-labs/tx-decoder/commit/f9ed681cec33628a267b7ead9234506715783189))
+* enhance transaction decoding for unsupported calls ([#88](https://github.com/initia-labs/tx-decoder/issues/88)) ([85ee06e](https://github.com/initia-labs/tx-decoder/commit/85ee06e58d073992a5dcf937a31f464f86380ba5))
+* enhance transaction decoding with EVM and Move metadata support ([#90](https://github.com/initia-labs/tx-decoder/issues/90)) ([b567a8a](https://github.com/initia-labs/tx-decoder/commit/b567a8a34dc9869a9d5231c74e468cf533396360))
+
 ## [0.8.0](https://github.com/initia-labs/tx-decoder/compare/v0.7.2...v0.8.0) (2025-10-07)
 
 
