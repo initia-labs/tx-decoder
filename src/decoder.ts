@@ -26,7 +26,7 @@ import {
   zTxResponse
 } from "./schema";
 import { attachTxLogs, mergeBalanceChanges } from "./utils";
-import { createNotSupportedMessage } from "./utils";
+import { createNotSupportedCall, createNotSupportedMessage } from "./utils";
 
 const evmMessageDecoders: MessageDecoder[] = [
   Decoders.sendDecoder,
@@ -188,35 +188,41 @@ export class TxDecoder {
       this.apiClient
     );
 
+    const notSupportedCall = createNotSupportedCall({
+      from: ethereumPayload.tx.from,
+      input: ethereumPayload.tx.input,
+      to: ethereumPayload.tx.to,
+      value: ethereumPayload.tx.value
+    });
+
     if (!decoder) {
-      // Return not supported transaction
       return {
-        decodedTransaction: {
-          action: "not_supported",
-          data: {
-            from: ethereumPayload.tx.from,
-            input: ethereumPayload.tx.input,
-            to: ethereumPayload.tx.to,
-            value: ethereumPayload.tx.value
-          }
-        },
+        decodedTransaction: notSupportedCall,
         metadata: {},
         totalBalanceChanges: balanceChanges
       };
     }
 
-    const decodedTransaction = await decoder.decode(
-      ethereumPayload,
-      this.apiClient
-    );
+    try {
+      const decodedTransaction = await decoder.decode(
+        ethereumPayload,
+        this.apiClient
+      );
 
-    const metadata = await resolveMetadata(this.apiClient, balanceChanges);
+      const metadata = await resolveMetadata(this.apiClient, balanceChanges);
 
-    return {
-      decodedTransaction,
-      metadata,
-      totalBalanceChanges: balanceChanges
-    };
+      return {
+        decodedTransaction,
+        metadata,
+        totalBalanceChanges: balanceChanges
+      };
+    } catch {
+      return {
+        decodedTransaction: notSupportedCall,
+        metadata: {},
+        totalBalanceChanges: balanceChanges
+      };
+    }
   }
 
   private async _decodeEvmMessage(
