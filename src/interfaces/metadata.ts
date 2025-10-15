@@ -5,14 +5,12 @@ export interface MoveNftMetadata {
   collectionAddress: string;
   tokenId: string;
   tokenUri: string;
-  type: "move_nft";
 }
 
 export interface EvmNftMetadata {
   contractAddress: string;
   tokenId: string;
   tokenUri: string;
-  type: "evm_nft";
 }
 
 /**
@@ -42,3 +40,7 @@ export interface MoveMetadata {
 export interface EvmMetadata {
   [contractAddress: string]: { [tokenId: string]: EvmNftMetadata };
 }
+
+export type Metadata =
+  | { data: EvmMetadata; type: "evm" }
+  | { data: MoveMetadata; type: "move" };

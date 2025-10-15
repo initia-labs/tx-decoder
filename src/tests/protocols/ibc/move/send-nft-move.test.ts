@@ -87,21 +87,23 @@ describe("IBC Send NFT Message", () => {
     });
 
     expect(decoded.metadata).toEqual({
-      init1v2xnnl08y508ec6q4q4hxqr2avdeyu3cew5rxghwnn5t3y4jhd2smmah7n: {
-        collection: {
-          creator:
-            "init13fnzkzrac5lx9xeu5mt80r2w0thl4s9ns7ueg9znn4enhyp4fyrsgkt9zc",
-          description:
-            "Jennie you know and love, now living rent-free in your wallet. She'll accompany you wherever you go.",
-          name: "Jennie",
-          uri: "https://jennie.initia.xyz/data/collection.json"
-        },
-        collectionAddress:
-          "init1fv3ykwuzzsrpf7lqwp45y8vg0azn96536jkseu4engf9rsrdl2dqzkhn6h",
-        tokenId: "1",
-        tokenUri: "https://jennie.initia.xyz/data/9_4.json",
-        type: "move_nft"
-      }
+      data: {
+        init1v2xnnl08y508ec6q4q4hxqr2avdeyu3cew5rxghwnn5t3y4jhd2smmah7n: {
+          collection: {
+            creator:
+              "init13fnzkzrac5lx9xeu5mt80r2w0thl4s9ns7ueg9znn4enhyp4fyrsgkt9zc",
+            description:
+              "Jennie you know and love, now living rent-free in your wallet. She'll accompany you wherever you go.",
+            name: "Jennie",
+            uri: "https://jennie.initia.xyz/data/collection.json"
+          },
+          collectionAddress:
+            "init1fv3ykwuzzsrpf7lqwp45y8vg0azn96536jkseu4engf9rsrdl2dqzkhn6h",
+          tokenId: "1",
+          tokenUri: "https://jennie.initia.xyz/data/9_4.json"
+        }
+      },
+      type: "move"
     });
   });
 });

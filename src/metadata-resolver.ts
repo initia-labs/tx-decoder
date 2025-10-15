@@ -1,12 +1,26 @@
 import { InitiaAddress } from "@initia/utils";
 
 import { ApiClient } from "./api";
-import { BalanceChanges, EvmMetadata, MoveMetadata } from "./interfaces";
+import { BalanceChanges, Metadata, MoveMetadata } from "./interfaces";
 
-export const resolveMoveMetadata = async (
+export const resolveMetadata = async (
+  apiClient: ApiClient,
+  balanceChanges: BalanceChanges
+): Promise<Metadata> => {
+  switch (balanceChanges.vm) {
+    case "evm":
+      return resolveEvmMetadata(apiClient, balanceChanges);
+    case "move":
+      return resolveMoveMetadata(apiClient, balanceChanges);
+    default:
+      return { data: {}, type: "evm" };
+  }
+};
+
+const resolveMoveMetadata = async (
   apiClient: ApiClient,
   balanceChanges: BalanceChanges & { vm: "move" }
-): Promise<MoveMetadata> => {
+): Promise<Metadata> => {
   const tokenAddresses: string[] = Object.values(balanceChanges.object).flatMap(
     (innerObject) => Object.keys(innerObject)
   );
@@ -51,20 +65,19 @@ export const resolveMoveMetadata = async (
         },
         collectionAddress: InitiaAddress(nft.data.collection.inner).bech32,
         tokenId: nft.data.token_id,
-        tokenUri: nft.data.uri,
-        type: "move_nft"
+        tokenUri: nft.data.uri
       };
     }
     return acc;
   }, {});
 
-  return metadata;
+  return { data: metadata, type: "move" };
 };
 
-export const resolveEvmMetadata = async (
+const resolveEvmMetadata = async (
   _apiClient: ApiClient,
   _balanceChanges: BalanceChanges & { vm: "evm" }
-): Promise<EvmMetadata> => {
+): Promise<Metadata> => {
   // TODO
-  return {};
+  return { data: {}, type: "evm" };
 };

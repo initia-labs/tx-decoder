@@ -1,5 +1,5 @@
 import { EvmBalanceChanges } from "./balance-changes";
-import { EvmMetadata } from "./metadata";
+import { Metadata } from "./metadata";
 
 interface DecodedEthereumCallBase {}
 
@@ -110,6 +110,6 @@ export interface DecodedNotSupportedCall extends DecodedEthereumCallBase {
 
 export interface DecodedEthereumTx {
   decodedTransaction: DecodedEthereumCall;
-  metadata: EvmMetadata;
+  metadata: Metadata;
   totalBalanceChanges: EvmBalanceChanges;
 }

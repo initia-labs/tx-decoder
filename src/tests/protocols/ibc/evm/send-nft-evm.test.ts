@@ -91,6 +91,6 @@ describe("IBC Send NFT EVM Message", () => {
       vm: "evm"
     });
 
-    expect(decoded.metadata).toEqual({});
+    expect(decoded.metadata).toEqual({ data: {}, type: "evm" });
   });
 });

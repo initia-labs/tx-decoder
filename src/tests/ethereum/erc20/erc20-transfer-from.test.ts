@@ -50,6 +50,6 @@ describe("ERC-20 TransferFrom Ethereum Transaction", () => {
       vm: "evm"
     });
 
-    expect(decoded.metadata).toEqual({});
+    expect(decoded.metadata).toEqual({ data: {}, type: "evm" });
   });
 });

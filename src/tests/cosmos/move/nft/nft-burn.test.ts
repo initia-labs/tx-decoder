@@ -61,6 +61,6 @@ describe("NFT Burn Message", () => {
     });
 
     // Since we don't have the metadata for the burned NFT, we expect an empty object
-    expect(decoded.metadata).toEqual({});
+    expect(decoded.metadata).toEqual({ data: {}, type: "move" });
   });
 });

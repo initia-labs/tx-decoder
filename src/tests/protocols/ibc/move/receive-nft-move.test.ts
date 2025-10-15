@@ -84,20 +84,22 @@ describe("IBC Receive NFT Message", () => {
       });
 
       expect(metadata).toEqual({
-        init1rf9acg4cee5welf4jqqhrwx3pv4f695ae0jtaze2tksxywsg76msp3qj9a: {
-          collection: {
-            creator: "init1ulw753hxh4mrc9ss7p2y7h8emjxxyw6uce0hk9",
-            description:
-              "Good places to visit in Thailand - Explore beautiful destinations and cultural landmarks",
-            name: "Thailand places",
-            uri: "https://nft-rho-ten.vercel.app/thailand"
-          },
-          collectionAddress:
-            "init1ntmktkq3yzwnn0f4luwhtaw0pn6xvc7067j52k55sfndkxydvlesl6xnsq",
-          tokenId: "1",
-          tokenUri: "https://nft-rho-ten.vercel.app/thailand/1",
-          type: "move_nft"
-        }
+        data: {
+          init1rf9acg4cee5welf4jqqhrwx3pv4f695ae0jtaze2tksxywsg76msp3qj9a: {
+            collection: {
+              creator: "init1ulw753hxh4mrc9ss7p2y7h8emjxxyw6uce0hk9",
+              description:
+                "Good places to visit in Thailand - Explore beautiful destinations and cultural landmarks",
+              name: "Thailand places",
+              uri: "https://nft-rho-ten.vercel.app/thailand"
+            },
+            collectionAddress:
+              "init1ntmktkq3yzwnn0f4luwhtaw0pn6xvc7067j52k55sfndkxydvlesl6xnsq",
+            tokenId: "1",
+            tokenUri: "https://nft-rho-ten.vercel.app/thailand/1"
+          }
+        },
+        type: "move"
       });
     });
   });
@@ -186,21 +188,23 @@ describe("IBC Receive NFT Message", () => {
       });
 
       expect(metadata).toEqual({
-        init1t64cqru8efqzzrmfqkkrzdqn2ft453pyvvpvtvnlgw8f0qr3haeslr0899: {
-          collection: {
-            creator: "init1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqpqr5e3d",
-            description:
-              "eyJvd25lciI6ImluaXQxd2M1M3U5c21uenV3cGt6NzA4a3dqNXMzeGV2cXN4MjYzajAwaGx1N25jbXNja3oyZ2NmczVqeDJtayIsImNvbnRyYWN0X2luZm8iOnsiY29kZV9pZCI6MTIsImNyZWF0b3IiOiJpbml0MXdjNTN1OXNtbnp1d3BrejcwOGt3ajVzM3hldnFzeDI2M2owMGhsdTduY21zY2t6MmdjZnM1angybWsiLCJhZG1pbiI6ImluaXQxcDV3N3h3OXA2c2pheWMybjN2djA1NnU1MGM1azdxYWU3YXBhazkiLCJwaW5uZWQiOmZhbHNlLCJpYmNfcG9ydCI6bnVsbH0sIm51bV90b2tlbnMiOjM0ODEsIm5hbWUiOiJUVVpJIiwic3ltYm9sIjoiVFVaSSIsImV4dGVuc2lvbiI6bnVsbH0=",
-            name: "ibc/0A1FFECF8C217E1630E58ABF7BF857FD7CC762D165DF018D94DACBC8881209E2",
-            uri: ""
-          },
-          collectionAddress:
-            "init1lf8xkx587wkwlnc8pm8wqn43ur8ycmzu3xu8lcpxhxwx43rmqyxqkqeqpp",
-          tokenId: "6089",
-          tokenUri:
-            "ipfs://bafybeifye6qvvdw45he36lfoqolfxunwvk3k3vh4b2ahloubv7cnstt56i/6089",
-          type: "move_nft"
-        }
+        data: {
+          init1t64cqru8efqzzrmfqkkrzdqn2ft453pyvvpvtvnlgw8f0qr3haeslr0899: {
+            collection: {
+              creator: "init1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqpqr5e3d",
+              description:
+                "eyJvd25lciI6ImluaXQxd2M1M3U5c21uenV3cGt6NzA4a3dqNXMzeGV2cXN4MjYzajAwaGx1N25jbXNja3oyZ2NmczVqeDJtayIsImNvbnRyYWN0X2luZm8iOnsiY29kZV9pZCI6MTIsImNyZWF0b3IiOiJpbml0MXdjNTN1OXNtbnp1d3BrejcwOGt3ajVzM3hldnFzeDI2M2owMGhsdTduY21zY2t6MmdjZnM1angybWsiLCJhZG1pbiI6ImluaXQxcDV3N3h3OXA2c2pheWMybjN2djA1NnU1MGM1azdxYWU3YXBhazkiLCJwaW5uZWQiOmZhbHNlLCJpYmNfcG9ydCI6bnVsbH0sIm51bV90b2tlbnMiOjM0ODEsIm5hbWUiOiJUVVpJIiwic3ltYm9sIjoiVFVaSSIsImV4dGVuc2lvbiI6bnVsbH0=",
+              name: "ibc/0A1FFECF8C217E1630E58ABF7BF857FD7CC762D165DF018D94DACBC8881209E2",
+              uri: ""
+            },
+            collectionAddress:
+              "init1lf8xkx587wkwlnc8pm8wqn43ur8ycmzu3xu8lcpxhxwx43rmqyxqkqeqpp",
+            tokenId: "6089",
+            tokenUri:
+              "ipfs://bafybeifye6qvvdw45he36lfoqolfxunwvk3k3vh4b2ahloubv7cnstt56i/6089"
+          }
+        },
+        type: "move"
       });
     });
   });

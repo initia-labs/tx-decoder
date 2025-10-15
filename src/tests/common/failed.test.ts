@@ -34,6 +34,6 @@ describe("Failed Transaction", () => {
       object: {},
       vm: "move"
     });
-    expect(metadata).toEqual({});
+    expect(metadata).toEqual({ data: {}, type: "move" });
   });
 });

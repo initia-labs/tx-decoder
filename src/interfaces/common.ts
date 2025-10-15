@@ -1,10 +1,10 @@
 import { BalanceChanges } from "./balance-changes";
 import { DecodedMessage } from "./cosmos";
-import { EvmMetadata, MoveMetadata } from "./metadata";
+import { Metadata } from "./metadata";
 
-export interface DecodedTx<M extends EvmMetadata | MoveMetadata> {
+export interface DecodedTx {
   messages: ProcessedMessage[];
-  metadata: M;
+  metadata: Metadata;
   totalBalanceChanges: BalanceChanges;
 }
 

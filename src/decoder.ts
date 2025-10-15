@@ -12,13 +12,11 @@ import {
   DecodedEthereumTx,
   DecodedTx,
   DecoderConfig,
-  EvmMetadata,
   MessageDecoder,
-  MoveMetadata,
   ProcessedMessage,
   VmType
 } from "./interfaces";
-import { resolveEvmMetadata, resolveMoveMetadata } from "./metadata-resolver";
+import { resolveMetadata } from "./metadata-resolver";
 import {
   EthereumRpcPayload,
   Log,
@@ -101,15 +99,13 @@ export class TxDecoder {
   /**
    * Decodes a Cosmos EVM transaction, processing only general message types
    */
-  public async decodeCosmosEvmTransaction(
-    tx: unknown
-  ): Promise<DecodedTx<EvmMetadata>> {
+  public async decodeCosmosEvmTransaction(tx: unknown): Promise<DecodedTx> {
     const txResponse = this._validateAndPrepareTx(tx);
 
     if (txResponse.tx.body.messages.length === 0) {
       return {
         messages: [],
-        metadata: {},
+        metadata: { data: {}, type: "evm" },
         totalBalanceChanges: createDefaultEvmBalanceChanges()
       };
     }
@@ -130,10 +126,7 @@ export class TxDecoder {
       createDefaultEvmBalanceChanges()
     );
 
-    const metadata = await resolveEvmMetadata(
-      this.apiClient,
-      totalBalanceChanges
-    );
+    const metadata = await resolveMetadata(this.apiClient, totalBalanceChanges);
 
     return {
       messages: processedMessages,
@@ -145,15 +138,13 @@ export class TxDecoder {
   /**
    * Decodes a Cosmos transaction, processing all supported message types for L1 and Move L2.
    */
-  public async decodeCosmosTransaction(
-    tx: unknown
-  ): Promise<DecodedTx<MoveMetadata>> {
+  public async decodeCosmosTransaction(tx: unknown): Promise<DecodedTx> {
     const txResponse = this._validateAndPrepareTx(tx);
 
     if (txResponse.tx.body.messages.length === 0) {
       return {
         messages: [],
-        metadata: {},
+        metadata: { data: {}, type: "move" },
         totalBalanceChanges: createDefaultMoveBalanceChanges()
       };
     }
@@ -174,10 +165,7 @@ export class TxDecoder {
       createDefaultMoveBalanceChanges()
     );
 
-    const metadata = await resolveMoveMetadata(
-      this.apiClient,
-      totalBalanceChanges
-    );
+    const metadata = await resolveMetadata(this.apiClient, totalBalanceChanges);
 
     return {
       messages: processedMessages,
@@ -211,7 +199,7 @@ export class TxDecoder {
     if (!decoder) {
       return {
         decodedTransaction: notSupportedCall,
-        metadata: {},
+        metadata: { data: {}, type: "evm" },
         totalBalanceChanges: balanceChanges
       };
     }
@@ -222,7 +210,7 @@ export class TxDecoder {
         this.apiClient
       );
 
-      const metadata = await resolveEvmMetadata(this.apiClient, balanceChanges);
+      const metadata = await resolveMetadata(this.apiClient, balanceChanges);
 
       return {
         decodedTransaction,
@@ -232,7 +220,7 @@ export class TxDecoder {
     } catch {
       return {
         decodedTransaction: notSupportedCall,
-        metadata: {},
+        metadata: { data: {}, type: "evm" },
         totalBalanceChanges: balanceChanges
       };
     }
