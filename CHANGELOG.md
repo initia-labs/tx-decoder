@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.1](https://github.com/initia-labs/tx-decoder/compare/v0.9.0...v0.9.1) (2025-10-15)
+
+
+### Bug Fixes
+
+* refactor unify metadata resolution for EVM and Move transactions ([942bc21](https://github.com/initia-labs/tx-decoder/commit/942bc218813d0195a20e55512d6db7bd1592ed5a))
+
 ## [0.9.0](https://github.com/initia-labs/tx-decoder/compare/v0.8.0...v0.9.0) (2025-10-15)
 
 
