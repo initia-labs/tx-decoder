@@ -7,6 +7,7 @@ import {
   Message,
   TxResponse,
   zMsgIbcNftTransferSendPacketEvent,
+  zMsgIbcRecvPacket,
   zMsgIbcSendNft
 } from "@/schema";
 
@@ -123,6 +124,118 @@ export const ibcSendNftEvmDecoder: MessageDecoder = {
         timeoutHeight: timeout_height,
         timeoutTimestamp: timeout_timestamp,
         tokenIds: [tokenId],
+        tokenUris: parsedData.data.tokenUris
+      },
+      isIbc: true,
+      isOp: false
+    };
+  }
+};
+
+export const ibcReceiveNftEvmDecoder: MessageDecoder = {
+  check: (message: Message, _log: Log) => {
+    const parsed = zMsgIbcRecvPacket.safeParse(message);
+    return (
+      parsed.success && parsed.data.packet.destination_port === "nft-transfer"
+    );
+  },
+  decode: async (
+    message: Message,
+    log: Log,
+    apiClient: ApiClient,
+    _txResponse: TxResponse
+  ) => {
+    const parsed = zMsgIbcRecvPacket.parse(message);
+    const {
+      destination_channel,
+      destination_port,
+      sequence,
+      timeout_height,
+      timeout_timestamp
+    } = parsed.packet;
+
+    const event = log.events.find((event) => event.type === "recv_packet");
+
+    if (!event) throw new Error("IBC NFT Receive packet event not found");
+
+    const dataAttribute = event.attributes.find(
+      (attr) => attr.key === "packet_data"
+    );
+
+    if (!dataAttribute) {
+      throw new Error("IBC NFT Receive packet data attribute not found");
+    }
+
+    const parsedData = zMsgIbcNftTransferSendPacketEvent.safeParse(
+      dataAttribute.value
+    );
+    if (!parsedData.success) {
+      throw new Error("IBC NFT Receive packet data attribute not found");
+    }
+
+    const dstChainId = await apiClient.getChainId();
+
+    const srcPort = event.attributes.find(
+      (attr) => attr.key === "packet_src_port"
+    )?.value;
+    if (!srcPort) {
+      throw new Error("IBC NFT Receive packet src port attribute not found");
+    }
+
+    const srcChannel = event.attributes.find(
+      (attr) => attr.key === "packet_src_channel"
+    )?.value;
+    if (!srcChannel) {
+      throw new Error("IBC NFT Receive packet src channel attribute not found");
+    }
+
+    const srcChainId = await apiClient.findIbcCounterPartyChainId(
+      dstChainId,
+      destination_port,
+      destination_channel
+    );
+    if (!srcChainId) {
+      throw new Error("IBC NFT Receive packet src chain id not found");
+    }
+
+    // For EVM: Look for erc721_minted event
+    const erc721MintedEvent = log.events.find(
+      (event) => event.type === "erc721_minted"
+    );
+    if (!erc721MintedEvent) {
+      throw new Error("IBC NFT Receive ERC721 minted event not found");
+    }
+
+    const contract = erc721MintedEvent.attributes.find(
+      (attr) => attr.key === "contract"
+    )?.value;
+    if (!contract) {
+      throw new Error("IBC NFT Receive contract address not found");
+    }
+
+    const tokenId = erc721MintedEvent.attributes.find(
+      (attr) => attr.key === "token_id"
+    )?.value;
+    if (!tokenId) {
+      throw new Error("IBC NFT Receive token id not found");
+    }
+
+    return {
+      action: "ibc_nft_receive_evm",
+      data: {
+        contractAddress: InitiaAddress(contract).bech32,
+        dstChainId,
+        dstChannel: destination_channel,
+        dstPort: destination_port,
+        receiver: parsedData.data.receiver,
+        sender: parsedData.data.sender,
+        sequence,
+        srcChainId,
+        srcChannel,
+        srcPort,
+        timeoutHeight: timeout_height,
+        timeoutTimestamp: timeout_timestamp,
+        tokenIds: parsedData.data.tokenIds,
         tokenUris: parsedData.data.tokenUris
       },
       isIbc: true,

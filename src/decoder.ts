@@ -34,7 +34,8 @@ const evmMessageDecoders: MessageDecoder[] = [
   Decoders.initiateTokenWithdrawalDecoder,
   Decoders.ibcSendFtDecoder,
   Decoders.ibcReceiveFtDecoder,
-  Decoders.ibcSendNftEvmDecoder
+  Decoders.ibcSendNftEvmDecoder,
+  Decoders.ibcReceiveNftEvmDecoder
 ];
 
 const moveMessageDecoders: MessageDecoder[] = [
