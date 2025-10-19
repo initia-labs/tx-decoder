@@ -1,10 +1,12 @@
-import { EvmBalanceChanges } from "./balance-changes";
+import { BalanceChanges } from "./balance-changes";
+import { ProcessedMessage } from "./common";
 import { Metadata } from "./metadata";
 
 interface DecodedEthereumCallBase {}
 
 export type DecodedEthereumCall =
   | DecodedContractCreationCall
+  | DecodedCosmosMirrorCall
   | DecodedErc20ApproveCall
   | DecodedErc20TransferCall
   | DecodedErc20TransferFromCall
@@ -20,6 +22,22 @@ export interface DecodedContractCreationCall extends DecodedEthereumCallBase {
     bytecodeLength: number;
     contractAddresses: string[];
     from: string;
+  };
+}
+
+/**
+ * Represents an EVM transaction that mirrors a Cosmos transaction.
+ *
+ * In dual-execution chains, Cosmos transactions are mirrored as EVM transactions
+ * for block consistency. The cosmos messages are included here, while metadata
+ * and totalBalanceChanges are at the root DecodedEthereumTx level (not duplicated).
+ */
+export interface DecodedCosmosMirrorCall extends DecodedEthereumCallBase {
+  action: "cosmos_mirror";
+  data: {
+    cosmosMessages: ProcessedMessage[];
+    cosmosTxHash: string;
+    evmTxHash: string;
   };
 }
 
@@ -111,5 +129,5 @@ export interface DecodedNotSupportedCall extends DecodedEthereumCallBase {
 export interface DecodedEthereumTx {
   decodedTransaction: DecodedEthereumCall;
   metadata: Metadata;
-  totalBalanceChanges: EvmBalanceChanges;
+  totalBalanceChanges: BalanceChanges;
 }
