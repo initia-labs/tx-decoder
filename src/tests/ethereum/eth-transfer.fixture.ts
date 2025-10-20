@@ -1,4 +1,4 @@
-export const mockNativeTransferPayload = {
+export const mockEthTransferPayload = {
   tx: {
     blockHash:
       "0x76ad7a87786080a6921b328e17605e56d1dfc023281c1d9589030bb4aa0cdd5f",

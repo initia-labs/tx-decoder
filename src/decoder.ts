@@ -89,7 +89,7 @@ const ethereumDecoders = [
   Decoders.transferFromDecoder,
   Decoders.erc721SafeTransferFromDecoder,
   Decoders.kami721PublicMintDecoder,
-  Decoders.nativeTransferDecoder
+  Decoders.ethTransferDecoder
 ];
 
 export class TxDecoder {
