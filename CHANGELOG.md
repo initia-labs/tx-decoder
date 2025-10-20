@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.10.0](https://github.com/initia-labs/tx-decoder/compare/v0.9.1...v0.10.0) (2025-10-20)
+
+
+### Features
+
+* add kami721 public mint decoder and related functionality ([#93](https://github.com/initia-labs/tx-decoder/issues/93)) ([9b58afb](https://github.com/initia-labs/tx-decoder/commit/9b58afb3c0392df023c4dd2b707dd784d78cd273))
+* add native ETH transfer decoder and related tests ([#96](https://github.com/initia-labs/tx-decoder/issues/96)) ([1819daf](https://github.com/initia-labs/tx-decoder/commit/1819daff8cef1ccf6afb7485b90f40ac18ffbbdf))
+* add support for decoding mirrored Cosmos transactions in EVM ([#92](https://github.com/initia-labs/tx-decoder/issues/92)) ([8c89429](https://github.com/initia-labs/tx-decoder/commit/8c89429e9aab261b76756958637c71e6b6e2c25c))
+
 ## [0.9.1](https://github.com/initia-labs/tx-decoder/compare/v0.9.0...v0.9.1) (2025-10-15)
 
 
