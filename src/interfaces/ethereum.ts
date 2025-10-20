@@ -14,6 +14,7 @@ export type DecodedEthereumCall =
   | DecodedErc721SafeTransferFromCall
   | DecodedErc721TransferFromCall
   | DecodedEthTransferCall
+  | DecodedKami721PublicMintCall
   | DecodedNotSupportedCall;
 
 export interface DecodedContractCreationCall extends DecodedEthereumCallBase {
@@ -113,6 +114,17 @@ export interface DecodedEthTransferCall extends DecodedEthereumCallBase {
     amount: string;
     from: string;
     to: string;
+  };
+}
+
+export interface DecodedKami721PublicMintCall extends DecodedEthereumCallBase {
+  action: "kami721_public_mint";
+  data: {
+    contract: string;
+    minter: string;
+    paymentAmount?: string;
+    paymentToken?: string;
+    tokenId: string;
   };
 }
 

@@ -100,6 +100,11 @@ export const ERC721_TOKEN_URI_FUNCTION_ABI = parseAbi([
   "function tokenURI(uint256 tokenId) view returns (string)"
 ]);
 
+// Kami721 Functions
+export const KAMI721_PUBLIC_MINT_FUNCTION_ABI = parseAbi([
+  "function publicMint()"
+]);
+
 // ERC-721 Events
 export const ERC721_APPROVAL_EVENT_ABI = parseAbi([
   "event Approval(address indexed owner, address indexed approved, uint256 indexed tokenId)"
@@ -175,6 +180,9 @@ export const FUNCTION_SELECTORS = {
   ERC721_SAFE_TRANSFER_FROM: "0x42842e0e",
   ERC721_SAFE_TRANSFER_FROM_WITH_DATA: "0xb88d4fde",
   ERC721_SET_APPROVAL_FOR_ALL: "0xa22cb465",
+
+  // Kami721
+  KAMI721_PUBLIC_MINT: "0x26092b83",
 
   TRANSFER_FROM: "0x23b872dd" // ERC-20, ERC-721
 } as const;
