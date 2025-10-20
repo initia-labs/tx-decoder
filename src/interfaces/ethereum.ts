@@ -124,7 +124,7 @@ export interface DecodedKami721PublicMintCall extends DecodedEthereumCallBase {
     minter: string;
     paymentAmount?: string;
     paymentToken?: string;
-    tokenId?: string;
+    tokenId: string;
   };
 }
 
