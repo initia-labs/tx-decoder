@@ -1,3 +1,3 @@
 export * from "./approve";
-export * from "./native-transfer";
+export * from "./eth-transfer";
 export * from "./transfer-from";

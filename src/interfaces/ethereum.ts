@@ -112,6 +112,7 @@ export interface DecodedEthTransferCall extends DecodedEthereumCallBase {
   action: "eth_transfer";
   data: {
     amount: string;
+    denom: string;
     from: string;
     to: string;
   };

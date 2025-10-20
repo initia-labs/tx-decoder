@@ -1,18 +1,20 @@
-import { getAddress } from "viem";
+import { decodeEventLog, getAddress, Hex } from "viem";
 
 import { ApiClient } from "@/api";
+import { ERC20_TRANSFER_EVENT_ABI } from "@/constants";
 import { DecodedEthTransferCall, EthereumDecoder } from "@/interfaces";
 import { EthereumRpcPayload } from "@/schema";
+import { getEvmDenom } from "@/utils";
 
 /**
  * Decoder for native ETH transfers (transactions with value but no contract call).
  *
- * Native transfers are identified by:
+ * ETH transfers are identified by:
  * - Non-zero value field
  * - Empty or "0x" input data (no function call)
  * - Non-null to address (not contract creation)
  */
-export const nativeTransferDecoder: EthereumDecoder = {
+export const ethTransferDecoder: EthereumDecoder = {
   check: (payload: EthereumRpcPayload): boolean => {
     const { tx } = payload;
 
@@ -32,10 +34,10 @@ export const nativeTransferDecoder: EthereumDecoder = {
     payload: EthereumRpcPayload,
     _apiClient: ApiClient
   ): Promise<DecodedEthTransferCall> => {
-    const { tx } = payload;
+    const { tx, txReceipt } = payload;
 
     if (!tx.to) {
-      throw new Error("Native transfer requires recipient address (to field)");
+      throw new Error("ETH transfer requires recipient address (to field)");
     }
 
     // Normalize addresses to checksum format
@@ -45,10 +47,37 @@ export const nativeTransferDecoder: EthereumDecoder = {
     // Convert value from hex to decimal string
     const amount = BigInt(tx.value).toString();
 
+    // Extract denom from ERC20 Transfer logs
+    // Look for Transfer event from sender to recipient
+    const transferLog = txReceipt.logs.find((log) => {
+      try {
+        const decoded = decodeEventLog({
+          abi: ERC20_TRANSFER_EVENT_ABI,
+          data: log.data as Hex,
+          topics: log.topics as [signature: Hex, ...args: Hex[]]
+        });
+        return (
+          decoded.eventName === "Transfer" &&
+          getAddress(decoded.args.from as string) === from &&
+          getAddress(decoded.args.to as string) === to
+        );
+      } catch {
+        return false;
+      }
+    });
+
+    if (!transferLog) {
+      throw new Error("Failed to find ERC20 Transfer event for ETH transfer");
+    }
+
+    // Get denom from the ERC20 contract address
+    const denom = getEvmDenom(transferLog.address);
+
     return {
       action: "eth_transfer",
       data: {
         amount,
+        denom,
         from,
         to
       }
