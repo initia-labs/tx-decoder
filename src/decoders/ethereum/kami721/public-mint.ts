@@ -52,15 +52,16 @@ export const kami721PublicMintDecoder: EthereumDecoder = {
       }
     });
 
-    let tokenId: string | undefined;
-    if (erc721TransferLog) {
-      const decoded = decodeEventLog({
-        abi: ERC721_TRANSFER_EVENT_ABI,
-        data: erc721TransferLog.data as Hex,
-        topics: erc721TransferLog.topics as [signature: Hex, ...args: Hex[]]
-      });
-      tokenId = decoded.args.tokenId.toString();
+    if (!erc721TransferLog) {
+      throw new Error("Failed to find ERC721 Transfer event for minted token");
     }
+
+    const erc721Decoded = decodeEventLog({
+      abi: ERC721_TRANSFER_EVENT_ABI,
+      data: erc721TransferLog.data as Hex,
+      topics: erc721TransferLog.topics as [signature: Hex, ...args: Hex[]]
+    });
+    const tokenId = erc721Decoded.args.tokenId.toString();
 
     // Extract payment amount from ERC20 Transfer logs
     const erc20TransferLog = txReceipt.logs.find((log) => {
