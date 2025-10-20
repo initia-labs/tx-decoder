@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.10.1](https://github.com/initia-labs/tx-decoder/compare/v0.10.0...v0.10.1) (2025-10-20)
+
+
+### Bug Fixes
+
+* add denom in eth_transfer ([#97](https://github.com/initia-labs/tx-decoder/issues/97)) ([ed7cc6d](https://github.com/initia-labs/tx-decoder/commit/ed7cc6d1592abed3b94c4ef9a198814f3711d93f))
+
 ## [0.10.0](https://github.com/initia-labs/tx-decoder/compare/v0.9.1...v0.10.0) (2025-10-20)
 
 
