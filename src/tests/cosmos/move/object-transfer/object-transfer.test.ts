@@ -64,20 +64,22 @@ describe("Object Transfer Message", () => {
     });
 
     expect(decoded.metadata).toEqual({
-      init1fqd4u2jnjusml20ekd08q2kmve7qt8g23cdqxzlysvtc40vjsg6sk4p0kn: {
-        collection: {
-          creator: "init1ulw753hxh4mrc9ss7p2y7h8emjxxyw6uce0hk9",
-          description:
-            "Food collection that I suggest - Discover amazing dishes and culinary experiences from around the world",
-          name: "Favorite food",
-          uri: "https://nft-rho-ten.vercel.app/favoritefood"
-        },
-        collectionAddress:
-          "init1qktu60eh7g04n3m3wvdrr6f2cys57u45lz5x2sdffdg0qvy0fcsqk9gvt9",
-        tokenId: "3",
-        tokenUri: "https://nft-rho-ten.vercel.app/favoritefood/3",
-        type: "move_nft"
-      }
+      data: {
+        init1fqd4u2jnjusml20ekd08q2kmve7qt8g23cdqxzlysvtc40vjsg6sk4p0kn: {
+          collection: {
+            creator: "init1ulw753hxh4mrc9ss7p2y7h8emjxxyw6uce0hk9",
+            description:
+              "Food collection that I suggest - Discover amazing dishes and culinary experiences from around the world",
+            name: "Favorite food",
+            uri: "https://nft-rho-ten.vercel.app/favoritefood"
+          },
+          collectionAddress:
+            "init1qktu60eh7g04n3m3wvdrr6f2cys57u45lz5x2sdffdg0qvy0fcsqk9gvt9",
+          tokenId: "3",
+          tokenUri: "https://nft-rho-ten.vercel.app/favoritefood/3"
+        }
+      },
+      type: "move"
     });
   });
 });

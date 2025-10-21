@@ -1,5 +1,37 @@
 # Changelog
 
+## [0.10.1](https://github.com/initia-labs/tx-decoder/compare/v0.10.0...v0.10.1) (2025-10-20)
+
+
+### Bug Fixes
+
+* add denom in eth_transfer ([#97](https://github.com/initia-labs/tx-decoder/issues/97)) ([ed7cc6d](https://github.com/initia-labs/tx-decoder/commit/ed7cc6d1592abed3b94c4ef9a198814f3711d93f))
+
+## [0.10.0](https://github.com/initia-labs/tx-decoder/compare/v0.9.1...v0.10.0) (2025-10-20)
+
+
+### Features
+
+* add kami721 public mint decoder and related functionality ([#93](https://github.com/initia-labs/tx-decoder/issues/93)) ([9b58afb](https://github.com/initia-labs/tx-decoder/commit/9b58afb3c0392df023c4dd2b707dd784d78cd273))
+* add native ETH transfer decoder and related tests ([#96](https://github.com/initia-labs/tx-decoder/issues/96)) ([1819daf](https://github.com/initia-labs/tx-decoder/commit/1819daff8cef1ccf6afb7485b90f40ac18ffbbdf))
+* add support for decoding mirrored Cosmos transactions in EVM ([#92](https://github.com/initia-labs/tx-decoder/issues/92)) ([8c89429](https://github.com/initia-labs/tx-decoder/commit/8c89429e9aab261b76756958637c71e6b6e2c25c))
+
+## [0.9.1](https://github.com/initia-labs/tx-decoder/compare/v0.9.0...v0.9.1) (2025-10-15)
+
+
+### Bug Fixes
+
+* refactor unify metadata resolution for EVM and Move transactions ([942bc21](https://github.com/initia-labs/tx-decoder/commit/942bc218813d0195a20e55512d6db7bd1592ed5a))
+
+## [0.9.0](https://github.com/initia-labs/tx-decoder/compare/v0.8.0...v0.9.0) (2025-10-15)
+
+
+### Features
+
+* add IBC NFT receive decoder for EVM transactions ([#87](https://github.com/initia-labs/tx-decoder/issues/87)) ([f9ed681](https://github.com/initia-labs/tx-decoder/commit/f9ed681cec33628a267b7ead9234506715783189))
+* enhance transaction decoding for unsupported calls ([#88](https://github.com/initia-labs/tx-decoder/issues/88)) ([85ee06e](https://github.com/initia-labs/tx-decoder/commit/85ee06e58d073992a5dcf937a31f464f86380ba5))
+* enhance transaction decoding with EVM and Move metadata support ([#90](https://github.com/initia-labs/tx-decoder/issues/90)) ([b567a8a](https://github.com/initia-labs/tx-decoder/commit/b567a8a34dc9869a9d5231c74e468cf533396360))
+
 ## [0.8.0](https://github.com/initia-labs/tx-decoder/compare/v0.7.2...v0.8.0) (2025-10-07)
 
 

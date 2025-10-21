@@ -1,0 +1,111 @@
+export const mockKami721PublicMintPayload = {
+  tx: {
+    blockHash:
+      "0x562fe51d81ee8a12ba9304d1748172b3a459aa9eab2568d0ec187639914ee602",
+    blockNumber: "1025500",
+    chainId: "428962654539583",
+    from: "0x563466Dec7F74Bcbe97cD3BED1CbAd3336c989ee",
+    gas: "347937",
+    gasPrice: "6000000",
+    hash: "0x4daf1b6c8e5001f3b7a5799f62321c7d69afdd1379e2ebdc94cf7d11630c107c",
+    input: "0x26092b83",
+    maxFeePerGas: "6000000",
+    maxPriorityFeePerGas: "6000000",
+    nonce: "25",
+    r: "0xdeb36e8480f020052c6b7e1842d57e17918d835ac828050b7acccf517c575734",
+    s: "0x40cc1138e924fecfbd0fdae22ff472be14cdaf509ef586e31639218f30a9efe9",
+    to: "0x014C4861F5f19b4c86f26657Dd40c1a18539D11A",
+    transactionIndex: "1",
+    type: "0x0",
+    v: "0x30c474d4a9ea2",
+    value: "100000000000000000"
+  },
+  txReceipt: {
+    blockHash:
+      "0x562fe51d81ee8a12ba9304d1748172b3a459aa9eab2568d0ec187639914ee602",
+    blockNumber: "1025500",
+    contractAddress: null,
+    cumulativeGasUsed: "155647",
+    effectiveGasPrice: "6000000",
+    from: "0x563466Dec7F74Bcbe97cD3BED1CbAd3336c989ee",
+    gasUsed: "155647",
+    logs: [
+      {
+        address: "0xe1ff7038eaaaf027031688e1535a055b2bac2546",
+        blockHash:
+          "0x562fe51d81ee8a12ba9304d1748172b3a459aa9eab2568d0ec187639914ee602",
+        blockNumber: "1025500",
+        data: "0x000000000000000000000000000000000000000000000000016345785d8a0000",
+        logIndex: "0",
+        removed: false,
+        topics: [
+          "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+          "0x000000000000000000000000563466dec7f74bcbe97cd3bed1cbad3336c989ee",
+          "0x000000000000000000000000014c4861f5f19b4c86f26657dd40c1a18539d11a"
+        ],
+        transactionHash:
+          "0x4daf1b6c8e5001f3b7a5799f62321c7d69afdd1379e2ebdc94cf7d11630c107c",
+        transactionIndex: "1"
+      },
+      {
+        address: "0x014c4861f5f19b4c86f26657dd40c1a18539d11a",
+        blockHash:
+          "0x562fe51d81ee8a12ba9304d1748172b3a459aa9eab2568d0ec187639914ee602",
+        blockNumber: "1025500",
+        data: "0x",
+        logIndex: "1",
+        removed: false,
+        topics: [
+          "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+          "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "0x000000000000000000000000563466dec7f74bcbe97cd3bed1cbad3336c989ee",
+          "0x0000000000000000000000000000000000000000000000000000000000000064"
+        ],
+        transactionHash:
+          "0x4daf1b6c8e5001f3b7a5799f62321c7d69afdd1379e2ebdc94cf7d11630c107c",
+        transactionIndex: "1"
+      },
+      {
+        address: "0x014c4861f5f19b4c86f26657dd40c1a18539d11a",
+        blockHash:
+          "0x562fe51d81ee8a12ba9304d1748172b3a459aa9eab2568d0ec187639914ee602",
+        blockNumber: "1025500",
+        data: "0x",
+        logIndex: "2",
+        removed: false,
+        topics: [
+          "0x74fb5bcd59e83009930d356ad5787db891fca081d3a42e72e1814c2ba40b4eb1",
+          "0x000000000000000000000000563466dec7f74bcbe97cd3bed1cbad3336c989ee",
+          "0x0000000000000000000000000000000000000000000000000000000000000064"
+        ],
+        transactionHash:
+          "0x4daf1b6c8e5001f3b7a5799f62321c7d69afdd1379e2ebdc94cf7d11630c107c",
+        transactionIndex: "1"
+      },
+      {
+        address: "0x014c4861f5f19b4c86f26657dd40c1a18539d11a",
+        blockHash:
+          "0x562fe51d81ee8a12ba9304d1748172b3a459aa9eab2568d0ec187639914ee602",
+        blockNumber: "1025500",
+        data: "0x",
+        logIndex: "3",
+        removed: false,
+        topics: [
+          "0xbf2695a099b00b42f9f3313e45ed634a25e3717158985dc9c9278e33bf5c3550",
+          "0x000000000000000000000000563466dec7f74bcbe97cd3bed1cbad3336c989ee"
+        ],
+        transactionHash:
+          "0x4daf1b6c8e5001f3b7a5799f62321c7d69afdd1379e2ebdc94cf7d11630c107c",
+        transactionIndex: "1"
+      }
+    ],
+    logsBloom:
+      "0x20000000000000000000000000000000000000000000000000000000000001000000000000200000000000040000000000010400000000000000000000080000000001000020000000000008000000050000000000000000000020000000000020000004024000000000000004000800000000000000000000400010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000002000100000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000008000000000100000",
+    status: true,
+    to: "0x014C4861F5f19b4c86f26657Dd40c1a18539D11A",
+    transactionHash:
+      "0x4daf1b6c8e5001f3b7a5799f62321c7d69afdd1379e2ebdc94cf7d11630c107c",
+    transactionIndex: "1",
+    type: "0x0"
+  }
+};

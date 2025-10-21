@@ -49,6 +49,6 @@ describe("Not Supported Ethereum Transaction", () => {
       vm: "evm"
     });
 
-    expect(decoded.metadata).toEqual({});
+    expect(decoded.metadata).toEqual({ data: {}, type: "evm" });
   });
 });

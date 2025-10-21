@@ -1,7 +1,7 @@
 import { InitiaAddress } from "@initia/utils";
 
 import { ApiClient } from "./api";
-import { BalanceChanges, Metadata } from "./interfaces";
+import { BalanceChanges, Metadata, MoveMetadata } from "./interfaces";
 
 export const resolveMetadata = async (
   apiClient: ApiClient,
@@ -13,7 +13,7 @@ export const resolveMetadata = async (
     case "move":
       return resolveMoveMetadata(apiClient, balanceChanges);
     default:
-      return {} as Metadata;
+      return { data: {}, type: "evm" };
   }
 };
 
@@ -38,7 +38,7 @@ const resolveMoveMetadata = async (
     })
   );
 
-  const metadata = nftMetadata.reduce<Metadata>((acc, promise, index) => {
+  const metadata = nftMetadata.reduce<MoveMetadata>((acc, promise, index) => {
     if (promise.status === "fulfilled") {
       if (promise.value.nft === null) {
         console.error(
@@ -65,14 +65,13 @@ const resolveMoveMetadata = async (
         },
         collectionAddress: InitiaAddress(nft.data.collection.inner).bech32,
         tokenId: nft.data.token_id,
-        tokenUri: nft.data.uri,
-        type: "move_nft"
+        tokenUri: nft.data.uri
       };
     }
     return acc;
   }, {});
 
-  return metadata;
+  return { data: metadata, type: "move" };
 };
 
 const resolveEvmMetadata = async (
@@ -80,5 +79,5 @@ const resolveEvmMetadata = async (
   _balanceChanges: BalanceChanges & { vm: "evm" }
 ): Promise<Metadata> => {
   // TODO
-  return {};
+  return { data: {}, type: "evm" };
 };

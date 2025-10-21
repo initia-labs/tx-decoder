@@ -25,8 +25,13 @@ import {
   zEthereumRpcPayload,
   zTxResponse
 } from "./schema";
-import { attachTxLogs, mergeBalanceChanges } from "./utils";
-import { createNotSupportedMessage } from "./utils";
+import {
+  attachTxLogs,
+  createNotSupportedCall,
+  createNotSupportedMessage,
+  extractCosmosTxHashFromEvm,
+  mergeBalanceChanges
+} from "./utils";
 
 const evmMessageDecoders: MessageDecoder[] = [
   Decoders.sendDecoder,
@@ -34,7 +39,8 @@ const evmMessageDecoders: MessageDecoder[] = [
   Decoders.initiateTokenWithdrawalDecoder,
   Decoders.ibcSendFtDecoder,
   Decoders.ibcReceiveFtDecoder,
-  Decoders.ibcSendNftEvmDecoder
+  Decoders.ibcSendNftEvmDecoder,
+  Decoders.ibcReceiveNftEvmDecoder
 ];
 
 const moveMessageDecoders: MessageDecoder[] = [
@@ -81,7 +87,9 @@ const ethereumDecoders = [
   Decoders.approveDecoder,
   Decoders.erc20TransferDecoder,
   Decoders.transferFromDecoder,
-  Decoders.erc721SafeTransferFromDecoder
+  Decoders.erc721SafeTransferFromDecoder,
+  Decoders.kami721PublicMintDecoder,
+  Decoders.ethTransferDecoder
 ];
 
 export class TxDecoder {
@@ -104,7 +112,7 @@ export class TxDecoder {
     if (txResponse.tx.body.messages.length === 0) {
       return {
         messages: [],
-        metadata: {},
+        metadata: { data: {}, type: "evm" },
         totalBalanceChanges: createDefaultEvmBalanceChanges()
       };
     }
@@ -143,7 +151,7 @@ export class TxDecoder {
     if (txResponse.tx.body.messages.length === 0) {
       return {
         messages: [],
-        metadata: {},
+        metadata: { data: {}, type: "move" },
         totalBalanceChanges: createDefaultMoveBalanceChanges()
       };
     }
@@ -181,6 +189,23 @@ export class TxDecoder {
   ): Promise<DecodedEthereumTx> {
     const ethereumPayload = this._validateAndPrepareEthereumPayload(payload);
 
+    // PRE-CHECK: Is this a mirrored Cosmos transaction?
+    const cosmosTxHash = extractCosmosTxHashFromEvm(ethereumPayload);
+    if (cosmosTxHash) {
+      try {
+        return await this._decodeMirroredCosmosTx(
+          cosmosTxHash,
+          ethereumPayload
+        );
+      } catch (error) {
+        console.error(
+          `Failed to decode mirrored Cosmos tx ${cosmosTxHash}:`,
+          error
+        );
+      }
+    }
+
+    // Regular Ethereum transaction flow
     const decoder = this._findEthereumDecoder(ethereumPayload);
 
     const balanceChanges = await calculateBalanceChangesFromEthereumLogs(
@@ -188,35 +213,41 @@ export class TxDecoder {
       this.apiClient
     );
 
+    const notSupportedCall = createNotSupportedCall({
+      from: ethereumPayload.tx.from,
+      input: ethereumPayload.tx.input,
+      to: ethereumPayload.tx.to,
+      value: ethereumPayload.tx.value
+    });
+
     if (!decoder) {
-      // Return not supported transaction
       return {
-        decodedTransaction: {
-          action: "not_supported",
-          data: {
-            from: ethereumPayload.tx.from,
-            input: ethereumPayload.tx.input,
-            to: ethereumPayload.tx.to,
-            value: ethereumPayload.tx.value
-          }
-        },
-        metadata: {},
+        decodedTransaction: notSupportedCall,
+        metadata: { data: {}, type: "evm" },
         totalBalanceChanges: balanceChanges
       };
     }
 
-    const decodedTransaction = await decoder.decode(
-      ethereumPayload,
-      this.apiClient
-    );
+    try {
+      const decodedTransaction = await decoder.decode(
+        ethereumPayload,
+        this.apiClient
+      );
 
-    const metadata = await resolveMetadata(this.apiClient, balanceChanges);
+      const metadata = await resolveMetadata(this.apiClient, balanceChanges);
 
-    return {
-      decodedTransaction,
-      metadata,
-      totalBalanceChanges: balanceChanges
-    };
+      return {
+        decodedTransaction,
+        metadata,
+        totalBalanceChanges: balanceChanges
+      };
+    } catch {
+      return {
+        decodedTransaction: notSupportedCall,
+        metadata: { data: {}, type: "evm" },
+        totalBalanceChanges: balanceChanges
+      };
+    }
   }
 
   private async _decodeEvmMessage(
@@ -285,6 +316,39 @@ export class TxDecoder {
       console.error(e);
       return notSupportedMessage;
     }
+  }
+
+  /**
+   * Decodes a mirrored Cosmos transaction by fetching and decoding the original Cosmos tx.
+   *
+   * Returns only the cosmos messages in the data field to avoid duplication.
+   * Metadata and totalBalanceChanges are at the root level only.
+   */
+  private async _decodeMirroredCosmosTx(
+    cosmosTxHash: string,
+    ethereumPayload: EthereumRpcPayload
+  ): Promise<DecodedEthereumTx> {
+    // Fetch the Cosmos transaction from REST API
+    const cosmosTxResponse = await this.apiClient.getCosmosTx(cosmosTxHash);
+
+    // Decode it using the Cosmos transaction decoder
+    const decodedCosmosEvmTx =
+      await this.decodeCosmosEvmTransaction(cosmosTxResponse);
+
+    // Return in cosmos_mirror format
+    return {
+      decodedTransaction: {
+        action: "cosmos_mirror",
+        data: {
+          cosmosMessages: decodedCosmosEvmTx.messages,
+          cosmosTxHash,
+          evmTxHash: ethereumPayload.tx.hash
+        }
+      },
+      // Metadata and balance changes from the decoded Cosmos transaction
+      metadata: decodedCosmosEvmTx.metadata,
+      totalBalanceChanges: decodedCosmosEvmTx.totalBalanceChanges
+    };
   }
 
   private _findDecoderForMessage(
