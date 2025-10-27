@@ -203,7 +203,14 @@ interface EvmBalanceChanges extends BaseBalanceChanges {
   nft: { [address: string]: NftChange };
 }
 
-type BalanceChanges = MoveBalanceChanges | EvmBalanceChanges;
+interface WasmBalanceChanges extends BaseBalanceChanges {
+  vm: "wasm";
+}
+
+type BalanceChanges =
+  | MoveBalanceChanges
+  | EvmBalanceChanges
+  | WasmBalanceChanges;
 
 // Type aliases
 type FtChange = { [denom: string]: string };

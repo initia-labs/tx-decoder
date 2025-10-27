@@ -1,3 +1,5 @@
+import { produce } from "immer";
+
 import { ApiClient } from "@/api";
 import { createDefaultWasmBalanceChanges } from "@/constants";
 import { WasmEventProcessor } from "@/interfaces";
@@ -34,15 +36,24 @@ export const transferEventProcessor: WasmEventProcessor = {
         throw new Error("No coins found in transfer event");
       }
 
-      const { amount, denom } = coins[0];
+      return produce(createDefaultWasmBalanceChanges(), (draft) => {
+        const isSelfTransfer = recipient === sender;
 
-      return {
-        ft: {
-          [recipient]: { [denom]: amount },
-          [sender]: { [denom]: `-${amount}` }
-        },
-        vm: "wasm"
-      };
+        coins.forEach(({ amount, denom }) => {
+          if (isSelfTransfer) {
+            // For self-transfers, set net amount to "0" to avoid key collision
+            draft.ft[recipient] ??= {};
+            draft.ft[recipient][denom] = "0";
+          } else {
+            // Normal transfer: recipient gains, sender loses
+            draft.ft[recipient] ??= {};
+            draft.ft[recipient][denom] = amount;
+
+            draft.ft[sender] ??= {};
+            draft.ft[sender][denom] = `-${amount}`;
+          }
+        });
+      });
     } catch (error) {
       console.error(`Failed to process transfer event:`, error);
     }

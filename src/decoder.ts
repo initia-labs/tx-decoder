@@ -134,9 +134,11 @@ export class TxDecoder {
       createDefaultWasmBalanceChanges()
     );
 
+    const metadata = await resolveMetadata(this.apiClient, totalBalanceChanges);
+
     return {
       messages: processedMessages,
-      metadata: { data: {}, type: "wasm" },
+      metadata,
       totalBalanceChanges
     };
   }
