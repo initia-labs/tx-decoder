@@ -5,11 +5,13 @@ import {
 } from "./balance-changes";
 import {
   createDefaultEvmBalanceChanges,
-  createDefaultMoveBalanceChanges
+  createDefaultMoveBalanceChanges,
+  createDefaultWasmBalanceChanges
 } from "./constants";
 import {
   cosmosEvmMessageDecoders,
   cosmosMoveMessageDecoders,
+  cosmosWasmMessageDecoders,
   ethereumDecoders
 } from "./decoder-registry";
 import {
@@ -110,6 +112,36 @@ export class TxDecoder {
   }
 
   /**
+   * Decodes a Cosmos WASM transaction
+   */
+  public async decodeCosmosWasmTransaction(tx: unknown): Promise<DecodedTx> {
+    const txResponse = validateAndPrepareTx(tx);
+
+    if (txResponse.tx.body.messages.length === 0) {
+      return {
+        messages: [],
+        metadata: { data: {}, type: "wasm" },
+        totalBalanceChanges: createDefaultWasmBalanceChanges()
+      };
+    }
+
+    validateTxResponse(txResponse);
+
+    const processedMessages = await this._processMessages(txResponse, "wasm");
+
+    const totalBalanceChanges = processedMessages.reduce(
+      (acc, message) => mergeBalanceChanges(acc, message.balanceChanges),
+      createDefaultWasmBalanceChanges()
+    );
+
+    return {
+      messages: processedMessages,
+      metadata: { data: {}, type: "wasm" },
+      totalBalanceChanges
+    };
+  }
+
+  /**
    * Decodes a native Ethereum RPC transaction
    */
   public async decodeEthereumTransaction(
@@ -190,8 +222,20 @@ export class TxDecoder {
       return notSupportedMessage;
     }
 
-    const decoders =
-      vm === "evm" ? cosmosEvmMessageDecoders : cosmosMoveMessageDecoders;
+    let decoders;
+    switch (vm) {
+      case "evm":
+        decoders = cosmosEvmMessageDecoders;
+        break;
+      case "move":
+        decoders = cosmosMoveMessageDecoders;
+        break;
+      case "wasm":
+        decoders = cosmosWasmMessageDecoders;
+        break;
+      default:
+        throw new Error(`Unknown VM type: ${vm}`);
+    }
 
     try {
       const decoder = this._findDecoderForMessage(message, log, vm, decoders);
@@ -273,15 +317,15 @@ export class TxDecoder {
           defaultBalanceChanges = createDefaultMoveBalanceChanges();
           break;
         case "wasm":
-          throw new Error("WASM VM is not supported yet");
+          defaultBalanceChanges = createDefaultWasmBalanceChanges();
+          break;
         default:
           throw new Error(`Unknown VM type: ${vm}`);
       }
 
-      const balanceChanges =
-        log && (vm === "evm" || vm === "move")
-          ? await calculateBalanceChangesFromLog(log, this.apiClient, vm)
-          : defaultBalanceChanges;
+      const balanceChanges = log
+        ? await calculateBalanceChangesFromLog(log, this.apiClient, vm)
+        : defaultBalanceChanges;
 
       return { balanceChanges, decodedMessage };
     });

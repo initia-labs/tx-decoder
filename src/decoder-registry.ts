@@ -11,6 +11,10 @@ export const cosmosEvmMessageDecoders: MessageDecoder[] = [
   Decoders.ibcReceiveNftEvmDecoder
 ];
 
+export const cosmosWasmMessageDecoders: MessageDecoder[] = [
+  Decoders.sendDecoder
+];
+
 export const cosmosMoveMessageDecoders: MessageDecoder[] = [
   Decoders.claimMinitswapDecoder,
   Decoders.delegateDecoder,
