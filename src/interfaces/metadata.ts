@@ -41,6 +41,9 @@ export interface EvmMetadata {
   [contractAddress: string]: { [tokenId: string]: EvmNftMetadata };
 }
 
+export interface WasmMetadata {}
+
 export type Metadata =
   | { data: EvmMetadata; type: "evm" }
-  | { data: MoveMetadata; type: "move" };
+  | { data: MoveMetadata; type: "move" }
+  | { data: WasmMetadata; type: "wasm" };

@@ -3,14 +3,20 @@ import { Hex } from "viem";
 import { ApiClient } from "./api";
 import {
   createDefaultEvmBalanceChanges,
-  createDefaultMoveBalanceChanges
+  createDefaultMoveBalanceChanges,
+  createDefaultWasmBalanceChanges
 } from "./constants";
 import {
   BalanceChanges,
   EvmBalanceChanges,
-  MoveBalanceChanges
+  MoveBalanceChanges,
+  WasmBalanceChanges
 } from "./interfaces";
-import { evmProcessorRegistry, moveProcessorRegistry } from "./processors";
+import {
+  evmProcessorRegistry,
+  moveProcessorRegistry,
+  wasmProcessorRegistry
+} from "./processors";
 import { EthereumLog, Log, zEvmLog } from "./schema";
 import { mergeBalanceChanges } from "./utils";
 
@@ -103,16 +109,40 @@ async function _processEvmLog(
   return _resolveAndMergeChanges(promises, createDefaultEvmBalanceChanges);
 }
 
+async function _processWasmLog(
+  log: Log,
+  apiClient: ApiClient
+): Promise<WasmBalanceChanges> {
+  const promises: Promise<WasmBalanceChanges>[] = [];
+
+  for (const event of log.events) {
+    const processor = wasmProcessorRegistry.get(event.type);
+    if (!processor) continue;
+
+    try {
+      promises.push(
+        Promise.resolve(processor.process(event, log.events, apiClient))
+      );
+    } catch (error) {
+      console.error(`Failed to process ${processor.eventType}:`, error);
+    }
+  }
+
+  return _resolveAndMergeChanges(promises, createDefaultWasmBalanceChanges);
+}
+
 export async function calculateBalanceChangesFromLog(
   log: Log,
   apiClient: ApiClient,
-  vm: "evm" | "move"
+  vm: "evm" | "move" | "wasm"
 ): Promise<BalanceChanges> {
   switch (vm) {
     case "evm":
       return _processEvmLog(log, apiClient);
     case "move":
       return _processMoveLog(log, apiClient);
+    case "wasm":
+      return _processWasmLog(log, apiClient);
     default:
       throw new Error(`Invalid VM: ${vm}`);
   }

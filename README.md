@@ -22,6 +22,7 @@ A TypeScript library for decoding Cosmos SDK transactions, providing human-reada
 ## ✨ [Features](#-features)
 
 - **Human-Readable Output**: Decodes Cosmos SDK transaction messages into a clear, human-readable JSON format.
+- **Multi-VM Support**: Full support for Move VM, EVM, and WASM virtual machines with VM-specific balance tracking.
 - **Balance Tracking**: Tracks fungible token deltas and correlates Move objects or EVM NFTs with specific tokenId tracking based on the originating VM.
 - **Type-Safe**: Built with TypeScript and validated with Zod for robust, type-safe operations.
 - **Extensible**: Features a flexible handler system that can be easily extended to support new message types.
@@ -62,6 +63,10 @@ console.log(decodedTx);
 const decodedEvmTx = await decoder.decodeCosmosEvmTransaction(txResponse);
 console.log(decodedEvmTx);
 
+// Decode a Cosmos transaction for WASM L2
+const decodedWasmTx = await decoder.decodeCosmosWasmTransaction(txResponse);
+console.log(decodedWasmTx);
+
 // Decode a native Ethereum RPC transaction
 const ethereumTx = await decoder.decodeEthereumTransaction({
   tx: ethereumTransaction,
@@ -70,7 +75,7 @@ const ethereumTx = await decoder.decodeEthereumTransaction({
 console.log(ethereumTx);
 ```
 
-Each decoded message includes a `balanceChanges` object tagged with `vm: "move"` or `vm: "evm"`. EVM balance deltas are sourced from decoded log events via `viem` rather than Cosmos bank events.
+Each decoded message includes a `balanceChanges` object tagged with `vm: "move"`, `vm: "evm"`, or `vm: "wasm"`. EVM balance deltas are sourced from decoded log events via `viem` rather than Cosmos bank events.
 
 ## 📖 [API Reference](#-api-reference)
 
@@ -116,10 +121,15 @@ Decodes a Cosmos transaction response for EVM L2 chains, processing only general
 
 **Returns:** `Promise<DecodedTx>` - A promise that resolves to a decoded transaction object
 
-**Supported Message Types:**
+##### `decodeCosmosWasmTransaction(txResponse: TxResponse): Promise<DecodedTx>`
 
-- Cosmos: `/cosmos.bank.v1beta1.MsgSend`
-- IBC: `/ibc.applications.transfer.v1.MsgTransfer`, `/ibc.core.channel.v1.MsgRecvPacket` (only fungible token)
+Decodes a Cosmos transaction response for WASM L2 chains. Balance changes are tracked from `transfer` events in transaction logs.
+
+**Parameters:**
+
+- `txResponse: TxResponse` - The raw transaction response from the blockchain
+
+**Returns:** `Promise<DecodedTx>` - A promise that resolves to a decoded transaction object
 
 ##### `decodeEthereumTransaction(payload: EthereumRpcPayload): Promise<DecodedEthereumTx>`
 
@@ -132,15 +142,6 @@ Decodes a native Ethereum RPC transaction with balance change tracking from tran
   - `txReceipt: EthereumTransactionReceipt` - The transaction receipt from `eth_getTransactionReceipt`
 
 **Returns:** `Promise<DecodedEthereumTx>` - A promise that resolves to a decoded Ethereum transaction object
-
-**Supported Transaction Types:**
-
-- ERC-20 `approve(address spender, uint256 amount)` / ERC-721 `approve(address to, uint256 tokenId)`
-- ERC-20 `transfer(address to, uint256 amount)`
-- ERC-20 `transferFrom(address from, address to, uint256 amount)`
-- ERC-721 `safeTransferFrom(address from, address to, uint256 tokenId)`
-
-**Balance Changes:** Automatically calculated from transaction receipt logs (Transfer events)
 
 ### Type Definitions
 
@@ -202,7 +203,14 @@ interface EvmBalanceChanges extends BaseBalanceChanges {
   nft: { [address: string]: NftChange };
 }
 
-type BalanceChanges = MoveBalanceChanges | EvmBalanceChanges;
+interface WasmBalanceChanges extends BaseBalanceChanges {
+  vm: "wasm";
+}
+
+type BalanceChanges =
+  | MoveBalanceChanges
+  | EvmBalanceChanges
+  | WasmBalanceChanges;
 
 // Type aliases
 type FtChange = { [denom: string]: string };
@@ -332,7 +340,7 @@ The decoder returns a structured object with the following format:
 
 #### Bank Messages
 
-- `/cosmos.bank.v1beta1.MsgSend`
+- `/cosmos.bank.v1beta1.MsgSend` (supported on Move, EVM, and WASM VMs)
 
 #### Distribution Messages
 
@@ -442,6 +450,12 @@ The library supports decoding native Ethereum RPC transactions (via `decodeEther
 #### Kami721 NFT
 
 - `publicMint()` - Public mint function for Kami721 NFTs
+
+### WASM Event Processing
+
+The library automatically processes WASM event logs for balance tracking:
+
+- `transfer` event type with `recipient`, `sender`, and `amount` attributes
 
 ### EVM Event Processing
 

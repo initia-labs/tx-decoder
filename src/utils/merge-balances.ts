@@ -6,7 +6,8 @@ import {
   EvmBalanceChanges,
   FtChange,
   MoveBalanceChanges,
-  NftChange
+  NftChange,
+  WasmBalanceChanges
 } from "@/interfaces";
 
 const mergeNestedBalances = (
@@ -59,6 +60,10 @@ const isEvmBalanceChanges = (
   changes: BalanceChanges
 ): changes is EvmBalanceChanges => changes.vm === "evm";
 
+const isWasmBalanceChanges = (
+  changes: BalanceChanges
+): changes is WasmBalanceChanges => changes.vm === "wasm";
+
 export const mergeBalanceChanges = <T extends BalanceChanges>(
   target: T,
   source: BalanceChanges
@@ -76,6 +81,13 @@ export const mergeBalanceChanges = <T extends BalanceChanges>(
       ...target,
       ft: mergeNestedBalances(target.ft, source.ft),
       nft: mergeNftBalances(target.nft, source.nft)
+    };
+  }
+
+  if (isWasmBalanceChanges(target) && isWasmBalanceChanges(source)) {
+    return {
+      ...target,
+      ft: mergeNestedBalances(target.ft, source.ft)
     };
   }
 
