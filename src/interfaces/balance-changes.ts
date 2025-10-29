@@ -12,7 +12,14 @@ export interface MoveBalanceChanges extends BaseBalanceChanges {
   vm: "move";
 }
 
-export type BalanceChanges = EvmBalanceChanges | MoveBalanceChanges;
+export interface WasmBalanceChanges extends BaseBalanceChanges {
+  vm: "wasm";
+}
+
+export type BalanceChanges =
+  | EvmBalanceChanges
+  | MoveBalanceChanges
+  | WasmBalanceChanges;
 
 export type FtChange = { [denom: string]: string };
 export type NftChange = { [contract: string]: { [tokenId: string]: string } };

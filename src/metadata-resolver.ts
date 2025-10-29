@@ -12,6 +12,8 @@ export const resolveMetadata = async (
       return resolveEvmMetadata(apiClient, balanceChanges);
     case "move":
       return resolveMoveMetadata(apiClient, balanceChanges);
+    case "wasm":
+      return resolveWasmMetadata(apiClient, balanceChanges);
     default:
       return { data: {}, type: "evm" };
   }
@@ -80,4 +82,12 @@ const resolveEvmMetadata = async (
 ): Promise<Metadata> => {
   // TODO
   return { data: {}, type: "evm" };
+};
+
+const resolveWasmMetadata = async (
+  _apiClient: ApiClient,
+  _balanceChanges: BalanceChanges & { vm: "wasm" }
+): Promise<Metadata> => {
+  // TODO
+  return { data: {}, type: "wasm" };
 };

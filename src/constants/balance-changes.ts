@@ -1,4 +1,8 @@
-import type { EvmBalanceChanges, MoveBalanceChanges } from "@/interfaces";
+import type {
+  EvmBalanceChanges,
+  MoveBalanceChanges,
+  WasmBalanceChanges
+} from "@/interfaces";
 
 export const createDefaultMoveBalanceChanges = (): MoveBalanceChanges => ({
   ft: {},
@@ -10,4 +14,9 @@ export const createDefaultEvmBalanceChanges = (): EvmBalanceChanges => ({
   ft: {},
   nft: {},
   vm: "evm"
+});
+
+export const createDefaultWasmBalanceChanges = (): WasmBalanceChanges => ({
+  ft: {},
+  vm: "wasm"
 });

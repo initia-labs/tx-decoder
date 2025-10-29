@@ -22,6 +22,7 @@ A TypeScript library for decoding Cosmos SDK transactions, providing human-reada
 ## ✨ [Features](#-features)
 
 - **Human-Readable Output**: Decodes Cosmos SDK transaction messages into a clear, human-readable JSON format.
+- **Multi-VM Support**: Full support for Move VM, EVM, and WASM virtual machines with VM-specific balance tracking.
 - **Balance Tracking**: Tracks fungible token deltas and correlates Move objects or EVM NFTs with specific tokenId tracking based on the originating VM.
 - **Type-Safe**: Built with TypeScript and validated with Zod for robust, type-safe operations.
 - **Extensible**: Features a flexible handler system that can be easily extended to support new message types.
@@ -62,6 +63,10 @@ console.log(decodedTx);
 const decodedEvmTx = await decoder.decodeCosmosEvmTransaction(txResponse);
 console.log(decodedEvmTx);
 
+// Decode a Cosmos transaction for WASM L2
+const decodedWasmTx = await decoder.decodeCosmosWasmTransaction(txResponse);
+console.log(decodedWasmTx);
+
 // Decode a native Ethereum RPC transaction
 const ethereumTx = await decoder.decodeEthereumTransaction({
   tx: ethereumTransaction,
@@ -70,7 +75,7 @@ const ethereumTx = await decoder.decodeEthereumTransaction({
 console.log(ethereumTx);
 ```
 
-Each decoded message includes a `balanceChanges` object tagged with `vm: "move"` or `vm: "evm"`. EVM balance deltas are sourced from decoded log events via `viem` rather than Cosmos bank events.
+Each decoded message includes a `balanceChanges` object tagged with `vm: "move"`, `vm: "evm"`, or `vm: "wasm"`. EVM balance deltas are sourced from decoded log events via `viem` rather than Cosmos bank events.
 
 ## 📖 [API Reference](#-api-reference)
 
@@ -116,10 +121,15 @@ Decodes a Cosmos transaction response for EVM L2 chains, processing only general
 
 **Returns:** `Promise<DecodedTx>` - A promise that resolves to a decoded transaction object
 
-**Supported Message Types:**
+##### `decodeCosmosWasmTransaction(txResponse: TxResponse): Promise<DecodedTx>`
 
-- Cosmos: `/cosmos.bank.v1beta1.MsgSend`
-- IBC: `/ibc.applications.transfer.v1.MsgTransfer`, `/ibc.core.channel.v1.MsgRecvPacket` (only fungible token)
+Decodes a Cosmos transaction response for WASM L2 chains. Balance changes are tracked from `transfer` events in transaction logs.
+
+**Parameters:**
+
+- `txResponse: TxResponse` - The raw transaction response from the blockchain
+
+**Returns:** `Promise<DecodedTx>` - A promise that resolves to a decoded transaction object
 
 ##### `decodeEthereumTransaction(payload: EthereumRpcPayload): Promise<DecodedEthereumTx>`
 
@@ -132,15 +142,6 @@ Decodes a native Ethereum RPC transaction with balance change tracking from tran
   - `txReceipt: EthereumTransactionReceipt` - The transaction receipt from `eth_getTransactionReceipt`
 
 **Returns:** `Promise<DecodedEthereumTx>` - A promise that resolves to a decoded Ethereum transaction object
-
-**Supported Transaction Types:**
-
-- ERC-20 `approve(address spender, uint256 amount)` / ERC-721 `approve(address to, uint256 tokenId)`
-- ERC-20 `transfer(address to, uint256 amount)`
-- ERC-20 `transferFrom(address from, address to, uint256 amount)`
-- ERC-721 `safeTransferFrom(address from, address to, uint256 tokenId)`
-
-**Balance Changes:** Automatically calculated from transaction receipt logs (Transfer events)
 
 ### Type Definitions
 
@@ -202,7 +203,14 @@ interface EvmBalanceChanges extends BaseBalanceChanges {
   nft: { [address: string]: NftChange };
 }
 
-type BalanceChanges = MoveBalanceChanges | EvmBalanceChanges;
+interface WasmBalanceChanges extends BaseBalanceChanges {
+  vm: "wasm";
+}
+
+type BalanceChanges =
+  | MoveBalanceChanges
+  | EvmBalanceChanges
+  | WasmBalanceChanges;
 
 // Type aliases
 type FtChange = { [denom: string]: string };
@@ -328,66 +336,130 @@ The decoder returns a structured object with the following format:
 
 ## 📝 [Supported Message Types](#-supported-message-types)
 
-### Bank Messages
+### Cosmos Messages
 
-- `/cosmos.bank.v1beta1.MsgSend`
+#### Bank Messages
 
-### Distribution Messages
+- `/cosmos.bank.v1beta1.MsgSend` (supported on Move, EVM, and WASM VMs)
+
+#### Distribution Messages
 
 - `/cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward`
 
-### Staking Messages
+#### Staking Messages (Multi-Staking)
 
 - `/initia.mstaking.v1.MsgDelegate`
 - `/initia.mstaking.v1.MsgUndelegate`
 - `/initia.mstaking.v1.MsgBeginRedelegate`
 
-### Move Messages
+### Move VM Messages
 
 - `/initia.move.v1.MsgExecute`
 - `/initia.move.v1.MsgExecuteJSON`
 
 #### Supported Move Scripts
 
-- `0x1::stableswap::swap_script`
-- `0x1::dex::swap_script`
-- `0x1::simple_nft::mint`
-- `0x1::simple_nft::burn`
-- `0x1::object::transfer_call`
-- `0x1::dex::withdraw_liquidity_script`
-- `0x1::minitswap::provide`
-- `0x1::minitswap::unbond`
-- `0x1::minitswap::withdraw_unbond`
-- `<module_address>::usernames::register_domain`
-- `<module_address>::lock_staking::delegate`
-- `<module_address>::lock_staking::undelegate`
-- `<module_address>::lock_staking::redelegate`
-- `<module_address>::lock_staking::withdraw_delegator_reward`
-- `<module_address>::lock_staking::extend`
-- `<module_address>::lock_staking::batch_extend`
-- `<module_address>::vip::batch_claim_user_reward_script`
-- `<module_address>::vip::batch_lock_stake_script`
-- `<module_address>::weight_vote::vote`
-- `<module_address>::dex_utils::unproportional_provide`
-- `<module_address>::dex_utils::unproportional_provide_stake`
-- `<module_address>::dex_utils::unproportional_provide_lock_stake`
+**DEX & Liquidity:**
 
-### OpInit Messages
+- `0x1::dex::swap_script` - Token swap
+- `0x1::dex::provide_liquidity_script` - Provide liquidity
+- `0x1::dex::provide_liquidity_and_stake` - Provide liquidity and stake LP tokens
+- `0x1::dex::provide_liquidity_and_stake_lock` - Provide liquidity and stake-lock LP tokens
+- `0x1::dex::withdraw_liquidity_script` - Withdraw liquidity
+- `0x1::dex::extend_lock` - Extend LP lock period
+- `0x1::dex::merge_lock` - Merge locked LP positions
 
-- `/opinit.ophost.v1.MsgInitiateTokenDeposit`
-- `/opinit.ophost.v1.MsgFinalizeTokenWithdrawal`
-- `/opinit.opchild.v1.MsgFinalizeTokenDeposit`
-- `/opinit.opchild.v1.MsgInitiateTokenWithdrawal`
+**Stableswap:**
+
+- `0x1::stableswap::swap_script` - Stableswap token swap
+- `0x1::stableswap::provide` - Provide liquidity to stableswap
+- `0x1::stableswap::withdraw` - Withdraw liquidity from stableswap
+
+**Minitswap:**
+
+- `0x1::minitswap::provide` - Provide liquidity to minitswap
+- `0x1::minitswap::unbond` - Unbond from minitswap
+- `0x1::minitswap::withdraw_unbond` - Withdraw unbonded tokens
+
+**NFT:**
+
+- `0x1::simple_nft::mint` - Mint NFT
+- `0x1::simple_nft::burn` - Burn NFT
+
+**Object Transfer:**
+
+- `0x1::object::transfer_call` - Transfer Move objects
+
+**Lock Staking:**
+
+- `<module_address>::lock_staking::delegate` - Delegate with lock
+- `<module_address>::lock_staking::undelegate` - Undelegate locked tokens
+- `<module_address>::lock_staking::redelegate` - Redelegate locked tokens
+- `<module_address>::lock_staking::withdraw_delegator_reward` - Withdraw rewards from locked stake
+- `<module_address>::lock_staking::extend` - Extend lock period
+- `<module_address>::lock_staking::batch_extend` - Batch extend lock periods
+
+**VIP (Voting Incentive Program):**
+
+- `<module_address>::vip::batch_claim_user_reward_script` - Claim VIP rewards
+- `<module_address>::vip::batch_lock_stake_script` - Lock stake for VIP
+- `<module_address>::weight_vote::vote` - Vote on gauge weights
+
+### OpInit Messages (L1 ↔ L2 Bridge)
+
+- `/opinit.ophost.v1.MsgInitiateTokenDeposit` - Initiate deposit from L1 to L2
+- `/opinit.ophost.v1.MsgFinalizeTokenWithdrawal` - Finalize withdrawal on L1
+- `/opinit.opchild.v1.MsgFinalizeTokenDeposit` - Finalize deposit on L2
+- `/opinit.opchild.v1.MsgInitiateTokenWithdrawal` - Initiate withdrawal from L2 to L1
 
 ### IBC Messages
 
-- `/ibc.applications.transfer.v1.MsgTransfer`
-- `/ibc.applications.nft_transfer.v1.MsgTransfer`
-- `/ibc.core.channel.v1.MsgRecvPacket`
-  - `transfer`
-  - `nft-transfer`
+#### IBC Fungible Token Transfer
 
-### EVM Events
+- `/ibc.applications.transfer.v1.MsgTransfer` - Send fungible tokens via IBC
+- `/ibc.core.channel.v1.MsgRecvPacket` (with `transfer` application) - Receive fungible tokens via IBC
+
+#### IBC Non-Fungible Token Transfer
+
+- `/ibc.applications.nft_transfer.v1.MsgTransfer` - Send NFTs via IBC (Move & EVM)
+- `/ibc.core.channel.v1.MsgRecvPacket` (with `nft-transfer` application) - Receive NFTs via IBC (Move & EVM)
+
+### Ethereum RPC Transactions
+
+The library supports decoding native Ethereum RPC transactions (via `decodeEthereumTransaction`):
+
+#### ERC-20 Functions
+
+- `approve(address spender, uint256 amount)` - Approve ERC-20 spending
+- `transfer(address to, uint256 amount)` - Transfer ERC-20 tokens
+- `transferFrom(address from, address to, uint256 amount)` - Transfer ERC-20 tokens from approved address
+
+#### ERC-721 Functions
+
+- `approve(address to, uint256 tokenId)` - Approve NFT transfer
+- `safeTransferFrom(address from, address to, uint256 tokenId)` - Safe transfer NFT
+
+#### Native ETH Transfer
+
+- Native ETH transfer (value transfer without function call)
+
+#### Contract Deployment
+
+- Contract creation transactions
+
+#### Kami721 NFT
+
+- `publicMint()` - Public mint function for Kami721 NFTs
+
+### WASM Event Processing
+
+The library automatically processes WASM event logs for balance tracking:
+
+- `transfer` event type with `recipient`, `sender`, and `amount` attributes
+
+### EVM Event Processing
+
+The library automatically processes EVM event logs for balance tracking:
 
 - `Transfer(address indexed from, address indexed to, uint256 value)` (ERC-20)
 - `Transfer(address indexed from, address indexed to, uint256 indexed tokenId)` (ERC-721)
@@ -429,9 +501,12 @@ tx-decoder/
 │   ├── balance-changes.ts       # Balance aggregation helpers per VM
 │   ├── constants/               # Application constants
 │   │   ├── index.ts             # Main constants export
+│   │   ├── balance-changes.ts   # Default balance change structures
 │   │   ├── evm-abis.ts          # EVM contract ABIs (ERC20, ERC721, etc.)
 │   │   └── evm-selectors.ts     # EVM function selectors and event signatures
 │   ├── decoder.ts               # Main transaction decoding logic
+│   ├── decoder-registry.ts      # Decoder registry arrays (Cosmos EVM, Cosmos Move, Ethereum)
+│   ├── validation.ts            # Transaction validation functions
 │   ├── index.ts                 # Entry point for exports
 │   ├── message-types.ts         # Supported message types
 │   ├── metadata-resolver.ts     # Resolves and fetches NFT metadata for token addresses
