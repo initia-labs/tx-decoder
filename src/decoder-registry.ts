@@ -12,7 +12,12 @@ export const cosmosEvmMessageDecoders: MessageDecoder[] = [
 ];
 
 export const cosmosWasmMessageDecoders: MessageDecoder[] = [
-  Decoders.sendDecoder
+  Decoders.sendDecoder,
+  Decoders.initiateTokenWithdrawalDecoder,
+  Decoders.finalizeTokenDepositDecoder,
+  Decoders.cw20TransferDecoder,
+  Decoders.instantiateContractDecoder,
+  Decoders.executeContractDecoder
 ];
 
 export const cosmosMoveMessageDecoders: MessageDecoder[] = [

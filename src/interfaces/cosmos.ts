@@ -7,11 +7,14 @@ interface DecodedMessageBase {
 
 export type DecodedMessage =
   | DecodedClaimMinitswapMessage
+  | DecodedCw20TransferFromMessage
+  | DecodedCw20TransferMessage
   | DecodedDelegateMessage
   | DecodedDepositLiquidityMessage
   | DecodedDepositMinitswapMessage
   | DecodedDepositStakeLiquidityMessage
   | DecodedDepositStakeLockLiquidityMessage
+  | DecodedExecuteContractMessage
   | DecodedExtendLiquidityMessage
   | DecodedFinalizeTokenDepositMessage
   | DecodedFinalizeTokenWithdrawalMessage
@@ -23,6 +26,7 @@ export type DecodedMessage =
   | DecodedIbcNftSendMoveMessage
   | DecodedInitiateTokenDepositMessage
   | DecodedInitiateTokenWithdrawalMessage
+  | DecodedInstantiateContractMessage
   | DecodedMergeLiquidityMessage
   | DecodedNftBurnMessage
   | DecodedNftMintMessage
@@ -515,5 +519,50 @@ interface DecodedProvideStableswapMessage extends DecodedMessageBase {
     from: string;
     liquidity: string;
     liquidityDenom: string;
+  };
+}
+
+interface DecodedCw20TransferMessage extends DecodedMessageBase {
+  action: "cw20_transfer";
+  data: {
+    amount: string;
+    contract: string;
+    from: string;
+    to: string;
+  };
+}
+
+interface DecodedCw20TransferFromMessage extends DecodedMessageBase {
+  action: "cw20_transfer_from";
+  data: {
+    amount: string;
+    contract: string;
+    from: string;
+    spender: string;
+    to: string;
+  };
+}
+
+interface DecodedInstantiateContractMessage extends DecodedMessageBase {
+  action: "instantiate_contract";
+  data: {
+    admin?: string;
+    codeId: string;
+    contractAddress?: string;
+    funds: Coin[];
+    initMsg: unknown;
+    label: string;
+    sender: string;
+  };
+}
+
+interface DecodedExecuteContractMessage extends DecodedMessageBase {
+  action: "execute_contract";
+  data: {
+    contract: string;
+    function?: string;
+    funds: Coin[];
+    msg: unknown;
+    sender: string;
   };
 }

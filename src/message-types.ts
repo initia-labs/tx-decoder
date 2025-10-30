@@ -23,5 +23,9 @@ export const SUPPORTED_MESSAGE_TYPES = {
   // ibc messages
   MsgIbcTransfer: "/ibc.applications.transfer.v1.MsgTransfer",
   MsgIbcNftTransfer: "/ibc.applications.nft_transfer.v1.MsgTransfer",
-  MsgIbcRecvPacket: "/ibc.core.channel.v1.MsgRecvPacket"
+  MsgIbcRecvPacket: "/ibc.core.channel.v1.MsgRecvPacket",
+
+  // wasm messages
+  MsgExecuteContract: "/cosmwasm.wasm.v1.MsgExecuteContract",
+  MsgInstantiateContract: "/cosmwasm.wasm.v1.MsgInstantiateContract"
 } as const;
