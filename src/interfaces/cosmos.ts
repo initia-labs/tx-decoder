@@ -9,6 +9,8 @@ export type DecodedMessage =
   | DecodedClaimMinitswapMessage
   | DecodedCw20TransferFromMessage
   | DecodedCw20TransferMessage
+  | DecodedCw721MintMessage
+  | DecodedCw721TransferMessage
   | DecodedDelegateMessage
   | DecodedDepositLiquidityMessage
   | DecodedDepositMinitswapMessage
@@ -22,8 +24,10 @@ export type DecodedMessage =
   | DecodedIbcFtSendMessage
   | DecodedIbcNftReceiveEvmMessage
   | DecodedIbcNftReceiveMoveMessage
+  | DecodedIbcNftReceiveWasmMessage
   | DecodedIbcNftSendEvmMessage
   | DecodedIbcNftSendMoveMessage
+  | DecodedIbcNftSendWasmMessage
   | DecodedInitiateTokenDepositMessage
   | DecodedInitiateTokenWithdrawalMessage
   | DecodedInstantiateContractMessage
@@ -352,6 +356,54 @@ interface DecodedIbcNftReceiveEvmMessage extends DecodedMessageBase {
   };
 }
 
+interface DecodedIbcNftSendWasmMessage extends DecodedMessageBase {
+  action: "ibc_nft_send_wasm";
+  data: {
+    classId: string;
+    contractAddress: string;
+    dstChainId: string;
+    dstChannel: string;
+    dstPort: string;
+    receiver: string;
+    sender: string;
+    sequence: string;
+    srcChainId: string;
+    srcChannel: string;
+    srcPort: string;
+    timeoutHeight: {
+      revision_height: string;
+      revision_number: string;
+    };
+    timeoutTimestamp: string;
+    tokenIds: string[];
+    tokenUris: string[];
+  };
+}
+
+interface DecodedIbcNftReceiveWasmMessage extends DecodedMessageBase {
+  action: "ibc_nft_receive_wasm";
+  data: {
+    classId: string;
+    contractAddress: string;
+    dstChainId: string;
+    dstChannel: string;
+    dstPort: string;
+    receiver: string;
+    sender: string;
+    sequence: string;
+    srcChainId: string;
+    srcChannel: string;
+    srcPort: string;
+    timeoutHeight: {
+      revision_height: string;
+      revision_number: string;
+    };
+    timeoutTimestamp: string;
+    tokenIds: string[];
+    tokenUris: string[];
+  };
+}
+
 interface DecodedDepositMinitswapMessage extends DecodedMessageBase {
   action: "deposit_minitswap";
   data: {
@@ -564,5 +616,26 @@ interface DecodedExecuteContractMessage extends DecodedMessageBase {
     funds: Coin[];
     msg: unknown;
     sender: string;
+  };
+}
+
+interface DecodedCw721TransferMessage extends DecodedMessageBase {
+  action: "cw721_transfer";
+  data: {
+    contract: string;
+    from: string;
+    to: string;
+    tokenId: string;
+  };
+}
+
+interface DecodedCw721MintMessage extends DecodedMessageBase {
+  action: "cw721_mint";
+  data: {
+    contract: string;
+    extension?: unknown;
+    owner: string;
+    tokenId: string;
+    tokenUri?: string;
   };
 }

@@ -46,6 +46,7 @@ describe("OpInit Finalize Token Deposit (WASM)", () => {
             "-10000"
         }
       },
+      nft: {},
       vm: "wasm"
     });
 
@@ -60,6 +61,7 @@ describe("OpInit Finalize Token Deposit (WASM)", () => {
             "-10000"
         }
       },
+      nft: {},
       vm: "wasm"
     });
 

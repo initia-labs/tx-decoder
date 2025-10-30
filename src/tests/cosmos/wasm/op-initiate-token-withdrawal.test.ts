@@ -43,6 +43,7 @@ describe("OpInit Initiate Token Withdrawal (WASM)", () => {
             "1000"
         }
       },
+      nft: {},
       vm: "wasm"
     });
 
@@ -57,6 +58,7 @@ describe("OpInit Initiate Token Withdrawal (WASM)", () => {
             "1000"
         }
       },
+      nft: {},
       vm: "wasm"
     });
 

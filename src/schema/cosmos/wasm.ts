@@ -49,3 +49,25 @@ export const zCw20TransferFromMsg = z.object({
     recipient: z.string()
   })
 });
+
+/**
+ * Schema for decoded CW-721 transfer_nft message
+ */
+export const zCw721TransferNftMsg = z.object({
+  transfer_nft: z.object({
+    recipient: z.string(),
+    token_id: z.string()
+  })
+});
+
+/**
+ * Schema for decoded CW-721 mint message
+ */
+export const zCw721MintMsg = z.object({
+  mint: z.object({
+    extension: z.any().optional(),
+    owner: z.string(),
+    token_id: z.string(),
+    token_uri: z.string().optional()
+  })
+});

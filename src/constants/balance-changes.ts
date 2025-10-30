@@ -18,5 +18,6 @@ export const createDefaultEvmBalanceChanges = (): EvmBalanceChanges => ({
 
 export const createDefaultWasmBalanceChanges = (): WasmBalanceChanges => ({
   ft: {},
+  nft: {},
   vm: "wasm"
 });
