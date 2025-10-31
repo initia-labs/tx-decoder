@@ -190,3 +190,155 @@ export const mockInstantiateContract = {
   },
   txhash: "66B60FA1D1ED928D607EC34E4AF9AAFE3CD4F164AD5AEC7A906C3E0B97F29814"
 };
+
+/**
+ * Failed contract instantiation
+ * TX Hash: 41787FF63125791ECFB396A625D365CAFD61C68C1ACF7E3707220CE6BEDBC53C
+ * Block Height: 12345
+ * Timestamp: 2025-10-20T10:30:00Z
+ * Code ID: 5
+ * Error: Contract instantiation failed due to insufficient funds
+ */
+export const mockInstantiateContractFailed = {
+  code: 5,
+  codespace: "wasm",
+  data: "",
+  events: [
+    {
+      attributes: [
+        {
+          index: true,
+          key: "fee",
+          value: "5000uinit"
+        },
+        {
+          index: true,
+          key: "fee_payer",
+          value: "init1xyz123abc456def789ghi012jkl345mno678pqr"
+        }
+      ],
+      type: "tx"
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "acc_seq",
+          value: "init1xyz123abc456def789ghi012jkl345mno678pqr/42"
+        }
+      ],
+      type: "tx"
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "signature",
+          value:
+            "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789=="
+        }
+      ],
+      type: "tx"
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "action",
+          value: "/cosmwasm.wasm.v1.MsgInstantiateContract"
+        },
+        {
+          index: true,
+          key: "sender",
+          value: "init1xyz123abc456def789ghi012jkl345mno678pqr"
+        },
+        {
+          index: true,
+          key: "module",
+          value: "wasm"
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "0"
+        }
+      ],
+      type: "message"
+    }
+  ],
+  gas_used: "150000",
+  gas_wanted: "500000",
+  height: "12345",
+  info: "",
+  logs: [],
+  raw_log:
+    "failed to execute message; message index: 0: Error instantiating contract: Insufficient funds: required 1000000uinit, available 0uinit: instantiate wasm contract failed",
+  timestamp: "2025-10-20T10:30:00Z",
+  tx: {
+    "@type": "/cosmos.tx.v1beta1.Tx",
+    auth_info: {
+      fee: {
+        amount: [
+          {
+            amount: "5000",
+            denom: "uinit"
+          }
+        ],
+        gas_limit: "500000",
+        granter: "",
+        payer: ""
+      },
+      signer_infos: [
+        {
+          mode_info: {
+            single: {
+              mode: "SIGN_MODE_DIRECT"
+            }
+          },
+          public_key: {
+            "@type": "/cosmos.crypto.secp256k1.PubKey",
+            key: "AxYZ789abc123DEF456ghi789JKL012mno345PQR678stu"
+          },
+          sequence: "42"
+        }
+      ],
+      tip: null
+    },
+    body: {
+      extension_options: [],
+      memo: "Instantiate token contract",
+      messages: [
+        {
+          "@type": "/cosmwasm.wasm.v1.MsgInstantiateContract",
+          admin: "init1xyz123abc456def789ghi012jkl345mno678pqr",
+          code_id: "5",
+          funds: [
+            {
+              amount: "1000000",
+              denom: "uinit"
+            }
+          ],
+          label: "my-token-contract",
+          msg: {
+            decimals: 6,
+            initial_balances: [
+              {
+                address: "init1xyz123abc456def789ghi012jkl345mno678pqr",
+                amount: "1000000000"
+              }
+            ],
+            name: "My Token",
+            symbol: "MTK"
+          },
+          sender: "init1xyz123abc456def789ghi012jkl345mno678pqr"
+        }
+      ],
+      non_critical_extension_options: [],
+      timeout_height: "0"
+    },
+    signatures: [
+      "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789=="
+    ]
+  },
+  txhash: "41787FF63125791ECFB396A625D365CAFD61C68C1ACF7E3707220CE6BEDBC53C"
+};

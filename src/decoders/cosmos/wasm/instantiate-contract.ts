@@ -19,7 +19,7 @@ export const instantiateContractDecoder: MessageDecoder = {
     message: Message,
     log: Log,
     _apiClient: ApiClient,
-    _txResponse: TxResponse
+    txResponse: TxResponse
   ) => {
     const parsed = zMsgInstantiateContract.safeParse(message);
     if (!parsed.success) {
@@ -28,6 +28,9 @@ export const instantiateContractDecoder: MessageDecoder = {
 
     const { admin, code_id, funds, label, msg, sender } = parsed.data;
     const decodedMsg = decodeWasmMsg(msg);
+
+    // Check if transaction failed
+    const isFailed = txResponse.code !== 0;
 
     // Find the instantiate event to get the contract address
     const instantiateEvent = log.events.find(
@@ -64,7 +67,17 @@ export const instantiateContractDecoder: MessageDecoder = {
         funds,
         initMsg: decodedMsg,
         label,
-        sender
+        sender,
+        // Include error information if transaction failed
+        ...(isFailed
+          ? {
+              error: {
+                code: txResponse.code,
+                codespace: txResponse.codespace,
+                message: txResponse.raw_log
+              }
+            }
+          : {})
       },
       isIbc: false,
       isOp: false

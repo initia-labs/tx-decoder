@@ -220,9 +220,13 @@ export class TxDecoder {
   ): ReturnType<MessageDecoder["decode"]> {
     const notSupportedMessage = createNotSupportedMessage(message["@type"]);
 
-    if (!log) {
-      return notSupportedMessage;
-    }
+    // For failed transactions (code !== 0), logs array is empty
+    // Create a synthetic log from txResponse events to allow decoders to process the message
+    const effectiveLog: Log = log || {
+      events: txResponse.events,
+      log: txResponse.raw_log,
+      msg_index: 0
+    };
 
     let decoders;
     switch (vm) {
@@ -240,10 +244,21 @@ export class TxDecoder {
     }
 
     try {
-      const decoder = this._findDecoderForMessage(message, log, vm, decoders);
+      const decoder = this._findDecoderForMessage(
+        message,
+        effectiveLog,
+        vm,
+        decoders
+      );
       if (!decoder) return notSupportedMessage;
 
-      return await decoder.decode(message, log, this.apiClient, txResponse, vm);
+      return await decoder.decode(
+        message,
+        effectiveLog,
+        this.apiClient,
+        txResponse,
+        vm
+      );
     } catch (e) {
       console.error(e);
       return notSupportedMessage;
