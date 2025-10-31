@@ -77,8 +77,8 @@ export const cw20TransferDecoder: MessageDecoder = {
         data: {
           amount,
           contract,
-          from: owner,
-          spender: sender,
+          from: sender,
+          owner,
           to: recipient
         },
         isIbc: false,

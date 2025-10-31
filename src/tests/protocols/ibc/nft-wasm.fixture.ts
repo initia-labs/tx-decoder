@@ -712,7 +712,13 @@ export const mockIbcNftReceiveWasm = {
   gas_wanted: "1806056",
   height: "442810",
   info: "",
-  logs: [],
+  logs: [
+    {
+      events: [],
+      log: "",
+      msg_index: 0
+    }
+  ],
   raw_log: "",
   timestamp: "2025-10-20T14:33:06Z",
   tx: {

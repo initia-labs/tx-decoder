@@ -216,7 +216,8 @@ export class TxDecoder {
     message: Message,
     log: Log | undefined,
     txResponse: TxResponse,
-    vm: VmType
+    vm: VmType,
+    messageIndex: number
   ): ReturnType<MessageDecoder["decode"]> {
     const notSupportedMessage = createNotSupportedMessage(message["@type"]);
 
@@ -225,7 +226,7 @@ export class TxDecoder {
     const effectiveLog: Log = log || {
       events: txResponse.events,
       log: txResponse.raw_log,
-      msg_index: 0
+      msg_index: messageIndex
     };
 
     let decoders;
@@ -322,7 +323,8 @@ export class TxDecoder {
         message,
         log,
         txResponse,
-        vm
+        vm,
+        index
       );
 
       let defaultBalanceChanges;

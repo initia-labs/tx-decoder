@@ -1,4 +1,4 @@
-import type { DecodedMessage, MessageDecoder, VmType } from "@/interfaces";
+import type { DecodedMessage, MessageDecoder } from "@/interfaces";
 import type { Log, Message, TxResponse } from "@/schema";
 
 import { ApiClient } from "@/api";
@@ -6,9 +6,8 @@ import { SUPPORTED_MESSAGE_TYPES } from "@/message-types";
 import { zMsgInitiateTokenWithdrawal } from "@/schema";
 
 export const initiateTokenWithdrawalDecoder: MessageDecoder = {
-  check: (message: Message, _log: Log, vm: VmType) =>
-    message["@type"] === SUPPORTED_MESSAGE_TYPES.MsgInitiateTokenWithdrawal &&
-    (vm === "wasm" || vm === "evm"),
+  check: (message: Message, _log: Log) =>
+    message["@type"] === SUPPORTED_MESSAGE_TYPES.MsgInitiateTokenWithdrawal,
   decode: async (
     message: Message,
     log: Log,

@@ -5,37 +5,46 @@ interface DecodedMessageBase {
   isOp: boolean;
 }
 
-export type DecodedMessage =
-  | DecodedClaimMinitswapMessage
+// Move VM specific messages
+export type MoveDecodedMessage =
+  | DecodedIbcNftReceiveMoveMessage
+  | DecodedIbcNftSendMoveMessage
+  | DecodedNftBurnMessage
+  | DecodedNftMintMessage
+  | DecodedObjectTransferMessage;
+
+// EVM VM specific messages
+export type EvmDecodedMessage =
+  | DecodedIbcNftReceiveEvmMessage
+  | DecodedIbcNftSendEvmMessage;
+
+// WASM VM specific messages
+export type WasmDecodedMessage =
   | DecodedCw20TransferFromMessage
   | DecodedCw20TransferMessage
   | DecodedCw721MintMessage
   | DecodedCw721TransferMessage
+  | DecodedExecuteContractMessage
+  | DecodedIbcNftReceiveWasmMessage
+  | DecodedIbcNftSendWasmMessage
+  | DecodedInstantiateContractMessage;
+
+// Cosmos L1 messages (common across all VMs)
+export type CosmosDecodedMessage =
+  | DecodedClaimMinitswapMessage
   | DecodedDelegateMessage
   | DecodedDepositLiquidityMessage
   | DecodedDepositMinitswapMessage
   | DecodedDepositStakeLiquidityMessage
   | DecodedDepositStakeLockLiquidityMessage
-  | DecodedExecuteContractMessage
   | DecodedExtendLiquidityMessage
   | DecodedFinalizeTokenDepositMessage
   | DecodedFinalizeTokenWithdrawalMessage
   | DecodedIbcFtReceiveMessage
   | DecodedIbcFtSendMessage
-  | DecodedIbcNftReceiveEvmMessage
-  | DecodedIbcNftReceiveMoveMessage
-  | DecodedIbcNftReceiveWasmMessage
-  | DecodedIbcNftSendEvmMessage
-  | DecodedIbcNftSendMoveMessage
-  | DecodedIbcNftSendWasmMessage
   | DecodedInitiateTokenDepositMessage
   | DecodedInitiateTokenWithdrawalMessage
-  | DecodedInstantiateContractMessage
   | DecodedMergeLiquidityMessage
-  | DecodedNftBurnMessage
-  | DecodedNftMintMessage
-  | DecodedNotSupportedMessage
-  | DecodedObjectTransferMessage
   | DecodedProvideStableswapMessage
   | DecodedRedelegateMessage
   | DecodedSendMessage
@@ -47,6 +56,14 @@ export type DecodedMessage =
   | DecodedWithdrawLiquidityMessage
   | DecodedWithdrawMinitswapMessage
   | DecodedWithdrawStableswapMessage;
+
+// Combined union of all decoded messages
+export type DecodedMessage =
+  | CosmosDecodedMessage
+  | DecodedNotSupportedMessage
+  | EvmDecodedMessage
+  | MoveDecodedMessage
+  | WasmDecodedMessage;
 
 interface DecodedSendMessage extends DecodedMessageBase {
   action: "send";
@@ -590,7 +607,7 @@ interface DecodedCw20TransferFromMessage extends DecodedMessageBase {
     amount: string;
     contract: string;
     from: string;
-    spender: string;
+    owner: string;
     to: string;
   };
 }

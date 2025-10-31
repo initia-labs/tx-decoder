@@ -125,7 +125,7 @@ export const ibcSendNftWasmDecoder: MessageDecoder = {
         srcPort: source_port,
         timeoutHeight: timeout_height,
         timeoutTimestamp: timeout_timestamp,
-        tokenIds: [tokenId],
+        tokenIds: parsedData.data.tokenIds,
         tokenUris: parsedData.data.tokenUris
       },
       isIbc: true,
