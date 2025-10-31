@@ -192,15 +192,14 @@ export const mockInstantiateContract = {
 };
 
 /**
- * Failed contract instantiation
+ * Real failed contract instantiation transaction on WASM VM (moo-1 chain)
  * TX Hash: 41787FF63125791ECFB396A625D365CAFD61C68C1ACF7E3707220CE6BEDBC53C
- * Block Height: 12345
- * Timestamp: 2025-10-20T10:30:00Z
- * Code ID: 5
- * Error: Contract instantiation failed due to insufficient funds
+ * Block Height: 460979
+ * Timestamp: 2025-10-30T11:37:21Z
+ * Error: failed to execute message; message index: 0: Generic error: addr_validate errored: decoding bech32 f...
  */
 export const mockInstantiateContractFailed = {
-  code: 5,
+  code: 4,
   codespace: "wasm",
   data: "",
   events: [
@@ -208,13 +207,77 @@ export const mockInstantiateContractFailed = {
       attributes: [
         {
           index: true,
+          key: "spender",
+          value: "init1dw49mn7s2r5mskjdmus5hth80zz8wwaywycq06"
+        },
+        {
+          index: true,
+          key: "amount",
+          value:
+            "4321ibc/37A3FB4FED4CA04ED6D9E5DA36C6D27248645F0E22F585576A1488B8A89C5A50"
+        }
+      ],
+      type: "coin_spent"
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "receiver",
+          value: "init17xpfvakm2amg962yls6f84z3kell8c5l70rnql"
+        },
+        {
+          index: true,
+          key: "amount",
+          value:
+            "4321ibc/37A3FB4FED4CA04ED6D9E5DA36C6D27248645F0E22F585576A1488B8A89C5A50"
+        }
+      ],
+      type: "coin_received"
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "recipient",
+          value: "init17xpfvakm2amg962yls6f84z3kell8c5l70rnql"
+        },
+        {
+          index: true,
+          key: "sender",
+          value: "init1dw49mn7s2r5mskjdmus5hth80zz8wwaywycq06"
+        },
+        {
+          index: true,
+          key: "amount",
+          value:
+            "4321ibc/37A3FB4FED4CA04ED6D9E5DA36C6D27248645F0E22F585576A1488B8A89C5A50"
+        }
+      ],
+      type: "transfer"
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "sender",
+          value: "init1dw49mn7s2r5mskjdmus5hth80zz8wwaywycq06"
+        }
+      ],
+      type: "message"
+    },
+    {
+      attributes: [
+        {
+          index: true,
           key: "fee",
-          value: "5000uinit"
+          value:
+            "4321ibc/37A3FB4FED4CA04ED6D9E5DA36C6D27248645F0E22F585576A1488B8A89C5A50"
         },
         {
           index: true,
           key: "fee_payer",
-          value: "init1xyz123abc456def789ghi012jkl345mno678pqr"
+          value: "init1dw49mn7s2r5mskjdmus5hth80zz8wwaywycq06"
         }
       ],
       type: "tx"
@@ -224,7 +287,7 @@ export const mockInstantiateContractFailed = {
         {
           index: true,
           key: "acc_seq",
-          value: "init1xyz123abc456def789ghi012jkl345mno678pqr/42"
+          value: "init1dw49mn7s2r5mskjdmus5hth80zz8wwaywycq06/64"
         }
       ],
       type: "tx"
@@ -235,56 +298,32 @@ export const mockInstantiateContractFailed = {
           index: true,
           key: "signature",
           value:
-            "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789=="
+            "4vGxO8AKTqeyDYtDdgkbB4VT73JlMDlsixAc/gt2tBh6TLfguh7LHx19cSGt75mnpodXXho9MWfZERhB8qBSLRs="
         }
       ],
       type: "tx"
-    },
-    {
-      attributes: [
-        {
-          index: true,
-          key: "action",
-          value: "/cosmwasm.wasm.v1.MsgInstantiateContract"
-        },
-        {
-          index: true,
-          key: "sender",
-          value: "init1xyz123abc456def789ghi012jkl345mno678pqr"
-        },
-        {
-          index: true,
-          key: "module",
-          value: "wasm"
-        },
-        {
-          index: true,
-          key: "msg_index",
-          value: "0"
-        }
-      ],
-      type: "message"
     }
   ],
-  gas_used: "150000",
-  gas_wanted: "500000",
-  height: "12345",
+  gas_used: "156375",
+  gas_wanted: "288052",
+  height: "460979",
   info: "",
   logs: [],
   raw_log:
-    "failed to execute message; message index: 0: Error instantiating contract: Insufficient funds: required 1000000uinit, available 0uinit: instantiate wasm contract failed",
-  timestamp: "2025-10-20T10:30:00Z",
+    "failed to execute message; message index: 0: Generic error: addr_validate errored: decoding bech32 failed: invalid checksum (expected 3fextf got ywycq0): instantiate wasm contract failed",
+  timestamp: "2025-10-30T11:37:21Z",
   tx: {
     "@type": "/cosmos.tx.v1beta1.Tx",
     auth_info: {
       fee: {
         amount: [
           {
-            amount: "5000",
-            denom: "uinit"
+            amount: "4321",
+            denom:
+              "ibc/37A3FB4FED4CA04ED6D9E5DA36C6D27248645F0E22F585576A1488B8A89C5A50"
           }
         ],
-        gas_limit: "500000",
+        gas_limit: "288052",
         granter: "",
         payer: ""
       },
@@ -296,48 +335,43 @@ export const mockInstantiateContractFailed = {
             }
           },
           public_key: {
-            "@type": "/cosmos.crypto.secp256k1.PubKey",
-            key: "AxYZ789abc123DEF456ghi789JKL012mno345PQR678stu"
+            "@type": "/initia.crypto.v1beta1.ethsecp256k1.PubKey",
+            key: "A4shR8ybPUPxzBXqi4W6BH+MtTkuonZcw3xOFkT+7tE1"
           },
-          sequence: "42"
+          sequence: "64"
         }
       ],
       tip: null
     },
     body: {
       extension_options: [],
-      memo: "Instantiate token contract",
+      memo: "",
       messages: [
         {
           "@type": "/cosmwasm.wasm.v1.MsgInstantiateContract",
-          admin: "init1xyz123abc456def789ghi012jkl345mno678pqr",
-          code_id: "5",
-          funds: [
-            {
-              amount: "1000000",
-              denom: "uinit"
-            }
-          ],
-          label: "my-token-contract",
+          admin: "init1dw49mn7s2r5mskjdmus5hth80zz8wwaywycq06",
+          code_id: "10",
+          funds: [],
+          label: "ztest",
           msg: {
-            decimals: 6,
+            decimals: 0,
             initial_balances: [
               {
-                address: "init1xyz123abc456def789ghi012jkl345mno678pqr",
-                amount: "1000000000"
+                address: "init1dw49mn7s2r5mskjdmus5hth80zz8wwaywycq0",
+                amount: "199999999999999999999999999999999999"
               }
             ],
             name: "My Token",
-            symbol: "MTK"
+            symbol: "MTKKKKKKKKK"
           },
-          sender: "init1xyz123abc456def789ghi012jkl345mno678pqr"
+          sender: "init1dw49mn7s2r5mskjdmus5hth80zz8wwaywycq06"
         }
       ],
       non_critical_extension_options: [],
       timeout_height: "0"
     },
     signatures: [
-      "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789=="
+      "4vGxO8AKTqeyDYtDdgkbB4VT73JlMDlsixAc/gt2tBh6TLfguh7LHx19cSGt75mnpodXXho9MWfZERhB8qBSLRs="
     ]
   },
   txhash: "41787FF63125791ECFB396A625D365CAFD61C68C1ACF7E3707220CE6BEDBC53C"

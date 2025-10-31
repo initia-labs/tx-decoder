@@ -50,33 +50,28 @@ describe("Instantiate Contract WASM", () => {
     expect(decoded.messages[0].decodedMessage).toMatchObject({
       action: "instantiate_contract",
       data: {
-        admin: "init1xyz123abc456def789ghi012jkl345mno678pqr",
-        codeId: "5",
+        admin: "init1dw49mn7s2r5mskjdmus5hth80zz8wwaywycq06",
+        codeId: "10",
         error: {
-          code: 5,
+          code: 4,
           codespace: "wasm",
           message:
-            "failed to execute message; message index: 0: Error instantiating contract: Insufficient funds: required 1000000uinit, available 0uinit: instantiate wasm contract failed"
+            "failed to execute message; message index: 0: Generic error: addr_validate errored: decoding bech32 failed: invalid checksum (expected 3fextf got ywycq0): instantiate wasm contract failed"
         },
-        funds: [
-          {
-            amount: "1000000",
-            denom: "uinit"
-          }
-        ],
+        funds: [],
         initMsg: {
-          decimals: 6,
+          decimals: 0,
           initial_balances: [
             {
-              address: "init1xyz123abc456def789ghi012jkl345mno678pqr",
-              amount: "1000000000"
+              address: "init1dw49mn7s2r5mskjdmus5hth80zz8wwaywycq0",
+              amount: "199999999999999999999999999999999999"
             }
           ],
           name: "My Token",
-          symbol: "MTK"
+          symbol: "MTKKKKKKKKK"
         },
-        label: "my-token-contract",
-        sender: "init1xyz123abc456def789ghi012jkl345mno678pqr"
+        label: "ztest",
+        sender: "init1dw49mn7s2r5mskjdmus5hth80zz8wwaywycq06"
       },
       isIbc: false,
       isOp: false
