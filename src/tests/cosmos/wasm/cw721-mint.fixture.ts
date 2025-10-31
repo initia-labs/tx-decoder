@@ -1,23 +1,27 @@
 /**
- * Mock fixture for CW-721 NFT mint on WASM VM
- * This represents minting a new NFT to an owner
+ * Real CW721 NFT mint transaction on WASM VM (moo-1 chain)
+ * TX Hash: 5D67772AA09E80007CA80FC3485BB7DF8E1D94BED00B0E91FC9636254AADB009
+ * This represents minting a CW721 NFT (token_id: "1") to an owner
+ * Block Height: 415297
+ * Timestamp: 2025-10-06T09:41:46Z
  */
 export const mockCw721Mint = {
   code: 0,
   codespace: "",
-  data: "0A280A262F636F736D7761736D2E7761736D2E76312E4D736745786563757465436F6E7472616374",
+  data: "122E0A2C2F636F736D7761736D2E7761736D2E76312E4D736745786563757465436F6E7472616374526573706F6E7365",
   events: [
     {
       attributes: [
         {
           index: true,
           key: "spender",
-          value: "init1minter123456789abcdefghijklmnopqr"
+          value: "init1dw49mn7s2r5mskjdmus5hth80zz8wwaywycq06"
         },
         {
           index: true,
           key: "amount",
-          value: "5000uinit"
+          value:
+            "3503ibc/37A3FB4FED4CA04ED6D9E5DA36C6D27248645F0E22F585576A1488B8A89C5A50"
         }
       ],
       type: "coin_spent"
@@ -32,7 +36,8 @@ export const mockCw721Mint = {
         {
           index: true,
           key: "amount",
-          value: "5000uinit"
+          value:
+            "3503ibc/37A3FB4FED4CA04ED6D9E5DA36C6D27248645F0E22F585576A1488B8A89C5A50"
         }
       ],
       type: "coin_received"
@@ -41,18 +46,91 @@ export const mockCw721Mint = {
       attributes: [
         {
           index: true,
+          key: "recipient",
+          value: "init17xpfvakm2amg962yls6f84z3kell8c5l70rnql"
+        },
+        {
+          index: true,
+          key: "sender",
+          value: "init1dw49mn7s2r5mskjdmus5hth80zz8wwaywycq06"
+        },
+        {
+          index: true,
+          key: "amount",
+          value:
+            "3503ibc/37A3FB4FED4CA04ED6D9E5DA36C6D27248645F0E22F585576A1488B8A89C5A50"
+        }
+      ],
+      type: "transfer"
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "sender",
+          value: "init1dw49mn7s2r5mskjdmus5hth80zz8wwaywycq06"
+        }
+      ],
+      type: "message"
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "fee",
+          value:
+            "3503ibc/37A3FB4FED4CA04ED6D9E5DA36C6D27248645F0E22F585576A1488B8A89C5A50"
+        },
+        {
+          index: true,
+          key: "fee_payer",
+          value: "init1dw49mn7s2r5mskjdmus5hth80zz8wwaywycq06"
+        }
+      ],
+      type: "tx"
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "acc_seq",
+          value: "init1dw49mn7s2r5mskjdmus5hth80zz8wwaywycq06/34"
+        }
+      ],
+      type: "tx"
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "signature",
+          value:
+            "W8Mq4fBGvbVLkTKln27IuOei1FoqTB1/lHplWLVRs+YmRfuokpzXbSNz/2H1aRwMHWHjCk692059F1qPkf7ZZA=="
+        }
+      ],
+      type: "tx"
+    },
+    {
+      attributes: [
+        {
+          index: true,
           key: "action",
           value: "/cosmwasm.wasm.v1.MsgExecuteContract"
         },
         {
           index: true,
           key: "sender",
-          value: "init1minter123456789abcdefghijklmnopqr"
+          value: "init1dw49mn7s2r5mskjdmus5hth80zz8wwaywycq06"
         },
         {
           index: true,
           key: "module",
           value: "wasm"
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "0"
         }
       ],
       type: "message"
@@ -62,7 +140,24 @@ export const mockCw721Mint = {
         {
           index: true,
           key: "_contract_address",
-          value: "init1nftcontract123456789abcdefghijkl"
+          value:
+            "init1qyygux5t4s3a3l25k8psxjydhtudu5lnt0tk0szm8q4s27xa980scjvh6c"
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "0"
+        }
+      ],
+      type: "execute"
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "_contract_address",
+          value:
+            "init1qyygux5t4s3a3l25k8psxjydhtudu5lnt0tk0szm8q4s27xa980scjvh6c"
         },
         {
           index: true,
@@ -71,13 +166,18 @@ export const mockCw721Mint = {
         },
         {
           index: true,
+          key: "minter",
+          value: "init1dw49mn7s2r5mskjdmus5hth80zz8wwaywycq06"
+        },
+        {
+          index: true,
           key: "owner",
-          value: "init1nftowner123456789abcdefghijklmno"
+          value: "init1dw49mn7s2r5mskjdmus5hth80zz8wwaywycq06"
         },
         {
           index: true,
           key: "token_id",
-          value: "newtoken789"
+          value: "1"
         },
         {
           index: true,
@@ -88,28 +188,43 @@ export const mockCw721Mint = {
       type: "wasm"
     }
   ],
-  gas_used: "180000",
-  gas_wanted: "250000",
-  height: "800000",
+  gas_used: "151285",
+  gas_wanted: "233515",
+  height: "415297",
   info: "",
   logs: [],
   raw_log: "",
-  timestamp: "2025-10-30T11:00:00Z",
+  timestamp: "2025-10-06T09:41:46Z",
   tx: {
     "@type": "/cosmos.tx.v1beta1.Tx",
     auth_info: {
       fee: {
         amount: [
           {
-            amount: "5000",
-            denom: "uinit"
+            amount: "3503",
+            denom:
+              "ibc/37A3FB4FED4CA04ED6D9E5DA36C6D27248645F0E22F585576A1488B8A89C5A50"
           }
         ],
-        gas_limit: "250000",
+        gas_limit: "233515",
         granter: "",
         payer: ""
       },
-      signer_infos: []
+      signer_infos: [
+        {
+          mode_info: {
+            single: {
+              mode: "SIGN_MODE_EIP_191"
+            }
+          },
+          public_key: {
+            "@type": "/initia.crypto.v1beta1.ethsecp256k1.PubKey",
+            key: "A4shR8ybPUPxzBXqi4W6BH+MtTkuonZcw3xOFkT+7tE1"
+          },
+          sequence: "34"
+        }
+      ],
+      tip: null
     },
     body: {
       extension_options: [],
@@ -117,125 +232,25 @@ export const mockCw721Mint = {
       messages: [
         {
           "@type": "/cosmwasm.wasm.v1.MsgExecuteContract",
-          contract: "init1nftcontract123456789abcdefghijkl",
+          contract:
+            "init1qyygux5t4s3a3l25k8psxjydhtudu5lnt0tk0szm8q4s27xa980scjvh6c",
           funds: [],
           msg: {
             mint: {
-              owner: "init1nftowner123456789abcdefghijklmno",
-              token_id: "newtoken789",
-              token_uri: "https://example.com/metadata/newtoken789.json"
+              owner: "init1dw49mn7s2r5mskjdmus5hth80zz8wwaywycq06",
+              token_id: "1",
+              token_uri: "https://nft-rho-ten.vercel.app/saint_seiya/1.json"
             }
           },
-          sender: "init1minter123456789abcdefghijklmnopqr"
+          sender: "init1dw49mn7s2r5mskjdmus5hth80zz8wwaywycq06"
         }
       ],
       non_critical_extension_options: [],
       timeout_height: "0"
     },
-    signatures: []
+    signatures: [
+      "W8Mq4fBGvbVLkTKln27IuOei1FoqTB1/lHplWLVRs+YmRfuokpzXbSNz/2H1aRwMHWHjCk692059F1qPkf7ZZA=="
+    ]
   },
-  txhash: "CW721MINT1234567890ABCDEF1234567890ABCDEF1234567890ABCDEF123456"
-};
-
-/**
- * Mock fixture for CW-721 NFT mint with base64 encoded message and extension
- */
-export const mockCw721MintBase64 = {
-  code: 0,
-  codespace: "",
-  data: "0A280A262F636F736D7761736D2E7761736D2E76312E4D736745786563757465436F6E7472616374",
-  events: [
-    {
-      attributes: [
-        {
-          index: true,
-          key: "action",
-          value: "/cosmwasm.wasm.v1.MsgExecuteContract"
-        },
-        {
-          index: true,
-          key: "sender",
-          value: "init1minter123456789abcdefghijklmnopqr"
-        },
-        {
-          index: true,
-          key: "module",
-          value: "wasm"
-        }
-      ],
-      type: "message"
-    },
-    {
-      attributes: [
-        {
-          index: true,
-          key: "_contract_address",
-          value: "init1nftcontract123456789abcdefghijkl"
-        },
-        {
-          index: true,
-          key: "action",
-          value: "mint"
-        },
-        {
-          index: true,
-          key: "owner",
-          value: "init1specialowner123456789abcdefghijk"
-        },
-        {
-          index: true,
-          key: "token_id",
-          value: "special999"
-        },
-        {
-          index: true,
-          key: "msg_index",
-          value: "0"
-        }
-      ],
-      type: "wasm"
-    }
-  ],
-  gas_used: "200000",
-  gas_wanted: "280000",
-  height: "800001",
-  info: "",
-  logs: [],
-  raw_log: "",
-  timestamp: "2025-10-30T11:05:00Z",
-  tx: {
-    "@type": "/cosmos.tx.v1beta1.Tx",
-    auth_info: {
-      fee: {
-        amount: [
-          {
-            amount: "5000",
-            denom: "uinit"
-          }
-        ],
-        gas_limit: "280000",
-        granter: "",
-        payer: ""
-      },
-      signer_infos: []
-    },
-    body: {
-      extension_options: [],
-      memo: "",
-      messages: [
-        {
-          "@type": "/cosmwasm.wasm.v1.MsgExecuteContract",
-          contract: "init1nftcontract123456789abcdefghijkl",
-          funds: [],
-          // Base64 encoded: {"mint":{"extension":{"rarity":"legendary","power":100},"owner":"init1specialowner123456789abcdefghijk","token_id":"special999"}}
-          msg: "eyJtaW50Ijp7ImV4dGVuc2lvbiI6eyJyYXJpdHkiOiJsZWdlbmRhcnkiLCJwb3dlciI6MTAwfSwib3duZXIiOiJpbml0MXNwZWNpYWxvd25lcjEyMzQ1Njc4OWFiY2RlZmdoaWprIiwidG9rZW5faWQiOiJzcGVjaWFsOTk5In19",
-          sender: "init1minter123456789abcdefghijklmnopqr"
-        }
-      ],
-      non_critical_extension_options: [],
-      timeout_height: "0"
-    },
-    signatures: []
-  },
-  txhash: "CW721MINTBASE641234567890ABCDEF1234567890ABCDEF1234567890ABCD"
+  txhash: "5D67772AA09E80007CA80FC3485BB7DF8E1D94BED00B0E91FC9636254AADB009"
 };

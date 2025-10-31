@@ -1,23 +1,27 @@
 /**
- * Mock fixture for generic WASM execute contract on WASM VM
- * This represents executing a contract function (increase_allowance)
+ * Real WASM execute contract transaction (CW20 mint) on WASM VM (moo-1 chain)
+ * TX Hash: B78909158B27D095ACEFBE871072195B1BE1326627FF40AB256A295C7703C4AA
+ * This represents executing a contract with mint action (amount: "5000000")
+ * Block Height: 361325
+ * Timestamp: 2025-09-05T03:49:57Z
  */
 export const mockExecuteContract = {
   code: 0,
   codespace: "",
-  data: "0A280A262F636F736D7761736D2E7761736D2E76312E4D736745786563757465436F6E7472616374",
+  data: "122E0A2C2F636F736D7761736D2E7761736D2E76312E4D736745786563757465436F6E7472616374526573706F6E7365",
   events: [
     {
       attributes: [
         {
           index: true,
           key: "spender",
-          value: "init1abc123"
+          value: "init1dw49mn7s2r5mskjdmus5hth80zz8wwaywycq06"
         },
         {
           index: true,
           key: "amount",
-          value: "1000uinit"
+          value:
+            "3406ibc/37A3FB4FED4CA04ED6D9E5DA36C6D27248645F0E22F585576A1488B8A89C5A50"
         }
       ],
       type: "coin_spent"
@@ -27,12 +31,13 @@ export const mockExecuteContract = {
         {
           index: true,
           key: "receiver",
-          value: "init1contractaddress"
+          value: "init17xpfvakm2amg962yls6f84z3kell8c5l70rnql"
         },
         {
           index: true,
           key: "amount",
-          value: "1000uinit"
+          value:
+            "3406ibc/37A3FB4FED4CA04ED6D9E5DA36C6D27248645F0E22F585576A1488B8A89C5A50"
         }
       ],
       type: "coin_received"
@@ -41,85 +46,70 @@ export const mockExecuteContract = {
       attributes: [
         {
           index: true,
-          key: "action",
-          value: "/cosmwasm.wasm.v1.MsgExecuteContract"
+          key: "recipient",
+          value: "init17xpfvakm2amg962yls6f84z3kell8c5l70rnql"
         },
         {
           index: true,
           key: "sender",
-          value: "init1abc123"
+          value: "init1dw49mn7s2r5mskjdmus5hth80zz8wwaywycq06"
         },
         {
           index: true,
-          key: "module",
-          value: "wasm"
+          key: "amount",
+          value:
+            "3406ibc/37A3FB4FED4CA04ED6D9E5DA36C6D27248645F0E22F585576A1488B8A89C5A50"
+        }
+      ],
+      type: "transfer"
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "sender",
+          value: "init1dw49mn7s2r5mskjdmus5hth80zz8wwaywycq06"
         }
       ],
       type: "message"
-    }
-  ],
-  gas_used: "150000",
-  gas_wanted: "200000",
-  height: "1000000",
-  info: "",
-  logs: [],
-  raw_log: "",
-  timestamp: "2025-10-29T12:00:00Z",
-  tx: {
-    "@type": "/cosmos.tx.v1beta1.Tx",
-    auth_info: {
-      fee: {
-        amount: [
-          {
-            amount: "5000",
-            denom: "uinit"
-          }
-        ],
-        gas_limit: "200000",
-        granter: "",
-        payer: ""
-      },
-      signer_infos: []
     },
-    body: {
-      extension_options: [],
-      memo: "",
-      messages: [
+    {
+      attributes: [
         {
-          "@type": "/cosmwasm.wasm.v1.MsgExecuteContract",
-          contract: "init1contractaddress",
-          funds: [
-            {
-              amount: "1000",
-              denom: "uinit"
-            }
-          ],
-          msg: {
-            increase_allowance: {
-              amount: "1000000",
-              spender: "init1spender"
-            }
-          },
-          sender: "init1abc123"
+          index: true,
+          key: "fee",
+          value:
+            "3406ibc/37A3FB4FED4CA04ED6D9E5DA36C6D27248645F0E22F585576A1488B8A89C5A50"
+        },
+        {
+          index: true,
+          key: "fee_payer",
+          value: "init1dw49mn7s2r5mskjdmus5hth80zz8wwaywycq06"
         }
       ],
-      non_critical_extension_options: [],
-      timeout_height: "0"
+      type: "tx"
     },
-    signatures: []
-  },
-  txhash: "4A9A37E38D23CE08A0F9734F0A4EF4C14EB87E8B47FED7B48A96B0B0B0ABCDEF"
-};
-
-/**
- * Mock fixture for generic WASM execute contract with base64 encoded message
- * This represents executing a contract function (mint) with base64 encoded msg
- */
-export const mockExecuteContractBase64 = {
-  code: 0,
-  codespace: "",
-  data: "0A280A262F636F736D7761736D2E7761736D2E76312E4D736745786563757465436F6E7472616374",
-  events: [
+    {
+      attributes: [
+        {
+          index: true,
+          key: "acc_seq",
+          value: "init1dw49mn7s2r5mskjdmus5hth80zz8wwaywycq06/14"
+        }
+      ],
+      type: "tx"
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "signature",
+          value:
+            "AtKlK/sVdmU/TQA3ZjOijQxnu40ZfrZMMpuVq30lZs9OwoBRHLjS9WLz3BKkRspdkTLrlFGL//tIvuA/QPs4tA=="
+        }
+      ],
+      type: "tx"
+    },
     {
       attributes: [
         {
@@ -130,39 +120,106 @@ export const mockExecuteContractBase64 = {
         {
           index: true,
           key: "sender",
-          value: "init1xyz789"
+          value: "init1dw49mn7s2r5mskjdmus5hth80zz8wwaywycq06"
         },
         {
           index: true,
           key: "module",
           value: "wasm"
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "0"
         }
       ],
       type: "message"
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "_contract_address",
+          value:
+            "init1fuyxwxlsgjkfjmxfthq8427dm2am3ya3cwcdr8gls29l7jadtazswg0k5g"
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "0"
+        }
+      ],
+      type: "execute"
+    },
+    {
+      attributes: [
+        {
+          index: true,
+          key: "_contract_address",
+          value:
+            "init1fuyxwxlsgjkfjmxfthq8427dm2am3ya3cwcdr8gls29l7jadtazswg0k5g"
+        },
+        {
+          index: true,
+          key: "action",
+          value: "mint"
+        },
+        {
+          index: true,
+          key: "to",
+          value: "init1dw49mn7s2r5mskjdmus5hth80zz8wwaywycq06"
+        },
+        {
+          index: true,
+          key: "amount",
+          value: "5000000"
+        },
+        {
+          index: true,
+          key: "msg_index",
+          value: "0"
+        }
+      ],
+      type: "wasm"
     }
   ],
-  gas_used: "150000",
-  gas_wanted: "200000",
-  height: "1000001",
+  gas_used: "146633",
+  gas_wanted: "227048",
+  height: "361325",
   info: "",
   logs: [],
   raw_log: "",
-  timestamp: "2025-10-29T12:05:00Z",
+  timestamp: "2025-09-05T03:49:57Z",
   tx: {
     "@type": "/cosmos.tx.v1beta1.Tx",
     auth_info: {
       fee: {
         amount: [
           {
-            amount: "5000",
-            denom: "uinit"
+            amount: "3406",
+            denom:
+              "ibc/37A3FB4FED4CA04ED6D9E5DA36C6D27248645F0E22F585576A1488B8A89C5A50"
           }
         ],
-        gas_limit: "200000",
+        gas_limit: "227048",
         granter: "",
         payer: ""
       },
-      signer_infos: []
+      signer_infos: [
+        {
+          mode_info: {
+            single: {
+              mode: "SIGN_MODE_EIP_191"
+            }
+          },
+          public_key: {
+            "@type": "/initia.crypto.v1beta1.ethsecp256k1.PubKey",
+            key: "A4shR8ybPUPxzBXqi4W6BH+MtTkuonZcw3xOFkT+7tE1"
+          },
+          sequence: "14"
+        }
+      ],
+      tip: null
     },
     body: {
       extension_options: [],
@@ -170,17 +227,24 @@ export const mockExecuteContractBase64 = {
       messages: [
         {
           "@type": "/cosmwasm.wasm.v1.MsgExecuteContract",
-          contract: "init1anothercontract",
+          contract:
+            "init1fuyxwxlsgjkfjmxfthq8427dm2am3ya3cwcdr8gls29l7jadtazswg0k5g",
           funds: [],
-          // Base64 encoded: {"mint":{"amount":"5000000","recipient":"init1receiver"}}
-          msg: "eyJtaW50Ijp7ImFtb3VudCI6IjUwMDAwMDAiLCJyZWNpcGllbnQiOiJpbml0MXJlY2VpdmVyIn19",
-          sender: "init1xyz789"
+          msg: {
+            mint: {
+              amount: "5000000",
+              recipient: "init1dw49mn7s2r5mskjdmus5hth80zz8wwaywycq06"
+            }
+          },
+          sender: "init1dw49mn7s2r5mskjdmus5hth80zz8wwaywycq06"
         }
       ],
       non_critical_extension_options: [],
       timeout_height: "0"
     },
-    signatures: []
+    signatures: [
+      "AtKlK/sVdmU/TQA3ZjOijQxnu40ZfrZMMpuVq30lZs9OwoBRHLjS9WLz3BKkRspdkTLrlFGL//tIvuA/QPs4tA=="
+    ]
   },
-  txhash: "5B1B48F49E34DF19B1G0845G1B5FG5D25FC98F9C58GFE8C59BA7C1C1C1BCDEFG"
+  txhash: "B78909158B27D095ACEFBE871072195B1BE1326627FF40AB256A295C7703C4AA"
 };

@@ -1,9 +1,6 @@
 import { initialize, mockedAxios, resetMockApi } from "@/tests/_shared/helpers";
 
-import {
-  mockExecuteContract,
-  mockExecuteContractBase64
-} from "./execute-contract.fixture";
+import { mockExecuteContract } from "./execute-contract.fixture";
 
 jest.mock("axios");
 
@@ -22,48 +19,17 @@ describe("Execute Contract WASM", () => {
     expect(decoded.messages[0].decodedMessage).toMatchObject({
       action: "execute_contract",
       data: {
-        contract: "init1contractaddress",
-        function: "increase_allowance",
-        funds: [
-          {
-            amount: "1000",
-            denom: "uinit"
-          }
-        ],
-        msg: {
-          increase_allowance: {
-            amount: "1000000",
-            spender: "init1spender"
-          }
-        },
-        sender: "init1abc123"
-      },
-      isIbc: false,
-      isOp: false
-    });
-
-    expect(decoded.metadata).toEqual({ data: {}, type: "wasm" });
-  });
-
-  it("should decode execute contract with base64 encoded msg", async () => {
-    const decoded = await decoder.decodeCosmosWasmTransaction(
-      mockExecuteContractBase64
-    );
-
-    expect(decoded.messages).toHaveLength(1);
-    expect(decoded.messages[0].decodedMessage).toMatchObject({
-      action: "execute_contract",
-      data: {
-        contract: "init1anothercontract",
+        contract:
+          "init1fuyxwxlsgjkfjmxfthq8427dm2am3ya3cwcdr8gls29l7jadtazswg0k5g",
         function: "mint",
         funds: [],
         msg: {
           mint: {
             amount: "5000000",
-            recipient: "init1receiver"
+            recipient: "init1dw49mn7s2r5mskjdmus5hth80zz8wwaywycq06"
           }
         },
-        sender: "init1xyz789"
+        sender: "init1dw49mn7s2r5mskjdmus5hth80zz8wwaywycq06"
       },
       isIbc: false,
       isOp: false
