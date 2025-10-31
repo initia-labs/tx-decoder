@@ -137,11 +137,11 @@ export const ibcSendNftWasmDecoder: MessageDecoder = {
 export const ibcReceiveNftWasmDecoder: MessageDecoder = {
   check: (message: Message, _log: Log, vm: VmType) => {
     const parsed = zMsgIbcRecvPacket.safeParse(message);
-    return (
-      parsed.success &&
-      parsed.data.packet.destination_port === "nft-transfer" &&
-      vm === "wasm"
-    );
+    if (!parsed.success || vm !== "wasm") return false;
+
+    const destPort = parsed.data.packet.destination_port;
+    // Accept both "nft-transfer" and WASM port format "wasm.{contract_address}"
+    return destPort === "nft-transfer" || destPort.startsWith("wasm.");
   },
   decode: async (
     message: Message,
@@ -201,16 +201,19 @@ export const ibcReceiveNftWasmDecoder: MessageDecoder = {
       throw new Error("IBC NFT Receive packet src chain id not found");
     }
 
-    // For WASM: Look for wasm event with mint action (for receiving NFT)
+    // For WASM: Look for wasm event with mint or transfer_nft action (for receiving NFT)
+    // Can be either "mint" (new NFT) or "transfer_nft" (existing NFT being transferred)
     const wasmEvent = log.events.find(
       (event) =>
         event.type === "wasm" &&
         event.attributes.find(
-          (attr) => attr.key === "action" && attr.value === "mint"
+          (attr) =>
+            attr.key === "action" &&
+            (attr.value === "mint" || attr.value === "transfer_nft")
         )
     );
     if (!wasmEvent) {
-      throw new Error("IBC NFT Receive WASM mint event not found");
+      throw new Error("IBC NFT Receive WASM mint/transfer_nft event not found");
     }
 
     const contractAddress = wasmEvent.attributes.find(

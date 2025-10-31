@@ -115,7 +115,7 @@ export const ibcSendNftMoveDecoder: MessageDecoder = {
           creator: InitiaAddress(collection.data.creator).bech32,
           description: collection.data.description,
           name: collection.data.name,
-          uri: collection.data.uri || parsedData.data.classUri
+          uri: collection.data.uri || parsedData.data.classUri || null
         },
         collectionId: classIdAddress.bech32,
         dstChainId,
@@ -244,7 +244,7 @@ export const ibcReceiveNftMoveDecoder: MessageDecoder = {
           creator: InitiaAddress(collection.data.creator).bech32,
           description: collection.data.description,
           name: collection.data.name,
-          uri: collection.data.uri || parsedData.data.classUri
+          uri: collection.data.uri || parsedData.data.classUri || null
         },
         collectionId: InitiaAddress(collection_id).bech32,
         dstChainId,

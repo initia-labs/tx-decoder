@@ -20,14 +20,29 @@ const mockApiResponses = {
         metadata: {
           ibc_channels: [
             {
-              chain_id: "osmosis-1",
-              channel_id: "channel-0",
-              port_id: "nft-transfer",
+              chain_id: "interwoven-1",
+              channel_id: "channel-1",
+              port_id:
+                "wasm.init1wug8sewp6cedgkmrmvhl3lf3tulagm9hnvy8p0rppz9yjw0g4wtq7947m6",
               version: "ics721-1"
             },
             {
               chain_id: "osmosis-1",
-              channel_id: "channel-1",
+              channel_id: "channel-0",
+              port_id: "nft-transfer",
+              version: "ics721-1"
+            }
+          ]
+        }
+      },
+      {
+        chain_id: "interwoven-1",
+        chain_name: "interwoven",
+        metadata: {
+          ibc_channels: [
+            {
+              chain_id: "initia-1",
+              channel_id: "channel-30",
               port_id: "nft-transfer",
               version: "ics721-1"
             }
@@ -42,12 +57,6 @@ const mockApiResponses = {
             {
               chain_id: "initia-1",
               channel_id: "channel-0",
-              port_id: "nft-transfer",
-              version: "ics721-1"
-            },
-            {
-              chain_id: "initia-1",
-              channel_id: "channel-1",
               port_id: "nft-transfer",
               version: "ics721-1"
             }
@@ -103,15 +112,17 @@ describe("WASM IBC NFT Decoders", () => {
     expect(decoded.messages[0].decodedMessage).toMatchObject({
       action: "ibc_nft_receive_wasm",
       data: {
-        classId: "nft/wasm1contract456/collection2",
-        contractAddress: "wasm1contract456",
+        classId:
+          "nft-transfer/channel-30/init16yzagwlqrzjkjlnaecam5fwvtzgae5zujtcch7y2uf6q9fyksncquahlaw",
+        contractAddress:
+          "init16yzagwlqrzjkjlnaecam5fwvtzgae5zujtcch7y2uf6q9fyksncquahlaw",
         dstChainId: "initia-1",
-        receiver: "init1receiver456",
-        sender: "osmo1sender456",
-        sequence: "100",
-        srcChainId: "osmosis-1",
-        tokenIds: ["token2"],
-        tokenUris: ["https://example.com/token2.json"]
+        receiver: "init1dw49mn7s2r5mskjdmus5hth80zz8wwaywycq06",
+        sender: "init1dw49mn7s2r5mskjdmus5hth80zz8wwaywycq06",
+        sequence: "5",
+        srcChainId: "interwoven-1",
+        tokenIds: ["4"],
+        tokenUris: ["https://nft-rho-ten.vercel.app/saint_seiya/4.json"]
       },
       isIbc: true,
       isOp: false
