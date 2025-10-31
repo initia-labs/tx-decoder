@@ -192,7 +192,50 @@ export const mockCw20Transfer = {
   gas_wanted: "222178",
   height: "457548",
   info: "",
-  logs: [],
+  logs: [
+    {
+      events: [
+        {
+          attributes: [
+            {
+              index: true,
+              key: "_contract_address",
+              value:
+                "init1fuyxwxlsgjkfjmxfthq8427dm2am3ya3cwcdr8gls29l7jadtazswg0k5g"
+            },
+            {
+              index: true,
+              key: "action",
+              value: "transfer"
+            },
+            {
+              index: true,
+              key: "from",
+              value: "init1dw49mn7s2r5mskjdmus5hth80zz8wwaywycq06"
+            },
+            {
+              index: true,
+              key: "to",
+              value: "init1c90j0nxt28ehunm53zfl2x8lrha27da8t3dmfl"
+            },
+            {
+              index: true,
+              key: "amount",
+              value: "1000"
+            },
+            {
+              index: true,
+              key: "msg_index",
+              value: "0"
+            }
+          ],
+          type: "wasm"
+        }
+      ],
+      log: "",
+      msg_index: 0
+    }
+  ],
   raw_log: "",
   timestamp: "2025-10-28T10:06:14Z",
   tx: {

@@ -714,7 +714,55 @@ export const mockIbcNftReceiveWasm = {
   info: "",
   logs: [
     {
-      events: [],
+      events: [
+        {
+          attributes: [
+            {
+              index: true,
+              key: "packet_data",
+              value:
+                '{"classData":"eyJvd25lciI6ImluaXQxZHc0OW1uN3MycjVtc2tqZG11czVodGg4MHp6OHd3YXl3eWNxMDYiLCJjb250cmFjdF9pbmZvIjp7ImNvZGVfaWQiOjEyLCJjcmVhdG9yIjoiaW5pdDFkdzQ5bW43czJyNW1za2pkbXVzNWh0aDgweno4d3dheXd5Y3EwNiIsImFkbWluIjoiaW5pdDFkdzQ5bW43czJyNW1za2pkbXVzNWh0aDgweno4d3dheXd5Y3EwNiIsInBpbm5lZCI6ZmFsc2UsImliY19wb3J0IjpudWxsfSwibnVtX3Rva2VucyI6NywibmFtZSI6IlNhaW50IFNlaXlhIEJyb256ZSBTYWludHMiLCJzeW1ib2wiOiJTQUlOVCIsImV4dGVuc2lvbiI6bnVsbH0=","classId":"nft-transfer/channel-30/init16yzagwlqrzjkjlnaecam5fwvtzgae5zujtcch7y2uf6q9fyksncquahlaw","receiver":"init1dw49mn7s2r5mskjdmus5hth80zz8wwaywycq06","sender":"init1dw49mn7s2r5mskjdmus5hth80zz8wwaywycq06","tokenIds":["4"],"tokenUris":["https://nft-rho-ten.vercel.app/saint_seiya/4.json"]}'
+            },
+            {
+              index: true,
+              key: "packet_src_port",
+              value: "nft-transfer"
+            },
+            {
+              index: true,
+              key: "packet_src_channel",
+              value: "channel-30"
+            },
+            {
+              index: true,
+              key: "packet_sequence",
+              value: "5"
+            }
+          ],
+          type: "recv_packet"
+        },
+        {
+          attributes: [
+            {
+              index: true,
+              key: "_contract_address",
+              value:
+                "init16yzagwlqrzjkjlnaecam5fwvtzgae5zujtcch7y2uf6q9fyksncquahlaw"
+            },
+            {
+              index: true,
+              key: "action",
+              value: "transfer_nft"
+            },
+            {
+              index: true,
+              key: "token_id",
+              value: "4"
+            }
+          ],
+          type: "wasm"
+        }
+      ],
       log: "",
       msg_index: 0
     }

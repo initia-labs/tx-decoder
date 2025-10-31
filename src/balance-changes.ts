@@ -15,7 +15,7 @@ import {
 import {
   evmProcessorRegistry,
   moveProcessorRegistry,
-  wasmProcessorRegistry
+  wasmEventProcessors
 } from "./processors";
 import { EthereumLog, Log, zEvmLog } from "./schema";
 import { mergeBalanceChanges } from "./utils";
@@ -116,15 +116,19 @@ async function _processWasmLog(
   const promises: Promise<WasmBalanceChanges>[] = [];
 
   for (const event of log.events) {
-    const processor = wasmProcessorRegistry.get(event.type);
-    if (!processor) continue;
+    for (const processor of wasmEventProcessors) {
+      // Use check function to determine if this processor can handle the event
+      if (!processor.check(event)) {
+        continue;
+      }
 
-    try {
-      promises.push(
-        Promise.resolve(processor.process(event, log.events, apiClient))
-      );
-    } catch (error) {
-      console.error(`Failed to process ${processor.eventType}:`, error);
+      try {
+        promises.push(
+          Promise.resolve(processor.process(event, log.events, apiClient))
+        );
+      } catch (error) {
+        console.error(`Failed to process wasm event:`, error);
+      }
     }
   }
 

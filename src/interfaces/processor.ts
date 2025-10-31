@@ -27,7 +27,7 @@ export interface EvmEventProcessor {
 }
 
 export interface WasmEventProcessor {
-  eventType: string;
+  check: (event: Event) => boolean;
   process: (
     event: Event,
     allEvents: Event[],
