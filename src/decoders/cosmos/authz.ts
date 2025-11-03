@@ -21,6 +21,7 @@ export const authzExecDecoder: MessageDecoder = {
     apiClient: ApiClient,
     txResponse: TxResponse,
     vm: VmType,
+    // Optional callback to recursively decode nested messages within authz exec
     getDecodersForVm?: (vm: VmType) => MessageDecoder[]
   ) => {
     const parsed = zMsgExec.safeParse(message);
