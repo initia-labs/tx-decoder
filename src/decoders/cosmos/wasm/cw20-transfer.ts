@@ -8,7 +8,7 @@ import {
   zCw20TransferMsg,
   zMsgExecuteContract
 } from "@/schema";
-import { decodeWasmMsg } from "@/utils";
+import { decodeWasmMsg, getWasmDenom } from "@/utils";
 
 /**
  * Decoder for CW-20 transfer messages
@@ -56,6 +56,7 @@ export const cw20TransferDecoder: MessageDecoder = {
         data: {
           amount,
           contract,
+          denom: getWasmDenom(contract),
           from: sender,
           to: recipient
         },
@@ -77,6 +78,7 @@ export const cw20TransferDecoder: MessageDecoder = {
         data: {
           amount,
           contract,
+          denom: getWasmDenom(contract),
           from: sender,
           owner,
           to: recipient

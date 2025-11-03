@@ -29,9 +29,21 @@ describe("CW-721 Transfer WASM", () => {
       isOp: false
     });
 
-    // Check balance changes - NFT transfers don't generate balance changes in this version
+    // Check balance changes - NFT transfers should generate balance changes
     expect(decoded.totalBalanceChanges).toMatchObject({
-      nft: {},
+      ft: {},
+      nft: {
+        init1dw49mn7s2r5mskjdmus5hth80zz8wwaywycq06: {
+          init1qyygux5t4s3a3l25k8psxjydhtudu5lnt0tk0szm8q4s27xa980scjvh6c: {
+            "2": "-1"
+          }
+        },
+        init1veaum7vy45fzw5x4mflskgx5lnmwmxx5wm3x8p: {
+          init1qyygux5t4s3a3l25k8psxjydhtudu5lnt0tk0szm8q4s27xa980scjvh6c: {
+            "2": "1"
+          }
+        }
+      },
       vm: "wasm"
     });
 

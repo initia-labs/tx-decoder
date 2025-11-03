@@ -425,3 +425,62 @@ export const mockFtSendWasmTransaction = {
   },
   txhash: "59CA813C64F68ECB31919A04F527DB5193B08654E9439C7670B6A9CEF6902439"
 };
+
+export const mockApiResponsesForFtSendWasm = {
+  GET: {
+    "/chains.json": [
+      {
+        bech32_prefix: "init",
+        chain_id: "moo-1",
+        chain_name: "moo",
+        metadata: {
+          ibc_channels: [
+            {
+              chain_id: "interwoven-1",
+              channel_id: "channel-0",
+              port_id: "transfer",
+              version: "ics20-1"
+            },
+            {
+              chain_id: "interwoven-1",
+              channel_id: "channel-1",
+              port_id:
+                "wasm.init1wug8sewp6cedgkmrmvhl3lf3tulagm9hnvy8p0rppz9yjw0g4wtq7947m6",
+              version: "ics721-1"
+            }
+          ]
+        },
+        pretty_name: "MilkyWay"
+      },
+      {
+        bech32_prefix: "init",
+        chain_id: "interwoven-1",
+        chain_name: "interwoven",
+        is_l1: true,
+        metadata: {
+          ibc_channels: [
+            {
+              chain_id: "moo-1",
+              channel_id: "channel-29",
+              port_id: "transfer",
+              version: "ics20-1"
+            },
+            {
+              chain_id: "moo-1",
+              channel_id: "channel-30",
+              port_id: "nft-transfer",
+              version: "ics721-1"
+            }
+          ]
+        },
+        pretty_name: "Initia"
+      }
+    ],
+    "/cosmos/base/tendermint/v1beta1/node_info": {
+      default_node_info: {
+        network: "moo-1"
+      }
+    }
+  },
+  POST: {}
+};

@@ -36,3 +36,7 @@ export function getOpDenom(id: bigint, l1Denom: string): string {
 export function getEvmDenom(address: string): string {
   return `evm/${getAddress(address).replace(/^0x/, "")}`;
 }
+
+export function getWasmDenom(contractAddress: string): string {
+  return `cw20:${contractAddress}`;
+}

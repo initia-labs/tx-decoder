@@ -7,12 +7,14 @@ import { Event } from "@/schema";
 
 /**
  * Processor for CW-721 NFT transfers
- * Handles wasm events with action="transfer_nft" for CW-721 tokens
+ * Handles wasm events with action="transfer" (canonical) or action="transfer_nft" (non-standard)
  */
 export const cw721TransferProcessor: WasmEventProcessor = {
   check: (event: Event) => {
     const actionAttr = event.attributes.find((attr) => attr.key === "action");
-    return actionAttr?.value === "transfer_nft";
+    return (
+      actionAttr?.value === "transfer" || actionAttr?.value === "transfer_nft"
+    );
   },
   async process(
     currentEvent: Event,
@@ -24,9 +26,11 @@ export const cw721TransferProcessor: WasmEventProcessor = {
         (attr) => attr.key === "_contract_address"
       );
       const fromAttr = currentEvent.attributes.find(
-        (attr) => attr.key === "from"
+        (attr) => attr.key === "from" || attr.key === "sender"
       );
-      const toAttr = currentEvent.attributes.find((attr) => attr.key === "to");
+      const toAttr = currentEvent.attributes.find(
+        (attr) => attr.key === "to" || attr.key === "recipient"
+      );
       const tokenIdAttr = currentEvent.attributes.find(
         (attr) => attr.key === "token_id"
       );

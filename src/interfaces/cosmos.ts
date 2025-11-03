@@ -596,6 +596,7 @@ interface DecodedCw20TransferMessage extends DecodedMessageBase {
   data: {
     amount: string;
     contract: string;
+    denom: string;
     from: string;
     to: string;
   };
@@ -606,6 +607,7 @@ interface DecodedCw20TransferFromMessage extends DecodedMessageBase {
   data: {
     amount: string;
     contract: string;
+    denom: string;
     from: string;
     owner: string;
     to: string;
