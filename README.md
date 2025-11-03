@@ -355,9 +355,15 @@ The decoder returns a structured object with the following format:
 #### Authz Messages
 
 - `/cosmos.authz.v1beta1.MsgExec` - Execute authorized messages on behalf of another account
+- `/cosmos.authz.v1beta1.MsgGrant` - Grant authorization to another account
+- `/cosmos.authz.v1beta1.MsgRevoke` - Revoke a previously granted authorization
+
+#### Feegrant Messages
+
+- `/cosmos.feegrant.v1beta1.MsgGrantAllowance` - Grant a fee allowance to another account
+- `/cosmos.feegrant.v1beta1.MsgRevokeAllowance` - Revoke an existing fee allowance
 
 **Note:** MsgExec recursively decodes the inner messages it contains. All currently supported message types can be wrapped within MsgExec and will be properly decoded.
-
 ### Move VM Messages
 
 - `/initia.move.v1.MsgExecute`
