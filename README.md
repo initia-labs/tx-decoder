@@ -352,6 +352,12 @@ The decoder returns a structured object with the following format:
 - `/initia.mstaking.v1.MsgUndelegate`
 - `/initia.mstaking.v1.MsgBeginRedelegate`
 
+#### Authz Messages
+
+- `/cosmos.authz.v1beta1.MsgExec` - Execute authorized messages on behalf of another account
+
+**Note:** MsgExec recursively decodes the inner messages it contains. All currently supported message types can be wrapped within MsgExec and will be properly decoded.
+
 ### Move VM Messages
 
 - `/initia.move.v1.MsgExecute`

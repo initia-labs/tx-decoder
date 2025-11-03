@@ -224,26 +224,20 @@ export class TxDecoder {
       return notSupportedMessage;
     }
 
-    let decoders;
-    switch (vm) {
-      case "evm":
-        decoders = cosmosEvmMessageDecoders;
-        break;
-      case "move":
-        decoders = cosmosMoveMessageDecoders;
-        break;
-      case "wasm":
-        decoders = cosmosWasmMessageDecoders;
-        break;
-      default:
-        throw new Error(`Unknown VM type: ${vm}`);
-    }
+    const decoders = this._getDecodersForVm(vm);
 
     try {
       const decoder = this._findDecoderForMessage(message, log, vm, decoders);
       if (!decoder) return notSupportedMessage;
 
-      return await decoder.decode(message, log, this.apiClient, txResponse, vm);
+      return await decoder.decode(
+        message,
+        log,
+        this.apiClient,
+        txResponse,
+        vm,
+        this._getDecodersForVm.bind(this)
+      );
     } catch (e) {
       console.error(e);
       return notSupportedMessage;
@@ -294,6 +288,19 @@ export class TxDecoder {
 
   private _findEthereumDecoder(payload: EthereumRpcPayload) {
     return ethereumDecoders.find((decoder) => decoder.check(payload));
+  }
+
+  private _getDecodersForVm(vm: VmType): MessageDecoder[] {
+    switch (vm) {
+      case "evm":
+        return cosmosEvmMessageDecoders;
+      case "move":
+        return cosmosMoveMessageDecoders;
+      case "wasm":
+        return cosmosWasmMessageDecoders;
+      default:
+        throw new Error(`Unknown VM type: ${vm}`);
+    }
   }
 
   private async _processMessages(

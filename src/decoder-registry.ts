@@ -2,6 +2,11 @@ import * as Decoders from "./decoders";
 import { MessageDecoder } from "./interfaces";
 
 export const cosmosEvmMessageDecoders: MessageDecoder[] = [
+  Decoders.authzExecDecoder,
+  Decoders.authzGrantDecoder,
+  Decoders.authzRevokeDecoder,
+  Decoders.feegrantGrantAllowanceDecoder,
+  Decoders.feegrantRevokeAllowanceDecoder,
   Decoders.sendDecoder,
   Decoders.finalizeTokenDepositDecoder,
   Decoders.initiateTokenWithdrawalDecoder,
@@ -12,10 +17,20 @@ export const cosmosEvmMessageDecoders: MessageDecoder[] = [
 ];
 
 export const cosmosWasmMessageDecoders: MessageDecoder[] = [
+  Decoders.authzExecDecoder,
+  Decoders.authzGrantDecoder,
+  Decoders.authzRevokeDecoder,
+  Decoders.feegrantGrantAllowanceDecoder,
+  Decoders.feegrantRevokeAllowanceDecoder,
   Decoders.sendDecoder
 ];
 
 export const cosmosMoveMessageDecoders: MessageDecoder[] = [
+  Decoders.authzExecDecoder,
+  Decoders.authzGrantDecoder,
+  Decoders.authzRevokeDecoder,
+  Decoders.feegrantGrantAllowanceDecoder,
+  Decoders.feegrantRevokeAllowanceDecoder,
   Decoders.claimMinitswapDecoder,
   Decoders.delegateDecoder,
   Decoders.delegateLockedDecoder,
