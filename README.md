@@ -364,6 +364,7 @@ The decoder returns a structured object with the following format:
 - `/cosmos.feegrant.v1beta1.MsgRevokeAllowance` - Revoke an existing fee allowance
 
 **Note:** MsgExec recursively decodes the inner messages it contains. All currently supported message types can be wrapped within MsgExec and will be properly decoded.
+
 ### Move VM Messages
 
 - `/initia.move.v1.MsgExecute`
