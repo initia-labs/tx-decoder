@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.11.1](https://github.com/initia-labs/tx-decoder/compare/v0.11.0...v0.11.1) (2025-11-04)
+
+
+### Bug Fixes
+
+* edit comment ([1c6125f](https://github.com/initia-labs/tx-decoder/commit/1c6125f837ef6c6bed79e60ed3edaf679bbeb03e))
+
 ## [0.11.0](https://github.com/initia-labs/tx-decoder/compare/v0.10.1...v0.11.0) (2025-11-04)
 
 
