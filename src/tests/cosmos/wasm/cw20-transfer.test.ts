@@ -32,11 +32,11 @@ describe("CW-20 Transfer WASM", () => {
     expect(decoded.totalBalanceChanges).toMatchObject({
       ft: {
         init1c90j0nxt28ehunm53zfl2x8lrha27da8t3dmfl: {
-          "cw20:init1fuyxwxlsgjkfjmxfthq8427dm2am3ya3cwcdr8gls29l7jadtazswg0k5g":
+          init1fuyxwxlsgjkfjmxfthq8427dm2am3ya3cwcdr8gls29l7jadtazswg0k5g:
             "1000"
         },
         init1dw49mn7s2r5mskjdmus5hth80zz8wwaywycq06: {
-          "cw20:init1fuyxwxlsgjkfjmxfthq8427dm2am3ya3cwcdr8gls29l7jadtazswg0k5g":
+          init1fuyxwxlsgjkfjmxfthq8427dm2am3ya3cwcdr8gls29l7jadtazswg0k5g:
             "-1000"
         }
       },

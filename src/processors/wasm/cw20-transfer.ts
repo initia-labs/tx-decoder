@@ -40,23 +40,20 @@ export const cw20TransferProcessor: WasmEventProcessor = {
       const to = toAttr.value;
       const amount = amountAttr.value;
 
-      // Use contract address as the denom for CW-20 tokens
-      const denom = `cw20:${contract}`;
-
       return produce(createDefaultWasmBalanceChanges(), (draft) => {
         const isSelfTransfer = from === to;
 
         if (isSelfTransfer) {
           // For self-transfers, set net amount to "0" to avoid key collision
           draft.ft[from] ??= {};
-          draft.ft[from][denom] = "0";
+          draft.ft[from][contract] = "0";
         } else {
           // Normal transfer: recipient gains, sender loses
           draft.ft[to] ??= {};
-          draft.ft[to][denom] = amount;
+          draft.ft[to][contract] = amount;
 
           draft.ft[from] ??= {};
-          draft.ft[from][denom] = `-${amount}`;
+          draft.ft[from][contract] = `-${amount}`;
         }
       });
     } catch (error) {
