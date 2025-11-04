@@ -11,11 +11,13 @@ import {
 } from "./send-ft-wasm.fixture";
 
 jest.mock("axios");
-const decoder = initialize();
 
 describe("IBC Send FT WASM", () => {
+  let decoder: ReturnType<typeof initialize>;
+
   beforeEach(() => {
     resetMockApi(mockedAxios);
+    decoder = initialize();
   });
 
   it("should decode IBC transfer message on WASM VM", async () => {
@@ -50,6 +52,36 @@ describe("IBC Send FT WASM", () => {
       },
       isIbc: true,
       isOp: false
+    });
+
+    expect(decoded.messages[0].balanceChanges).toEqual({
+      ft: {
+        init1a53udazy8ayufvy0s434pfwjcedzqv34c6zkqv: {
+          "l2/fb936ffef4eb4019d82941992cc09ae2788ce7197fcb08cb00c4fe6f5e79184e":
+            "10000"
+        },
+        init1dw49mn7s2r5mskjdmus5hth80zz8wwaywycq06: {
+          "l2/fb936ffef4eb4019d82941992cc09ae2788ce7197fcb08cb00c4fe6f5e79184e":
+            "-10000"
+        }
+      },
+      nft: {},
+      vm: "wasm"
+    });
+
+    expect(decoded.totalBalanceChanges).toEqual({
+      ft: {
+        init1a53udazy8ayufvy0s434pfwjcedzqv34c6zkqv: {
+          "l2/fb936ffef4eb4019d82941992cc09ae2788ce7197fcb08cb00c4fe6f5e79184e":
+            "10000"
+        },
+        init1dw49mn7s2r5mskjdmus5hth80zz8wwaywycq06: {
+          "l2/fb936ffef4eb4019d82941992cc09ae2788ce7197fcb08cb00c4fe6f5e79184e":
+            "-10000"
+        }
+      },
+      nft: {},
+      vm: "wasm"
     });
 
     expect(decoded.metadata).toEqual({ data: {}, type: "wasm" });

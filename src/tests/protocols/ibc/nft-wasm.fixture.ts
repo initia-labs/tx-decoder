@@ -837,3 +837,122 @@ export const mockIbcNftReceiveWasm = {
   },
   txhash: "36F2766866D40D82CFEC3DD9B18112870DFB56300482781F14FE85662A0A8402"
 };
+
+export const mockApiResponsesForNftReceiveWasm = {
+  GET: {
+    "/chains.json": [
+      {
+        bech32_prefix: "init",
+        chain_id: "moo-1",
+        chain_name: "moo",
+        description: "MilkyWay L2 blockchain",
+        metadata: {
+          ibc_channels: [
+            {
+              chain_id: "interwoven-1",
+              channel_id: "channel-0",
+              port_id: "transfer",
+              version: "ics20-1"
+            },
+            {
+              chain_id: "interwoven-1",
+              channel_id: "channel-1",
+              port_id:
+                "wasm.init1wug8sewp6cedgkmrmvhl3lf3tulagm9hnvy8p0rppz9yjw0g4wtq7947m6",
+              version: "ics721-1"
+            }
+          ]
+        },
+        network_type: "mainnet",
+        pretty_name: "MilkyWay",
+        slip44: 60,
+        website: "https://initia.xyz"
+      },
+      {
+        bech32_prefix: "init",
+        chain_id: "interwoven-1",
+        chain_name: "interwoven",
+        description: "Initia L1 blockchain",
+        is_l1: true,
+        metadata: {
+          ibc_channels: [
+            {
+              chain_id: "moo-1",
+              channel_id: "channel-29",
+              port_id: "transfer",
+              version: "ics20-1"
+            },
+            {
+              chain_id: "moo-1",
+              channel_id: "channel-30",
+              port_id: "nft-transfer",
+              version: "ics721-1"
+            }
+          ]
+        },
+        network_type: "mainnet",
+        pretty_name: "Initia",
+        slip44: 60,
+        website: "https://initia.xyz"
+      }
+    ],
+    "/cosmos/base/tendermint/v1beta1/node_info": {
+      default_node_info: {
+        network: "moo-1"
+      }
+    }
+  }
+};
+
+export const mockApiResponsesForNftSendWasm = {
+  GET: {
+    "/chains.json": [
+      {
+        bech32_prefix: "init",
+        chain_id: "interwoven-1",
+        chain_name: "initia",
+        description: "Initia L1 blockchain",
+        is_l1: true,
+        metadata: {
+          ibc_channels: [
+            {
+              chain_id: "osmosis-1",
+              channel_id: "channel-0",
+              port_id: "nft-transfer",
+              version: "ics721-1"
+            }
+          ]
+        },
+        network_type: "mainnet",
+        pretty_name: "Initia",
+        slip44: 60,
+        website: "https://initia.xyz"
+      },
+      {
+        bech32_prefix: "osmo",
+        chain_id: "osmosis-1",
+        chain_name: "osmosis",
+        description: "Osmosis DEX blockchain",
+        metadata: {
+          ibc_channels: [
+            {
+              chain_id: "interwoven-1",
+              channel_id: "channel-0",
+              port_id: "nft-transfer",
+              version: "ics721-1"
+            }
+          ]
+        },
+        network_type: "mainnet",
+        pretty_name: "Osmosis",
+        slip44: 118,
+        website: "https://osmosis.zone"
+      }
+    ],
+    "/cosmos/base/tendermint/v1beta1/node_info": {
+      default_node_info: {
+        network: "interwoven-1"
+      }
+    }
+  }
+};

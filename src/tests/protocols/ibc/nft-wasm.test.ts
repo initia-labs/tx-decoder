@@ -5,80 +5,26 @@ import {
   setupMockApi
 } from "@/tests/_shared/helpers";
 
-import { mockIbcNftReceiveWasm, mockIbcNftSendWasm } from "./nft-wasm.fixture";
+import {
+  mockApiResponsesForNftReceiveWasm,
+  mockApiResponsesForNftSendWasm,
+  mockIbcNftReceiveWasm,
+  mockIbcNftSendWasm
+} from "./nft-wasm.fixture";
 
 jest.mock("axios");
 
-const decoder = initialize();
-
-const mockApiResponses = {
-  GET: {
-    "/chains.json": [
-      {
-        chain_id: "initia-1",
-        chain_name: "initia",
-        metadata: {
-          ibc_channels: [
-            {
-              chain_id: "interwoven-1",
-              channel_id: "channel-1",
-              port_id:
-                "wasm.init1wug8sewp6cedgkmrmvhl3lf3tulagm9hnvy8p0rppz9yjw0g4wtq7947m6",
-              version: "ics721-1"
-            },
-            {
-              chain_id: "osmosis-1",
-              channel_id: "channel-0",
-              port_id: "nft-transfer",
-              version: "ics721-1"
-            }
-          ]
-        }
-      },
-      {
-        chain_id: "interwoven-1",
-        chain_name: "interwoven",
-        metadata: {
-          ibc_channels: [
-            {
-              chain_id: "initia-1",
-              channel_id: "channel-30",
-              port_id: "nft-transfer",
-              version: "ics721-1"
-            }
-          ]
-        }
-      },
-      {
-        chain_id: "osmosis-1",
-        chain_name: "osmosis",
-        metadata: {
-          ibc_channels: [
-            {
-              chain_id: "initia-1",
-              channel_id: "channel-0",
-              port_id: "nft-transfer",
-              version: "ics721-1"
-            }
-          ]
-        }
-      }
-    ],
-    "/cosmos/base/tendermint/v1beta1/node_info": {
-      default_node_info: {
-        network: "initia-1"
-      }
-    }
-  }
-};
-
 describe("WASM IBC NFT Decoders", () => {
+  let decoder: ReturnType<typeof initialize>;
+
   beforeEach(() => {
     resetMockApi(mockedAxios);
-    setupMockApi(mockedAxios, mockApiResponses);
+    decoder = initialize();
   });
 
   it("should decode IBC NFT send transaction on WASM VM", async () => {
+    setupMockApi(mockedAxios, mockApiResponsesForNftSendWasm);
+
     const decoded =
       await decoder.decodeCosmosWasmTransaction(mockIbcNftSendWasm);
 
@@ -89,10 +35,16 @@ describe("WASM IBC NFT Decoders", () => {
         classId: "nft/wasm1contract123/collection1",
         contractAddress: "wasm1contract123",
         dstChainId: "osmosis-1",
+        dstChannel: "channel-1",
+        dstPort: "nft-transfer",
         receiver: "osmo1receiver123",
         sender: "init1sender123",
         sequence: "100",
-        srcChainId: "initia-1",
+        srcChainId: "interwoven-1",
+        srcChannel: "channel-0",
+        srcPort: "nft-transfer",
+        timeoutHeight: { revision_height: "1000000", revision_number: "1" },
+        timeoutTimestamp: "1700000000000000000",
         tokenIds: ["token1"],
         tokenUris: ["https://example.com/token1.json"]
       },
@@ -104,6 +56,8 @@ describe("WASM IBC NFT Decoders", () => {
   });
 
   it("should decode IBC NFT receive transaction on WASM VM", async () => {
+    setupMockApi(mockedAxios, mockApiResponsesForNftReceiveWasm);
+
     const decoded = await decoder.decodeCosmosWasmTransaction(
       mockIbcNftReceiveWasm
     );
@@ -116,11 +70,18 @@ describe("WASM IBC NFT Decoders", () => {
           "nft-transfer/channel-30/init16yzagwlqrzjkjlnaecam5fwvtzgae5zujtcch7y2uf6q9fyksncquahlaw",
         contractAddress:
           "init16yzagwlqrzjkjlnaecam5fwvtzgae5zujtcch7y2uf6q9fyksncquahlaw",
-        dstChainId: "initia-1",
+        dstChainId: "moo-1",
+        dstChannel: "channel-1",
+        dstPort:
+          "wasm.init1wug8sewp6cedgkmrmvhl3lf3tulagm9hnvy8p0rppz9yjw0g4wtq7947m6",
         receiver: "init1dw49mn7s2r5mskjdmus5hth80zz8wwaywycq06",
         sender: "init1dw49mn7s2r5mskjdmus5hth80zz8wwaywycq06",
         sequence: "5",
         srcChainId: "interwoven-1",
+        srcChannel: "channel-30",
+        srcPort: "nft-transfer",
+        timeoutHeight: { revision_height: "0", revision_number: "0" },
+        timeoutTimestamp: "1760971414377000000",
         tokenIds: ["4"],
         tokenUris: ["https://nft-rho-ten.vercel.app/saint_seiya/4.json"]
       },

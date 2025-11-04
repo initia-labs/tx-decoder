@@ -433,6 +433,7 @@ export const mockApiResponsesForFtSendWasm = {
         bech32_prefix: "init",
         chain_id: "moo-1",
         chain_name: "moo",
+        description: "MilkyWay L2 blockchain",
         metadata: {
           ibc_channels: [
             {
@@ -450,18 +451,22 @@ export const mockApiResponsesForFtSendWasm = {
             }
           ]
         },
-        pretty_name: "MilkyWay"
+        network_type: "mainnet",
+        pretty_name: "MilkyWay",
+        slip44: 60,
+        website: "https://initia.xyz"
       },
       {
         bech32_prefix: "init",
         chain_id: "interwoven-1",
-        chain_name: "interwoven",
+        chain_name: "initia",
+        description: "Initia L1 blockchain",
         is_l1: true,
         metadata: {
           ibc_channels: [
             {
               chain_id: "moo-1",
-              channel_id: "channel-29",
+              channel_id: "channel-66",
               port_id: "transfer",
               version: "ics20-1"
             },
@@ -473,7 +478,10 @@ export const mockApiResponsesForFtSendWasm = {
             }
           ]
         },
-        pretty_name: "Initia"
+        network_type: "mainnet",
+        pretty_name: "Initia",
+        slip44: 60,
+        website: "https://initia.xyz"
       }
     ],
     "/cosmos/base/tendermint/v1beta1/node_info": {
