@@ -33,12 +33,94 @@ pnpm prepare                  # Setup git hooks
 
 The tx-decoder is organized into several key directories:
 
-- **`src/decoders/`**: Message type decoders (delegate, send, IBC, Move scripts, etc.)
-- **`src/interfaces/`**: TypeScript interfaces and type definitions
-- **`src/schema/`**: Zod schemas for message validation
-- **`src/processors/`**: Balance change processors (mint, burn, deposit, withdraw, etc.)
-- **`src/tests/fixtures/`**: Real transaction data for testing
-- **`src/utils/`**: Utility functions for address conversion, denom handling, etc.
+### Core Files
+
+- **[`src/decoder.ts`](src/decoder.ts)**: Main decoder orchestration and transaction processing logic
+- **[`src/decoder-registry.ts`](src/decoder-registry.ts)**: Registry for managing and routing message decoders
+- **[`src/balance-changes.ts`](src/balance-changes.ts)**: Core balance change calculation logic
+- **[`src/metadata-resolver.ts`](src/metadata-resolver.ts)**: Resolves metadata for tokens and denoms
+- **[`src/message-types.ts`](src/message-types.ts)**: Supported message type definitions
+- **[`src/validation.ts`](src/validation.ts)**: Transaction and message validation utilities
+
+### Decoders
+
+Message type decoders transform raw transaction messages into normalized formats:
+
+- **[`src/decoders/cosmos/`](src/decoders/cosmos/)**: Cosmos SDK message decoders
+  - `bank.ts` - Bank transfers
+  - `distribution.ts` - Reward distribution
+  - `mstaking.ts` - Multi-token staking operations
+  - **[`move/`](src/decoders/cosmos/move/)**: Move script decoders (DEX, liquidity, NFT, etc.)
+- **[`src/decoders/ethereum/`](src/decoders/ethereum/)**: Ethereum transaction decoders
+  - **[`erc20/`](src/decoders/ethereum/erc20/)**: ERC20 token operations
+  - **[`erc721/`](src/decoders/ethereum/erc721/)**: ERC721 NFT operations
+  - **[`contract/`](src/decoders/ethereum/contract/)**: Contract creation and deployment
+  - **[`generic/`](src/decoders/ethereum/generic/)**: Generic ETH transfers and approvals
+  - **[`kami721/`](src/decoders/ethereum/kami721/)**: Kami721-specific NFT operations
+- **[`src/decoders/protocols/`](src/decoders/protocols/)**: Cross-chain protocol decoders
+  - **[`ibc/`](src/decoders/protocols/ibc/)**: IBC transfers (FT & NFT)
+  - **[`op-init/`](src/decoders/protocols/op-init/)**: OP Stack bridge operations
+
+### Processors
+
+Balance change processors extract balance changes from transaction events:
+
+- **[`src/processors/move/`](src/processors/move/)**: Move event processors
+  - `mint.ts`, `burn.ts`, `deposit.ts`, `withdraw.ts`, `object-transfer.ts`
+- **[`src/processors/evm/`](src/processors/evm/)**: EVM event processors
+  - `transfer.ts` - ERC20/ERC721 transfer events
+- **[`src/processors/wasm/`](src/processors/wasm/)**: WASM contract event processors
+
+### Type Definitions & Validation
+
+- **[`src/interfaces/`](src/interfaces/)**: TypeScript interfaces and type definitions
+  - `cosmos.ts` - Cosmos message types
+  - `ethereum.ts` - Ethereum transaction types
+  - `balance-changes.ts` - Balance change types
+  - `decoder.ts` - Decoder interface definitions
+  - `metadata.ts` - Metadata type definitions
+  - `processor.ts` - Processor interface definitions
+- **[`src/schema/`](src/schema/)**: Zod schemas for runtime validation
+  - **[`cosmos/`](src/schema/cosmos/)**: Cosmos message schemas
+  - **[`ethereum/`](src/schema/ethereum/)**: Ethereum transaction schemas
+  - **[`protocols/`](src/schema/protocols/)**: Protocol-specific schemas
+  - **[`api/`](src/schema/api/)**: API response schemas
+
+### Utilities & Helpers
+
+- **[`src/utils/`](src/utils/)**: Common utility functions
+  - `denom.ts` - Denomination handling and conversion
+  - `coins.ts` - Coin amount utilities
+  - `merge-balances.ts` - Balance merging logic
+  - `find-attributes.ts`, `find-move-events.ts` - Event extraction helpers
+  - `attach-tx-logs.ts` - Transaction log processing
+  - `decoder-helpers.ts` - Decoder utility functions
+- **[`src/constants/`](src/constants/)**: Project-wide constants
+  - `evm-abis.ts` - EVM contract ABIs
+  - `module-addresses.ts` - Module address mappings
+  - `balance-changes.ts` - Balance change constants
+
+### API & Services
+
+- **[`src/api/`](src/api/)**: External API client and service integrations
+  - `api.ts` - Main API client
+  - **[`services/`](src/api/services/)**: API service implementations
+
+### Tests
+
+- **[`src/tests/`](src/tests/)**: Comprehensive test suite with real transaction fixtures
+  - **[`cosmos/`](src/tests/cosmos/)**: Cosmos transaction tests
+    - **[`move/`](src/tests/cosmos/move/)**: Move script tests (bank, DEX, liquidity, staking, VIP, etc.)
+    - **[`evm/`](src/tests/cosmos/evm/)**: EVM on Cosmos tests
+    - **[`wasm/`](src/tests/cosmos/wasm/)**: WASM contract tests
+  - **[`ethereum/`](src/tests/ethereum/)**: Ethereum transaction tests
+    - **[`erc20/`](src/tests/ethereum/erc20/)**, **[`erc721/`](src/tests/ethereum/erc721/)**: Token tests
+    - **[`contract-creation/`](src/tests/ethereum/contract-creation/)**: Contract deployment tests
+    - **[`cosmos-mirror/`](src/tests/ethereum/cosmos-mirror/)**: Cosmos-EVM mirror tests
+  - **[`protocols/`](src/tests/protocols/)**: Cross-chain protocol tests
+    - **[`ibc/`](src/tests/protocols/ibc/)**: IBC transfer tests
+    - **[`op-init/`](src/tests/protocols/op-init/)**: OP Stack bridge tests
+  - **[`_shared/helpers/`](src/tests/_shared/helpers/)**: Shared test utilities and initialization
 
 ## 🛠️ How to Add Support for a New Message Type
 
@@ -46,9 +128,12 @@ Adding a decoder for a new message type is the most common way to contribute. He
 
 ### 1. Create a Message Fixture
 
-Find a real transaction containing the message you want to support. Add the JSON response for that transaction to a new file in `/src/tests/fixtures`. Using real data is crucial for accurate testing.
+Find a real transaction containing the message you want to support. Add the JSON response for that transaction to a new file in the appropriate test directory, next to where you'll create your test file. Using real data is crucial for accurate testing.
 
-**Example**: `src/tests/fixtures/your-message.fixture.ts`
+**Examples**:
+
+- `src/tests/cosmos/move/bank.fixture.ts` (for simple cases)
+- `src/tests/cosmos/move/dex/swap.fixture.ts` (for grouped features)
 
 ### 2. Register the Message Type (If Needed)
 
@@ -77,10 +162,15 @@ In `src/decoder.ts`, import your new decoder function and add it to the list of 
 
 ### 6. Write a Unit Test
 
-Create a new test file in `/src/tests`. Import the fixture you created in step 1 and write a test case that asserts:
+Create a new test file in the appropriate `/src/tests` subdirectory, next to the fixture you created in step 1. Import the fixture and write a test case that asserts:
 
 - The `decodedMessage` output matches the expected format.
 - The `balanceChanges` are calculated correctly.
+
+**Examples**:
+
+- `src/tests/cosmos/move/bank.test.ts` (for simple cases)
+- `src/tests/cosmos/move/dex/swap.test.ts` (for grouped features)
 
 ## Coding Standards
 
