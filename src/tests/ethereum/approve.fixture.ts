@@ -61,7 +61,7 @@ export const mockErc20ApprovePayload = {
   }
 };
 
-// NOTE: ERC-721 approve fixture is mocked data because we couldn't find a real example on chain
+// ERC-721 approve fixture is mocked data because we couldn't find a real example on chain
 export const mockErc721ApprovePayload = {
   tx: {
     blockHash:
