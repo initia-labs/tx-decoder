@@ -31,7 +31,7 @@ export const zMsgFinalizeTokenDeposit = z.object({
   "@type": z.literal(SUPPORTED_MESSAGE_TYPES.MsgFinalizeTokenDeposit),
   amount: zCoin,
   base_denom: z.string(),
-  data: z.string(),
+  data: z.string().nullable(),
   from: z.string(),
   height: z.string(),
   sender: z.string(),

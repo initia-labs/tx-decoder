@@ -1,11 +1,20 @@
 import { WasmEventProcessor } from "@/interfaces";
 
+import { cw20TransferProcessor } from "./cw20-transfer";
+import { cw721MintProcessor } from "./cw721-mint";
+import { cw721TransferProcessor } from "./cw721-transfer";
 import { transferEventProcessor } from "./transfer";
 
-const wasmEventProcessors: WasmEventProcessor[] = [transferEventProcessor];
+export const wasmEventProcessors: WasmEventProcessor[] = [
+  transferEventProcessor,
+  cw20TransferProcessor,
+  cw721TransferProcessor,
+  cw721MintProcessor
+];
 
-export const wasmProcessorRegistry = new Map<string, WasmEventProcessor>(
-  wasmEventProcessors.map((p) => [p.eventType, p])
-);
-
-export { transferEventProcessor };
+export {
+  cw20TransferProcessor,
+  cw721MintProcessor,
+  cw721TransferProcessor,
+  transferEventProcessor
+};

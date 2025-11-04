@@ -12,7 +12,19 @@ export const cosmosEvmMessageDecoders: MessageDecoder[] = [
 ];
 
 export const cosmosWasmMessageDecoders: MessageDecoder[] = [
-  Decoders.sendDecoder
+  Decoders.sendDecoder,
+  Decoders.initiateTokenWithdrawalDecoder,
+  Decoders.finalizeTokenDepositDecoder,
+  Decoders.ibcSendFtDecoder,
+  Decoders.ibcReceiveFtDecoder,
+  Decoders.ibcSendNftWasmDecoder,
+  Decoders.ibcReceiveNftWasmDecoder,
+  Decoders.cw20TransferDecoder,
+  Decoders.cw721MintDecoder,
+  Decoders.cw721TransferDecoder,
+  Decoders.instantiateContractDecoder,
+  // executeContractDecoder should be LAST as it's a catch-all for any execute message
+  Decoders.executeContractDecoder
 ];
 
 export const cosmosMoveMessageDecoders: MessageDecoder[] = [

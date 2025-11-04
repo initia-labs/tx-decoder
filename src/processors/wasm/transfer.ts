@@ -7,7 +7,7 @@ import { Event } from "@/schema";
 import { parseCoins } from "@/utils";
 
 export const transferEventProcessor: WasmEventProcessor = {
-  eventType: "transfer",
+  check: (event: Event) => event.type === "transfer",
   async process(
     currentEvent: Event,
     _allEvents: Event[],
