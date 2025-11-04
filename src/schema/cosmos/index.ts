@@ -5,3 +5,4 @@ export * from "./ibc";
 export * from "./move";
 export * from "./staking";
 export * from "./transaction";
+export * from "./wasm";

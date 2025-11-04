@@ -70,8 +70,9 @@ export const zMsgMoveNftBurnEvent = zJsonString.pipe(
 
 export const zMsgIbcNftTransferSendPacketEvent = zJsonString.pipe(
   z.object({
+    classData: z.string().nullish(),
     classId: z.string(),
-    classUri: z.string().nullable(),
+    classUri: z.string().nullish(),
     receiver: z.string(),
     sender: z.string(),
     tokenIds: z.array(z.string()),

@@ -13,6 +13,7 @@ export interface MoveBalanceChanges extends BaseBalanceChanges {
 }
 
 export interface WasmBalanceChanges extends BaseBalanceChanges {
+  nft: { [address: string]: NftChange };
   vm: "wasm";
 }
 
