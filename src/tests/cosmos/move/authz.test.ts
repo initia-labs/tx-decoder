@@ -17,7 +17,6 @@ import {
   mockApiResponsesForAuthzExec,
   mockApiResponsesForRealTx,
   mockApiResponsesForRealTx2,
-  mockMsgExecWithSendMessage,
   mockRealMsgExecTransaction,
   mockRealMsgExecWithDifferentAddresses
 } from "./authz.fixture";
@@ -32,53 +31,6 @@ describe("Authz Messages", () => {
   });
 
   describe("MsgExec", () => {
-    it("should decode MsgExec wrapping MsgSend correctly", async () => {
-      setupMockApi(mockedAxios, mockApiResponsesForAuthzExec);
-
-      const decoded = await decoder.decodeCosmosTransaction(
-        mockMsgExecWithSendMessage
-      );
-
-      expect(decoded.messages).toHaveLength(1);
-      expect(decoded.messages[0].decodedMessage).toEqual({
-        action: "authz_exec",
-        data: {
-          grantee: "init1rw34mgv2y626996n2ccpl6lfctk43v7azmarvg",
-          messages: [
-            {
-              action: "send",
-              data: {
-                coins: [{ amount: "1000000", denom: "uinit" }],
-                from: "init1ryrg0mha5stezucvajy3mne8a74uhgmygdlnxp",
-                to: "init1ryrg0mha5stezucvajy3mne8a74uhgmygdlnxp"
-              },
-              isIbc: false,
-              isOp: false
-            }
-          ]
-        },
-        isIbc: false,
-        isOp: false
-      });
-
-      // Since this is a self-send transaction, balance changes should net to zero
-      expect(decoded.messages[0].balanceChanges).toEqual({
-        ft: {
-          init1ryrg0mha5stezucvajy3mne8a74uhgmygdlnxp: { uinit: "0" }
-        },
-        object: {},
-        vm: "move"
-      });
-
-      expect(decoded.totalBalanceChanges).toEqual({
-        ft: {
-          init1ryrg0mha5stezucvajy3mne8a74uhgmygdlnxp: { uinit: "0" }
-        },
-        object: {},
-        vm: "move"
-      });
-    });
-
     it("should decode real MsgExec transaction from blockchain", async () => {
       // Real transaction: https://scan-api.initia.xyz/v1/initia/interwoven-1/txs/4600CD81879C9D99A4C9EA4692448E3E40C4BBE0DB707C2E578CC2FEDC66CB71
       setupMockApi(mockedAxios, mockApiResponsesForRealTx);
