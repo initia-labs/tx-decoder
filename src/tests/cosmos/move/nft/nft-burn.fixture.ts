@@ -303,7 +303,6 @@ export const mockMsgNftBurn = {
 
 export const mockApiResponsesForNftBurn = {
   GET: {
-    // Mock response for the burned NFT token address (NFT no longer exists after burn)
     "/initia/move/v1/accounts/0x3d879bacd0cb90899bacfa30385498cdd522b06a6e7b8352e9e62aaa1036f814/resources":
       {
         pagination: { next_key: null, total: "0" },

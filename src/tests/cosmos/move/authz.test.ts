@@ -43,14 +43,14 @@ describe("Authz Messages", () => {
       expect(decoded.messages[0].decodedMessage).toEqual({
         action: "authz_exec",
         data: {
-          grantee: "init1nyky4mrxx69l4zpqtdldkk9rlf9grlnn77djlh",
+          grantee: "init1rw34mgv2y626996n2ccpl6lfctk43v7azmarvg",
           messages: [
             {
               action: "send",
               data: {
-                coins: [{ amount: "100", denom: "uinit" }],
-                from: "init1kw2unuhgfa6mz6r0ehrzlr9k9ftjk7pql8u5fm",
-                to: "init17xpfvakm2amg962yls6f84z3kell8c5l70rnql"
+                coins: [{ amount: "1000000", denom: "uinit" }],
+                from: "init1ryrg0mha5stezucvajy3mne8a74uhgmygdlnxp",
+                to: "init1ryrg0mha5stezucvajy3mne8a74uhgmygdlnxp"
               },
               isIbc: false,
               isOp: false
@@ -61,11 +61,10 @@ describe("Authz Messages", () => {
         isOp: false
       });
 
-      // Balance changes should reflect the inner message transfer
+      // Since this is a self-send transaction, balance changes should net to zero
       expect(decoded.messages[0].balanceChanges).toEqual({
         ft: {
-          init1kw2unuhgfa6mz6r0ehrzlr9k9ftjk7pql8u5fm: { uinit: "-100" },
-          init17xpfvakm2amg962yls6f84z3kell8c5l70rnql: { uinit: "100" }
+          init1ryrg0mha5stezucvajy3mne8a74uhgmygdlnxp: { uinit: "0" }
         },
         object: {},
         vm: "move"
@@ -73,8 +72,7 @@ describe("Authz Messages", () => {
 
       expect(decoded.totalBalanceChanges).toEqual({
         ft: {
-          init1kw2unuhgfa6mz6r0ehrzlr9k9ftjk7pql8u5fm: { uinit: "-100" },
-          init17xpfvakm2amg962yls6f84z3kell8c5l70rnql: { uinit: "100" }
+          init1ryrg0mha5stezucvajy3mne8a74uhgmygdlnxp: { uinit: "0" }
         },
         object: {},
         vm: "move"
@@ -122,7 +120,6 @@ describe("Authz Messages", () => {
     });
 
     it("should decode real MsgExec with different addresses", async () => {
-      // Real transaction: https://scan-api.initia.xyz/v1/initia/interwoven-1/txs/C6E8685C20434A97A52EE3B040DB82B313323BB08407C5A58AB7CEA3448EB46F
       setupMockApi(mockedAxios, mockApiResponsesForRealTx2);
 
       const decoded = await decoder.decodeCosmosTransaction(
@@ -497,11 +494,6 @@ describe("Authz Messages", () => {
     });
 
     it("should correctly identify sender when grantee A sends granter B's tokens to C", async () => {
-      // Scenario:
-      // - Grantee A (init1grantee) has authorization from Granter B (init1granter)
-      // - A executes a MsgSend on behalf of B, sending B's tokens to C (init1recipient)
-      // - The "sender" in the inner MsgSend should be B (the granter), not A (the grantee)
-
       const mockMsgExecGranteeExecutesForGranter = {
         code: 0,
         codespace: "",
@@ -516,7 +508,7 @@ describe("Authz Messages", () => {
             events: [
               {
                 attributes: [
-                  { index: true, key: "spender", value: "init1granter" }, // B's tokens are spent
+                  { index: true, key: "spender", value: "init1granter" },
                   { index: true, key: "amount", value: "500uinit" },
                   { index: true, key: "msg_index", value: "0" },
                   { index: true, key: "authz_msg_index", value: "0" }
@@ -525,7 +517,7 @@ describe("Authz Messages", () => {
               },
               {
                 attributes: [
-                  { index: true, key: "receiver", value: "init1recipient" }, // C receives
+                  { index: true, key: "receiver", value: "init1recipient" },
                   { index: true, key: "amount", value: "500uinit" },
                   { index: true, key: "msg_index", value: "0" },
                   { index: true, key: "authz_msg_index", value: "0" }
@@ -535,7 +527,7 @@ describe("Authz Messages", () => {
               {
                 attributes: [
                   { index: true, key: "recipient", value: "init1recipient" },
-                  { index: true, key: "sender", value: "init1granter" }, // B is the sender
+                  { index: true, key: "sender", value: "init1granter" },
                   { index: true, key: "amount", value: "500uinit" },
                   { index: true, key: "msg_index", value: "0" },
                   { index: true, key: "authz_msg_index", value: "0" }
@@ -549,7 +541,7 @@ describe("Authz Messages", () => {
                     key: "action",
                     value: "/cosmos.authz.v1beta1.MsgExec"
                   },
-                  { index: true, key: "sender", value: "init1grantee" }, // A is the executor
+                  { index: true, key: "sender", value: "init1grantee" },
                   { index: true, key: "module", value: "authz" },
                   { index: true, key: "msg_index", value: "0" }
                 ],
@@ -589,13 +581,13 @@ describe("Authz Messages", () => {
             messages: [
               {
                 "@type": "/cosmos.authz.v1beta1.MsgExec",
-                grantee: "init1grantee", // A - the one who has permission to execute
+                grantee: "init1grantee",
                 msgs: [
                   {
                     "@type": "/cosmos.bank.v1beta1.MsgSend",
                     amount: [{ amount: "500", denom: "uinit" }],
-                    from_address: "init1granter", // B - the actual token owner/sender
-                    to_address: "init1recipient" // C - the recipient
+                    from_address: "init1granter",
+                    to_address: "init1recipient"
                   }
                 ]
               }
@@ -615,17 +607,12 @@ describe("Authz Messages", () => {
       );
 
       expect(decoded.messages).toHaveLength(1);
-
-      // The outer message is MsgExec
       expect(decoded.messages[0].decodedMessage.action).toBe("authz_exec");
 
       if (decoded.messages[0].decodedMessage.action === "authz_exec") {
-        // The grantee (A) is who executed the transaction
         expect(decoded.messages[0].decodedMessage.data.grantee).toBe(
           "init1grantee"
         );
-
-        // The inner message should be decoded
         expect(decoded.messages[0].decodedMessage.data.messages).toHaveLength(
           1
         );
@@ -635,20 +622,13 @@ describe("Authz Messages", () => {
         expect(innerMessage.action).toBe("send");
 
         if (innerMessage.action === "send") {
-          // CRITICAL: The sender is the granter (B), NOT the grantee (A)
-          expect(innerMessage.data.from).toBe("init1granter"); // B's address
-          expect(innerMessage.data.to).toBe("init1recipient"); // C's address
+          expect(innerMessage.data.from).toBe("init1granter");
+          expect(innerMessage.data.to).toBe("init1recipient");
           expect(innerMessage.data.coins).toEqual([
             { amount: "500", denom: "uinit" }
           ]);
         }
       }
-
-      // The key takeaway:
-      // - Grantee (A) = "init1grantee" - executes the transaction
-      // - Sender/Granter (B) = "init1granter" - whose tokens are actually sent
-      // - Recipient (C) = "init1recipient" - receives the tokens
-      // The grantee (A) does NOT appear as the sender in the decoded inner message!
     });
   });
 
