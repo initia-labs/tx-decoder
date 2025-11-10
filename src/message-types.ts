@@ -25,6 +25,15 @@ export const SUPPORTED_MESSAGE_TYPES = {
   MsgIbcNftTransfer: "/ibc.applications.nft_transfer.v1.MsgTransfer",
   MsgIbcRecvPacket: "/ibc.core.channel.v1.MsgRecvPacket",
 
+  // authz messages
+  MsgExec: "/cosmos.authz.v1beta1.MsgExec",
+  MsgGrant: "/cosmos.authz.v1beta1.MsgGrant",
+  MsgRevoke: "/cosmos.authz.v1beta1.MsgRevoke",
+
+  // feegrant messages
+  MsgGrantAllowance: "/cosmos.feegrant.v1beta1.MsgGrantAllowance",
+  MsgRevokeAllowance: "/cosmos.feegrant.v1beta1.MsgRevokeAllowance",
+
   // wasm messages
   MsgExecuteContract: "/cosmwasm.wasm.v1.MsgExecuteContract",
   MsgInstantiateContract: "/cosmwasm.wasm.v1.MsgInstantiateContract"
