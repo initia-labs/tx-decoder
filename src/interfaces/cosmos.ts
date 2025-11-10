@@ -5,10 +5,8 @@ interface DecodedMessageBase {
   isOp: boolean;
 }
 
-export type DecodedMessage =
-  | DecodedAuthzExecMessage
-  | DecodedAuthzGrantMessage
-  | DecodedAuthzRevokeMessage
+// Move VM specific messages (from src/decoders/cosmos/move/)
+export type MoveDecodedMessage =
   | DecodedClaimMinitswapMessage
   | DecodedDelegateMessage
   | DecodedDepositLiquidityMessage
@@ -16,26 +14,14 @@ export type DecodedMessage =
   | DecodedDepositStakeLiquidityMessage
   | DecodedDepositStakeLockLiquidityMessage
   | DecodedExtendLiquidityMessage
-  | DecodedFeegrantGrantAllowanceMessage
-  | DecodedFeegrantRevokeAllowanceMessage
-  | DecodedFinalizeTokenDepositMessage
-  | DecodedFinalizeTokenWithdrawalMessage
-  | DecodedIbcFtReceiveMessage
-  | DecodedIbcFtSendMessage
-  | DecodedIbcNftReceiveEvmMessage
   | DecodedIbcNftReceiveMoveMessage
-  | DecodedIbcNftSendEvmMessage
   | DecodedIbcNftSendMoveMessage
-  | DecodedInitiateTokenDepositMessage
-  | DecodedInitiateTokenWithdrawalMessage
   | DecodedMergeLiquidityMessage
   | DecodedNftBurnMessage
   | DecodedNftMintMessage
-  | DecodedNotSupportedMessage
   | DecodedObjectTransferMessage
   | DecodedProvideStableswapMessage
   | DecodedRedelegateMessage
-  | DecodedSendMessage
   | DecodedSwapMessage
   | DecodedUndelegateMessage
   | DecodedVipClaimEsinitMessage
@@ -44,6 +30,45 @@ export type DecodedMessage =
   | DecodedWithdrawLiquidityMessage
   | DecodedWithdrawMinitswapMessage
   | DecodedWithdrawStableswapMessage;
+
+// EVM VM specific messages (from src/decoders/protocols/ibc/nft-evm.ts)
+export type EvmDecodedMessage =
+  | DecodedIbcNftReceiveEvmMessage
+  | DecodedIbcNftSendEvmMessage;
+
+// WASM VM specific messages (from src/decoders/cosmos/wasm/)
+export type WasmDecodedMessage =
+  | DecodedCw20TransferFromMessage
+  | DecodedCw20TransferMessage
+  | DecodedCw721MintMessage
+  | DecodedCw721TransferMessage
+  | DecodedExecuteContractMessage
+  | DecodedIbcNftReceiveWasmMessage
+  | DecodedIbcNftSendWasmMessage
+  | DecodedInstantiateContractMessage;
+
+// Cosmos L1 messages (from src/decoders/cosmos/ root level and protocols)
+export type CosmosDecodedMessage =
+  | DecodedAuthzExecMessage
+  | DecodedAuthzGrantMessage
+  | DecodedAuthzRevokeMessage
+  | DecodedFeegrantGrantAllowanceMessage
+  | DecodedFeegrantRevokeAllowanceMessage
+  | DecodedFinalizeTokenDepositMessage
+  | DecodedFinalizeTokenWithdrawalMessage
+  | DecodedIbcFtReceiveMessage
+  | DecodedIbcFtSendMessage
+  | DecodedInitiateTokenDepositMessage
+  | DecodedInitiateTokenWithdrawalMessage
+  | DecodedSendMessage;
+
+// Combined union of all decoded messages
+export type DecodedMessage =
+  | CosmosDecodedMessage
+  | DecodedNotSupportedMessage
+  | EvmDecodedMessage
+  | MoveDecodedMessage
+  | WasmDecodedMessage;
 
 interface DecodedAuthzExecMessage extends DecodedMessageBase {
   action: "authz_exec";
@@ -403,6 +428,54 @@ interface DecodedIbcNftReceiveEvmMessage extends DecodedMessageBase {
   };
 }
 
+interface DecodedIbcNftSendWasmMessage extends DecodedMessageBase {
+  action: "ibc_nft_send_wasm";
+  data: {
+    classId: string;
+    contractAddress: string;
+    dstChainId: string;
+    dstChannel: string;
+    dstPort: string;
+    receiver: string;
+    sender: string;
+    sequence: string;
+    srcChainId: string;
+    srcChannel: string;
+    srcPort: string;
+    timeoutHeight: {
+      revision_height: string;
+      revision_number: string;
+    };
+    timeoutTimestamp: string;
+    tokenIds: string[];
+    tokenUris: string[];
+  };
+}
+
+interface DecodedIbcNftReceiveWasmMessage extends DecodedMessageBase {
+  action: "ibc_nft_receive_wasm";
+  data: {
+    classId: string;
+    contractAddress: string;
+    dstChainId: string;
+    dstChannel: string;
+    dstPort: string;
+    receiver: string;
+    sender: string;
+    sequence: string;
+    srcChainId: string;
+    srcChannel: string;
+    srcPort: string;
+    timeoutHeight: {
+      revision_height: string;
+      revision_number: string;
+    };
+    timeoutTimestamp: string;
+    tokenIds: string[];
+    tokenUris: string[];
+  };
+}
+
 interface DecodedDepositMinitswapMessage extends DecodedMessageBase {
   action: "deposit_minitswap";
   data: {
@@ -570,5 +643,71 @@ interface DecodedProvideStableswapMessage extends DecodedMessageBase {
     from: string;
     liquidity: string;
     liquidityDenom: string;
+  };
+}
+
+interface DecodedCw20TransferMessage extends DecodedMessageBase {
+  action: "cw20_transfer";
+  data: {
+    amount: string;
+    contract: string;
+    from: string;
+    to: string;
+  };
+}
+
+interface DecodedCw20TransferFromMessage extends DecodedMessageBase {
+  action: "cw20_transfer_from";
+  data: {
+    amount: string;
+    contract: string;
+    from: string;
+    owner: string;
+    to: string;
+  };
+}
+
+interface DecodedInstantiateContractMessage extends DecodedMessageBase {
+  action: "instantiate_contract";
+  data: {
+    admin?: string;
+    codeId: string;
+    contractAddress?: string;
+    funds: Coin[];
+    initMsg: unknown;
+    label: string;
+    sender: string;
+  };
+}
+
+interface DecodedExecuteContractMessage extends DecodedMessageBase {
+  action: "execute_contract";
+  data: {
+    contract: string;
+    function?: string;
+    funds: Coin[];
+    msg: unknown;
+    sender: string;
+  };
+}
+
+interface DecodedCw721TransferMessage extends DecodedMessageBase {
+  action: "cw721_transfer";
+  data: {
+    contract: string;
+    from: string;
+    to: string;
+    tokenId: string;
+  };
+}
+
+interface DecodedCw721MintMessage extends DecodedMessageBase {
+  action: "cw721_mint";
+  data: {
+    contract: string;
+    extension?: unknown;
+    owner: string;
+    tokenId: string;
+    tokenUri?: string;
   };
 }

@@ -87,7 +87,8 @@ export const mergeBalanceChanges = <T extends BalanceChanges>(
   if (isWasmBalanceChanges(target) && isWasmBalanceChanges(source)) {
     return {
       ...target,
-      ft: mergeNestedBalances(target.ft, source.ft)
+      ft: mergeNestedBalances(target.ft, source.ft),
+      nft: mergeNftBalances(target.nft, source.nft)
     };
   }
 

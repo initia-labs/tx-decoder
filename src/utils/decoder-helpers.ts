@@ -1,6 +1,21 @@
 import { DecodedMessage, DecodedNotSupportedCall } from "@/interfaces";
 import { EthereumRpcPayload } from "@/schema";
 
+export const decodeWasmMsg = (
+  msg: string | Record<string, unknown>
+): unknown => {
+  if (typeof msg === "string") {
+    try {
+      const decoded = Buffer.from(msg, "base64").toString("utf-8");
+      return JSON.parse(decoded);
+    } catch {
+      return null;
+    }
+  }
+
+  return msg;
+};
+
 export const createNotSupportedMessage = (typeUrl: string): DecodedMessage => {
   return {
     action: "not_supported",

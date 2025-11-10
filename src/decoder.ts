@@ -216,23 +216,33 @@ export class TxDecoder {
     message: Message,
     log: Log | undefined,
     txResponse: TxResponse,
-    vm: VmType
+    vm: VmType,
+    messageIndex: number
   ): ReturnType<MessageDecoder["decode"]> {
     const notSupportedMessage = createNotSupportedMessage(message["@type"]);
 
-    if (!log) {
-      return notSupportedMessage;
-    }
+    // For failed transactions (code !== 0), logs array is empty
+    // Create a synthetic log from txResponse events to allow decoders to process the message
+    const effectiveLog: Log = log || {
+      events: txResponse.events,
+      log: txResponse.raw_log,
+      msg_index: messageIndex
+    };
 
     const decoders = this._getDecodersForVm(vm);
 
     try {
-      const decoder = this._findDecoderForMessage(message, log, vm, decoders);
+      const decoder = this._findDecoderForMessage(
+        message,
+        effectiveLog,
+        vm,
+        decoders
+      );
       if (!decoder) return notSupportedMessage;
 
       return await decoder.decode(
         message,
-        log,
+        effectiveLog,
         this.apiClient,
         txResponse,
         vm,
@@ -314,7 +324,8 @@ export class TxDecoder {
         message,
         log,
         txResponse,
-        vm
+        vm,
+        index
       );
 
       let defaultBalanceChanges;

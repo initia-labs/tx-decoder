@@ -32,5 +32,9 @@ export const SUPPORTED_MESSAGE_TYPES = {
 
   // feegrant messages
   MsgGrantAllowance: "/cosmos.feegrant.v1beta1.MsgGrantAllowance",
-  MsgRevokeAllowance: "/cosmos.feegrant.v1beta1.MsgRevokeAllowance"
+  MsgRevokeAllowance: "/cosmos.feegrant.v1beta1.MsgRevokeAllowance",
+
+  // wasm messages
+  MsgExecuteContract: "/cosmwasm.wasm.v1.MsgExecuteContract",
+  MsgInstantiateContract: "/cosmwasm.wasm.v1.MsgInstantiateContract"
 } as const;

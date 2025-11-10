@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.11.1](https://github.com/initia-labs/tx-decoder/compare/v0.11.0...v0.11.1) (2025-11-04)
+
+
+### Bug Fixes
+
+* edit comment ([1c6125f](https://github.com/initia-labs/tx-decoder/commit/1c6125f837ef6c6bed79e60ed3edaf679bbeb03e))
+
+## [0.11.0](https://github.com/initia-labs/tx-decoder/compare/v0.10.1...v0.11.0) (2025-11-04)
+
+
+### Features
+
+* add support for WASM transactions in balance changes and decoders ([#101](https://github.com/initia-labs/tx-decoder/issues/101)) ([a72a6ad](https://github.com/initia-labs/tx-decoder/commit/a72a6ad33b41aa45655d1c1d968eb8075a2ac6aa))
+* refactor decoder and introduce decoder registry ([#99](https://github.com/initia-labs/tx-decoder/issues/99)) ([aabccc5](https://github.com/initia-labs/tx-decoder/commit/aabccc573a19fb5142ba5006041714d085304f9e))
+
 ## [0.10.1](https://github.com/initia-labs/tx-decoder/compare/v0.10.0...v0.10.1) (2025-10-20)
 
 

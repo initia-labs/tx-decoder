@@ -4,3 +4,4 @@ export * from "./distribution";
 export * from "./feegrant";
 export * from "./move";
 export * from "./mstaking";
+export * from "./wasm";

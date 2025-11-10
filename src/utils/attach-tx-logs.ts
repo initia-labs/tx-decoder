@@ -21,7 +21,13 @@ const extractTxLogs = (txData: TxResponse): Log[] => {
       const index = event.attributes.find(
         (attr) => attr.key === "msg_index"
       )?.value;
-      if (index) draft[Number(index)].events.push(event);
+      if (index !== undefined) {
+        const numIndex = Number(index);
+        // Only add event if the index is valid
+        if (numIndex >= 0 && numIndex < draft.length) {
+          draft[numIndex].events.push(event);
+        }
+      }
     });
   });
 };

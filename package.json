@@ -1,6 +1,6 @@
 {
   "name": "@initia/tx-decoder",
-  "version": "0.10.1",
+  "version": "0.11.1",
   "description": "A pluggable library to decode Cosmos-based blockchain transactions.",
   "keywords": [
     "cosmos",
@@ -10,10 +10,12 @@
   ],
   "license": "MIT",
   "author": "Initia (https://initia.xyz)",
-  "repository": "github:initia-labs/tx-decoder",
+  "repository": {
+    "url": "https://github.com/initia-labs/tx-decoder"
+  },
   "type": "module",
   "engines": {
-    "node": ">=22.0.0"
+    "node": ">=24.0.0"
   },
   "exports": {
     ".": {
@@ -60,7 +62,7 @@
     "@cosmjs/encoding": "^0.33.1",
     "@initia/utils": "2.0.0-alpha.3",
     "@noble/hashes": "^1.8.0",
-    "axios": "^1.10.0",
+    "axios": "^1.12.0",
     "big.js": "^7.0.1",
     "cosmjs-types": "^0.9.0",
     "immer": "^10.1.1",
