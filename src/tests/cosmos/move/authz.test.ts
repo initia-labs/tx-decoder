@@ -17,6 +17,10 @@ import {
   mockApiResponsesForAuthzExec,
   mockApiResponsesForRealTx,
   mockApiResponsesForRealTx2,
+  mockAuthzGrantTransaction,
+  mockAuthzRevokeTransaction,
+  mockMsgExecGranteeExecutesForGranter,
+  mockMsgExecWithMultiple,
   mockRealMsgExecTransaction,
   mockRealMsgExecWithDifferentAddresses
 } from "./authz.fixture";
@@ -121,140 +125,6 @@ describe("Authz Messages", () => {
     });
 
     it("should decode MsgExec wrapping multiple MsgSend messages", async () => {
-      const mockMsgExecWithMultiple = {
-        code: 0,
-        codespace: "",
-        data: "TEST",
-        events: [],
-        gas_used: "250000",
-        gas_wanted: "400000",
-        height: "1000002",
-        info: "",
-        logs: [
-          {
-            events: [
-              {
-                attributes: [
-                  { key: "spender", value: "init1sender" },
-                  { key: "amount", value: "100uinit" },
-                  { key: "msg_index", value: "0" },
-                  { key: "authz_msg_index", value: "0" }
-                ],
-                type: "coin_spent"
-              },
-              {
-                attributes: [
-                  { key: "receiver", value: "init1receiver1" },
-                  { key: "amount", value: "100uinit" },
-                  { key: "msg_index", value: "0" },
-                  { key: "authz_msg_index", value: "0" }
-                ],
-                type: "coin_received"
-              },
-              {
-                attributes: [
-                  { key: "recipient", value: "init1receiver1" },
-                  { key: "sender", value: "init1sender" },
-                  { key: "amount", value: "100uinit" },
-                  { key: "msg_index", value: "0" },
-                  { key: "authz_msg_index", value: "0" }
-                ],
-                type: "transfer"
-              },
-              {
-                attributes: [
-                  { key: "spender", value: "init1sender" },
-                  { key: "amount", value: "200uinit" },
-                  { key: "msg_index", value: "0" },
-                  { key: "authz_msg_index", value: "1" }
-                ],
-                type: "coin_spent"
-              },
-              {
-                attributes: [
-                  { key: "receiver", value: "init1receiver2" },
-                  { key: "amount", value: "200uinit" },
-                  { key: "msg_index", value: "0" },
-                  { key: "authz_msg_index", value: "1" }
-                ],
-                type: "coin_received"
-              },
-              {
-                attributes: [
-                  { key: "recipient", value: "init1receiver2" },
-                  { key: "sender", value: "init1sender" },
-                  { key: "amount", value: "200uinit" },
-                  { key: "msg_index", value: "0" },
-                  { key: "authz_msg_index", value: "1" }
-                ],
-                type: "transfer"
-              },
-              {
-                attributes: [
-                  { key: "action", value: "/cosmos.authz.v1beta1.MsgExec" },
-                  { key: "msg_index", value: "0" }
-                ],
-                type: "message"
-              }
-            ],
-            log: "",
-            msg_index: 0
-          }
-        ],
-        raw_log: "",
-        timestamp: "2025-11-03T10:10:00Z",
-        tx: {
-          "@type": "/cosmos.tx.v1beta1.Tx",
-          auth_info: {
-            fee: {
-              amount: [{ amount: "6000", denom: "uinit" }],
-              gas_limit: "400000",
-              granter: "",
-              payer: ""
-            },
-            signer_infos: [
-              {
-                mode_info: { single: { mode: "SIGN_MODE_DIRECT" } },
-                public_key: {
-                  "@type": "/cosmos.crypto.secp256k1.PubKey",
-                  key: "test"
-                },
-                sequence: "3"
-              }
-            ],
-            tip: null
-          },
-          body: {
-            extension_options: [],
-            memo: "",
-            messages: [
-              {
-                "@type": "/cosmos.authz.v1beta1.MsgExec",
-                grantee: "init1testgrantee",
-                msgs: [
-                  {
-                    "@type": "/cosmos.bank.v1beta1.MsgSend",
-                    amount: [{ amount: "100", denom: "uinit" }],
-                    from_address: "init1sender",
-                    to_address: "init1receiver1"
-                  },
-                  {
-                    "@type": "/cosmos.bank.v1beta1.MsgSend",
-                    amount: [{ amount: "200", denom: "uinit" }],
-                    from_address: "init1sender",
-                    to_address: "init1receiver2"
-                  }
-                ]
-              }
-            ],
-            non_critical_extension_options: [],
-            timeout_height: "0"
-          },
-          signatures: ["test"]
-        },
-        txhash: "TEST789"
-      };
-
       setupMockApi(mockedAxios, mockApiResponsesForAuthzExec);
 
       const decoded = await decoder.decodeCosmosTransaction(
@@ -446,112 +316,6 @@ describe("Authz Messages", () => {
     });
 
     it("should correctly identify sender when grantee A sends granter B's tokens to C", async () => {
-      const mockMsgExecGranteeExecutesForGranter = {
-        code: 0,
-        codespace: "",
-        data: "TEST",
-        events: [],
-        gas_used: "150000",
-        gas_wanted: "250000",
-        height: "1000000",
-        info: "",
-        logs: [
-          {
-            events: [
-              {
-                attributes: [
-                  { index: true, key: "spender", value: "init1granter" },
-                  { index: true, key: "amount", value: "500uinit" },
-                  { index: true, key: "msg_index", value: "0" },
-                  { index: true, key: "authz_msg_index", value: "0" }
-                ],
-                type: "coin_spent"
-              },
-              {
-                attributes: [
-                  { index: true, key: "receiver", value: "init1recipient" },
-                  { index: true, key: "amount", value: "500uinit" },
-                  { index: true, key: "msg_index", value: "0" },
-                  { index: true, key: "authz_msg_index", value: "0" }
-                ],
-                type: "coin_received"
-              },
-              {
-                attributes: [
-                  { index: true, key: "recipient", value: "init1recipient" },
-                  { index: true, key: "sender", value: "init1granter" },
-                  { index: true, key: "amount", value: "500uinit" },
-                  { index: true, key: "msg_index", value: "0" },
-                  { index: true, key: "authz_msg_index", value: "0" }
-                ],
-                type: "transfer"
-              },
-              {
-                attributes: [
-                  {
-                    index: true,
-                    key: "action",
-                    value: "/cosmos.authz.v1beta1.MsgExec"
-                  },
-                  { index: true, key: "sender", value: "init1grantee" },
-                  { index: true, key: "module", value: "authz" },
-                  { index: true, key: "msg_index", value: "0" }
-                ],
-                type: "message"
-              }
-            ],
-            log: "",
-            msg_index: 0
-          }
-        ],
-        raw_log: "",
-        timestamp: "2025-11-03T10:00:00Z",
-        tx: {
-          "@type": "/cosmos.tx.v1beta1.Tx",
-          auth_info: {
-            fee: {
-              amount: [{ amount: "3000", denom: "uinit" }],
-              gas_limit: "250000",
-              granter: "",
-              payer: ""
-            },
-            signer_infos: [
-              {
-                mode_info: { single: { mode: "SIGN_MODE_DIRECT" } },
-                public_key: {
-                  "@type": "/cosmos.crypto.secp256k1.PubKey",
-                  key: "test"
-                },
-                sequence: "1"
-              }
-            ],
-            tip: null
-          },
-          body: {
-            extension_options: [],
-            memo: "",
-            messages: [
-              {
-                "@type": "/cosmos.authz.v1beta1.MsgExec",
-                grantee: "init1grantee",
-                msgs: [
-                  {
-                    "@type": "/cosmos.bank.v1beta1.MsgSend",
-                    amount: [{ amount: "500", denom: "uinit" }],
-                    from_address: "init1granter",
-                    to_address: "init1recipient"
-                  }
-                ]
-              }
-            ],
-            non_critical_extension_options: [],
-            timeout_height: "0"
-          },
-          signatures: ["test"]
-        },
-        txhash: "TESTAUTHZABC"
-      };
-
       setupMockApi(mockedAxios, mockApiResponsesForAuthzExec);
 
       const decoded = await decoder.decodeCosmosTransaction(
@@ -586,73 +350,11 @@ describe("Authz Messages", () => {
 
   describe("MsgGrant", () => {
     it("should decode MsgGrant correctly", async () => {
-      const mockTransaction = {
-        code: 0,
-        codespace: "",
-        data: "12280A262F636F736D6F732E617574687A2E763162657461312E4D73674772616E74526573706F6E7365",
-        events: [
-          {
-            attributes: [
-              {
-                index: true,
-                key: "action",
-                value: "/cosmos.authz.v1beta1.MsgGrant"
-              },
-              {
-                index: true,
-                key: "msg_index",
-                value: "0"
-              }
-            ],
-            type: "message"
-          }
-        ],
-        gas_used: "61281",
-        gas_wanted: "88254",
-        height: "9304783",
-        info: "",
-        logs: [],
-        raw_log: "",
-        timestamp: "2025-11-03T09:42:01Z",
-        tx: {
-          "@type": "/cosmos.tx.v1beta1.Tx",
-          auth_info: {
-            fee: {
-              amount: [{ amount: "1324", denom: "uinit" }],
-              gas_limit: "88254",
-              granter: "",
-              payer: ""
-            },
-            signer_infos: []
-          },
-          body: {
-            extension_options: [],
-            memo: "",
-            messages: [
-              {
-                "@type": "/cosmos.authz.v1beta1.MsgGrant",
-                grant: {
-                  authorization: {
-                    "@type": "/cosmos.authz.v1beta1.GenericAuthorization",
-                    msg: "/cosmos.bank.v1beta1.MsgSend"
-                  },
-                  expiration: "2025-11-03T09:51:56.513Z"
-                },
-                grantee: "init1rw34mgv2y626996n2ccpl6lfctk43v7azmarvg",
-                granter: "init1ryrg0mha5stezucvajy3mne8a74uhgmygdlnxp"
-              }
-            ],
-            non_critical_extension_options: [],
-            timeout_height: "0"
-          },
-          signatures: []
-        },
-        txhash: "TEST_AUTHZ_GRANT_HASH"
-      };
-
       setupMockApi(mockedAxios, {});
 
-      const decoded = await decoder.decodeCosmosTransaction(mockTransaction);
+      const decoded = await decoder.decodeCosmosTransaction(
+        mockAuthzGrantTransaction
+      );
 
       expect(decoded.messages).toHaveLength(1);
       expect(decoded.messages[0].decodedMessage).toEqual({
@@ -674,67 +376,11 @@ describe("Authz Messages", () => {
 
   describe("MsgRevoke", () => {
     it("should decode MsgRevoke correctly", async () => {
-      const mockTransaction = {
-        code: 0,
-        codespace: "",
-        data: "12290A272F636F736D6F732E617574687A2E763162657461312E4D73675265766F6B65526573706F6E7365",
-        events: [
-          {
-            attributes: [
-              {
-                index: true,
-                key: "action",
-                value: "/cosmos.authz.v1beta1.MsgRevoke"
-              },
-              {
-                index: true,
-                key: "msg_index",
-                value: "0"
-              }
-            ],
-            type: "message"
-          }
-        ],
-        gas_used: "50587",
-        gas_wanted: "73283",
-        height: "9304830",
-        info: "",
-        logs: [],
-        raw_log: "",
-        timestamp: "2025-11-03T09:43:45Z",
-        tx: {
-          "@type": "/cosmos.tx.v1beta1.Tx",
-          auth_info: {
-            fee: {
-              amount: [{ amount: "1099", denom: "uinit" }],
-              gas_limit: "73283",
-              granter: "",
-              payer: ""
-            },
-            signer_infos: []
-          },
-          body: {
-            extension_options: [],
-            memo: "",
-            messages: [
-              {
-                "@type": "/cosmos.authz.v1beta1.MsgRevoke",
-                grantee: "init1rw34mgv2y626996n2ccpl6lfctk43v7azmarvg",
-                granter: "init1ryrg0mha5stezucvajy3mne8a74uhgmygdlnxp",
-                msg_type_url: "/cosmos.bank.v1beta1.MsgSend"
-              }
-            ],
-            non_critical_extension_options: [],
-            timeout_height: "0"
-          },
-          signatures: []
-        },
-        txhash: "TEST_AUTHZ_REVOKE_HASH"
-      };
-
       setupMockApi(mockedAxios, {});
 
-      const decoded = await decoder.decodeCosmosTransaction(mockTransaction);
+      const decoded = await decoder.decodeCosmosTransaction(
+        mockAuthzRevokeTransaction
+      );
 
       expect(decoded.messages).toHaveLength(1);
       expect(decoded.messages[0].decodedMessage).toEqual({
