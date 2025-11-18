@@ -1,12 +1,16 @@
 import * as Decoders from "./decoders";
 import { MessageDecoder } from "./interfaces";
 
-export const cosmosEvmMessageDecoders: MessageDecoder[] = [
+const cosmosAuthDecoders: MessageDecoder[] = [
   Decoders.authzExecDecoder,
   Decoders.authzGrantDecoder,
   Decoders.authzRevokeDecoder,
   Decoders.feegrantGrantAllowanceDecoder,
-  Decoders.feegrantRevokeAllowanceDecoder,
+  Decoders.feegrantRevokeAllowanceDecoder
+];
+
+export const cosmosEvmMessageDecoders: MessageDecoder[] = [
+  ...cosmosAuthDecoders,
   Decoders.sendDecoder,
   Decoders.finalizeTokenDepositDecoder,
   Decoders.initiateTokenWithdrawalDecoder,
@@ -17,11 +21,7 @@ export const cosmosEvmMessageDecoders: MessageDecoder[] = [
 ];
 
 export const cosmosWasmMessageDecoders: MessageDecoder[] = [
-  Decoders.authzExecDecoder,
-  Decoders.authzGrantDecoder,
-  Decoders.authzRevokeDecoder,
-  Decoders.feegrantGrantAllowanceDecoder,
-  Decoders.feegrantRevokeAllowanceDecoder,
+  ...cosmosAuthDecoders,
   Decoders.sendDecoder,
   Decoders.initiateTokenWithdrawalDecoder,
   Decoders.finalizeTokenDepositDecoder,
@@ -38,11 +38,7 @@ export const cosmosWasmMessageDecoders: MessageDecoder[] = [
 ];
 
 export const cosmosMoveMessageDecoders: MessageDecoder[] = [
-  Decoders.authzExecDecoder,
-  Decoders.authzGrantDecoder,
-  Decoders.authzRevokeDecoder,
-  Decoders.feegrantGrantAllowanceDecoder,
-  Decoders.feegrantRevokeAllowanceDecoder,
+  ...cosmosAuthDecoders,
   Decoders.claimMinitswapDecoder,
   Decoders.delegateDecoder,
   Decoders.delegateLockedDecoder,
