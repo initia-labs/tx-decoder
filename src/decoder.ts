@@ -151,7 +151,6 @@ export class TxDecoder {
   ): Promise<DecodedEthereumTx> {
     const ethereumPayload = validateAndPrepareEthereumPayload(payload);
 
-    // PRE-CHECK: Is this a mirrored Cosmos transaction?
     const cosmosTxHash = extractCosmosTxHashFromEvm(ethereumPayload);
     if (cosmosTxHash) {
       try {
@@ -167,7 +166,6 @@ export class TxDecoder {
       }
     }
 
-    // Regular Ethereum transaction flow
     const decoder = this._findEthereumDecoder(ethereumPayload);
 
     const balanceChanges = await calculateBalanceChangesFromEthereumLogs(
@@ -221,28 +219,13 @@ export class TxDecoder {
   ): ReturnType<MessageDecoder["decode"]> {
     const notSupportedMessage = createNotSupportedMessage(message["@type"]);
 
-    // For failed transactions (code !== 0), logs array is empty
-    // Create a synthetic log from txResponse events to allow decoders to process the message
     const effectiveLog: Log = log || {
       events: txResponse.events,
       log: txResponse.raw_log,
       msg_index: messageIndex
     };
 
-    let decoders;
-    switch (vm) {
-      case "evm":
-        decoders = cosmosEvmMessageDecoders;
-        break;
-      case "move":
-        decoders = cosmosMoveMessageDecoders;
-        break;
-      case "wasm":
-        decoders = cosmosWasmMessageDecoders;
-        break;
-      default:
-        throw new Error(`Unknown VM type: ${vm}`);
-    }
+    const decoders = this._getDecodersForVm(vm);
 
     try {
       const decoder = this._findDecoderForMessage(
@@ -258,7 +241,8 @@ export class TxDecoder {
         effectiveLog,
         this.apiClient,
         txResponse,
-        vm
+        vm,
+        this._getDecodersForVm.bind(this)
       );
     } catch (e) {
       console.error(e);
@@ -266,24 +250,15 @@ export class TxDecoder {
     }
   }
 
-  /**
-   * Decodes a mirrored Cosmos transaction by fetching and decoding the original Cosmos tx.
-   *
-   * Returns only the cosmos messages in the data field to avoid duplication.
-   * Metadata and totalBalanceChanges are at the root level only.
-   */
   private async _decodeMirroredCosmosTx(
     cosmosTxHash: string,
     ethereumPayload: EthereumRpcPayload
   ): Promise<DecodedEthereumTx> {
-    // Fetch the Cosmos transaction from REST API
     const cosmosTxResponse = await this.apiClient.getCosmosTx(cosmosTxHash);
 
-    // Decode it using the Cosmos transaction decoder
     const decodedCosmosEvmTx =
       await this.decodeCosmosEvmTransaction(cosmosTxResponse);
 
-    // Return in cosmos_mirror format
     return {
       decodedTransaction: {
         action: "cosmos_mirror",
@@ -293,7 +268,6 @@ export class TxDecoder {
           evmTxHash: ethereumPayload.tx.hash
         }
       },
-      // Metadata and balance changes from the decoded Cosmos transaction
       metadata: decodedCosmosEvmTx.metadata,
       totalBalanceChanges: decodedCosmosEvmTx.totalBalanceChanges
     };
@@ -310,6 +284,19 @@ export class TxDecoder {
 
   private _findEthereumDecoder(payload: EthereumRpcPayload) {
     return ethereumDecoders.find((decoder) => decoder.check(payload));
+  }
+
+  private _getDecodersForVm(vm: VmType): MessageDecoder[] {
+    switch (vm) {
+      case "evm":
+        return cosmosEvmMessageDecoders;
+      case "move":
+        return cosmosMoveMessageDecoders;
+      case "wasm":
+        return cosmosWasmMessageDecoders;
+      default:
+        throw new Error(`Unknown VM type: ${vm}`);
+    }
   }
 
   private async _processMessages(

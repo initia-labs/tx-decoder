@@ -303,6 +303,11 @@ export const mockMsgNftBurn = {
 
 export const mockApiResponsesForNftBurn = {
   GET: {
+    "/initia/move/v1/accounts/0x3d879bacd0cb90899bacfa30385498cdd522b06a6e7b8352e9e62aaa1036f814/resources":
+      {
+        pagination: { next_key: null, total: "0" },
+        resources: []
+      },
     "/initia/move/v1/accounts/0x6490737f36898086529ecc342f6abe7846d12d40d7df2a4f392e6df9b57af0f4/resources":
       {
         pagination: { next_key: null, total: "0" },
