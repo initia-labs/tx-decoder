@@ -6,21 +6,19 @@ import {
 } from "@/tests/_shared/helpers";
 
 import {
-  mockApiResponsesForDelegate,
-  mockApiResponsesForUndelegate,
-  mockApiResponsesForWithdrawReward,
-  mockMsgExecWithDelegate,
-  mockMsgExecWithUndelegate,
-  mockMsgExecWithWithdrawReward
-} from "./authz-message-types.fixture";
-import {
   mockApiResponsesForAuthzExec,
+  mockApiResponsesForDelegate,
   mockApiResponsesForRealTx,
   mockApiResponsesForRealTx2,
+  mockApiResponsesForUndelegate,
+  mockApiResponsesForWithdrawReward,
   mockAuthzGrantTransaction,
   mockAuthzRevokeTransaction,
   mockMsgExecGranteeExecutesForGranter,
+  mockMsgExecWithDelegate,
   mockMsgExecWithMultiple,
+  mockMsgExecWithUndelegate,
+  mockMsgExecWithWithdrawReward,
   mockRealMsgExecTransaction,
   mockRealMsgExecWithDifferentAddresses
 } from "./authz.fixture";
