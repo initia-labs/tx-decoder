@@ -14,7 +14,8 @@ export type MessageDecoder<M = Message, L = Log> = {
     log: L,
     apiClient: ApiClient,
     txResponse: TxResponse,
-    vm: VmType
+    vm: VmType,
+    getDecodersForVm?: (vm: VmType) => MessageDecoder[]
   ) => Promise<DecodedMessage>;
 };
 

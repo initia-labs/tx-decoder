@@ -49,6 +49,11 @@ export type WasmDecodedMessage =
 
 // Cosmos L1 messages (from src/decoders/cosmos/ root level and protocols)
 export type CosmosDecodedMessage =
+  | DecodedAuthzExecMessage
+  | DecodedAuthzGrantMessage
+  | DecodedAuthzRevokeMessage
+  | DecodedFeegrantGrantAllowanceMessage
+  | DecodedFeegrantRevokeAllowanceMessage
   | DecodedFinalizeTokenDepositMessage
   | DecodedFinalizeTokenWithdrawalMessage
   | DecodedIbcFtReceiveMessage
@@ -64,6 +69,56 @@ export type DecodedMessage =
   | EvmDecodedMessage
   | MoveDecodedMessage
   | WasmDecodedMessage;
+
+interface DecodedAuthzExecMessage extends DecodedMessageBase {
+  action: "authz_exec";
+  data: {
+    grantee: string;
+    messages: DecodedMessage[];
+  };
+}
+
+interface DecodedAuthzGrantMessage extends DecodedMessageBase {
+  action: "authz_grant";
+  data: {
+    authorization: {
+      "@type": string;
+      [key: string]: unknown;
+    };
+    expiration?: string;
+    grantee: string;
+    granter: string;
+  };
+}
+
+interface DecodedAuthzRevokeMessage extends DecodedMessageBase {
+  action: "authz_revoke";
+  data: {
+    grantee: string;
+    granter: string;
+    msg_type_url: string;
+  };
+}
+
+interface DecodedFeegrantGrantAllowanceMessage extends DecodedMessageBase {
+  action: "feegrant_grant_allowance";
+  data: {
+    allowance: {
+      "@type": string;
+      [key: string]: unknown;
+    };
+    grantee: string;
+    granter: string;
+  };
+}
+
+interface DecodedFeegrantRevokeAllowanceMessage extends DecodedMessageBase {
+  action: "feegrant_revoke_allowance";
+  data: {
+    grantee: string;
+    granter: string;
+  };
+}
 
 interface DecodedSendMessage extends DecodedMessageBase {
   action: "send";
