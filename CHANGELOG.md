@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.12.0](https://github.com/initia-labs/tx-decoder/compare/v0.11.1...v0.12.0) (2025-11-23)
+
+
+### Features
+
+* add authz and feegrant support ([#103](https://github.com/initia-labs/tx-decoder/issues/103)) ([5a9dd63](https://github.com/initia-labs/tx-decoder/commit/5a9dd63a82a260d901552f625df5cc8138b8d747))
+
 ## [0.11.1](https://github.com/initia-labs/tx-decoder/compare/v0.11.0...v0.11.1) (2025-11-04)
 
 
