@@ -224,6 +224,66 @@ export const zStableswapProvideEvent = zJsonString.pipe(
   })
 );
 
+// CLAMM events
+export const zClammIncreaseLiquidityEvent = zJsonString.pipe(
+  z.object({
+    amount_0: z.string(),
+    amount_1: z.string(),
+    liquidity: z.string(),
+    metadata_0: z.string(),
+    metadata_1: z.string(),
+    pool_obj: z.string(),
+    token_obj: z.string()
+  })
+);
+
+export const zClammRemoveLiquidityEvent = zJsonString.pipe(
+  z.object({
+    amount_0: z.string(),
+    amount_1: z.string(),
+    liquidity_delta: z.string(),
+    metadata_0: z.string(),
+    metadata_1: z.string(),
+    pool_obj: z.string(),
+    token_obj: z.string()
+  })
+);
+
+export const zClammCollectFeesEvent = zJsonString.pipe(
+  z.object({
+    amount_0: z.string(),
+    amount_1: z.string(),
+    pool_obj: z.string(),
+    position_obj: z.string()
+  })
+);
+
+export const zClammStakeEvent = zJsonString.pipe(
+  z.object({
+    incentive_obj: z.string(),
+    liquidity: z.string(),
+    token_obj: z.string()
+  })
+);
+
+export const zClammUnstakeEvent = zJsonString.pipe(
+  z.object({
+    incentive_obj: z.string(),
+    reward_amount: z.string(),
+    seconds_inside: z.string(),
+    token_obj: z.string()
+  })
+);
+
+export const zClammClaimTokenEvent = zJsonString.pipe(
+  z.object({
+    amount: z.string(),
+    recipient: z.string(),
+    reward_asset_metadata: z.string(),
+    token_obj: z.string()
+  })
+);
+
 export const zUserVestingCreateEvent = zJsonString.pipe(
   z.object({
     account: z.string(),

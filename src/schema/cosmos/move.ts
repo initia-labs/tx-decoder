@@ -1,6 +1,8 @@
 import { z } from "zod";
 
 import {
+  CLAMM_FARMING_MODULE_ADDRESSES,
+  CLAMM_MODULE_ADDRESSES,
   DEX_UTILS_MODULE_ADDRESSES,
   INITIA_VAULT_MODULE_ADDRESSES,
   USERNAME_MODULE_ADDRESSES
@@ -17,6 +19,14 @@ export const zMsgMoveExecute = z.object({
   function_name: z.string(),
   module_address: z.string(),
   module_name: z.string(),
+  sender: z.string(),
+  type_args: z.array(z.string())
+});
+
+export const zMsgMoveScript = z.object({
+  "@type": z.literal(SUPPORTED_MESSAGE_TYPES.MsgScript),
+  args: z.array(z.string()),
+  code_bytes: z.string(),
   sender: z.string(),
   type_args: z.array(z.string())
 });
@@ -180,4 +190,47 @@ export const zMsgStableswapProvideLiquidity = zMsgMoveExecute.extend({
   function_name: z.literal("provide_liquidity_script"),
   module_address: z.literal("0x1"),
   module_name: z.literal("stableswap")
+});
+
+// CLAMM related Move messages
+export const zMsgClammIncreaseLiquidity = zMsgMoveExecute.extend({
+  function_name: z.literal("increase_liquidity"),
+  module_address: z.enum(CLAMM_MODULE_ADDRESSES),
+  module_name: z.literal("scripts")
+});
+
+export const zMsgClammRemoveLiquidity = zMsgMoveExecute.extend({
+  function_name: z.literal("remove_liquidity"),
+  module_address: z.enum(CLAMM_MODULE_ADDRESSES),
+  module_name: z.literal("scripts")
+});
+
+export const zMsgClammCollectFees = zMsgMoveExecute.extend({
+  function_name: z.literal("collect_fees"),
+  module_address: z.enum(CLAMM_MODULE_ADDRESSES),
+  module_name: z.literal("scripts")
+});
+
+export const zMsgClammUnstakeThenWithdraw = zMsgMoveExecute.extend({
+  function_name: z.literal("unstake_then_withdraw"),
+  module_address: z.enum(CLAMM_FARMING_MODULE_ADDRESSES),
+  module_name: z.literal("farming")
+});
+
+export const zMsgClammStakeEntry = zMsgMoveExecute.extend({
+  function_name: z.literal("stake_entry"),
+  module_address: z.enum(CLAMM_FARMING_MODULE_ADDRESSES),
+  module_name: z.literal("farming")
+});
+
+export const zMsgClammStakeTokenToAll = zMsgMoveExecute.extend({
+  function_name: z.literal("stake_token_to_all_viable_incentives"),
+  module_address: z.enum(CLAMM_FARMING_MODULE_ADDRESSES),
+  module_name: z.literal("farming")
+});
+
+export const zMsgClammClaimTokenReward = zMsgMoveExecute.extend({
+  function_name: z.literal("claim_token_reward_entry"),
+  module_address: z.enum(CLAMM_FARMING_MODULE_ADDRESSES),
+  module_name: z.literal("farming")
 });

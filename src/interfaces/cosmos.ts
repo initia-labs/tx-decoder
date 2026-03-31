@@ -8,6 +8,13 @@ interface DecodedMessageBase {
 // Move VM specific messages (from src/decoders/cosmos/move/)
 export type MoveDecodedMessage =
   | DecodedClaimMinitswapMessage
+  | DecodedClammClaimRewardMessage
+  | DecodedClammCollectFeesMessage
+  | DecodedClammIncreaseLiquidityMessage
+  | DecodedClammProvideAndStakeMessage
+  | DecodedClammRemoveLiquidityMessage
+  | DecodedClammStakeMessage
+  | DecodedClammUnstakeWithdrawMessage
   | DecodedDelegateMessage
   | DecodedDepositLiquidityMessage
   | DecodedDepositMinitswapMessage
@@ -725,5 +732,85 @@ interface DecodedCw721MintMessage extends DecodedMessageBase {
     owner: string;
     tokenId: string;
     tokenUri?: string;
+  };
+}
+
+// CLAMM (Concentrated Liquidity) messages
+interface DecodedClammIncreaseLiquidityMessage extends DecodedMessageBase {
+  action: "clamm_increase_liquidity";
+  data: {
+    amount0: string;
+    amount1: string;
+    denom0: string;
+    denom1: string;
+    from: string;
+    liquidity: string;
+  };
+}
+
+interface DecodedClammRemoveLiquidityMessage extends DecodedMessageBase {
+  action: "clamm_remove_liquidity";
+  data: {
+    amount0: string;
+    amount1: string;
+    denom0: string;
+    denom1: string;
+    from: string;
+    liquidityDelta: string;
+  };
+}
+
+interface DecodedClammCollectFeesMessage extends DecodedMessageBase {
+  action: "clamm_collect_fees";
+  data: {
+    amount0: string;
+    amount1: string;
+    from: string;
+  };
+}
+
+interface DecodedClammStakeMessage extends DecodedMessageBase {
+  action: "clamm_stake";
+  data: {
+    from: string;
+    stakes: Array<{
+      liquidity: string;
+      tokenObj: string;
+    }>;
+  };
+}
+
+interface DecodedClammUnstakeWithdrawMessage extends DecodedMessageBase {
+  action: "clamm_unstake_withdraw";
+  data: {
+    claimedRewards: Array<{
+      amount: string;
+      rewardMetadata: string;
+    }>;
+    from: string;
+    tokenObj: string;
+  };
+}
+
+interface DecodedClammClaimRewardMessage extends DecodedMessageBase {
+  action: "clamm_claim_reward";
+  data: {
+    from: string;
+    rewards: Array<{
+      amount: string;
+      denom: string;
+    }>;
+  };
+}
+
+interface DecodedClammProvideAndStakeMessage extends DecodedMessageBase {
+  action: "clamm_provide_and_stake";
+  data: {
+    amount0: string;
+    amount1: string;
+    denom0: string;
+    denom1: string;
+    from: string;
+    liquidity: string;
   };
 }

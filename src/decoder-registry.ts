@@ -39,6 +39,14 @@ export const cosmosWasmMessageDecoders: MessageDecoder[] = [
 
 export const cosmosMoveMessageDecoders: MessageDecoder[] = [
   ...cosmosAuthDecoders,
+  Decoders.clammClaimTokenRewardDecoder,
+  Decoders.clammCollectFeesDecoder,
+  Decoders.clammIncreaseLiquidityDecoder,
+  Decoders.clammProvideConcentratedDecoder,
+  Decoders.clammRemoveLiquidityDecoder,
+  Decoders.clammStakeEntryDecoder,
+  Decoders.clammStakeTokenToAllDecoder,
+  Decoders.clammUnstakeThenWithdrawDecoder,
   Decoders.claimMinitswapDecoder,
   Decoders.delegateDecoder,
   Decoders.delegateLockedDecoder,

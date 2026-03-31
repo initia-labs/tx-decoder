@@ -1,3 +1,4 @@
+export * from "./clamm";
 export * from "./dex";
 export * from "./liquidity";
 export * from "./minitswap";
