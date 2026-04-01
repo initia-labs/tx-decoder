@@ -3,7 +3,6 @@ packages: []
 onlyBuiltDependencies:
   - esbuild
 
-updateConfig:
-  minimumReleaseAge: 1440
-  minimumReleaseAgeExclude:
-    - '@initia/*'
+minimumReleaseAge: 1440
+minimumReleaseAgeExclude:
+  - '@initia/*'
