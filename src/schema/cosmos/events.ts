@@ -284,6 +284,22 @@ export const zClammClaimTokenEvent = zJsonString.pipe(
   })
 );
 
+// Username events
+export const zUsernameExtendEvent = zJsonString.pipe(
+  z.object({
+    addr: z.string(),
+    domain_name: z.string(),
+    expiration_date: z.string()
+  })
+);
+
+export const zUsernameSetNameEvent = zJsonString.pipe(
+  z.object({
+    addr: z.string(),
+    name: z.string()
+  })
+);
+
 export const zUserVestingCreateEvent = zJsonString.pipe(
   z.object({
     account: z.string(),

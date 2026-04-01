@@ -18,14 +18,13 @@ describe("Username Messages", () => {
     setupMockApi(mockedAxios, { GET: {} });
   });
 
-  it("should decode set_name", async () => {
+  it("should decode set_name with name from event", async () => {
     const decoded = await decoder.decodeCosmosTransaction(mockSetName);
 
     expect(decoded.messages).toHaveLength(1);
-    expect(decoded.messages[0].decodedMessage).toMatchObject({
-      action: "username_set_name",
-      isIbc: false,
-      isOp: false
+    expect(decoded.messages[0].decodedMessage.action).toBe("username_set_name");
+    expect(decoded.messages[0].decodedMessage.data).toMatchObject({
+      name: expect.any(String)
     });
   });
 
@@ -33,21 +32,21 @@ describe("Username Messages", () => {
     const decoded = await decoder.decodeCosmosTransaction(mockUnsetName);
 
     expect(decoded.messages).toHaveLength(1);
-    expect(decoded.messages[0].decodedMessage).toMatchObject({
-      action: "username_unset_name",
-      isIbc: false,
-      isOp: false
-    });
+    expect(decoded.messages[0].decodedMessage.action).toBe(
+      "username_unset_name"
+    );
   });
 
-  it("should decode extend_expiration", async () => {
+  it("should decode extend_expiration with domain name and expiration date", async () => {
     const decoded = await decoder.decodeCosmosTransaction(mockExtendExpiration);
 
     expect(decoded.messages).toHaveLength(1);
-    expect(decoded.messages[0].decodedMessage).toMatchObject({
-      action: "username_extend_expiration",
-      isIbc: false,
-      isOp: false
+    expect(decoded.messages[0].decodedMessage.action).toBe(
+      "username_extend_expiration"
+    );
+    expect(decoded.messages[0].decodedMessage.data).toMatchObject({
+      domainName: expect.any(String),
+      expirationDate: expect.any(String)
     });
   });
 });

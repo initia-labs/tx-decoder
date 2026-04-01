@@ -822,6 +822,7 @@ interface DecodedUsernameSetNameMessage extends DecodedMessageBase {
   action: "username_set_name";
   data: {
     from: string;
+    name: string;
   };
 }
 
@@ -835,6 +836,8 @@ interface DecodedUsernameUnsetNameMessage extends DecodedMessageBase {
 interface DecodedUsernameExtendExpirationMessage extends DecodedMessageBase {
   action: "username_extend_expiration";
   data: {
+    domainName: string;
+    expirationDate: string;
     from: string;
   };
 }
