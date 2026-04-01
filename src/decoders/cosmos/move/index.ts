@@ -6,4 +6,5 @@ export * from "./nft";
 export * from "./object-transfer";
 export * from "./stableswap";
 export * from "./staking";
+export * from "./usernames";
 export * from "./vip";

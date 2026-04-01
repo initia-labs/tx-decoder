@@ -192,6 +192,31 @@ export const zMsgStableswapProvideLiquidity = zMsgMoveExecute.extend({
   module_name: z.literal("stableswap")
 });
 
+// Username related Move messages
+export const zMsgUsernameSetName = zMsgMoveExecute.extend({
+  function_name: z.literal("set_name"),
+  module_address: z
+    .string()
+    .refine((address) => USERNAME_MODULE_ADDRESSES.includes(address)),
+  module_name: z.literal("usernames")
+});
+
+export const zMsgUsernameUnsetName = zMsgMoveExecute.extend({
+  function_name: z.literal("unset_name"),
+  module_address: z
+    .string()
+    .refine((address) => USERNAME_MODULE_ADDRESSES.includes(address)),
+  module_name: z.literal("usernames")
+});
+
+export const zMsgUsernameExtendExpiration = zMsgMoveExecute.extend({
+  function_name: z.literal("extend_expiration"),
+  module_address: z
+    .string()
+    .refine((address) => USERNAME_MODULE_ADDRESSES.includes(address)),
+  module_name: z.literal("usernames")
+});
+
 // CLAMM related Move messages
 export const zMsgClammIncreaseLiquidity = zMsgMoveExecute.extend({
   function_name: z.literal("increase_liquidity"),

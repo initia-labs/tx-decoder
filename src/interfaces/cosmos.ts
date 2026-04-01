@@ -32,6 +32,9 @@ export type MoveDecodedMessage =
   | DecodedRedelegateMessage
   | DecodedSwapMessage
   | DecodedUndelegateMessage
+  | DecodedUsernameExtendExpirationMessage
+  | DecodedUsernameSetNameMessage
+  | DecodedUsernameUnsetNameMessage
   | DecodedVipClaimEsinitMessage
   | DecodedVipGaugeVoteMessage
   | DecodedWithdrawDelegatorRewardMessage
@@ -812,5 +815,26 @@ interface DecodedClammProvideAndStakeMessage extends DecodedMessageBase {
     denom1: string;
     from: string;
     liquidity: string;
+  };
+}
+
+interface DecodedUsernameSetNameMessage extends DecodedMessageBase {
+  action: "username_set_name";
+  data: {
+    from: string;
+  };
+}
+
+interface DecodedUsernameUnsetNameMessage extends DecodedMessageBase {
+  action: "username_unset_name";
+  data: {
+    from: string;
+  };
+}
+
+interface DecodedUsernameExtendExpirationMessage extends DecodedMessageBase {
+  action: "username_extend_expiration";
+  data: {
+    from: string;
   };
 }
