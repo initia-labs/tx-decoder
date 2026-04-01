@@ -1,6 +1,6 @@
 import { ApiClient } from "@/api";
 import { CLAMM_MODULE_ADDRESSES } from "@/constants";
-import { DecodedMessage, MessageDecoder } from "@/interfaces";
+import { DecodedMessage, MessageDecoder, VmType } from "@/interfaces";
 import {
   Log,
   Message,
@@ -18,6 +18,7 @@ import {
   zMsgClammStakeEntry,
   zMsgClammStakeTokenToAll,
   zMsgClammUnstakeThenWithdraw,
+  zMsgMoveExecute,
   zMsgMoveScript
 } from "@/schema";
 import { findAllMoveEvents, findMoveEvent } from "@/utils";
@@ -29,7 +30,8 @@ export const clammIncreaseLiquidityDecoder: MessageDecoder = {
     message: Message,
     log: Log,
     apiClient: ApiClient,
-    _txResponse: TxResponse
+    _txResponse: TxResponse,
+    _vm: VmType
   ) => {
     const parsed = zMsgClammIncreaseLiquidity.parse(message);
     const { module_address, sender } = parsed;
@@ -73,7 +75,8 @@ export const clammRemoveLiquidityDecoder: MessageDecoder = {
     message: Message,
     log: Log,
     apiClient: ApiClient,
-    _txResponse: TxResponse
+    _txResponse: TxResponse,
+    _vm: VmType
   ) => {
     const parsed = zMsgClammRemoveLiquidity.parse(message);
     const { module_address, sender } = parsed;
@@ -117,7 +120,8 @@ export const clammCollectFeesDecoder: MessageDecoder = {
     message: Message,
     log: Log,
     _apiClient: ApiClient,
-    _txResponse: TxResponse
+    _txResponse: TxResponse,
+    _vm: VmType
   ) => {
     const parsed = zMsgClammCollectFees.parse(message);
     const { module_address, sender } = parsed;
@@ -149,8 +153,9 @@ export const clammUnstakeThenWithdrawDecoder: MessageDecoder = {
   decode: async (
     message: Message,
     log: Log,
-    _apiClient: ApiClient,
-    _txResponse: TxResponse
+    apiClient: ApiClient,
+    _txResponse: TxResponse,
+    _vm: VmType
   ) => {
     const parsed = zMsgClammUnstakeThenWithdraw.parse(message);
     const { module_address, sender } = parsed;
@@ -167,13 +172,23 @@ export const clammUnstakeThenWithdrawDecoder: MessageDecoder = {
       zClammClaimTokenEvent
     );
 
+    // Resolve reward denom from metadata, consistent with claimTokenRewardDecoder
+    const claimedRewards = await Promise.all(
+      claimEvents.map(async (e) => {
+        const denom = await apiClient.findDenomFromMetadataAddr(
+          e.reward_asset_metadata
+        );
+        return {
+          amount: e.amount,
+          denom: denom ?? e.reward_asset_metadata
+        };
+      })
+    );
+
     const decodedMessage: DecodedMessage = {
       action: "clamm_unstake_withdraw",
       data: {
-        claimedRewards: claimEvents.map((e) => ({
-          amount: e.amount,
-          rewardMetadata: e.reward_asset_metadata
-        })),
+        claimedRewards,
         from: sender,
         tokenObj: unstakeEvent?.token_obj ?? ""
       },
@@ -185,74 +200,48 @@ export const clammUnstakeThenWithdrawDecoder: MessageDecoder = {
   }
 };
 
+// stakeEntry and stakeTokenToAll share decode logic — both emit StakeEvent
+// and produce the same decoded output. Only the check (function_name) differs.
+const decodeClammStake = async (
+  message: Message,
+  log: Log,
+  _apiClient: ApiClient,
+  _txResponse: TxResponse,
+  _vm: VmType
+): Promise<DecodedMessage> => {
+  const parsed = zMsgMoveExecute.parse(message);
+  const { module_address, sender } = parsed;
+
+  const stakeEvents = findAllMoveEvents(
+    log.events,
+    `${module_address}::farming::StakeEvent`,
+    zClammStakeEvent
+  );
+
+  return {
+    action: "clamm_stake",
+    data: {
+      from: sender,
+      stakes: stakeEvents.map((e) => ({
+        liquidity: e.liquidity,
+        tokenObj: e.token_obj
+      }))
+    },
+    isIbc: false,
+    isOp: false
+  } as DecodedMessage;
+};
+
 export const clammStakeEntryDecoder: MessageDecoder = {
   check: (message: Message, _log: Log) =>
     zMsgClammStakeEntry.safeParse(message).success,
-  decode: async (
-    message: Message,
-    log: Log,
-    _apiClient: ApiClient,
-    _txResponse: TxResponse
-  ) => {
-    const parsed = zMsgClammStakeEntry.parse(message);
-    const { module_address, sender } = parsed;
-
-    const stakeEvents = findAllMoveEvents(
-      log.events,
-      `${module_address}::farming::StakeEvent`,
-      zClammStakeEvent
-    );
-
-    const decodedMessage: DecodedMessage = {
-      action: "clamm_stake",
-      data: {
-        from: sender,
-        stakes: stakeEvents.map((e) => ({
-          liquidity: e.liquidity,
-          tokenObj: e.token_obj
-        }))
-      },
-      isIbc: false,
-      isOp: false
-    };
-
-    return decodedMessage;
-  }
+  decode: decodeClammStake
 };
 
 export const clammStakeTokenToAllDecoder: MessageDecoder = {
   check: (message: Message, _log: Log) =>
     zMsgClammStakeTokenToAll.safeParse(message).success,
-  decode: async (
-    message: Message,
-    log: Log,
-    _apiClient: ApiClient,
-    _txResponse: TxResponse
-  ) => {
-    const parsed = zMsgClammStakeTokenToAll.parse(message);
-    const { module_address, sender } = parsed;
-
-    const stakeEvents = findAllMoveEvents(
-      log.events,
-      `${module_address}::farming::StakeEvent`,
-      zClammStakeEvent
-    );
-
-    const decodedMessage: DecodedMessage = {
-      action: "clamm_stake",
-      data: {
-        from: sender,
-        stakes: stakeEvents.map((e) => ({
-          liquidity: e.liquidity,
-          tokenObj: e.token_obj
-        }))
-      },
-      isIbc: false,
-      isOp: false
-    };
-
-    return decodedMessage;
-  }
+  decode: decodeClammStake
 };
 
 export const clammClaimTokenRewardDecoder: MessageDecoder = {
@@ -262,7 +251,8 @@ export const clammClaimTokenRewardDecoder: MessageDecoder = {
     message: Message,
     log: Log,
     apiClient: ApiClient,
-    _txResponse: TxResponse
+    _txResponse: TxResponse,
+    _vm: VmType
   ) => {
     const parsed = zMsgClammClaimTokenReward.parse(message);
     const { module_address, sender } = parsed;
@@ -322,7 +312,8 @@ export const clammProvideConcentratedDecoder: MessageDecoder = {
     message: Message,
     log: Log,
     apiClient: ApiClient,
-    _txResponse: TxResponse
+    _txResponse: TxResponse,
+    _vm: VmType
   ) => {
     const parsed = zMsgMoveScript.parse(message);
     const { sender } = parsed;

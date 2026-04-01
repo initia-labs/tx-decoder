@@ -293,10 +293,17 @@ export const zUsernameExtendEvent = zJsonString.pipe(
   })
 );
 
-export const zUsernameSetNameEvent = zJsonString.pipe(
+export const zUsernameSetEvent = zJsonString.pipe(
   z.object({
     addr: z.string(),
-    name: z.string()
+    domain_name: z.string()
+  })
+);
+
+export const zUsernameUnsetEvent = zJsonString.pipe(
+  z.object({
+    addr: z.string(),
+    domain_name: z.string()
   })
 );
 

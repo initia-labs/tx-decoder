@@ -79,6 +79,10 @@ describe("CLAMM Messages", () => {
     expect(decoded.messages[0].decodedMessage.data).toMatchObject({
       amount0: "10",
       amount1: "10",
+      denom0:
+        "move/6c69733a9e722f3660afb524f89fce957801fa7e4408b8ef8fe89db9627b570e",
+      denom1:
+        "ibc/6490A7EAB61059BFC1CDDEB05917DD70BDF3A611654162A1A47DB930D40D8AF4",
       from: "init1uc0y2rvw4asle7k8h8vezcuyh7n2le3uemrjfm",
       liquidity: "1980"
     });

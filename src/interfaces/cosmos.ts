@@ -788,7 +788,7 @@ interface DecodedClammUnstakeWithdrawMessage extends DecodedMessageBase {
   data: {
     claimedRewards: Array<{
       amount: string;
-      rewardMetadata: string;
+      denom: string;
     }>;
     from: string;
     tokenObj: string;
@@ -830,6 +830,7 @@ interface DecodedUsernameUnsetNameMessage extends DecodedMessageBase {
   action: "username_unset_name";
   data: {
     from: string;
+    name: string;
   };
 }
 

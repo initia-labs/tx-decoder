@@ -1,5 +1,5 @@
 import { ApiClient } from "@/api";
-import { DecodedMessage, MessageDecoder } from "@/interfaces";
+import { DecodedMessage, MessageDecoder, VmType } from "@/interfaces";
 import {
   Log,
   Message,
@@ -8,7 +8,8 @@ import {
   zMsgUsernameSetName,
   zMsgUsernameUnsetName,
   zUsernameExtendEvent,
-  zUsernameSetNameEvent
+  zUsernameSetEvent,
+  zUsernameUnsetEvent
 } from "@/schema";
 import { findMoveEvent } from "@/utils";
 
@@ -19,7 +20,8 @@ export const usernameSetNameDecoder: MessageDecoder = {
     message: Message,
     log: Log,
     _apiClient: ApiClient,
-    _txResponse: TxResponse
+    _txResponse: TxResponse,
+    _vm: VmType
   ) => {
     const parsed = zMsgUsernameSetName.parse(message);
     const { module_address, sender } = parsed;
@@ -28,15 +30,18 @@ export const usernameSetNameDecoder: MessageDecoder = {
     // to correctly match events regardless of which username module address was used.
     const event = findMoveEvent(
       log.events,
-      `${module_address}::usernames::SetNameEvent`,
-      zUsernameSetNameEvent
+      `${module_address}::usernames::SetEvent`,
+      zUsernameSetEvent
     );
+    if (!event) {
+      throw new Error("SetNameEvent not found");
+    }
 
     const decodedMessage: DecodedMessage = {
       action: "username_set_name",
       data: {
         from: sender,
-        name: event?.name ?? ""
+        name: event.domain_name
       },
       isIbc: false,
       isOp: false
@@ -51,17 +56,28 @@ export const usernameUnsetNameDecoder: MessageDecoder = {
     zMsgUsernameUnsetName.safeParse(message).success,
   decode: async (
     message: Message,
-    _log: Log,
+    log: Log,
     _apiClient: ApiClient,
-    _txResponse: TxResponse
+    _txResponse: TxResponse,
+    _vm: VmType
   ) => {
     const parsed = zMsgUsernameUnsetName.parse(message);
-    const { sender } = parsed;
+    const { module_address, sender } = parsed;
+
+    const event = findMoveEvent(
+      log.events,
+      `${module_address}::usernames::UnsetEvent`,
+      zUsernameUnsetEvent
+    );
+    if (!event) {
+      throw new Error("UnsetEvent not found");
+    }
 
     const decodedMessage: DecodedMessage = {
       action: "username_unset_name",
       data: {
-        from: sender
+        from: sender,
+        name: event.domain_name
       },
       isIbc: false,
       isOp: false
@@ -78,7 +94,8 @@ export const usernameExtendExpirationDecoder: MessageDecoder = {
     message: Message,
     log: Log,
     _apiClient: ApiClient,
-    _txResponse: TxResponse
+    _txResponse: TxResponse,
+    _vm: VmType
   ) => {
     const parsed = zMsgUsernameExtendExpiration.parse(message);
     const { module_address, sender } = parsed;
@@ -88,12 +105,15 @@ export const usernameExtendExpirationDecoder: MessageDecoder = {
       `${module_address}::usernames::ExtendEvent`,
       zUsernameExtendEvent
     );
+    if (!event) {
+      throw new Error("ExtendEvent not found");
+    }
 
     const decodedMessage: DecodedMessage = {
       action: "username_extend_expiration",
       data: {
-        domainName: event?.domain_name ?? "",
-        expirationDate: event?.expiration_date ?? "",
+        domainName: event.domain_name,
+        expirationDate: event.expiration_date,
         from: sender
       },
       isIbc: false,

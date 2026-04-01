@@ -28,13 +28,16 @@ describe("Username Messages", () => {
     });
   });
 
-  it("should decode unset_name", async () => {
+  it("should decode unset_name with domain name from event", async () => {
     const decoded = await decoder.decodeCosmosTransaction(mockUnsetName);
 
     expect(decoded.messages).toHaveLength(1);
     expect(decoded.messages[0].decodedMessage.action).toBe(
       "username_unset_name"
     );
+    expect(decoded.messages[0].decodedMessage.data).toMatchObject({
+      name: expect.any(String)
+    });
   });
 
   it("should decode extend_expiration with domain name and expiration date", async () => {
