@@ -1,5 +1,4 @@
 import { ApiClient } from "@/api";
-import { USERNAME_MODULE_ADDRESSES } from "@/constants";
 import { DecodedMessage, MessageDecoder } from "@/interfaces";
 import {
   Log,
@@ -13,8 +12,6 @@ import {
 } from "@/schema";
 import { findMoveEvent } from "@/utils";
 
-const usernameEventPrefix = USERNAME_MODULE_ADDRESSES[0];
-
 export const usernameSetNameDecoder: MessageDecoder = {
   check: (message: Message, _log: Log) =>
     zMsgUsernameSetName.safeParse(message).success,
@@ -25,11 +22,13 @@ export const usernameSetNameDecoder: MessageDecoder = {
     _txResponse: TxResponse
   ) => {
     const parsed = zMsgUsernameSetName.parse(message);
-    const { sender } = parsed;
+    const { module_address, sender } = parsed;
 
+    // ADR: Use module_address from the message itself, not a hardcoded constant,
+    // to correctly match events regardless of which username module address was used.
     const event = findMoveEvent(
       log.events,
-      `${usernameEventPrefix}::usernames::SetNameEvent`,
+      `${module_address}::usernames::SetNameEvent`,
       zUsernameSetNameEvent
     );
 
@@ -82,11 +81,11 @@ export const usernameExtendExpirationDecoder: MessageDecoder = {
     _txResponse: TxResponse
   ) => {
     const parsed = zMsgUsernameExtendExpiration.parse(message);
-    const { sender } = parsed;
+    const { module_address, sender } = parsed;
 
     const event = findMoveEvent(
       log.events,
-      `${usernameEventPrefix}::usernames::ExtendEvent`,
+      `${module_address}::usernames::ExtendEvent`,
       zUsernameExtendEvent
     );
 

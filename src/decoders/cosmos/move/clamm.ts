@@ -302,6 +302,8 @@ export const clammClaimTokenRewardDecoder: MessageDecoder = {
 // provideConcentrated uses MsgScript (custom bytecode) instead of MsgExecute.
 // We detect it via IncreaseLiquidityEvent in the logs since we can't match by function_name.
 // MsgScript has no module_address, so we try all known CLAMM addresses when searching events.
+// WARNING: If more MsgScript-based decoders are added in the future, check ordering in
+// decoder-registry.ts to avoid false positives — event-based matching is less specific.
 export const clammProvideConcentratedDecoder: MessageDecoder = {
   check: (message: Message, log: Log) => {
     if (!zMsgMoveScript.safeParse(message).success) return false;
