@@ -791,6 +791,7 @@ interface DecodedClammUnstakeWithdrawMessage extends DecodedMessageBase {
       denom: string;
     }>;
     from: string;
+    rewardAmount: string;
     tokenObj: string;
   };
 }

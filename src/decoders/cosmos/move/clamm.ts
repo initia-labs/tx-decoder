@@ -132,6 +132,9 @@ export const clammCollectFeesDecoder: MessageDecoder = {
       zClammCollectFeesEvent
     );
 
+    // ADR: CollectFeesEvent may not be in the per-message log when collect_fees
+    // is part of a compound tx — the event can end up in a different msg_index's log.
+    // CollectFeesEvent also only contains amounts without metadata (no denom info).
     const decodedMessage: DecodedMessage = {
       action: "clamm_collect_fees",
       data: {
@@ -165,6 +168,9 @@ export const clammUnstakeThenWithdrawDecoder: MessageDecoder = {
       `${module_address}::farming::UnstakeEvent`,
       zClammUnstakeEvent
     );
+    if (!unstakeEvent) {
+      throw new Error("UnstakeEvent not found");
+    }
 
     const claimEvents = findAllMoveEvents(
       log.events,
@@ -172,7 +178,9 @@ export const clammUnstakeThenWithdrawDecoder: MessageDecoder = {
       zClammClaimTokenEvent
     );
 
-    // Resolve reward denom from metadata, consistent with claimTokenRewardDecoder
+    // Resolve reward denom from metadata, consistent with claimTokenRewardDecoder.
+    // Fallback to raw metadata if denom resolution fails — unlike dex/liquidity decoders
+    // which throw, because claimed rewards with amount "0" may have unresolvable metadata.
     const claimedRewards = await Promise.all(
       claimEvents.map(async (e) => {
         const denom = await apiClient.findDenomFromMetadataAddr(
@@ -190,7 +198,8 @@ export const clammUnstakeThenWithdrawDecoder: MessageDecoder = {
       data: {
         claimedRewards,
         from: sender,
-        tokenObj: unstakeEvent?.token_obj ?? ""
+        rewardAmount: unstakeEvent.reward_amount,
+        tokenObj: unstakeEvent.token_obj
       },
       isIbc: false,
       isOp: false
@@ -217,6 +226,9 @@ const decodeClammStake = async (
     `${module_address}::farming::StakeEvent`,
     zClammStakeEvent
   );
+  if (stakeEvents.length === 0) {
+    throw new Error("StakeEvent not found");
+  }
 
   return {
     action: "clamm_stake",
@@ -262,7 +274,12 @@ export const clammClaimTokenRewardDecoder: MessageDecoder = {
       `${module_address}::farming::ClaimTokenEvent`,
       zClammClaimTokenEvent
     );
+    if (claimEvents.length === 0) {
+      throw new Error("ClaimTokenEvent not found");
+    }
 
+    // ADR: Fallback to raw metadata if denom resolution fails — rewards with
+    // amount "0" may reference metadata that no longer resolves to a denom.
     const rewards = await Promise.all(
       claimEvents.map(async (e) => {
         const denom = await apiClient.findDenomFromMetadataAddr(
@@ -294,6 +311,9 @@ export const clammClaimTokenRewardDecoder: MessageDecoder = {
 // MsgScript has no module_address, so we try all known CLAMM addresses when searching events.
 // WARNING: If more MsgScript-based decoders are added in the future, check ordering in
 // decoder-registry.ts to avoid false positives — event-based matching is less specific.
+// ADR: StakeEvent is also emitted by this tx but not extracted here — the action name
+// "clamm_provide_and_stake" already implies staking occurred. Stake data (liquidity, tokenObj)
+// is redundant with the IncreaseLiquidityEvent data.
 export const clammProvideConcentratedDecoder: MessageDecoder = {
   check: (message: Message, log: Log) => {
     if (!zMsgMoveScript.safeParse(message).success) return false;
