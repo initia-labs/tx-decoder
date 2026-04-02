@@ -65,7 +65,7 @@ describe("CLAMM Messages", () => {
     });
   });
 
-  // ADR: provideConcentrated uses MsgScript (custom bytecode) instead of MsgExecute.
+  // provideConcentrated uses MsgScript (custom bytecode) instead of MsgExecute.
   // Detected via IncreaseLiquidityEvent in logs since function_name is unavailable.
   it("should decode provideConcentrated (MsgScript)", async () => {
     setupMockApi(mockedAxios, mockDenomResponses);
@@ -139,7 +139,7 @@ describe("CLAMM Messages", () => {
     expect(actions).toContain("clamm_collect_fees");
     expect(actions).toContain("clamm_claim_reward");
 
-    // ADR: collect_fees event doesn't include metadata, so only amounts are available
+    // collect_fees event doesn't include metadata, so only amounts are available
     const collectMsg = decoded.messages.find(
       (m) => m.decodedMessage.action === "clamm_collect_fees"
     );

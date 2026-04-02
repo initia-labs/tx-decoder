@@ -26,7 +26,7 @@ export const usernameSetNameDecoder: MessageDecoder = {
     const parsed = zMsgUsernameSetName.parse(message);
     const { module_address, sender } = parsed;
 
-    // ADR: Use module_address from the message itself, not a hardcoded constant,
+    // Use module_address from the message itself, not a hardcoded constant,
     // to correctly match events regardless of which username module address was used.
     const event = findMoveEvent(
       log.events,
