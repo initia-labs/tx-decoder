@@ -162,6 +162,12 @@ export const zMsgDepositStakeLockLiquidity = zMsgMoveExecute.extend({
   module_name: z.literal("dex_utils")
 });
 
+export const zMsgProvideDelegateLiquidity = zMsgMoveExecute.extend({
+  function_name: z.literal("provide_delegate"),
+  module_address: z.enum(INITIA_VAULT_MODULE_ADDRESSES),
+  module_name: z.literal("lock_staking")
+});
+
 export const zMsgExtendLiquidity = zMsgMoveExecute.extend({
   function_name: z.literal("extend"),
   module_address: z.enum(INITIA_VAULT_MODULE_ADDRESSES),
