@@ -1,9 +1,4 @@
-import {
-  initialize,
-  mockedAxios,
-  resetMockApi,
-  setupMockApi
-} from "@/tests/_shared/helpers";
+import { initialize, mockedAxios, resetMockApi } from "@/tests/_shared/helpers";
 
 import { mock as mockExtendExpiration } from "./extend-expiration.fixture";
 import { mock as mockSetName } from "./set-name.fixture";
@@ -15,7 +10,6 @@ const decoder = initialize();
 describe("Username Messages", () => {
   beforeEach(() => {
     resetMockApi(mockedAxios);
-    setupMockApi(mockedAxios, { GET: {} });
   });
 
   it("should decode set_name with name from event", async () => {
@@ -25,6 +19,17 @@ describe("Username Messages", () => {
     expect(decoded.messages[0].decodedMessage.action).toBe("username_set_name");
     expect(decoded.messages[0].decodedMessage.data).toMatchObject({
       name: expect.any(String)
+    });
+    expect(decoded.messages[0].balanceChanges).toEqual({
+      ft: {},
+      object: {},
+      vm: "move"
+    });
+    expect(decoded.metadata).toEqual({ data: {}, type: "move" });
+    expect(decoded.totalBalanceChanges).toEqual({
+      ft: {},
+      object: {},
+      vm: "move"
     });
   });
 
@@ -38,6 +43,17 @@ describe("Username Messages", () => {
     expect(decoded.messages[0].decodedMessage.data).toMatchObject({
       name: expect.any(String)
     });
+    expect(decoded.messages[0].balanceChanges).toEqual({
+      ft: {},
+      object: {},
+      vm: "move"
+    });
+    expect(decoded.metadata).toEqual({ data: {}, type: "move" });
+    expect(decoded.totalBalanceChanges).toEqual({
+      ft: {},
+      object: {},
+      vm: "move"
+    });
   });
 
   it("should decode extend_expiration with domain name and expiration date", async () => {
@@ -50,6 +66,17 @@ describe("Username Messages", () => {
     expect(decoded.messages[0].decodedMessage.data).toMatchObject({
       domainName: expect.any(String),
       expirationDate: expect.any(String)
+    });
+    expect(decoded.messages[0].balanceChanges).toEqual({
+      ft: {},
+      object: {},
+      vm: "move"
+    });
+    expect(decoded.metadata).toEqual({ data: {}, type: "move" });
+    expect(decoded.totalBalanceChanges).toEqual({
+      ft: {},
+      object: {},
+      vm: "move"
     });
   });
 });

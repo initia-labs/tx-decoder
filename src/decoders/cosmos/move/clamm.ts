@@ -50,13 +50,20 @@ export const clammIncreaseLiquidityDecoder: MessageDecoder = {
       apiClient.findDenomFromMetadataAddr(event.metadata_1)
     ]);
 
+    if (!denom0) {
+      throw new Error(`Denom not found for metadata ${event.metadata_0}`);
+    }
+    if (!denom1) {
+      throw new Error(`Denom not found for metadata ${event.metadata_1}`);
+    }
+
     const decodedMessage: DecodedMessage = {
       action: "clamm_increase_liquidity",
       data: {
         amount0: event.amount_0,
         amount1: event.amount_1,
-        denom0: denom0 ?? event.metadata_0,
-        denom1: denom1 ?? event.metadata_1,
+        denom0,
+        denom1,
         from: sender,
         liquidity: event.liquidity
       },
@@ -95,13 +102,20 @@ export const clammRemoveLiquidityDecoder: MessageDecoder = {
       apiClient.findDenomFromMetadataAddr(event.metadata_1)
     ]);
 
+    if (!denom0) {
+      throw new Error(`Denom not found for metadata ${event.metadata_0}`);
+    }
+    if (!denom1) {
+      throw new Error(`Denom not found for metadata ${event.metadata_1}`);
+    }
+
     const decodedMessage: DecodedMessage = {
       action: "clamm_remove_liquidity",
       data: {
         amount0: event.amount_0,
         amount1: event.amount_1,
-        denom0: denom0 ?? event.metadata_0,
-        denom1: denom1 ?? event.metadata_1,
+        denom0,
+        denom1,
         from: sender,
         liquidityDelta: event.liquidity_delta
       },
@@ -134,7 +148,9 @@ export const clammCollectFeesDecoder: MessageDecoder = {
 
     // CollectFeesEvent may not be in the per-message log when collect_fees
     // is part of a compound tx — the event can end up in a different msg_index's log.
-    // CollectFeesEvent also only contains amounts without metadata (no denom info).
+    // CollectFeesEvent only contains amounts and pool_obj/position_obj — no metadata
+    // fields, so denom0/denom1 cannot be resolved without an extra API call to read
+    // the pool resource. The msg args also lack pool metadata.
     const decodedMessage: DecodedMessage = {
       action: "clamm_collect_fees",
       data: {
@@ -241,7 +257,7 @@ const decodeClammStake = async (
     },
     isIbc: false,
     isOp: false
-  } as DecodedMessage;
+  };
 };
 
 export const clammStakeEntryDecoder: MessageDecoder = {
@@ -356,13 +372,20 @@ export const clammProvideConcentratedDecoder: MessageDecoder = {
       apiClient.findDenomFromMetadataAddr(event.metadata_1)
     ]);
 
+    if (!denom0) {
+      throw new Error(`Denom not found for metadata ${event.metadata_0}`);
+    }
+    if (!denom1) {
+      throw new Error(`Denom not found for metadata ${event.metadata_1}`);
+    }
+
     const decodedMessage: DecodedMessage = {
       action: "clamm_provide_and_stake",
       data: {
         amount0: event.amount_0,
         amount1: event.amount_1,
-        denom0: denom0 ?? event.metadata_0,
-        denom1: denom1 ?? event.metadata_1,
+        denom0,
+        denom1,
         from: sender,
         liquidity: event.liquidity
       },

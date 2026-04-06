@@ -443,4 +443,4 @@ export const mock = {
     ]
   },
   txhash: "B80F30E8958E9FCF9810E040BF1C3CBFE47A3763D0B680EDC130D5DB13407113"
-} as const;
+};
