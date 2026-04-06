@@ -19,7 +19,8 @@ import {
   zMsgClammStakeTokenToAll,
   zMsgClammUnstakeThenWithdraw,
   zMsgMoveExecute,
-  zMsgMoveScript
+  zMsgMoveScript,
+  zWithdrawEvent
 } from "@/schema";
 import { findAllMoveEvents, findMoveEvent } from "@/utils";
 
@@ -133,7 +134,7 @@ export const clammCollectFeesDecoder: MessageDecoder = {
   decode: async (
     message: Message,
     log: Log,
-    _apiClient: ApiClient,
+    apiClient: ApiClient,
     _txResponse: TxResponse,
     _vm: VmType
   ) => {
@@ -146,16 +147,39 @@ export const clammCollectFeesDecoder: MessageDecoder = {
       zClammCollectFeesEvent
     );
 
-    // CollectFeesEvent may not be in the per-message log when collect_fees
-    // is part of a compound tx — the event can end up in a different msg_index's log.
-    // CollectFeesEvent only contains amounts and pool_obj/position_obj — no metadata
-    // fields, so denom0/denom1 cannot be resolved without an extra API call to read
-    // the pool resource. The msg args also lack pool metadata.
+    // Resolve denoms by matching WithdrawEvent amounts to CollectFeesEvent amounts.
+    // Each msg has its own log, so only this msg's events are present.
+    const withdrawEvents = findAllMoveEvents(
+      log.events,
+      "0x1::coin::WithdrawEvent",
+      zWithdrawEvent
+    );
+
+    // Match withdraw events to amount_0/amount_1 by amount value
+    const amount0 = event?.amount_0 ?? "0";
+    const amount1 = event?.amount_1 ?? "0";
+    const withdraw0 = withdrawEvents.find((e) => e.amount === amount0);
+    const withdraw1 = withdrawEvents.find(
+      (e) =>
+        e.amount === amount1 && e.metadata_addr !== withdraw0?.metadata_addr
+    );
+
+    const [denom0, denom1] = await Promise.all([
+      withdraw0
+        ? apiClient.findDenomFromMetadataAddr(withdraw0.metadata_addr)
+        : null,
+      withdraw1
+        ? apiClient.findDenomFromMetadataAddr(withdraw1.metadata_addr)
+        : null
+    ]);
+
     const decodedMessage: DecodedMessage = {
       action: "clamm_collect_fees",
       data: {
-        amount0: event?.amount_0 ?? "0",
-        amount1: event?.amount_1 ?? "0",
+        amount0,
+        amount1,
+        denom0: denom0 ?? undefined,
+        denom1: denom1 ?? undefined,
         from: sender
       },
       isIbc: false,

@@ -768,6 +768,8 @@ interface DecodedClammCollectFeesMessage extends DecodedMessageBase {
   data: {
     amount0: string;
     amount1: string;
+    denom0?: string;
+    denom1?: string;
     from: string;
   };
 }
