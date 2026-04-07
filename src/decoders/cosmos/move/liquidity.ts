@@ -1,7 +1,7 @@
 import big from "big.js";
 
 import { ApiClient } from "@/api";
-import { INITIA_VAULT_MODULE_ADDRESS } from "@/constants";
+import { INITIA_VAULT_MODULE_ADDRESSES } from "@/constants";
 import { DecodedMessage, MessageDecoder } from "@/interfaces";
 import {
   Log,
@@ -245,10 +245,19 @@ export const depositStakeLockLiquidityDecoder: MessageDecoder = {
       throw new Error("Validator is missing from the delegate event");
     }
 
-    const depositDelegationEvent = findMoveEvent(
-      log.events,
-      `${INITIA_VAULT_MODULE_ADDRESS}::lock_staking::DepositDelegationEvent`,
-      zDepositDelegationEvent
+    // The message targets dex_utils, but the event comes from the vault module.
+    // Try all known vault addresses to support both mainnet and testnet.
+    const depositDelegationEvent = INITIA_VAULT_MODULE_ADDRESSES.reduce<
+      ReturnType<typeof findMoveEvent<typeof zDepositDelegationEvent>>
+    >(
+      (found, addr) =>
+        found ??
+        findMoveEvent(
+          log.events,
+          `${addr}::lock_staking::DepositDelegationEvent`,
+          zDepositDelegationEvent
+        ),
+      null
     );
     if (!depositDelegationEvent) {
       throw new Error("DepositDelegationEvent not found");
@@ -313,11 +322,11 @@ export const extendLiquidityDecoder: MessageDecoder = {
     _txResponse: TxResponse
   ) => {
     const parsed = zMsgExtendLiquidity.parse(message);
-    const { sender } = parsed;
+    const { module_address, sender } = parsed;
 
     const withdrawDelegationEvent = findMoveEvent(
       log.events,
-      `${INITIA_VAULT_MODULE_ADDRESS}::lock_staking::WithdrawDelegationEvent`,
+      `${module_address}::lock_staking::WithdrawDelegationEvent`,
       zWithdrawDelegationEvent
     );
     if (!withdrawDelegationEvent) {
@@ -326,7 +335,7 @@ export const extendLiquidityDecoder: MessageDecoder = {
 
     const depositDelegationEvent = findMoveEvent(
       log.events,
-      `${INITIA_VAULT_MODULE_ADDRESS}::lock_staking::DepositDelegationEvent`,
+      `${module_address}::lock_staking::DepositDelegationEvent`,
       zDepositDelegationEvent
     );
     if (!depositDelegationEvent) {
@@ -373,11 +382,11 @@ export const mergeLiquidityDecoder: MessageDecoder = {
     _txResponse: TxResponse
   ) => {
     const parsed = zMsgMergeLiquidity.parse(message);
-    const { sender } = parsed;
+    const { module_address, sender } = parsed;
 
     const withdrawDelegationEvents = findAllMoveEvents(
       log.events,
-      `${INITIA_VAULT_MODULE_ADDRESS}::lock_staking::WithdrawDelegationEvent`,
+      `${module_address}::lock_staking::WithdrawDelegationEvent`,
       zWithdrawDelegationEvent
     );
     if (withdrawDelegationEvents.length === 0) {
@@ -396,7 +405,7 @@ export const mergeLiquidityDecoder: MessageDecoder = {
 
     const depositDelegationEvent = findMoveEvent(
       log.events,
-      `${INITIA_VAULT_MODULE_ADDRESS}::lock_staking::DepositDelegationEvent`,
+      `${module_address}::lock_staking::DepositDelegationEvent`,
       zDepositDelegationEvent
     );
     if (!depositDelegationEvent) {

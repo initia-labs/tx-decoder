@@ -1,7 +1,6 @@
 import big from "big.js";
 
 import { ApiClient } from "@/api";
-import { INITIA_VAULT_MODULE_ADDRESS } from "@/constants";
 import { DecodedMessage, MessageDecoder } from "@/interfaces";
 import {
   Log,
@@ -28,7 +27,7 @@ export const vipClaimEsinitDecoder: MessageDecoder = {
     _txResponse: TxResponse
   ) => {
     const parsed = zMsgVipClaimEsinit.parse(message);
-    const { sender } = parsed;
+    const { module_address, sender } = parsed;
     const denom = "uinit";
 
     const depositEvent = findMoveEvent(
@@ -39,7 +38,7 @@ export const vipClaimEsinitDecoder: MessageDecoder = {
 
     const userVestingCreateEvent = findMoveEvent(
       log.events,
-      `${INITIA_VAULT_MODULE_ADDRESS}::vesting::UserVestingCreateEvent`,
+      `${module_address}::vesting::UserVestingCreateEvent`,
       zUserVestingCreateEvent
     );
     if (!userVestingCreateEvent) {
@@ -96,11 +95,11 @@ export const vipGaugeVoteDecoder: MessageDecoder = {
     _txResponse: TxResponse
   ) => {
     const parsed = zMsgVipGaugeVote.parse(message);
-    const { sender } = parsed;
+    const { module_address, sender } = parsed;
 
     const voteEvent = findMoveEvent(
       log.events,
-      `${INITIA_VAULT_MODULE_ADDRESS}::weight_vote::VoteEvent`,
+      `${module_address}::weight_vote::VoteEvent`,
       zVoteEvent
     );
 
@@ -153,10 +152,10 @@ export const vipLockStakeDecoder: MessageDecoder = {
     if (!parsed.success) {
       throw new Error("Invalid VIP lock stake message");
     }
-    const { sender } = parsed.data;
+    const { module_address, sender } = parsed.data;
     const depositDelegationEvent = findMoveEvent(
       log.events,
-      `${INITIA_VAULT_MODULE_ADDRESS}::lock_staking::DepositDelegationEvent`,
+      `${module_address}::lock_staking::DepositDelegationEvent`,
       zDepositDelegationEvent
     );
     if (!depositDelegationEvent) {
