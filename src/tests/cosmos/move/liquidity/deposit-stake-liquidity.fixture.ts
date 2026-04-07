@@ -191,7 +191,8 @@ export const mockMsgDepositStakeLiquidity = {
         {
           index: true,
           key: "module_addr",
-          value: "0xb6bf50aa9d5f827458a5424d41ef81a4ef8d7fd0"
+          value:
+            "0xb845fba0d0072c282f6284465933c4b32b1a0d4071604935a7a8d999c85d01fb"
         },
         {
           index: true,
@@ -634,7 +635,8 @@ export const mockMsgDepositStakeLiquidity = {
             "MmluaXR2YWxvcGVyMXF4NmdoeXY4M2NhZWN1eGdsNzdsdmxuaGE5ZDl5NmZudHJ5Yzhh"
           ],
           function_name: "unproportional_provide_stake",
-          module_address: "0xb6bf50aa9d5f827458a5424d41ef81a4ef8d7fd0",
+          module_address:
+            "0xb845fba0d0072c282f6284465933c4b32b1a0d4071604935a7a8d999c85d01fb",
           module_name: "dex_utils",
           sender: "init15j9nswsatns09fnru6ww9jjljg07r87kr56mdc",
           type_args: []
