@@ -123,7 +123,7 @@ export const zMsgClaimMinitswap = zMsgMoveExecute.extend({
 
 // Liquidity related Move messages
 export const zMsgDepositStakeLiquidity = zMsgMoveExecute.extend({
-  function_name: z.literal("unproportional_provide_stake"),
+  function_name: z.enum(["unproportional_provide_stake", "provide_stake"]),
   module_address: z.enum(DEX_UTILS_MODULE_ADDRESSES),
   module_name: z.literal("dex_utils")
 });

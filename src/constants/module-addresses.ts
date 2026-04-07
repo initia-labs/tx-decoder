@@ -4,7 +4,8 @@ export const USERNAME_MODULE_ADDRESSES = [
 ] as const;
 
 export const DEX_UTILS_MODULE_ADDRESSES = [
-  "0xb845fba0d0072c282f6284465933c4b32b1a0d4071604935a7a8d999c85d01fb", // mainnet
+  "0xb6bf50aa9d5f827458a5424d41ef81a4ef8d7fd0", // mainnet (legacy)
+  "0xb845fba0d0072c282f6284465933c4b32b1a0d4071604935a7a8d999c85d01fb", // mainnet (current)
   "0x42cd8467b1c86e59bf319e5664a09b6b5840bb3fac64f5ce690b5041c530565a" // testnet
 ] as const;
 

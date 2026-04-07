@@ -37,4 +37,4 @@ yarn-error.log*
 
 */**tests/_output
 
-.claude*.tgz
+.claude
