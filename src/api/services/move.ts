@@ -5,6 +5,7 @@ import { z } from "zod";
 import type {
   AccountResource,
   CollectionResource,
+  MoveViewResponse,
   NftResource
 } from "@/schema";
 
@@ -106,7 +107,7 @@ export class MoveClient extends BaseClient {
     moduleName: string,
     args: string[],
     typeArgs: string[]
-  ) {
+  ): Promise<MoveViewResponse["data"]> {
     const url = `${this.baseUrl}/initia/move/v1/view/json`;
     const payload = {
       address,

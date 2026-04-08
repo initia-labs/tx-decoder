@@ -82,7 +82,7 @@ export class ApiClient {
       return { amount: convertedAmount, denom: evmDenom };
     } catch (error) {
       console.error(
-        `Failed to convert denom '${denom}' to EVM denom. Falling back to original denom.`,
+        `Failed to convert denom '${denom}' to EVM denom. Falling back to original amount and denom.`,
         error
       );
       return { amount, denom };
