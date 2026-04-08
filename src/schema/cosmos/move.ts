@@ -201,25 +201,19 @@ export const zMsgStableswapProvideLiquidity = zMsgMoveExecute.extend({
 // Username related Move messages
 export const zMsgUsernameSetName = zMsgMoveExecute.extend({
   function_name: z.literal("set_name"),
-  module_address: z
-    .string()
-    .refine((address) => USERNAME_MODULE_ADDRESSES.includes(address)),
+  module_address: z.enum(USERNAME_MODULE_ADDRESSES),
   module_name: z.literal("usernames")
 });
 
 export const zMsgUsernameUnsetName = zMsgMoveExecute.extend({
   function_name: z.literal("unset_name"),
-  module_address: z
-    .string()
-    .refine((address) => USERNAME_MODULE_ADDRESSES.includes(address)),
+  module_address: z.enum(USERNAME_MODULE_ADDRESSES),
   module_name: z.literal("usernames")
 });
 
 export const zMsgUsernameExtendExpiration = zMsgMoveExecute.extend({
   function_name: z.literal("extend_expiration"),
-  module_address: z
-    .string()
-    .refine((address) => USERNAME_MODULE_ADDRESSES.includes(address)),
+  module_address: z.enum(USERNAME_MODULE_ADDRESSES),
   module_name: z.literal("usernames")
 });
 
