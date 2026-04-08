@@ -100,7 +100,7 @@ export class MoveClient extends BaseClient {
     }
   }
 
-  public async viewMoveContract(
+  public viewMoveContract(
     address: string,
     functionName: string,
     moduleName: string,
@@ -108,44 +108,25 @@ export class MoveClient extends BaseClient {
     typeArgs: string[]
   ) {
     const url = `${this.baseUrl}/initia/move/v1/view/json`;
-    const cacheKey = JSON.stringify({
-      payload: {
-        address,
-        args,
-        function_name: functionName,
-        module_name: moduleName,
-        type_args: typeArgs
-      },
-      url
-    });
+    const payload = {
+      address,
+      args,
+      function_name: functionName,
+      module_name: moduleName,
+      type_args: typeArgs
+    };
+    const cacheKey = JSON.stringify({ payload, url });
 
-    const cachedData = this.cacheService.get(cacheKey);
-    const parsedCache = schema.zMoveViewResponse.safeParse(cachedData);
-
-    if (parsedCache.success) {
-      return parsedCache.data.data;
-    }
-
-    try {
-      const response = await axios.post(
-        url,
-        {
-          address,
-          args,
-          function_name: functionName,
-          module_name: moduleName,
-          type_args: typeArgs
-        },
-        {
+    return this.cacheService.getOrFetch(cacheKey, async () => {
+      try {
+        const response = await axios.post(url, payload, {
           timeout: this.timeoutMs
-        }
-      );
-
-      const result = schema.zMoveViewResponse.parse(response.data);
-      this.cacheService.set(cacheKey, result);
-      return result.data;
-    } catch {
-      return null;
-    }
+        });
+        return schema.zMoveViewResponse.parse(response.data).data;
+      } catch (error) {
+        console.error(`Failed to view Move contract at ${url}:`, error);
+        throw error;
+      }
+    });
   }
 }

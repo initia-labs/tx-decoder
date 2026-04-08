@@ -12,30 +12,18 @@ export class BaseClient {
     protected readonly timeoutMs: number = BaseClient.DEFAULT_TIMEOUT_MS
   ) {}
 
-  protected async fetchWithCache<T>(
-    path: string,
-    parser: z.ZodType<T>
-  ): Promise<T> {
+  protected fetchWithCache<T>(path: string, parser: z.ZodType<T>): Promise<T> {
     const fullUrl = `${this.baseUrl}${path}`;
-    const cached = this.cacheService.get<T>(fullUrl);
-    if (cached !== undefined) {
+    return this.cacheService.getOrFetch(fullUrl, async () => {
       try {
-        return parser.parse(cached);
-      } catch {
-        this.cacheService.delete(fullUrl);
+        const response = await axios.get(fullUrl, {
+          timeout: this.timeoutMs
+        });
+        return parser.parse(response.data);
+      } catch (error) {
+        console.error(`Failed to fetch or parse data from ${fullUrl}:`, error);
+        throw error;
       }
-    }
-
-    try {
-      const response = await axios.get(fullUrl, {
-        timeout: this.timeoutMs
-      });
-      const parsed = parser.parse(response.data);
-      this.cacheService.set(fullUrl, parsed);
-      return parsed;
-    } catch (error) {
-      console.error(`Failed to fetch or parse data from ${fullUrl}:`, error);
-      throw error;
-    }
+    });
   }
 }

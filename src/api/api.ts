@@ -74,27 +74,11 @@ export class ApiClient {
     denom: string;
   }): Promise<{ amount: string; denom: string }> {
     const convertedAmount = big(amount).mul(EVM_AMOUNT_MULTIPLIER).toFixed(0);
-    const cacheKey = `evm-denom:${denom}`;
-    const cached = this.cacheService.get<string>(cacheKey);
-    if (cached)
-      return {
-        amount: convertedAmount,
-        denom: cached
-      };
-
     try {
-      const [remoteTokenAddress, erc20WrapperAddress] = await Promise.all([
-        this.minievmClient.fetchRemoteTokenAddress(denom),
-        this.minievmClient.fetchErc20WrapperAddress()
-      ]);
-
-      const evmTokenAddress = await this.evmService.getEvmTokenAddress(
-        erc20WrapperAddress,
-        remoteTokenAddress
+      const evmDenom = await this.cacheService.getOrFetch(
+        `evm-denom:${denom}`,
+        () => this._resolveEvmDenom(denom)
       );
-
-      const evmDenom = getEvmDenom(evmTokenAddress);
-      this.cacheService.set(cacheKey, evmDenom);
       return { amount: convertedAmount, denom: evmDenom };
     } catch (error) {
       console.error(
@@ -163,5 +147,19 @@ export class ApiClient {
 
   public async isErc721Contract(contractAddress: string): Promise<boolean> {
     return this.evmService.isErc721Contract(contractAddress);
+  }
+
+  private async _resolveEvmDenom(denom: string): Promise<string> {
+    const [remoteTokenAddress, erc20WrapperAddress] = await Promise.all([
+      this.minievmClient.fetchRemoteTokenAddress(denom),
+      this.minievmClient.fetchErc20WrapperAddress()
+    ]);
+
+    const evmTokenAddress = await this.evmService.getEvmTokenAddress(
+      erc20WrapperAddress,
+      remoteTokenAddress
+    );
+
+    return getEvmDenom(evmTokenAddress);
   }
 }
