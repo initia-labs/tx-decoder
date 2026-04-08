@@ -47,6 +47,7 @@ export const cosmosMoveMessageDecoders: MessageDecoder[] = [
   Decoders.directDepositLiquidityDecoder,
   Decoders.depositStakeLiquidityDecoder,
   Decoders.depositStakeLockLiquidityDecoder,
+  Decoders.provideStakeLiquidityDecoder,
   Decoders.dexSwapDecoder,
   Decoders.extendLiquidityDecoder,
   Decoders.finalizeTokenWithdrawalDecoder,

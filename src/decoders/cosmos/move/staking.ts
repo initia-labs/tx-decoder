@@ -1,5 +1,4 @@
 import { ApiClient } from "@/api";
-import { INITIA_VAULT_MODULE_ADDRESS } from "@/constants";
 import { DecodedMessage, MessageDecoder } from "@/interfaces";
 import {
   Log,
@@ -27,10 +26,10 @@ export const delegateLockedDecoder: MessageDecoder = {
     if (!parsed.success) {
       throw new Error("Invalid delegate locked message");
     }
-    const { sender } = parsed.data;
+    const { module_address, sender } = parsed.data;
     const delegateLockedEvent = findMoveEvent(
       log.events,
-      `${INITIA_VAULT_MODULE_ADDRESS}::lock_staking::DepositDelegationEvent`,
+      `${module_address}::lock_staking::DepositDelegationEvent`,
       zDepositDelegationEvent
     );
     if (!delegateLockedEvent) {
@@ -86,10 +85,10 @@ export const undelegateLockedDecoder: MessageDecoder = {
     if (!parsed.success) {
       throw new Error("Invalid undelegate locked message");
     }
-    const { sender } = parsed.data;
+    const { module_address, sender } = parsed.data;
     const undelegateLockedEvent = findMoveEvent(
       log.events,
-      `${INITIA_VAULT_MODULE_ADDRESS}::lock_staking::WithdrawDelegationEvent`,
+      `${module_address}::lock_staking::WithdrawDelegationEvent`,
       zWithdrawDelegationEvent
     );
     if (!undelegateLockedEvent) {
@@ -145,11 +144,11 @@ export const redelegateLockedDecoder: MessageDecoder = {
     if (!parsed.success) {
       throw new Error("Invalid redelegate locked message");
     }
-    const { sender } = parsed.data;
+    const { module_address, sender } = parsed.data;
 
     const withdrawDelegationEvent = findMoveEvent(
       log.events,
-      `${INITIA_VAULT_MODULE_ADDRESS}::lock_staking::WithdrawDelegationEvent`,
+      `${module_address}::lock_staking::WithdrawDelegationEvent`,
       zWithdrawDelegationEvent
     );
     if (!withdrawDelegationEvent) {
@@ -160,7 +159,7 @@ export const redelegateLockedDecoder: MessageDecoder = {
 
     const delegateLockedEvent = findMoveEvent(
       log.events,
-      `${INITIA_VAULT_MODULE_ADDRESS}::lock_staking::DepositDelegationEvent`,
+      `${module_address}::lock_staking::DepositDelegationEvent`,
       zDepositDelegationEvent
     );
     if (!delegateLockedEvent) {
