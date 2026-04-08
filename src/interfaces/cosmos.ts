@@ -21,6 +21,7 @@ export type MoveDecodedMessage =
   | DecodedNftMintMessage
   | DecodedObjectTransferMessage
   | DecodedProvideStableswapMessage
+  | DecodedProvideStakeLiquidityMessage
   | DecodedRedelegateMessage
   | DecodedSwapMessage
   | DecodedUndelegateMessage
@@ -538,6 +539,21 @@ interface DecodedWithdrawLiquidityMessage extends DecodedMessageBase {
 
 interface DecodedDepositStakeLiquidityMessage extends DecodedMessageBase {
   action: "deposit_stake_liquidity";
+  data: {
+    amountA: string;
+    amountB: string;
+    denomA: string;
+    denomB: string;
+    from: string;
+    liquidity: string;
+    liquidityDenom: string;
+    validator: Validator | null;
+    validatorAddress: string;
+  };
+}
+
+interface DecodedProvideStakeLiquidityMessage extends DecodedMessageBase {
+  action: "provide_stake_liquidity";
   data: {
     amountA: string;
     amountB: string;

@@ -289,7 +289,7 @@ describe("Deposit Liquidity Message", () => {
 
     expect(decoded.messages).toHaveLength(1);
     expect(decoded.messages[0].decodedMessage).toEqual({
-      action: "deposit_stake_liquidity",
+      action: "provide_stake_liquidity",
       data: {
         amountA: "4000000",
         amountB: "17001940",
@@ -329,7 +329,7 @@ describe("Deposit Liquidity Message", () => {
 
     expect(decoded.messages).toHaveLength(1);
     expect(decoded.messages[0].decodedMessage).toEqual({
-      action: "deposit_stake_liquidity",
+      action: "provide_stake_liquidity",
       data: {
         amountA: "122380",
         amountB: "5972586",

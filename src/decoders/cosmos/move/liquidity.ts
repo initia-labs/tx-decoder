@@ -15,6 +15,7 @@ import {
   zMsgDirectDepositLiquidity,
   zMsgExtendLiquidity,
   zMsgMergeLiquidity,
+  zMsgProvideStakeLiquidity,
   zMsgWithdrawLiquidity,
   zProvideEvent,
   zWithdrawDelegationEvent
@@ -195,6 +196,79 @@ export const depositStakeLiquidityDecoder: MessageDecoder = {
 
     const decodedMessage: DecodedMessage = {
       action: "deposit_stake_liquidity",
+      data: {
+        amountA: provideEvent.coin_a_amount,
+        amountB: provideEvent.coin_b_amount,
+        denomA,
+        denomB,
+        from: sender,
+        liquidity: provideEvent.liquidity,
+        liquidityDenom,
+        validator: validatorData,
+        validatorAddress
+      },
+      isIbc: false,
+      isOp: false
+    };
+
+    return decodedMessage;
+  }
+};
+
+export const provideStakeLiquidityDecoder: MessageDecoder = {
+  check: (message: Message, _log: Log) =>
+    zMsgProvideStakeLiquidity.safeParse(message).success,
+  decode: async (
+    message: Message,
+    log: Log,
+    apiClient: ApiClient,
+    _txResponse: TxResponse
+  ) => {
+    const parsed = zMsgProvideStakeLiquidity.parse(message);
+    const { sender } = parsed;
+
+    const provideEvent = findMoveEvent(
+      log.events,
+      "0x1::dex::ProvideEvent",
+      zProvideEvent
+    );
+    if (!provideEvent) {
+      throw new Error("Provide event not found");
+    }
+
+    const delegateEvent = log.events.find((event) => event.type === "delegate");
+
+    const validatorAddress = delegateEvent?.attributes.find(
+      (attr) => attr.key === "validator"
+    )?.value;
+
+    if (!validatorAddress) {
+      throw new Error("Validator is missing from the delegate event");
+    }
+
+    const [denomA, denomB, liquidityDenom, validatorData] = await Promise.all([
+      apiClient.findDenomFromMetadataAddr(provideEvent.coin_a),
+      apiClient.findDenomFromMetadataAddr(provideEvent.coin_b),
+      apiClient.findDenomFromMetadataAddr(provideEvent.liquidity_token),
+      apiClient.findValidator(validatorAddress)
+    ]);
+
+    if (!denomA) {
+      throw new Error(`Denom A not found for coin ${provideEvent.coin_a}`);
+    }
+
+    if (!denomB) {
+      throw new Error(`Denom B not found for coin ${provideEvent.coin_b}`);
+    }
+
+    if (!liquidityDenom) {
+      throw new Error(
+        `Liquidity denom not found for token ${provideEvent.liquidity_token}`
+      );
+    }
+
+    const decodedMessage: DecodedMessage = {
+      action: "provide_stake_liquidity",
       data: {
         amountA: provideEvent.coin_a_amount,
         amountB: provideEvent.coin_b_amount,
