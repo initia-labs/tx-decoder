@@ -220,4 +220,11 @@ describe("CLAMM Messages", () => {
       rewards: expect.any(Array)
     });
   });
+
+  // Error case test (pool resource fetch failure) is not feasible here because
+  // the shared decoder instance caches resource lookups across tests.
+  // Guard clauses in the decoder ensure clear error messages for:
+  // - poolResources null → "Failed to fetch resources for pool ..."
+  // - poolResource not found → "Pool resource not found at ..."
+  // - poolData parse failure → Zod validation error
 });

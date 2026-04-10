@@ -51,6 +51,16 @@ export const zNftResource = zJsonString.pipe(
 );
 export type NftResource = z.infer<typeof zNftResource>;
 
+export const zClammPoolResource = zJsonString.pipe(
+  z.object({
+    data: z.object({
+      metadata_0: z.object({ inner: z.string() }),
+      metadata_1: z.object({ inner: z.string() })
+    }),
+    type: z.string()
+  })
+);
+
 export const zCollectionResource = zJsonString.pipe(
   z.object({
     data: z.object({

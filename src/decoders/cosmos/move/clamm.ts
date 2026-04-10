@@ -8,6 +8,7 @@ import {
   zClammClaimTokenEvent,
   zClammCollectFeesEvent,
   zClammIncreaseLiquidityEvent,
+  zClammPoolResource,
   zClammRemoveLiquidityEvent,
   zClammStakeEvent,
   zClammUnstakeEvent,
@@ -152,26 +153,35 @@ export const clammCollectFeesDecoder: MessageDecoder = {
     // Resolve denoms from pool resource metadata instead of matching
     // WithdrawEvent amounts — avoids edge cases when amounts collide.
     const poolResources = await apiClient.getAccountResources(event.pool_obj);
-    const poolResource = poolResources?.find(
+    if (!poolResources) {
+      throw new Error(`Failed to fetch resources for pool ${event.pool_obj}`);
+    }
+
+    const poolResource = poolResources.find(
       (r) => r.struct_tag === `${module_address}::pool::Pool`
     );
-    const poolData = poolResource
-      ? JSON.parse(poolResource.move_resource)?.data
-      : null;
+    if (!poolResource) {
+      throw new Error(
+        `Pool resource not found at ${event.pool_obj} (expected ${module_address}::pool::Pool)`
+      );
+    }
 
-    const metadata0 = poolData?.metadata_0?.inner;
-    const metadata1 = poolData?.metadata_1?.inner;
+    const poolData = zClammPoolResource.parse(poolResource.move_resource);
 
     const [denom0, denom1] = await Promise.all([
-      metadata0 ? apiClient.findDenomFromMetadataAddr(metadata0) : null,
-      metadata1 ? apiClient.findDenomFromMetadataAddr(metadata1) : null
+      apiClient.findDenomFromMetadataAddr(poolData.data.metadata_0.inner),
+      apiClient.findDenomFromMetadataAddr(poolData.data.metadata_1.inner)
     ]);
 
     if (!denom0) {
-      throw new Error(`Denom not found for pool metadata_0`);
+      throw new Error(
+        `Denom not found for metadata ${poolData.data.metadata_0.inner}`
+      );
     }
     if (!denom1) {
-      throw new Error(`Denom not found for pool metadata_1`);
+      throw new Error(
+        `Denom not found for metadata ${poolData.data.metadata_1.inner}`
+      );
     }
 
     const decodedMessage: DecodedMessage = {
