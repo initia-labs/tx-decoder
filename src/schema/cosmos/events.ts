@@ -249,12 +249,14 @@ export const zClammRemoveLiquidityEvent = zJsonString.pipe(
   })
 );
 
+// On-chain event uses either position_obj or token_obj depending on the contract version.
 export const zClammCollectFeesEvent = zJsonString.pipe(
   z.object({
     amount_0: z.string(),
     amount_1: z.string(),
     pool_obj: z.string(),
-    position_obj: z.string()
+    position_obj: z.string().optional(),
+    token_obj: z.string().optional()
   })
 );
 

@@ -412,6 +412,27 @@ The decoder returns a structured object with the following format:
 - `<module_address>::lock_staking::extend` - Extend lock period
 - `<module_address>::lock_staking::batch_extend` - Batch extend lock periods
 
+**CLAMM (Concentrated Liquidity):**
+
+- `<module_address>::scripts::increase_liquidity` - Add concentrated liquidity
+- `<module_address>::scripts::remove_liquidity` - Remove concentrated liquidity
+- `<module_address>::scripts::collect_fees` - Collect trading fees
+- `<module_address>::farming::unstake_then_withdraw` - Unstake and withdraw CLAMM position
+- `<module_address>::farming::stake_entry` - Stake CLAMM position
+- `<module_address>::farming::stake_token_to_all_viable_incentives` - Stake to all incentives
+- `<module_address>::farming::claim_token_reward_entry` - Claim CLAMM rewards
+- `/initia.move.v1.MsgScript` - Provide concentrated liquidity and stake (custom bytecode)
+
+**Lock Staking (Provide & Delegate):**
+
+- `<module_address>::lock_staking::provide_delegate` - Provide liquidity and delegate in one transaction
+
+**Usernames:**
+
+- `<module_address>::usernames::set_name` - Set username
+- `<module_address>::usernames::unset_name` - Remove username
+- `<module_address>::usernames::extend_expiration` - Extend username expiration
+
 **VIP (Voting Incentive Program):**
 
 - `<module_address>::vip::batch_claim_user_reward_script` - Claim VIP rewards

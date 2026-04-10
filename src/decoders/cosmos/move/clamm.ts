@@ -19,8 +19,7 @@ import {
   zMsgClammStakeTokenToAll,
   zMsgClammUnstakeThenWithdraw,
   zMsgMoveExecute,
-  zMsgMoveScript,
-  zWithdrawEvent
+  zMsgMoveScript
 } from "@/schema";
 import { findAllMoveEvents, findMoveEvent } from "@/utils";
 
@@ -146,40 +145,42 @@ export const clammCollectFeesDecoder: MessageDecoder = {
       `${module_address}::pool::CollectFeesEvent`,
       zClammCollectFeesEvent
     );
+    if (!event) {
+      throw new Error("CollectFeesEvent not found");
+    }
 
-    // Resolve denoms by matching WithdrawEvent amounts to CollectFeesEvent amounts.
-    // Each msg has its own log, so only this msg's events are present.
-    const withdrawEvents = findAllMoveEvents(
-      log.events,
-      "0x1::coin::WithdrawEvent",
-      zWithdrawEvent
+    // Resolve denoms from pool resource metadata instead of matching
+    // WithdrawEvent amounts — avoids edge cases when amounts collide.
+    const poolResources = await apiClient.getAccountResources(event.pool_obj);
+    const poolResource = poolResources?.find(
+      (r) => r.struct_tag === `${module_address}::pool::Pool`
     );
+    const poolData = poolResource
+      ? JSON.parse(poolResource.move_resource)?.data
+      : null;
 
-    // Match withdraw events to amount_0/amount_1 by amount value
-    const amount0 = event?.amount_0 ?? "0";
-    const amount1 = event?.amount_1 ?? "0";
-    const withdraw0 = withdrawEvents.find((e) => e.amount === amount0);
-    const withdraw1 = withdrawEvents.find(
-      (e) =>
-        e.amount === amount1 && e.metadata_addr !== withdraw0?.metadata_addr
-    );
+    const metadata0 = poolData?.metadata_0?.inner;
+    const metadata1 = poolData?.metadata_1?.inner;
 
     const [denom0, denom1] = await Promise.all([
-      withdraw0
-        ? apiClient.findDenomFromMetadataAddr(withdraw0.metadata_addr)
-        : null,
-      withdraw1
-        ? apiClient.findDenomFromMetadataAddr(withdraw1.metadata_addr)
-        : null
+      metadata0 ? apiClient.findDenomFromMetadataAddr(metadata0) : null,
+      metadata1 ? apiClient.findDenomFromMetadataAddr(metadata1) : null
     ]);
+
+    if (!denom0) {
+      throw new Error(`Denom not found for pool metadata_0`);
+    }
+    if (!denom1) {
+      throw new Error(`Denom not found for pool metadata_1`);
+    }
 
     const decodedMessage: DecodedMessage = {
       action: "clamm_collect_fees",
       data: {
-        amount0,
-        amount1,
-        denom0: denom0 ?? undefined,
-        denom1: denom1 ?? undefined,
+        amount0: event.amount_0,
+        amount1: event.amount_1,
+        denom0,
+        denom1,
         from: sender
       },
       isIbc: false,
