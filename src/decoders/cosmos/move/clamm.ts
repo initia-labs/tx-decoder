@@ -184,6 +184,8 @@ export const clammCollectFeesDecoder: MessageDecoder = {
       );
     }
 
+    // amount_0/amount_1 correspond to metadata_0/metadata_1 in the pool resource.
+    // The CLAMM contract enforces this ordering — token0 < token1 by metadata address.
     const decodedMessage: DecodedMessage = {
       action: "clamm_collect_fees",
       data: {
@@ -230,8 +232,10 @@ export const clammUnstakeThenWithdrawDecoder: MessageDecoder = {
     );
 
     // Resolve reward denom from metadata, consistent with claimTokenRewardDecoder.
-    // Fallback to raw metadata if denom resolution fails — unlike dex/liquidity decoders
-    // which throw, because claimed rewards with amount "0" may have unresolvable metadata.
+    // Fallback to raw metadata address if denom resolution fails — rewards with
+    // amount "0" may reference metadata that no longer resolves to a denom.
+    // Consumers should check if denom looks like a metadata address (starts with "0x")
+    // before displaying it to users.
     const claimedRewards = await Promise.all(
       claimEvents.map(async (e) => {
         const denom = await apiClient.findDenomFromMetadataAddr(
@@ -329,8 +333,10 @@ export const clammClaimTokenRewardDecoder: MessageDecoder = {
       throw new Error("ClaimTokenEvent not found");
     }
 
-    // Fallback to raw metadata if denom resolution fails — rewards with
+    // Fallback to raw metadata address if denom resolution fails — rewards with
     // amount "0" may reference metadata that no longer resolves to a denom.
+    // Consumers should check if denom looks like a metadata address (starts with "0x")
+    // before displaying it to users.
     const rewards = await Promise.all(
       claimEvents.map(async (e) => {
         const denom = await apiClient.findDenomFromMetadataAddr(

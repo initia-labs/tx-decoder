@@ -34,12 +34,13 @@ export const usernameSetNameDecoder: MessageDecoder = {
       zUsernameSetEvent
     );
     if (!event) {
-      throw new Error("SetNameEvent not found");
+      throw new Error("SetEvent not found");
     }
 
     const decodedMessage: DecodedMessage = {
       action: "username_set_name",
       data: {
+        addr: event.addr,
         from: sender,
         name: event.domain_name
       },
@@ -76,6 +77,7 @@ export const usernameUnsetNameDecoder: MessageDecoder = {
     const decodedMessage: DecodedMessage = {
       action: "username_unset_name",
       data: {
+        addr: event.addr,
         from: sender,
         name: event.domain_name
       },
@@ -112,6 +114,7 @@ export const usernameExtendExpirationDecoder: MessageDecoder = {
     const decodedMessage: DecodedMessage = {
       action: "username_extend_expiration",
       data: {
+        addr: event.addr,
         domainName: event.domain_name,
         expirationDate: event.expiration_date,
         from: sender

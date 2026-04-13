@@ -768,8 +768,8 @@ interface DecodedClammCollectFeesMessage extends DecodedMessageBase {
   data: {
     amount0: string;
     amount1: string;
-    denom0?: string;
-    denom1?: string;
+    denom0: string;
+    denom1: string;
     from: string;
   };
 }
@@ -824,6 +824,7 @@ interface DecodedClammProvideAndStakeMessage extends DecodedMessageBase {
 interface DecodedUsernameSetNameMessage extends DecodedMessageBase {
   action: "username_set_name";
   data: {
+    addr: string;
     from: string;
     name: string;
   };
@@ -832,6 +833,7 @@ interface DecodedUsernameSetNameMessage extends DecodedMessageBase {
 interface DecodedUsernameUnsetNameMessage extends DecodedMessageBase {
   action: "username_unset_name";
   data: {
+    addr: string;
     from: string;
     name: string;
   };
@@ -840,6 +842,7 @@ interface DecodedUsernameUnsetNameMessage extends DecodedMessageBase {
 interface DecodedUsernameExtendExpirationMessage extends DecodedMessageBase {
   action: "username_extend_expiration";
   data: {
+    addr: string;
     domainName: string;
     expirationDate: string;
     from: string;
