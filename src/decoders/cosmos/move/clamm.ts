@@ -24,6 +24,42 @@ import {
 } from "@/schema";
 import { findAllMoveEvents, findMoveEvent } from "@/utils";
 
+// Resolve the (denom0, denom1) pair from token-pair metadata addresses, throwing
+// if either fails to resolve. Pulled out because it's the same boilerplate in
+// every CLAMM liquidity decoder (increase, remove, provide).
+async function resolveTokenPair(
+  apiClient: ApiClient,
+  metadata0: string,
+  metadata1: string
+): Promise<{ denom0: string; denom1: string }> {
+  const [denom0, denom1] = await Promise.all([
+    apiClient.findDenomFromMetadataAddr(metadata0),
+    apiClient.findDenomFromMetadataAddr(metadata1)
+  ]);
+  if (!denom0) {
+    throw new Error(`Denom not found for metadata ${metadata0}`);
+  }
+  if (!denom1) {
+    throw new Error(`Denom not found for metadata ${metadata1}`);
+  }
+  return { denom0, denom1 };
+}
+
+// Find a CLAMM pool event by name across all known pool module addresses.
+// Used by decoders whose own message module address (e.g. farming, scripts) doesn't
+// match where the pool event is emitted.
+function findClammPoolEvent<S extends Parameters<typeof findMoveEvent>[2]>(
+  log: Log,
+  eventName: string,
+  schema: S
+) {
+  return (
+    CLAMM_MODULE_ADDRESSES.map((addr) =>
+      findMoveEvent(log.events, `${addr}::pool::${eventName}`, schema)
+    ).find(Boolean) ?? null
+  );
+}
+
 export const clammIncreaseLiquidityDecoder: MessageDecoder = {
   check: (message: Message, _log: Log) =>
     zMsgClammIncreaseLiquidity.safeParse(message).success,
@@ -46,17 +82,11 @@ export const clammIncreaseLiquidityDecoder: MessageDecoder = {
       throw new Error("IncreaseLiquidityEvent not found");
     }
 
-    const [denom0, denom1] = await Promise.all([
-      apiClient.findDenomFromMetadataAddr(event.metadata_0),
-      apiClient.findDenomFromMetadataAddr(event.metadata_1)
-    ]);
-
-    if (!denom0) {
-      throw new Error(`Denom not found for metadata ${event.metadata_0}`);
-    }
-    if (!denom1) {
-      throw new Error(`Denom not found for metadata ${event.metadata_1}`);
-    }
+    const { denom0, denom1 } = await resolveTokenPair(
+      apiClient,
+      event.metadata_0,
+      event.metadata_1
+    );
 
     const decodedMessage: DecodedMessage = {
       action: "clamm_increase_liquidity",
@@ -98,17 +128,11 @@ export const clammRemoveLiquidityDecoder: MessageDecoder = {
       throw new Error("RemoveLiquidityEvent not found");
     }
 
-    const [denom0, denom1] = await Promise.all([
-      apiClient.findDenomFromMetadataAddr(event.metadata_0),
-      apiClient.findDenomFromMetadataAddr(event.metadata_1)
-    ]);
-
-    if (!denom0) {
-      throw new Error(`Denom not found for metadata ${event.metadata_0}`);
-    }
-    if (!denom1) {
-      throw new Error(`Denom not found for metadata ${event.metadata_1}`);
-    }
+    const { denom0, denom1 } = await resolveTokenPair(
+      apiClient,
+      event.metadata_0,
+      event.metadata_1
+    );
 
     const decodedMessage: DecodedMessage = {
       action: "clamm_remove_liquidity",
@@ -168,21 +192,11 @@ export const clammCollectFeesDecoder: MessageDecoder = {
 
     const poolData = zClammPoolResource.parse(poolResource.move_resource);
 
-    const [denom0, denom1] = await Promise.all([
-      apiClient.findDenomFromMetadataAddr(poolData.data.metadata_0.inner),
-      apiClient.findDenomFromMetadataAddr(poolData.data.metadata_1.inner)
-    ]);
-
-    if (!denom0) {
-      throw new Error(
-        `Denom not found for metadata ${poolData.data.metadata_0.inner}`
-      );
-    }
-    if (!denom1) {
-      throw new Error(
-        `Denom not found for metadata ${poolData.data.metadata_1.inner}`
-      );
-    }
+    const { denom0, denom1 } = await resolveTokenPair(
+      apiClient,
+      poolData.data.metadata_0.inner,
+      poolData.data.metadata_1.inner
+    );
 
     // amount_0/amount_1 correspond to metadata_0/metadata_1 in the pool resource.
     // The CLAMM contract enforces this ordering — token0 < token1 by metadata address.
@@ -225,26 +239,26 @@ export const clammUnstakeThenWithdrawDecoder: MessageDecoder = {
       throw new Error("UnstakeEvent not found");
     }
 
+    // Drop zero-amount rewards: they reference farm reward metadata that may not
+    // resolve to a denom (and there's nothing meaningful to display anyway).
+    // After filtering, every remaining reward must resolve to a real denom.
     const claimEvents = findAllMoveEvents(
       log.events,
       `${module_address}::farming::ClaimTokenEvent`,
       zClammClaimTokenEvent
-    );
+    ).filter((e) => e.amount !== "0");
 
-    // Resolve reward denom from metadata, consistent with claimTokenRewardDecoder.
-    // Fallback to raw metadata address if denom resolution fails — rewards with
-    // amount "0" may reference metadata that no longer resolves to a denom.
-    // Consumers should check if denom looks like a metadata address (starts with "0x")
-    // before displaying it to users.
     const claimedRewards = await Promise.all(
       claimEvents.map(async (e) => {
         const denom = await apiClient.findDenomFromMetadataAddr(
           e.reward_asset_metadata
         );
-        return {
-          amount: e.amount,
-          denom: denom ?? e.reward_asset_metadata
-        };
+        if (!denom) {
+          throw new Error(
+            `Denom not found for reward metadata ${e.reward_asset_metadata}`
+          );
+        }
+        return { amount: e.amount, denom };
       })
     );
 
@@ -324,28 +338,30 @@ export const clammClaimTokenRewardDecoder: MessageDecoder = {
     const parsed = zMsgClammClaimTokenReward.parse(message);
     const { module_address, sender } = parsed;
 
-    const claimEvents = findAllMoveEvents(
+    const allClaimEvents = findAllMoveEvents(
       log.events,
       `${module_address}::farming::ClaimTokenEvent`,
       zClammClaimTokenEvent
     );
-    if (claimEvents.length === 0) {
+    if (allClaimEvents.length === 0) {
       throw new Error("ClaimTokenEvent not found");
     }
 
-    // Fallback to raw metadata address if denom resolution fails — rewards with
-    // amount "0" may reference metadata that no longer resolves to a denom.
-    // Consumers should check if denom looks like a metadata address (starts with "0x")
-    // before displaying it to users.
+    // Drop zero-amount rewards: they reference farm reward metadata that may not
+    // resolve to a denom (and there's nothing meaningful to display anyway).
+    const claimEvents = allClaimEvents.filter((e) => e.amount !== "0");
+
     const rewards = await Promise.all(
       claimEvents.map(async (e) => {
         const denom = await apiClient.findDenomFromMetadataAddr(
           e.reward_asset_metadata
         );
-        return {
-          amount: e.amount,
-          denom: denom ?? e.reward_asset_metadata
-        };
+        if (!denom) {
+          throw new Error(
+            `Denom not found for reward metadata ${e.reward_asset_metadata}`
+          );
+        }
+        return { amount: e.amount, denom };
       })
     );
 
@@ -374,16 +390,13 @@ export const clammClaimTokenRewardDecoder: MessageDecoder = {
 export const clammProvideConcentratedDecoder: MessageDecoder = {
   check: (message: Message, log: Log) => {
     if (!zMsgMoveScript.safeParse(message).success) return false;
-    // Check for CLAMM IncreaseLiquidityEvent in logs across all known addresses
-    for (const addr of CLAMM_MODULE_ADDRESSES) {
-      const event = findMoveEvent(
-        log.events,
-        `${addr}::pool::IncreaseLiquidityEvent`,
+    return (
+      findClammPoolEvent(
+        log,
+        "IncreaseLiquidityEvent",
         zClammIncreaseLiquidityEvent
-      );
-      if (event) return true;
-    }
-    return false;
+      ) !== null
+    );
   },
   decode: async (
     message: Message,
@@ -395,30 +408,20 @@ export const clammProvideConcentratedDecoder: MessageDecoder = {
     const parsed = zMsgMoveScript.parse(message);
     const { sender } = parsed;
 
-    let event = null;
-    for (const addr of CLAMM_MODULE_ADDRESSES) {
-      event = findMoveEvent(
-        log.events,
-        `${addr}::pool::IncreaseLiquidityEvent`,
-        zClammIncreaseLiquidityEvent
-      );
-      if (event) break;
-    }
+    const event = findClammPoolEvent(
+      log,
+      "IncreaseLiquidityEvent",
+      zClammIncreaseLiquidityEvent
+    );
     if (!event) {
       throw new Error("IncreaseLiquidityEvent not found");
     }
 
-    const [denom0, denom1] = await Promise.all([
-      apiClient.findDenomFromMetadataAddr(event.metadata_0),
-      apiClient.findDenomFromMetadataAddr(event.metadata_1)
-    ]);
-
-    if (!denom0) {
-      throw new Error(`Denom not found for metadata ${event.metadata_0}`);
-    }
-    if (!denom1) {
-      throw new Error(`Denom not found for metadata ${event.metadata_1}`);
-    }
+    const { denom0, denom1 } = await resolveTokenPair(
+      apiClient,
+      event.metadata_0,
+      event.metadata_1
+    );
 
     const decodedMessage: DecodedMessage = {
       action: "clamm_provide_and_stake",

@@ -42,6 +42,10 @@ export const cosmosMoveMessageDecoders: MessageDecoder[] = [
   Decoders.clammClaimTokenRewardDecoder,
   Decoders.clammCollectFeesDecoder,
   Decoders.clammIncreaseLiquidityDecoder,
+  // clammProvideConcentratedDecoder is event-based (matches MsgScript by
+  // IncreaseLiquidityEvent presence). If you add another MsgScript-based decoder
+  // that emits the same event, place the more specific one above this entry to
+  // avoid false positives.
   Decoders.clammProvideConcentratedDecoder,
   Decoders.clammRemoveLiquidityDecoder,
   Decoders.clammStakeEntryDecoder,
