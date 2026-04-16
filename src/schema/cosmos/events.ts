@@ -224,6 +224,91 @@ export const zStableswapProvideEvent = zJsonString.pipe(
   })
 );
 
+// CLAMM events
+export const zClammIncreaseLiquidityEvent = zJsonString.pipe(
+  z.object({
+    amount_0: z.string(),
+    amount_1: z.string(),
+    liquidity: z.string(),
+    metadata_0: z.string(),
+    metadata_1: z.string(),
+    pool_obj: z.string(),
+    token_obj: z.string()
+  })
+);
+
+export const zClammRemoveLiquidityEvent = zJsonString.pipe(
+  z.object({
+    amount_0: z.string(),
+    amount_1: z.string(),
+    liquidity_delta: z.string(),
+    metadata_0: z.string(),
+    metadata_1: z.string(),
+    pool_obj: z.string(),
+    token_obj: z.string()
+  })
+);
+
+// On-chain event uses either position_obj or token_obj depending on the contract version.
+export const zClammCollectFeesEvent = zJsonString.pipe(
+  z.object({
+    amount_0: z.string(),
+    amount_1: z.string(),
+    pool_obj: z.string(),
+    position_obj: z.string().optional(),
+    token_obj: z.string().optional()
+  })
+);
+
+export const zClammStakeEvent = zJsonString.pipe(
+  z.object({
+    incentive_obj: z.string(),
+    liquidity: z.string(),
+    token_obj: z.string()
+  })
+);
+
+export const zClammUnstakeEvent = zJsonString.pipe(
+  z.object({
+    incentive_obj: z.string(),
+    reward_amount: z.string(),
+    seconds_inside: z.string(),
+    token_obj: z.string()
+  })
+);
+
+export const zClammClaimTokenEvent = zJsonString.pipe(
+  z.object({
+    amount: z.string(),
+    recipient: z.string(),
+    reward_asset_metadata: z.string(),
+    token_obj: z.string()
+  })
+);
+
+// Username events
+export const zUsernameExtendEvent = zJsonString.pipe(
+  z.object({
+    addr: z.string(),
+    domain_name: z.string(),
+    expiration_date: z.string()
+  })
+);
+
+export const zUsernameSetEvent = zJsonString.pipe(
+  z.object({
+    addr: z.string(),
+    domain_name: z.string()
+  })
+);
+
+export const zUsernameUnsetEvent = zJsonString.pipe(
+  z.object({
+    addr: z.string(),
+    domain_name: z.string()
+  })
+);
+
 export const zUserVestingCreateEvent = zJsonString.pipe(
   z.object({
     account: z.string(),

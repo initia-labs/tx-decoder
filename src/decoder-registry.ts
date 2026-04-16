@@ -39,6 +39,18 @@ export const cosmosWasmMessageDecoders: MessageDecoder[] = [
 
 export const cosmosMoveMessageDecoders: MessageDecoder[] = [
   ...cosmosAuthDecoders,
+  Decoders.clammClaimTokenRewardDecoder,
+  Decoders.clammCollectFeesDecoder,
+  Decoders.clammIncreaseLiquidityDecoder,
+  // clammProvideConcentratedDecoder is event-based (matches MsgScript by
+  // IncreaseLiquidityEvent presence). If you add another MsgScript-based decoder
+  // that emits the same event, place the more specific one above this entry to
+  // avoid false positives.
+  Decoders.clammProvideConcentratedDecoder,
+  Decoders.clammRemoveLiquidityDecoder,
+  Decoders.clammStakeEntryDecoder,
+  Decoders.clammStakeTokenToAllDecoder,
+  Decoders.clammUnstakeThenWithdrawDecoder,
   Decoders.claimMinitswapDecoder,
   Decoders.delegateDecoder,
   Decoders.delegateLockedDecoder,
@@ -47,6 +59,7 @@ export const cosmosMoveMessageDecoders: MessageDecoder[] = [
   Decoders.directDepositLiquidityDecoder,
   Decoders.depositStakeLiquidityDecoder,
   Decoders.depositStakeLockLiquidityDecoder,
+  Decoders.provideDelegateLiquidityDecoder,
   Decoders.provideStakeLiquidityDecoder,
   Decoders.dexSwapDecoder,
   Decoders.extendLiquidityDecoder,
@@ -68,6 +81,9 @@ export const cosmosMoveMessageDecoders: MessageDecoder[] = [
   Decoders.stableswapDecoder,
   Decoders.undelegateDecoder,
   Decoders.undelegateLockedDecoder,
+  Decoders.usernameSetNameDecoder,
+  Decoders.usernameUnsetNameDecoder,
+  Decoders.usernameExtendExpirationDecoder,
   Decoders.vipClaimEsinitDecoder,
   Decoders.vipGaugeVoteDecoder,
   Decoders.vipLockStakeDecoder,

@@ -1,0 +1,442 @@
+import { ApiClient } from "@/api";
+import { CLAMM_MODULE_ADDRESSES } from "@/constants";
+import { DecodedMessage, MessageDecoder, VmType } from "@/interfaces";
+import {
+  Log,
+  Message,
+  TxResponse,
+  zClammClaimTokenEvent,
+  zClammCollectFeesEvent,
+  zClammIncreaseLiquidityEvent,
+  zClammPoolResource,
+  zClammRemoveLiquidityEvent,
+  zClammStakeEvent,
+  zClammUnstakeEvent,
+  zMsgClammClaimTokenReward,
+  zMsgClammCollectFees,
+  zMsgClammIncreaseLiquidity,
+  zMsgClammRemoveLiquidity,
+  zMsgClammStakeEntry,
+  zMsgClammStakeTokenToAll,
+  zMsgClammUnstakeThenWithdraw,
+  zMsgMoveExecute,
+  zMsgMoveScript
+} from "@/schema";
+import { findAllMoveEvents, findMoveEvent } from "@/utils";
+
+// Resolve the (denom0, denom1) pair from token-pair metadata addresses, throwing
+// if either fails to resolve. Pulled out because it's the same boilerplate in
+// every CLAMM liquidity decoder (increase, remove, provide).
+async function resolveTokenPair(
+  apiClient: ApiClient,
+  metadata0: string,
+  metadata1: string
+): Promise<{ denom0: string; denom1: string }> {
+  const [denom0, denom1] = await Promise.all([
+    apiClient.findDenomFromMetadataAddr(metadata0),
+    apiClient.findDenomFromMetadataAddr(metadata1)
+  ]);
+  if (!denom0) {
+    throw new Error(`Denom not found for metadata ${metadata0}`);
+  }
+  if (!denom1) {
+    throw new Error(`Denom not found for metadata ${metadata1}`);
+  }
+  return { denom0, denom1 };
+}
+
+// Find a CLAMM pool event by name across all known pool module addresses.
+// Used by decoders whose own message module address (e.g. farming, scripts) doesn't
+// match where the pool event is emitted.
+function findClammPoolEvent<S extends Parameters<typeof findMoveEvent>[2]>(
+  log: Log,
+  eventName: string,
+  schema: S
+) {
+  return (
+    CLAMM_MODULE_ADDRESSES.map((addr) =>
+      findMoveEvent(log.events, `${addr}::pool::${eventName}`, schema)
+    ).find(Boolean) ?? null
+  );
+}
+
+export const clammIncreaseLiquidityDecoder: MessageDecoder = {
+  check: (message: Message, _log: Log) =>
+    zMsgClammIncreaseLiquidity.safeParse(message).success,
+  decode: async (
+    message: Message,
+    log: Log,
+    apiClient: ApiClient,
+    _txResponse: TxResponse,
+    _vm: VmType
+  ) => {
+    const parsed = zMsgClammIncreaseLiquidity.parse(message);
+    const { module_address, sender } = parsed;
+
+    const event = findMoveEvent(
+      log.events,
+      `${module_address}::pool::IncreaseLiquidityEvent`,
+      zClammIncreaseLiquidityEvent
+    );
+    if (!event) {
+      throw new Error("IncreaseLiquidityEvent not found");
+    }
+
+    const { denom0, denom1 } = await resolveTokenPair(
+      apiClient,
+      event.metadata_0,
+      event.metadata_1
+    );
+
+    const decodedMessage: DecodedMessage = {
+      action: "clamm_increase_liquidity",
+      data: {
+        amount0: event.amount_0,
+        amount1: event.amount_1,
+        denom0,
+        denom1,
+        from: sender,
+        liquidity: event.liquidity
+      },
+      isIbc: false,
+      isOp: false
+    };
+
+    return decodedMessage;
+  }
+};
+
+export const clammRemoveLiquidityDecoder: MessageDecoder = {
+  check: (message: Message, _log: Log) =>
+    zMsgClammRemoveLiquidity.safeParse(message).success,
+  decode: async (
+    message: Message,
+    log: Log,
+    apiClient: ApiClient,
+    _txResponse: TxResponse,
+    _vm: VmType
+  ) => {
+    const parsed = zMsgClammRemoveLiquidity.parse(message);
+    const { module_address, sender } = parsed;
+
+    const event = findMoveEvent(
+      log.events,
+      `${module_address}::pool::RemoveLiquidityEvent`,
+      zClammRemoveLiquidityEvent
+    );
+    if (!event) {
+      throw new Error("RemoveLiquidityEvent not found");
+    }
+
+    const { denom0, denom1 } = await resolveTokenPair(
+      apiClient,
+      event.metadata_0,
+      event.metadata_1
+    );
+
+    const decodedMessage: DecodedMessage = {
+      action: "clamm_remove_liquidity",
+      data: {
+        amount0: event.amount_0,
+        amount1: event.amount_1,
+        denom0,
+        denom1,
+        from: sender,
+        liquidityDelta: event.liquidity_delta
+      },
+      isIbc: false,
+      isOp: false
+    };
+
+    return decodedMessage;
+  }
+};
+
+export const clammCollectFeesDecoder: MessageDecoder = {
+  check: (message: Message, _log: Log) =>
+    zMsgClammCollectFees.safeParse(message).success,
+  decode: async (
+    message: Message,
+    log: Log,
+    apiClient: ApiClient,
+    _txResponse: TxResponse,
+    _vm: VmType
+  ) => {
+    const parsed = zMsgClammCollectFees.parse(message);
+    const { module_address, sender } = parsed;
+
+    const event = findMoveEvent(
+      log.events,
+      `${module_address}::pool::CollectFeesEvent`,
+      zClammCollectFeesEvent
+    );
+    if (!event) {
+      throw new Error("CollectFeesEvent not found");
+    }
+
+    // Resolve denoms from pool resource metadata instead of matching
+    // WithdrawEvent amounts — avoids edge cases when amounts collide.
+    const poolResources = await apiClient.getAccountResources(event.pool_obj);
+    if (!poolResources) {
+      throw new Error(`Failed to fetch resources for pool ${event.pool_obj}`);
+    }
+
+    const poolResource = poolResources.find(
+      (r) => r.struct_tag === `${module_address}::pool::Pool`
+    );
+    if (!poolResource) {
+      throw new Error(
+        `Pool resource not found at ${event.pool_obj} (expected ${module_address}::pool::Pool)`
+      );
+    }
+
+    const poolData = zClammPoolResource.parse(poolResource.move_resource);
+
+    const { denom0, denom1 } = await resolveTokenPair(
+      apiClient,
+      poolData.data.metadata_0.inner,
+      poolData.data.metadata_1.inner
+    );
+
+    // amount_0/amount_1 correspond to metadata_0/metadata_1 in the pool resource.
+    // The CLAMM contract enforces this ordering — token0 < token1 by metadata address.
+    const decodedMessage: DecodedMessage = {
+      action: "clamm_collect_fees",
+      data: {
+        amount0: event.amount_0,
+        amount1: event.amount_1,
+        denom0,
+        denom1,
+        from: sender
+      },
+      isIbc: false,
+      isOp: false
+    };
+
+    return decodedMessage;
+  }
+};
+
+export const clammUnstakeThenWithdrawDecoder: MessageDecoder = {
+  check: (message: Message, _log: Log) =>
+    zMsgClammUnstakeThenWithdraw.safeParse(message).success,
+  decode: async (
+    message: Message,
+    log: Log,
+    apiClient: ApiClient,
+    _txResponse: TxResponse,
+    _vm: VmType
+  ) => {
+    const parsed = zMsgClammUnstakeThenWithdraw.parse(message);
+    const { module_address, sender } = parsed;
+
+    const unstakeEvent = findMoveEvent(
+      log.events,
+      `${module_address}::farming::UnstakeEvent`,
+      zClammUnstakeEvent
+    );
+    if (!unstakeEvent) {
+      throw new Error("UnstakeEvent not found");
+    }
+
+    // Drop zero-amount rewards: they reference farm reward metadata that may not
+    // resolve to a denom (and there's nothing meaningful to display anyway).
+    // After filtering, every remaining reward must resolve to a real denom.
+    const claimEvents = findAllMoveEvents(
+      log.events,
+      `${module_address}::farming::ClaimTokenEvent`,
+      zClammClaimTokenEvent
+    ).filter((e) => e.amount !== "0");
+
+    const claimedRewards = await Promise.all(
+      claimEvents.map(async (e) => {
+        const denom = await apiClient.findDenomFromMetadataAddr(
+          e.reward_asset_metadata
+        );
+        if (!denom) {
+          throw new Error(
+            `Denom not found for reward metadata ${e.reward_asset_metadata}`
+          );
+        }
+        return { amount: e.amount, denom };
+      })
+    );
+
+    const decodedMessage: DecodedMessage = {
+      action: "clamm_unstake_withdraw",
+      data: {
+        claimedRewards,
+        from: sender,
+        rewardAmount: unstakeEvent.reward_amount,
+        tokenObj: unstakeEvent.token_obj
+      },
+      isIbc: false,
+      isOp: false
+    };
+
+    return decodedMessage;
+  }
+};
+
+// stakeEntry and stakeTokenToAll share decode logic — both emit StakeEvent
+// and produce the same decoded output. Only the check (function_name) differs.
+const decodeClammStake = async (
+  message: Message,
+  log: Log,
+  _apiClient: ApiClient,
+  _txResponse: TxResponse,
+  _vm: VmType
+): Promise<DecodedMessage> => {
+  const parsed = zMsgMoveExecute.parse(message);
+  const { module_address, sender } = parsed;
+
+  const stakeEvents = findAllMoveEvents(
+    log.events,
+    `${module_address}::farming::StakeEvent`,
+    zClammStakeEvent
+  );
+  if (stakeEvents.length === 0) {
+    throw new Error("StakeEvent not found");
+  }
+
+  return {
+    action: "clamm_stake",
+    data: {
+      from: sender,
+      stakes: stakeEvents.map((e) => ({
+        liquidity: e.liquidity,
+        tokenObj: e.token_obj
+      }))
+    },
+    isIbc: false,
+    isOp: false
+  };
+};
+
+export const clammStakeEntryDecoder: MessageDecoder = {
+  check: (message: Message, _log: Log) =>
+    zMsgClammStakeEntry.safeParse(message).success,
+  decode: decodeClammStake
+};
+
+export const clammStakeTokenToAllDecoder: MessageDecoder = {
+  check: (message: Message, _log: Log) =>
+    zMsgClammStakeTokenToAll.safeParse(message).success,
+  decode: decodeClammStake
+};
+
+export const clammClaimTokenRewardDecoder: MessageDecoder = {
+  check: (message: Message, _log: Log) =>
+    zMsgClammClaimTokenReward.safeParse(message).success,
+  decode: async (
+    message: Message,
+    log: Log,
+    apiClient: ApiClient,
+    _txResponse: TxResponse,
+    _vm: VmType
+  ) => {
+    const parsed = zMsgClammClaimTokenReward.parse(message);
+    const { module_address, sender } = parsed;
+
+    const allClaimEvents = findAllMoveEvents(
+      log.events,
+      `${module_address}::farming::ClaimTokenEvent`,
+      zClammClaimTokenEvent
+    );
+    if (allClaimEvents.length === 0) {
+      throw new Error("ClaimTokenEvent not found");
+    }
+
+    // Drop zero-amount rewards: they reference farm reward metadata that may not
+    // resolve to a denom (and there's nothing meaningful to display anyway).
+    const claimEvents = allClaimEvents.filter((e) => e.amount !== "0");
+
+    const rewards = await Promise.all(
+      claimEvents.map(async (e) => {
+        const denom = await apiClient.findDenomFromMetadataAddr(
+          e.reward_asset_metadata
+        );
+        if (!denom) {
+          throw new Error(
+            `Denom not found for reward metadata ${e.reward_asset_metadata}`
+          );
+        }
+        return { amount: e.amount, denom };
+      })
+    );
+
+    const decodedMessage: DecodedMessage = {
+      action: "clamm_claim_reward",
+      data: {
+        from: sender,
+        rewards
+      },
+      isIbc: false,
+      isOp: false
+    };
+
+    return decodedMessage;
+  }
+};
+
+// provideConcentrated uses MsgScript (custom bytecode) instead of MsgExecute.
+// We detect it via IncreaseLiquidityEvent in the logs since we can't match by function_name.
+// MsgScript has no module_address, so we try all known CLAMM addresses when searching events.
+// WARNING: If more MsgScript-based decoders are added in the future, check ordering in
+// decoder-registry.ts to avoid false positives — event-based matching is less specific.
+// StakeEvent is also emitted by this tx but not extracted here — the action name
+// "clamm_provide_and_stake" already implies staking occurred. Stake data (liquidity, tokenObj)
+// is redundant with the IncreaseLiquidityEvent data.
+export const clammProvideConcentratedDecoder: MessageDecoder = {
+  check: (message: Message, log: Log) => {
+    if (!zMsgMoveScript.safeParse(message).success) return false;
+    return (
+      findClammPoolEvent(
+        log,
+        "IncreaseLiquidityEvent",
+        zClammIncreaseLiquidityEvent
+      ) !== null
+    );
+  },
+  decode: async (
+    message: Message,
+    log: Log,
+    apiClient: ApiClient,
+    _txResponse: TxResponse,
+    _vm: VmType
+  ) => {
+    const parsed = zMsgMoveScript.parse(message);
+    const { sender } = parsed;
+
+    const event = findClammPoolEvent(
+      log,
+      "IncreaseLiquidityEvent",
+      zClammIncreaseLiquidityEvent
+    );
+    if (!event) {
+      throw new Error("IncreaseLiquidityEvent not found");
+    }
+
+    const { denom0, denom1 } = await resolveTokenPair(
+      apiClient,
+      event.metadata_0,
+      event.metadata_1
+    );
+
+    const decodedMessage: DecodedMessage = {
+      action: "clamm_provide_and_stake",
+      data: {
+        amount0: event.amount_0,
+        amount1: event.amount_1,
+        denom0,
+        denom1,
+        from: sender,
+        liquidity: event.liquidity
+      },
+      isIbc: false,
+      isOp: false
+    };
+
+    return decodedMessage;
+  }
+};

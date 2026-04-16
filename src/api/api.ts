@@ -1,6 +1,10 @@
 import big from "big.js";
 
-import type { CollectionResource, NftResource } from "@/schema";
+import type {
+  AccountResource,
+  CollectionResource,
+  NftResource
+} from "@/schema";
 
 import { DecoderConfig } from "@/interfaces";
 import { getEvmDenom } from "@/utils";
@@ -131,6 +135,12 @@ export class ApiClient {
 
   public async findValidator(validatorAddress: string) {
     return this.mstakingClient.findValidator(validatorAddress);
+  }
+
+  public async getAccountResources(
+    address: string
+  ): Promise<AccountResource[] | null> {
+    return this.moveClient.getAccountResources(address);
   }
 
   public async getChainId(): Promise<string> {
