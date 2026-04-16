@@ -1,4 +1,4 @@
-export const mock = {
+export const mockClammIncreaseRestake = {
   code: 0,
   codespace: "",
   data: "12240A222F696E697469612E6D6F76652E76312E4D736745786563757465526573706F6E736512240A222F696E697469612E6D6F76652E76312E4D736745786563757465526573706F6E736512240A222F696E697469612E6D6F76652E76312E4D736745786563757465526573706F6E7365",
@@ -1393,3 +1393,85 @@ export const mock = {
   },
   txhash: "2D2ECAAFEAACA51936752E2CA74B3CAB7C6398B3048BA0B3AFAF2D057BDEBD6F"
 } as const;
+
+export const mockApiResponsesForClammIncreaseRestake = {
+  GET: {
+    "/initia/move/v1/accounts/0x3ccf56b1082a32b360311fd61d863fbdf058f27b47169d5b1468294cecdd0b6e/resources":
+      {
+        pagination: { next_key: null, total: "3" },
+        resources: [
+          {
+            address:
+              "0x3ccf56b1082a32b360311fd61d863fbdf058f27b47169d5b1468294cecdd0b6e",
+            move_resource:
+              '{"type":"0x1::nft::Nft","data":{"collection":{"inner":"0x347bd7bb432acae91ed875b8aff0bcafd3168468e89287b8e74ab830467efd5b"},"description":"DexCL Position Collection","token_id":"DexCLToken-157","uri":""}}',
+            raw_bytes: "",
+            struct_tag: "0x1::nft::Nft"
+          },
+          {
+            address:
+              "0x3ccf56b1082a32b360311fd61d863fbdf058f27b47169d5b1468294cecdd0b6e",
+            move_resource:
+              '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":true,"owner":"0xe61e450d8eaf61fcfac7b9d9916384bfa6afe63c","version":"1"}}',
+            raw_bytes:
+              "AAAAAAAAAAAAAAAA5h5FDY6vYfz6x7nZkWOEv6av5jwBAQAAAAAAAAA=",
+            struct_tag: "0x1::object::ObjectCore"
+          },
+          {
+            address:
+              "0x3ccf56b1082a32b360311fd61d863fbdf058f27b47169d5b1468294cecdd0b6e",
+            move_resource:
+              '{"type":"0xd78a3b72c7ef0cfba7286bfb8c618aa4d6011dce05a832871cc9ab323c25f55e::pool::Position","data":{"extend_ref":{"self":"0x3ccf56b1082a32b360311fd61d863fbdf058f27b47169d5b1468294cecdd0b6e","version":"1"},"fee_growth_inside_0_last":"340282366920938463463374588567850871811","fee_growth_inside_1_last":"340282366920938463463374588434892107434","liquidity":"0","pool_obj":{"inner":"0xa83cdf62feab5f1a1e4c05005b14c534eb30266a5412522e2298a6506b3bf205"},"position_id":"157","tick_lower":{"bits":"18446744073709551612"},"tick_upper":{"bits":"0"}}}',
+            raw_bytes: "",
+            struct_tag:
+              "0xd78a3b72c7ef0cfba7286bfb8c618aa4d6011dce05a832871cc9ab323c25f55e::pool::Position"
+          }
+        ]
+      },
+    "/initia/move/v1/accounts/0x347bd7bb432acae91ed875b8aff0bcafd3168468e89287b8e74ab830467efd5b/resources":
+      {
+        pagination: { next_key: null, total: "3" },
+        resources: [
+          {
+            address:
+              "0x347bd7bb432acae91ed875b8aff0bcafd3168468e89287b8e74ab830467efd5b",
+            move_resource:
+              '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":true,"owner":"0xa83cdf62feab5f1a1e4c05005b14c534eb30266a5412522e2298a6506b3bf205","version":"1"}}',
+            raw_bytes:
+              "qDzfYv6rXxoeTAUAWxTFNOswJmpUElIuIpimUGs78gUBAQAAAAAAAAA=",
+            struct_tag: "0x1::object::ObjectCore"
+          },
+          {
+            address:
+              "0x347bd7bb432acae91ed875b8aff0bcafd3168468e89287b8e74ab830467efd5b",
+            move_resource:
+              '{"type":"0x1::collection::Collection","data":{"creator":"0xa83cdf62feab5f1a1e4c05005b14c534eb30266a5412522e2298a6506b3bf205","description":"DexCL position collection","name":"DexCLSet-iUSD-ibc/6490A7EAB61059BFC1CDDEB05917DD70BDF3A611654162A1A47DB930D40D8AF4-1","nfts":{"handle":"0x398f2a65d77c00636454cad4dc06fd059c06321a990a719ced9b12f08c2690e0","length":"211"},"uri":""}}',
+            raw_bytes: "",
+            struct_tag: "0x1::collection::Collection"
+          },
+          {
+            address:
+              "0x347bd7bb432acae91ed875b8aff0bcafd3168468e89287b8e74ab830467efd5b",
+            move_resource:
+              '{"type":"0x1::collection::UnlimitedSupply","data":{"current_supply":"211","total_minted":"211"}}',
+            raw_bytes: "0wAAAAAAAADTAAAAAAAAAA==",
+            struct_tag: "0x1::collection::UnlimitedSupply"
+          }
+        ]
+      },
+    "/initia/move/v1/denom?metadata=0x6c69733a9e722f3660afb524f89fce957801fa7e4408b8ef8fe89db9627b570e":
+      {
+        denom:
+          "move/6c69733a9e722f3660afb524f89fce957801fa7e4408b8ef8fe89db9627b570e"
+      },
+    "/initia/move/v1/denom?metadata=0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9":
+      {
+        denom: "uinit"
+      },
+    "/initia/move/v1/denom?metadata=0xe0e9394b24e53775d6af87934ac02d73536ad58b7894f6ccff3f5e7c0d548e55":
+      {
+        denom:
+          "ibc/6490A7EAB61059BFC1CDDEB05917DD70BDF3A611654162A1A47DB930D40D8AF4"
+      }
+  }
+};

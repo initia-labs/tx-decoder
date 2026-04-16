@@ -1,6 +1,4 @@
-import type { TxResponse } from "@/schema";
-
-export const mockCollectClaim: TxResponse = {
+export const mockCollectClaim = {
   code: 0,
   codespace: "",
   data: "12240A222F696E697469612E6D6F76652E76312E4D736745786563757465526573706F6E736512240A222F696E697469612E6D6F76652E76312E4D736745786563757465526573706F6E736512240A222F696E697469612E6D6F76652E76312E4D736745786563757465526573706F6E736512240A222F696E697469612E6D6F76652E76312E4D736745786563757465526573706F6E7365",
@@ -1775,4 +1773,105 @@ export const mockCollectClaim: TxResponse = {
     ]
   },
   txhash: "F65B83935165C60359BD5B52798AF5B00C6B77F71ACBFD076C9BD480575DDC31"
-} as unknown as TxResponse;
+};
+
+export const mockApiResponsesForClammCollectClaim = {
+  GET: {
+    "/initia/move/v1/accounts/0x336a6c9a07f6e7f96a3e3423ad6ac2827079c79c031198c3cca987239dde064/resources":
+      {
+        pagination: { next_key: null, total: "2" },
+        resources: [
+          {
+            address:
+              "0x336a6c9a07f6e7f96a3e3423ad6ac2827079c79c031198c3cca987239dde064",
+            move_resource:
+              '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":true,"owner":"0x47c42baa4d5efd7a0f8241597d1df0e6fa84fc87c06d1cc54ecf9d165308b4ff","version":"1"}}',
+            raw_bytes:
+              "R8Qrqk1e/XoPgkFZfR3w5vqE/IfAbRzFTs+dFlMItP8BAQAAAAAAAAA=",
+            struct_tag: "0x1::object::ObjectCore"
+          },
+          {
+            address:
+              "0x336a6c9a07f6e7f96a3e3423ad6ac2827079c79c031198c3cca987239dde064",
+            move_resource:
+              '{"type":"0xd78a3b72c7ef0cfba7286bfb8c618aa4d6011dce05a832871cc9ab323c25f55e::pool::Pool","data":{"collection_obj":{"inner":"0xa6bbda451f36f67b25d42a323935a7dae10d7d40b229d1ad0d2fd7de4f2511bb"},"extend_ref":{"self":"0x336a6c9a07f6e7f96a3e3423ad6ac2827079c79c031198c3cca987239dde064","version":"1"},"fee_growth_global_0":"27772965128642120","fee_growth_global_1":"333952826729337021","liquidity":"2278905543370","locked":false,"max_liquidity_per_tick":"2767572984887038632","metadata_0":{"inner":"0x6c69733a9e722f3660afb524f89fce957801fa7e4408b8ef8fe89db9627b570e"},"metadata_1":{"inner":"0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"},"mutator_ref":{"self":"0xa6bbda451f36f67b25d42a323935a7dae10d7d40b229d1ad0d2fd7de4f2511bb"},"oracle_obj":{"inner":"0x9cdfbc51a6503618a4efdaff678dc5b492a7863eb836f52f8441d4ffcd26b679"},"position_id":"321","sqrt_price":"63562340695680424095","swap_fee_bps":"30","tick":{"bits":"24743"},"tick_bitmap":{"handle":"0x807a22fa47528c45e2d3d4dd87a631325f535d38fdd92c97e74a186e9bb088c8","length":"5"},"tick_spacing":"60","ticks":{"handle":"0xfb69ef0e61b2920284a4a4a4f4b4b7a2fcefa649020eb56f17974265dbb5af03","length":"57"}}}',
+            raw_bytes: "",
+            struct_tag:
+              "0xd78a3b72c7ef0cfba7286bfb8c618aa4d6011dce05a832871cc9ab323c25f55e::pool::Pool"
+          }
+        ]
+      },
+    "/initia/move/v1/accounts/0xa6bbda451f36f67b25d42a323935a7dae10d7d40b229d1ad0d2fd7de4f2511bb/resources":
+      {
+        pagination: { next_key: null, total: "3" },
+        resources: [
+          {
+            address:
+              "0xa6bbda451f36f67b25d42a323935a7dae10d7d40b229d1ad0d2fd7de4f2511bb",
+            move_resource:
+              '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":true,"owner":"0x336a6c9a07f6e7f96a3e3423ad6ac2827079c79c031198c3cca987239dde064","version":"1"}}',
+            raw_bytes:
+              "AzamyaB/bn+Wo+NCOtasKCcHnHnAMRmMPMqYcjnd4GQBAQAAAAAAAAA=",
+            struct_tag: "0x1::object::ObjectCore"
+          },
+          {
+            address:
+              "0xa6bbda451f36f67b25d42a323935a7dae10d7d40b229d1ad0d2fd7de4f2511bb",
+            move_resource:
+              '{"type":"0x1::collection::Collection","data":{"creator":"0x336a6c9a07f6e7f96a3e3423ad6ac2827079c79c031198c3cca987239dde064","description":"DexCL position collection","name":"DexCLSet-iUSD-INIT-30","nfts":{"handle":"0xe844fc5da362ab9b1c2bad48143f3f5677435a5dd51452447158f6c5219a1cee","length":"321"},"uri":""}}',
+            raw_bytes: "",
+            struct_tag: "0x1::collection::Collection"
+          },
+          {
+            address:
+              "0xa6bbda451f36f67b25d42a323935a7dae10d7d40b229d1ad0d2fd7de4f2511bb",
+            move_resource:
+              '{"type":"0x1::collection::UnlimitedSupply","data":{"current_supply":"321","total_minted":"321"}}',
+            raw_bytes: "QQEAAAAAAABBAQAAAAAAAA==",
+            struct_tag: "0x1::collection::UnlimitedSupply"
+          }
+        ]
+      },
+    "/initia/move/v1/accounts/0xbeee1d654829e85d901d8a1a1248d7e642519b1ec048f2d113ee68be5411bb60/resources":
+      {
+        pagination: { next_key: null, total: "3" },
+        resources: [
+          {
+            address:
+              "0xbeee1d654829e85d901d8a1a1248d7e642519b1ec048f2d113ee68be5411bb60",
+            move_resource:
+              '{"type":"0x1::nft::Nft","data":{"collection":{"inner":"0xa6bbda451f36f67b25d42a323935a7dae10d7d40b229d1ad0d2fd7de4f2511bb"},"description":"DexCL Position Collection","token_id":"DexCLToken-267","uri":""}}',
+            raw_bytes: "",
+            struct_tag: "0x1::nft::Nft"
+          },
+          {
+            address:
+              "0xbeee1d654829e85d901d8a1a1248d7e642519b1ec048f2d113ee68be5411bb60",
+            move_resource:
+              '{"type":"0x1::object::ObjectCore","data":{"allow_ungated_transfer":true,"owner":"0xa07b5c47d8aad8497b7bb3a07d9cf8ebd85151e859daed7501ed8dd9e1551dd9","version":"1"}}',
+            raw_bytes:
+              "oHtcR9iq2El7e7OgfZz469hRUehZ2u11Ae2N2eFVHdkBAQAAAAAAAAA=",
+            struct_tag: "0x1::object::ObjectCore"
+          },
+          {
+            address:
+              "0xbeee1d654829e85d901d8a1a1248d7e642519b1ec048f2d113ee68be5411bb60",
+            move_resource:
+              '{"type":"0xd78a3b72c7ef0cfba7286bfb8c618aa4d6011dce05a832871cc9ab323c25f55e::pool::Position","data":{"extend_ref":{"self":"0xbeee1d654829e85d901d8a1a1248d7e642519b1ec048f2d113ee68be5411bb60","version":"1"},"fee_growth_inside_0_last":"3525149307506586","fee_growth_inside_1_last":"50124533583053491","liquidity":"3478285164","pool_obj":{"inner":"0x336a6c9a07f6e7f96a3e3423ad6ac2827079c79c031198c3cca987239dde064"},"position_id":"267","tick_lower":{"bits":"18446744073709528576"},"tick_upper":{"bits":"39120"}}}',
+            raw_bytes: "",
+            struct_tag:
+              "0xd78a3b72c7ef0cfba7286bfb8c618aa4d6011dce05a832871cc9ab323c25f55e::pool::Position"
+          }
+        ]
+      },
+    "/initia/move/v1/denom?metadata=0x6c69733a9e722f3660afb524f89fce957801fa7e4408b8ef8fe89db9627b570e":
+      {
+        denom:
+          "move/6c69733a9e722f3660afb524f89fce957801fa7e4408b8ef8fe89db9627b570e"
+      },
+    "/initia/move/v1/denom?metadata=0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9":
+      {
+        denom: "uinit"
+      }
+  }
+};

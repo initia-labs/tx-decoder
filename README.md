@@ -406,6 +406,7 @@ The decoder returns a structured object with the following format:
 **Lock Staking:**
 
 - `<module_address>::lock_staking::delegate` - Delegate with lock
+- `<module_address>::lock_staking::provide_delegate` - Provide liquidity and delegate in one transaction
 - `<module_address>::lock_staking::undelegate` - Undelegate locked tokens
 - `<module_address>::lock_staking::redelegate` - Redelegate locked tokens
 - `<module_address>::lock_staking::withdraw_delegator_reward` - Withdraw rewards from locked stake
@@ -422,10 +423,6 @@ The decoder returns a structured object with the following format:
 - `<module_address>::farming::stake_token_to_all_viable_incentives` - Stake to all incentives
 - `<module_address>::farming::claim_token_reward_entry` - Claim CLAMM rewards
 - `/initia.move.v1.MsgScript` - Provide concentrated liquidity and stake (custom bytecode)
-
-**Lock Staking (Provide & Delegate):**
-
-- `<module_address>::lock_staking::provide_delegate` - Provide liquidity and delegate in one transaction
 
 **Usernames:**
 
