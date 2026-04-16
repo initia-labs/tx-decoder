@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.13.0](https://github.com/initia-labs/tx-decoder/compare/v0.12.0...v0.13.0) (2026-04-16)
+
+
+### Features
+
+* add CLAMM and username decoders ([#107](https://github.com/initia-labs/tx-decoder/issues/107)) ([5030727](https://github.com/initia-labs/tx-decoder/commit/50307277f080aff0623e3de27fa45ccaff36d032))
+* add testnet module address support ([#109](https://github.com/initia-labs/tx-decoder/issues/109)) ([fdfda6a](https://github.com/initia-labs/tx-decoder/commit/fdfda6a951b097f465115f49f1c10320e3e6f715))
+
+
+### Bug Fixes
+
+* **cache:** dedupe in-flight requests to prevent denom lookup stampede ([#111](https://github.com/initia-labs/tx-decoder/issues/111)) ([fa3f3b2](https://github.com/initia-labs/tx-decoder/commit/fa3f3b2e5f72b11758ddec04d0899f4b70967b7f))
+
 ## [0.12.0](https://github.com/initia-labs/tx-decoder/compare/v0.11.1...v0.12.0) (2025-11-23)
 
 
