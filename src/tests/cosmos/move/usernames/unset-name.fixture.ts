@@ -1,4 +1,4 @@
-export const mock = {
+export const mockUnsetName = {
   code: 0,
   codespace: "",
   data: "12240A222F696E697469612E6D6F76652E76312E4D736745786563757465526573706F6E7365",
