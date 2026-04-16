@@ -5,7 +5,7 @@ import {
   setupMockApi
 } from "@/tests/_shared/helpers";
 
-import { mock as mockCollectClaim } from "./collect-claim.fixture";
+import { mockCollectClaim } from "./collect-claim.fixture";
 import { mock as mockIncreaseRestake } from "./increase-restake.fixture";
 import { mockClammProvide } from "./provide.fixture";
 import { mockClammStake } from "./stake.fixture";
@@ -16,34 +16,7 @@ const decoder = initialize();
 
 const mockDenomResponses = {
   GET: {
-    // Pool resource for collect_fees (testnet)
-    "/initia/move/v1/accounts/0x230fe97b25e39a631b534a83c5a115476a677bbc416fce3cf7b25ef9bb8d7803/resources":
-      {
-        pagination: { next_key: null, total: "1" },
-        resources: [
-          {
-            address:
-              "0x230fe97b25e39a631b534a83c5a115476a677bbc416fce3cf7b25ef9bb8d7803",
-            move_resource: JSON.stringify({
-              data: {
-                metadata_0: {
-                  inner:
-                    "0x29824d952e035490fae7567deea5f15b504a68fa73610063c160ab1fa87dd609"
-                },
-                metadata_1: {
-                  inner:
-                    "0x8e4733bdabcf7d4afc3d14f0dd46c9bf52fb0fce9e4b996c939e195b8bc891d9"
-                }
-              },
-              type: "0x6b41bf295bc31cd9bef75a9a5a67e5a8d6749b34a7ab3105808251fa2697823d::pool::Pool"
-            }),
-            raw_bytes: "",
-            struct_tag:
-              "0x6b41bf295bc31cd9bef75a9a5a67e5a8d6749b34a7ab3105808251fa2697823d::pool::Pool"
-          }
-        ]
-      },
-    // Pool resource for collect_fees (mainnet)
+    // Pool resource for collect_fees
     "/initia/move/v1/accounts/0x336a6c9a07f6e7f96a3e3423ad6ac2827079c79c031198c3cca987239dde064/resources":
       {
         pagination: { next_key: null, total: "1" },
@@ -81,12 +54,7 @@ const mockDenomResponses = {
       {
         denom: "uinit"
       },
-    // USDC metadata → denom (testnet)
-    "/initia/move/v1/denom?metadata=0x29824d952e035490fae7567deea5f15b504a68fa73610063c160ab1fa87dd609":
-      {
-        denom: "uusdc"
-      },
-    // USDC metadata → denom (mainnet)
+    // USDC metadata → denom
     "/initia/move/v1/denom?metadata=0xe0e9394b24e53775d6af87934ac02d73536ad58b7894f6ccff3f5e7c0d548e55":
       {
         denom:
@@ -187,7 +155,7 @@ describe("CLAMM Messages", () => {
     expect(decoded.messages[2].decodedMessage.action).toBe("clamm_stake");
   });
 
-  it("should decode collect_fees + claim_token_reward (testnet)", async () => {
+  it("should decode collect_fees + claim_token_reward", async () => {
     setupMockApi(mockedAxios, mockDenomResponses);
 
     const decoded = await decoder.decodeCosmosTransaction(mockCollectClaim);
@@ -205,26 +173,20 @@ describe("CLAMM Messages", () => {
       (m) => m.decodedMessage.action === "clamm_collect_fees"
     );
     expect(collectMsg?.decodedMessage.data).toEqual({
-      amount0: "30",
-      amount1: "0",
-      denom0: "uusdc",
+      amount0: "24288",
+      amount1: "400117",
+      denom0:
+        "move/6c69733a9e722f3660afb524f89fce957801fa7e4408b8ef8fe89db9627b570e",
       denom1: "uinit",
-      from: "init10634qjl5yjz3yf6c5ehkv54gmwtpn6tjuwymwv"
+      from: "init1uc0y2rvw4asle7k8h8vezcuyh7n2le3uemrjfm"
     });
 
     const claimMsg = decoded.messages.find(
       (m) => m.decodedMessage.action === "clamm_claim_reward"
     );
     expect(claimMsg?.decodedMessage.data).toMatchObject({
-      from: "init10634qjl5yjz3yf6c5ehkv54gmwtpn6tjuwymwv",
+      from: "init1uc0y2rvw4asle7k8h8vezcuyh7n2le3uemrjfm",
       rewards: expect.any(Array)
     });
   });
-
-  // Error case test (pool resource fetch failure) is not feasible here because
-  // the shared decoder instance caches resource lookups across tests.
-  // Guard clauses in the decoder ensure clear error messages for:
-  // - poolResources null → "Failed to fetch resources for pool ..."
-  // - poolResource not found → "Pool resource not found at ..."
-  // - poolData parse failure → Zod validation error
 });

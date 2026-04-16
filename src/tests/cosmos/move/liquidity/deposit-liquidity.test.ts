@@ -25,10 +25,6 @@ import {
   mockApiResponsesForProvideDelegateLiquidity,
   mockMsgProvideDelegateLiquidity
 } from "./provide-delegate-liquidity.fixture";
-import {
-  mockApiResponsesForTestnetDepositStakeLiquidity,
-  mockMsgTestnetDepositStakeLiquidity
-} from "./testnet-deposit-stake-liquidity.fixture";
 
 jest.mock("axios");
 const decoder = initialize();
@@ -284,44 +280,7 @@ describe("Deposit Liquidity Message", () => {
     });
   });
 
-  it("should decode a testnet deposit stake liquidity (provide_stake) message correctly", async () => {
-    setupMockApi(mockedAxios, mockApiResponsesForTestnetDepositStakeLiquidity);
-
-    const decoded = await decoder.decodeCosmosTransaction(
-      mockMsgTestnetDepositStakeLiquidity
-    );
-
-    expect(decoded.messages).toHaveLength(1);
-    expect(decoded.messages[0].decodedMessage).toEqual({
-      action: "provide_stake_liquidity",
-      data: {
-        amountA: "4000000",
-        amountB: "17001940",
-        denomA: "uusdc",
-        denomB: "uinit",
-        from: "init1ld5pcuj5xzv2gghjeq0snv23r5gu6xruz3mnq4",
-        liquidity: "16606146",
-        liquidityDenom:
-          "move/dbf06c48af3984ec6d9ae8a9aa7dbb0bb1e784aa9b8c4a5681af660cf8558d7d",
-        validator: {
-          description: {
-            details:
-              "Polkachu is the trusted staking service provider for blockchain projects. 100% refund for downtime slash. Contact us at hello@polkachu.com",
-            identity: "0A6AF02D1557E5B4",
-            moniker: "polkachu.com",
-            security_contact: "hello@polkachu.com",
-            website: ""
-          },
-          operator_address: "initvaloper1jt9w26mpxxjsk63mvd4m2ynj0af09cslej8vvr"
-        },
-        validatorAddress: "initvaloper1jt9w26mpxxjsk63mvd4m2ynj0af09cslej8vvr"
-      },
-      isIbc: false,
-      isOp: false
-    });
-  });
-
-  it("should decode a mainnet new dex_utils deposit stake liquidity (provide_stake) message correctly", async () => {
+  it("should decode a new dex_utils deposit stake liquidity (provide_stake) message correctly", async () => {
     setupMockApi(
       mockedAxios,
       mockApiResponsesForMainnetNewDexUtilsDepositStakeLiquidity
