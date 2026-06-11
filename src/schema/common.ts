@@ -18,11 +18,6 @@ export const zUtcDate = z
   ])
   .pipe(z.coerce.date());
 
-export const zAny = z.object({
-  typeUrl: z.string(),
-  value: z.array(z.number()) // UInt8Array
-});
-
 // TODO: will be replaced with z.hex() in Zod v4
 export const zHexString = z
   .string()
