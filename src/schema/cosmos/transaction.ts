@@ -1,7 +1,7 @@
 import { SignMode } from "cosmjs-types/cosmos/tx/signing/v1beta1/signing.js";
 import z from "zod";
 
-import { zAny, zCoin, zUtcDate } from "../common";
+import { zCoin, zUtcDate } from "../common";
 import { zMessage } from "./bank";
 
 const zPubkeySingle = z.object({
@@ -62,10 +62,11 @@ const zAuthInfo = z.object({
 });
 
 const zTxBody = z.object({
-  extension_options: zAny.array(),
+  // proto-JSON encoded google.protobuf.Any, same shape as messages
+  extension_options: z.array(zMessage),
   memo: z.string(),
   messages: z.array(zMessage),
-  non_critical_extension_options: zAny.array(),
+  non_critical_extension_options: z.array(zMessage),
   timeout_height: z.string()
 });
 
