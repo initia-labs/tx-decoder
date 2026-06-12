@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.13.1](https://github.com/initia-labs/tx-decoder/compare/v0.13.0...v0.13.1) (2026-06-12)
+
+
+### Bug Fixes
+
+* **schema:** accept proto-JSON Any in tx body extension_options ([#113](https://github.com/initia-labs/tx-decoder/issues/113)) ([a0b8ae9](https://github.com/initia-labs/tx-decoder/commit/a0b8ae9c684df1868e42dc8d4551c9b43fc7eca2))
+
 ## [0.13.0](https://github.com/initia-labs/tx-decoder/compare/v0.12.0...v0.13.0) (2026-04-16)
 
 
