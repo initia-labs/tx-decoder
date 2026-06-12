@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.13.2](https://github.com/initia-labs/tx-decoder/compare/v0.13.1...v0.13.2) (2026-06-12)
+
+
+### Bug Fixes
+
+* **ci:** remove pnpm version input conflicting with packageManager ([#115](https://github.com/initia-labs/tx-decoder/issues/115)) ([18f2276](https://github.com/initia-labs/tx-decoder/commit/18f22767d3b6f5e412a0e55e4c2302045e5e09e4))
+
 ## [0.13.1](https://github.com/initia-labs/tx-decoder/compare/v0.13.0...v0.13.1) (2026-06-12)
 
 
