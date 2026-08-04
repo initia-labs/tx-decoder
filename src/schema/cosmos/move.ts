@@ -5,6 +5,7 @@ import {
   CLAMM_MODULE_ADDRESSES,
   DEX_UTILS_MODULE_ADDRESSES,
   INITIA_VAULT_MODULE_ADDRESSES,
+  SKIP_ENTRY_POINT_MODULE_ADDRESSES,
   USERNAME_MODULE_ADDRESSES
 } from "@/constants";
 
@@ -86,6 +87,13 @@ export const zMsgMoveStableSwap = zMsgMoveExecute.extend({
   function_name: z.literal("swap_script"),
   module_address: z.literal("0x1"),
   module_name: z.literal("stableswap")
+});
+
+// Skip entry_point related Move messages
+export const zMsgSkipSwapAndAction = zMsgMoveExecute.extend({
+  function_name: z.enum(["swap_and_action", "swap_and_action_with_recover"]),
+  module_address: z.enum(SKIP_ENTRY_POINT_MODULE_ADDRESSES),
+  module_name: z.literal("entry_point")
 });
 
 // NFT related Move messages

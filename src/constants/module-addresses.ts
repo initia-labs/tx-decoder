@@ -19,6 +19,10 @@ export const CLAMM_MODULE_ADDRESSES = [
   "0x6b41bf295bc31cd9bef75a9a5a67e5a8d6749b34a7ab3105808251fa2697823d" // testnet
 ] as const;
 
+export const SKIP_ENTRY_POINT_MODULE_ADDRESSES = [
+  "0xd921c61c7e7d2eead33bdff4c5c2941e66d488f0a15fe7fbc432565dc04b3710" // mainnet
+] as const;
+
 export const CLAMM_FARMING_MODULE_ADDRESSES = [
   "0xcb2999c70a9b8db7cb473255bb01f956f0726087f08b04ece50844a6d8167351", // mainnet
   "0xf8ef0cb7c73607b7658524565015ce2aadc45ccf7164e5351959a4d7a1c37753" // testnet

@@ -78,6 +78,7 @@ export const cosmosMoveMessageDecoders: MessageDecoder[] = [
   Decoders.redelegateDecoder,
   Decoders.redelegateLockedDecoder,
   Decoders.sendDecoder,
+  Decoders.skipSwapDecoder,
   Decoders.stableswapDecoder,
   Decoders.undelegateDecoder,
   Decoders.undelegateLockedDecoder,

@@ -33,14 +33,15 @@ export const findMoveEvent = <S extends z.ZodType<unknown>>(
 
 export const findAllMoveEvents = <S extends z.ZodType<unknown>>(
   events: Event[],
-  typeTag: string,
+  typeTag: string | string[],
   schema: S
 ): z.infer<S>[] => {
+  const typeTags = Array.isArray(typeTag) ? typeTag : [typeTag];
   const matchingEvents = events.filter(
     (event) =>
       event.type === "move" &&
       event.attributes.some(
-        (attr) => attr.key === "type_tag" && attr.value === typeTag
+        (attr) => attr.key === "type_tag" && typeTags.includes(attr.value)
       )
   );
 
