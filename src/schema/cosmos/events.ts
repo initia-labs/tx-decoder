@@ -13,6 +13,17 @@ export const zSwapEvent = zJsonString.pipe(
   })
 );
 
+// Shared shape of 0x1::{dex,stableswap,minitswap}::SwapEvent — minitswap lacks
+// fee_amount/liquidity_token, so only the common fields are required here.
+export const zSkipSwapEvent = zJsonString.pipe(
+  z.object({
+    offer_amount: z.string(),
+    offer_coin: z.string(),
+    return_amount: z.string(),
+    return_coin: z.string()
+  })
+);
+
 export const zCreateEvent = zJsonString.pipe(
   z.object({
     object: z.string(),
