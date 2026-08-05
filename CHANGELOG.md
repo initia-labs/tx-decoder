@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.14.0](https://github.com/initia-labs/tx-decoder/compare/v0.13.2...v0.14.0) (2026-08-05)
+
+
+### Features
+
+* **decoder:** decode skip entry_point swap_and_action as swap ([#117](https://github.com/initia-labs/tx-decoder/issues/117)) ([5ed0937](https://github.com/initia-labs/tx-decoder/commit/5ed0937d11afd8f0085b0e13debf2c1aec810509))
+
 ## [0.13.2](https://github.com/initia-labs/tx-decoder/compare/v0.13.1...v0.13.2) (2026-06-12)
 
 
