@@ -11,6 +11,7 @@ import {
   zMsgIbcRecvPacket,
   zMsgIbcTransfer
 } from "@/schema";
+import { getIbcDenomFromPath } from "@/utils";
 
 export const ibcSendFtDecoder: MessageDecoder = {
   check: (message: Message, _log: Log) => {
@@ -127,7 +128,7 @@ export const ibcReceiveFtDecoder: MessageDecoder = {
 
     const ibcPrefix = `${source_port}/${source_channel}/`;
     const initialDenom = parsedPacket.denom.startsWith(ibcPrefix)
-      ? parsedPacket.denom.replace(ibcPrefix, "")
+      ? getIbcDenomFromPath(parsedPacket.denom.slice(ibcPrefix.length))
       : getIbcDenom(destination_channel, parsedPacket.denom);
 
     const token = {

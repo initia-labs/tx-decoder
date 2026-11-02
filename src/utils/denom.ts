@@ -1,4 +1,5 @@
 import { toHex } from "@cosmjs/encoding";
+import { sha256 } from "@noble/hashes/sha2";
 import { sha3_256 } from "@noble/hashes/sha3";
 import { toBytes } from "@noble/hashes/utils";
 import { getAddress } from "viem";
@@ -35,4 +36,10 @@ export function getOpDenom(id: bigint, l1Denom: string): string {
 
 export function getEvmDenom(address: string): string {
   return `evm/${getAddress(address).replace(/^0x/, "")}`;
+}
+
+export function getIbcDenomFromPath(fullDenomPath: string): string {
+  return /^[^/]+\/channel-\d+\//.test(fullDenomPath)
+    ? `ibc/${toHex(sha256(toBytes(fullDenomPath))).toUpperCase()}`
+    : fullDenomPath;
 }
