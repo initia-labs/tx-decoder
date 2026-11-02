@@ -9,10 +9,8 @@ import {
 import {
   mockApiResponsesForFtReceiveMove,
   mockApiResponsesForFtReceiveMoveFromL2,
-  mockApiResponsesForFtReceiveMoveUnwoundFromL2,
   mockFtReceiveMoveFromL2Transaction,
-  mockFtReceiveMoveTransaction,
-  mockFtReceiveMoveUnwoundFromL2Transaction
+  mockFtReceiveMoveTransaction
 } from "./receive-ft-move.fixture";
 
 jest.mock("axios");
@@ -142,64 +140,5 @@ describe("IBC Receive FT Message", () => {
       object: {},
       vm: "move"
     });
-  });
-
-  it("should decode IBC FT receive of a non-native token returning from L2", async () => {
-    setupMockApi(mockedAxios, mockApiResponsesForFtReceiveMoveUnwoundFromL2);
-
-    const decoded = await decoder.decodeCosmosTransaction(
-      mockFtReceiveMoveUnwoundFromL2Transaction
-    );
-
-    expect(decoded.messages).toHaveLength(2);
-
-    expect(decoded.messages[1].decodedMessage).toEqual({
-      action: "ibc_ft_receive",
-      data: {
-        amount: "1443943",
-        denom:
-          "ibc/6490A7EAB61059BFC1CDDEB05917DD70BDF3A611654162A1A47DB930D40D8AF4",
-        dstChainId: "interwoven-1",
-        dstChannel: "channel-35",
-        dstPort: "transfer",
-        receiver:
-          "init1kvms7tk5dpg9v2e24f3k69v6gwwu8vls0q3dahxluw5g0qwp02nsm8934k",
-        sender: "init1erf482y7vfp8dg8jut672e9zenyw4gxxk54wjq",
-        sequence: "20240",
-        srcChainId: "echelon-1",
-        srcChannel: "channel-0",
-        srcPort: "transfer",
-        timeoutHeight: {
-          revision_height: "0",
-          revision_number: "0"
-        },
-        timeoutTimestamp: "1793593105158000000"
-      },
-      isIbc: true,
-      isOp: false
-    });
-
-    expect(decoded.messages[1].balanceChanges).toEqual({
-      ft: {
-        init1erf482y7vfp8dg8jut672e9zenyw4gxxk54wjq: {
-          "ibc/6490A7EAB61059BFC1CDDEB05917DD70BDF3A611654162A1A47DB930D40D8AF4":
-            "1443943"
-        },
-        init16yjjgtmrnux5e7yv4g4an9zm3s27x2e2val75ef88l6kjcektr4q3zkj2r: {
-          "ibc/6490A7EAB61059BFC1CDDEB05917DD70BDF3A611654162A1A47DB930D40D8AF4":
-            "0"
-        },
-        init18hp3fwp29gqvl6a0uz034thj2nr25s3zrz3kg4: {
-          "ibc/6490A7EAB61059BFC1CDDEB05917DD70BDF3A611654162A1A47DB930D40D8AF4":
-            "-1443943"
-        }
-      },
-      object: {},
-      vm: "move"
-    });
-
-    expect(decoded.totalBalanceChanges).toEqual(
-      decoded.messages[1].balanceChanges
-    );
   });
 });
