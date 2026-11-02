@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.14.1](https://github.com/initia-labs/tx-decoder/compare/v0.14.0...v0.14.1) (2026-11-02)
+
+
+### Bug Fixes
+
+* **ibc:** show tokens bridged back to their source chain by their real denom ([#119](https://github.com/initia-labs/tx-decoder/issues/119)) ([6d20dd0](https://github.com/initia-labs/tx-decoder/commit/6d20dd08f8114150fa15c6eb6578a7c7a75906a9))
+
 ## [0.14.0](https://github.com/initia-labs/tx-decoder/compare/v0.13.2...v0.14.0) (2026-08-05)
 
 
