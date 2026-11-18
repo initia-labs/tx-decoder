@@ -10,7 +10,7 @@ import {
 import { createDefaultEvmBalanceChanges } from "@/constants";
 import { EvmBalanceChanges, EvmEventProcessor } from "@/interfaces";
 import { zEvmNftTransferEventLog, zEvmTransferEventLog } from "@/schema";
-import { getEvmDenom } from "@/utils";
+import { getEvmDenom, isPrototypeKey } from "@/utils";
 
 function processNftTransfer(
   draft: EvmBalanceChanges,
@@ -62,6 +62,11 @@ export const evmTransferEventProcessor: EvmEventProcessor = {
   async process(evmLog, _apiClient) {
     try {
       const contractAddress = evmLog.address;
+
+      // decodeEthereumTransaction validates log.address only as a string.
+      if (isPrototypeKey(contractAddress)) {
+        return createDefaultEvmBalanceChanges();
+      }
 
       // Detect ERC-721 vs ERC-20 by checking Transfer event log data field
       // ERC-20: Transfer(address indexed from, address indexed to, uint256 value) - has data

@@ -4,6 +4,7 @@ import { ApiClient } from "@/api";
 import { createDefaultWasmBalanceChanges } from "@/constants";
 import { WasmEventProcessor } from "@/interfaces";
 import { Event } from "@/schema";
+import { isPrototypeKey } from "@/utils";
 
 /**
  * Processor for CW-20 fungible token transfers
@@ -39,6 +40,10 @@ export const cw20TransferProcessor: WasmEventProcessor = {
       const from = fromAttr.value;
       const to = toAttr.value;
       const amount = amountAttr.value;
+
+      if ([contract, from, to].some(isPrototypeKey)) {
+        return createDefaultWasmBalanceChanges();
+      }
 
       return produce(createDefaultWasmBalanceChanges(), (draft) => {
         const isSelfTransfer = from === to;

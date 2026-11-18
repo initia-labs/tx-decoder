@@ -10,16 +10,18 @@ import {
   WasmBalanceChanges
 } from "@/interfaces";
 
+import { getOwnValue } from "./object-keys";
+
 const mergeNestedBalances = (
   target: { [address: string]: FtChange },
   source: { [address: string]: FtChange }
 ): { [address: string]: FtChange } => {
   return produce(target, (draft) => {
-    for (const address in source) {
+    for (const address of Object.keys(source)) {
       draft[address] ??= {};
 
-      for (const key in source[address]) {
-        const existingAmount = big(draft[address][key] || "0");
+      for (const key of Object.keys(source[address])) {
+        const existingAmount = big(getOwnValue(draft[address], key) || "0");
         const newAmount = big(source[address][key]);
         const result = existingAmount.plus(newAmount);
 
@@ -34,14 +36,16 @@ const mergeNftBalances = (
   source: { [address: string]: NftChange }
 ): { [address: string]: NftChange } => {
   return produce(target, (draft) => {
-    for (const address in source) {
+    for (const address of Object.keys(source)) {
       draft[address] ??= {};
 
-      for (const contract in source[address]) {
+      for (const contract of Object.keys(source[address])) {
         draft[address][contract] ??= {};
 
-        for (const tokenId in source[address][contract]) {
-          const existingAmount = big(draft[address][contract][tokenId] || "0");
+        for (const tokenId of Object.keys(source[address][contract])) {
+          const existingAmount = big(
+            getOwnValue(draft[address][contract], tokenId) || "0"
+          );
           const newAmount = big(source[address][contract][tokenId]);
           const result = existingAmount.plus(newAmount);
 

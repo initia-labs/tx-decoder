@@ -18,6 +18,8 @@ import { MstakingClient } from "./services/mstaking";
 import { RegistryService } from "./services/registry";
 
 const EVM_AMOUNT_MULTIPLIER = big(10).pow(12);
+// uint256 max is about 1.16e77.
+const MAX_UINT256_EXPONENT = 77;
 
 export class ApiClient {
   public get jsonRpcUrl(): string {
@@ -77,7 +79,14 @@ export class ApiClient {
     amount: string;
     denom: string;
   }): Promise<{ amount: string; denom: string }> {
-    const convertedAmount = big(amount).mul(EVM_AMOUNT_MULTIPLIER).toFixed(0);
+    const value = big(amount);
+    // big.js accepts unbounded exponents such as "1e999999999", and toFixed(0) then
+    // allocates every digit. Any amount above uint256 is not a real token amount.
+    if (value.e > MAX_UINT256_EXPONENT) {
+      return { amount, denom };
+    }
+
+    const convertedAmount = value.mul(EVM_AMOUNT_MULTIPLIER).toFixed(0);
     try {
       const evmDenom = await this.cacheService.getOrFetch(
         `evm-denom:${denom}`,
