@@ -29,6 +29,8 @@ const PROTOTYPE_KEYS = [
 ];
 const UINT256_MAX =
   "115792089237316195423570985008687907853269984665640564039457584007913129639935";
+const UINT256_MAX_PLUS_ONE =
+  "115792089237316195423570985008687907853269984665640564039457584007913129639936";
 const EMPTY_WASM_CHANGES = { ft: {}, nft: {}, vm: "wasm" };
 
 const wasmEvent = (
@@ -222,7 +224,20 @@ describe("mergeBalanceChanges", () => {
     );
   });
 
-  it("skips an amount above uint256 without expanding it", () => {
+  it("keeps a subtotal above uint256 across both merge levels", () => {
+    const event = (amount: string) =>
+      wasmChanges({ ft: { [BOB]: { uinit: amount } } });
+    const message = [event(UINT256_MAX), event("1")].reduce(
+      (target, source) => mergeBalanceChanges(target, source),
+      wasmChanges({})
+    );
+
+    expect(mergeBalanceChanges(wasmChanges({}), message)).toEqual(
+      wasmChanges({ ft: { [BOB]: { uinit: UINT256_MAX_PLUS_ONE } } })
+    );
+  });
+
+  it("skips an amount with an extreme positive exponent", () => {
     const source = wasmChanges({
       ft: {
         [BOB]: {
@@ -274,7 +289,7 @@ describe("convertToEvmAmount", () => {
     ).toEqual({ amount: `${UINT256_MAX}000000000000`, denom: "evm/TOKEN" });
   });
 
-  it.each(["1e78", "1e999999999", "-1e999999999", "1e-999999999"])(
+  it.each(["1e1001", "1e999999999", "-1e999999999", "1e-999999999"])(
     "returns %s unconverted",
     async (amount) => {
       expect(
