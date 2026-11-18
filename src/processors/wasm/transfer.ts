@@ -37,7 +37,7 @@ export const transferEventProcessor: WasmEventProcessor = {
       }
 
       if ([recipient, sender].some(isPrototypeKey)) {
-        throw new Error("Transfer event has a reserved object key as address");
+        return createDefaultWasmBalanceChanges();
       }
 
       return produce(createDefaultWasmBalanceChanges(), (draft) => {

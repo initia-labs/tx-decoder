@@ -7,7 +7,7 @@ import type {
 } from "@/schema";
 
 import { DecoderConfig } from "@/interfaces";
-import { exceedsUint256, getEvmDenom } from "@/utils";
+import { getEvmDenom, isAmountOutOfRange } from "@/utils";
 
 import { CacheService } from "./services/cache";
 import { CosmosClient } from "./services/cosmos";
@@ -78,7 +78,7 @@ export class ApiClient {
     denom: string;
   }): Promise<{ amount: string; denom: string }> {
     const value = big(amount);
-    if (exceedsUint256(value)) {
+    if (isAmountOutOfRange(value)) {
       return { amount, denom };
     }
 

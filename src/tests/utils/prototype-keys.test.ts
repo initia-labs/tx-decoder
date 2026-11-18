@@ -237,6 +237,21 @@ describe("mergeBalanceChanges", () => {
       wasmChanges({ ft: { [BOB]: { uinit: UINT256_MAX } } })
     );
   });
+
+  it("skips an amount with an extreme negative exponent", () => {
+    const target = wasmChanges({
+      ft: { [BOB]: { uinit: "5" } },
+      nft: { [BOB]: { [CONTRACT]: { "1": "1" } } }
+    });
+    const source = wasmChanges({
+      ft: { [BOB]: { uinit: "1e-999999999" } },
+      nft: {
+        [BOB]: { [CONTRACT]: { "1": "1e-999999999", "2": "1e999999999" } }
+      }
+    });
+
+    expect(mergeBalanceChanges(target, source)).toEqual(target);
+  });
 });
 
 describe("convertToEvmAmount", () => {
@@ -259,7 +274,7 @@ describe("convertToEvmAmount", () => {
     ).toEqual({ amount: `${UINT256_MAX}000000000000`, denom: "evm/TOKEN" });
   });
 
-  it.each(["1e78", "1e999999999", "-1e999999999"])(
+  it.each(["1e78", "1e999999999", "-1e999999999", "1e-999999999"])(
     "returns %s unconverted",
     async (amount) => {
       expect(
