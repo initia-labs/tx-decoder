@@ -1,3 +1,4 @@
+export * from "./amount";
 export * from "./attach-tx-logs";
 export * from "./coins";
 export * from "./decoder-helpers";

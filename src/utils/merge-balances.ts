@@ -10,19 +10,27 @@ import {
   WasmBalanceChanges
 } from "@/interfaces";
 
-import { getOwnValue } from "./object-keys";
+import { exceedsUint256 } from "./amount";
+import { getOwnValue, isPrototypeKey } from "./object-keys";
 
+// Processors that build results with computed-key literals can produce an own
+// "__proto__" key, so the merge guards outer keys itself. `|| "0"` is kept over
+// `??` because an empty-string amount has always been treated as zero.
 const mergeNestedBalances = (
   target: { [address: string]: FtChange },
   source: { [address: string]: FtChange }
 ): { [address: string]: FtChange } => {
   return produce(target, (draft) => {
     for (const address of Object.keys(source)) {
+      if (isPrototypeKey(address)) continue;
+
       draft[address] ??= {};
 
       for (const key of Object.keys(source[address])) {
         const existingAmount = big(getOwnValue(draft[address], key) || "0");
         const newAmount = big(source[address][key]);
+        if (exceedsUint256(newAmount)) continue;
+
         const result = existingAmount.plus(newAmount);
 
         draft[address][key] = result.toFixed(0);
@@ -37,9 +45,13 @@ const mergeNftBalances = (
 ): { [address: string]: NftChange } => {
   return produce(target, (draft) => {
     for (const address of Object.keys(source)) {
+      if (isPrototypeKey(address)) continue;
+
       draft[address] ??= {};
 
       for (const contract of Object.keys(source[address])) {
+        if (isPrototypeKey(contract)) continue;
+
         draft[address][contract] ??= {};
 
         for (const tokenId of Object.keys(source[address][contract])) {

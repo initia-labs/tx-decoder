@@ -1,9 +1,8 @@
-// Event attribute values are chosen by whoever emits the event. Using one of these
-// names as a key on a plain object reads or writes Object.prototype instead of
-// an own property, so callers must reject them before indexing.
-const PROTOTYPE_KEYS = new Set(["__proto__", "constructor", "prototype"]);
-
-export const isPrototypeKey = (key: string): boolean => PROTOTYPE_KEYS.has(key);
+// Event attribute values are chosen by whoever emits the event. A name that plain
+// objects inherit (__proto__, constructor, toString, ...) resolves to a shared
+// built-in instead of a missing entry, so the nested write that follows would
+// mutate global state. Real addresses and contract ids never match these names.
+export const isPrototypeKey = (key: string): boolean => key in Object.prototype;
 
 // Object.hasOwn is ES2022 and the build targets ES2020.
 export const getOwnValue = <T>(

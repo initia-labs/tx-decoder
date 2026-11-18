@@ -4,7 +4,7 @@ import { ApiClient } from "@/api";
 import { createDefaultWasmBalanceChanges } from "@/constants";
 import { WasmEventProcessor } from "@/interfaces";
 import { Event } from "@/schema";
-import { parseCoins } from "@/utils";
+import { isPrototypeKey, parseCoins } from "@/utils";
 
 export const transferEventProcessor: WasmEventProcessor = {
   check: (event: Event) => event.type === "transfer",
@@ -34,6 +34,10 @@ export const transferEventProcessor: WasmEventProcessor = {
 
       if (coins.length === 0) {
         throw new Error("No coins found in transfer event");
+      }
+
+      if ([recipient, sender].some(isPrototypeKey)) {
+        throw new Error("Transfer event has a reserved object key as address");
       }
 
       return produce(createDefaultWasmBalanceChanges(), (draft) => {

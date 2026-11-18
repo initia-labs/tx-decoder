@@ -7,7 +7,7 @@ import type {
 } from "@/schema";
 
 import { DecoderConfig } from "@/interfaces";
-import { getEvmDenom } from "@/utils";
+import { exceedsUint256, getEvmDenom } from "@/utils";
 
 import { CacheService } from "./services/cache";
 import { CosmosClient } from "./services/cosmos";
@@ -18,8 +18,6 @@ import { MstakingClient } from "./services/mstaking";
 import { RegistryService } from "./services/registry";
 
 const EVM_AMOUNT_MULTIPLIER = big(10).pow(12);
-// uint256 max is about 1.16e77.
-const MAX_UINT256_EXPONENT = 77;
 
 export class ApiClient {
   public get jsonRpcUrl(): string {
@@ -80,9 +78,7 @@ export class ApiClient {
     denom: string;
   }): Promise<{ amount: string; denom: string }> {
     const value = big(amount);
-    // big.js accepts unbounded exponents such as "1e999999999", and toFixed(0) then
-    // allocates every digit. Any amount above uint256 is not a real token amount.
-    if (value.e > MAX_UINT256_EXPONENT) {
+    if (exceedsUint256(value)) {
       return { amount, denom };
     }
 

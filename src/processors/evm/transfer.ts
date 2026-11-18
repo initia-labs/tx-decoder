@@ -63,7 +63,8 @@ export const evmTransferEventProcessor: EvmEventProcessor = {
     try {
       const contractAddress = evmLog.address;
 
-      // decodeEthereumTransaction validates log.address only as a string.
+      // Ethereum RPC logs validate address only as a string (unlike zEvmLog's hex
+      // check), so it can be a prototype key once used as a balance map key.
       if (isPrototypeKey(contractAddress)) {
         return createDefaultEvmBalanceChanges();
       }
