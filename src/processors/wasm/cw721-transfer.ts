@@ -4,6 +4,7 @@ import { ApiClient } from "@/api";
 import { createDefaultWasmBalanceChanges } from "@/constants";
 import { WasmEventProcessor } from "@/interfaces";
 import { Event } from "@/schema";
+import { isPrototypeKey } from "@/utils";
 
 /**
  * Processor for CW-721 NFT transfers
@@ -43,6 +44,10 @@ export const cw721TransferProcessor: WasmEventProcessor = {
       const from = fromAttr.value;
       const to = toAttr.value;
       const tokenId = tokenIdAttr.value;
+
+      if ([contract, from, to].some(isPrototypeKey)) {
+        return createDefaultWasmBalanceChanges();
+      }
 
       return produce(createDefaultWasmBalanceChanges(), (draft) => {
         const isSelfTransfer = from === to;

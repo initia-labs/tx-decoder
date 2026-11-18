@@ -4,6 +4,7 @@ import { ApiClient } from "@/api";
 import { createDefaultWasmBalanceChanges } from "@/constants";
 import { WasmEventProcessor } from "@/interfaces";
 import { Event } from "@/schema";
+import { isPrototypeKey } from "@/utils";
 
 /**
  * Processor for CW-721 NFT minting
@@ -37,6 +38,10 @@ export const cw721MintProcessor: WasmEventProcessor = {
       const contract = contractAttr.value;
       const owner = ownerAttr.value;
       const tokenId = tokenIdAttr.value;
+
+      if ([contract, owner].some(isPrototypeKey)) {
+        return createDefaultWasmBalanceChanges();
+      }
 
       return produce(createDefaultWasmBalanceChanges(), (draft) => {
         // For mint: owner gains the NFT
