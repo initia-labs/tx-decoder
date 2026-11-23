@@ -10,7 +10,7 @@ import {
   WasmBalanceChanges
 } from "@/interfaces";
 
-import { isAmountOutOfRange } from "./amount";
+import { hasExtremeExponent } from "./amount";
 import { getOwnValue, isPrototypeKey } from "./object-keys";
 
 // Processors that build results with computed-key literals can produce an own
@@ -29,7 +29,7 @@ const mergeNestedBalances = (
       for (const key of Object.keys(source[address])) {
         const existingAmount = big(getOwnValue(draft[address], key) || "0");
         const newAmount = big(source[address][key]);
-        if (isAmountOutOfRange(newAmount)) continue;
+        if (hasExtremeExponent(newAmount)) continue;
 
         const result = existingAmount.plus(newAmount);
 
@@ -59,7 +59,7 @@ const mergeNftBalances = (
             getOwnValue(draft[address][contract], tokenId) || "0"
           );
           const newAmount = big(source[address][contract][tokenId]);
-          if (isAmountOutOfRange(newAmount)) continue;
+          if (hasExtremeExponent(newAmount)) continue;
 
           const result = existingAmount.plus(newAmount);
 

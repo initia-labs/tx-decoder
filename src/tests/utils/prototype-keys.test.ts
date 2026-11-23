@@ -68,8 +68,13 @@ afterEach(() => {
 });
 
 describe("wasm processors with prototype keys", () => {
-  const cw20Transfer = { from: ALICE, to: BOB };
-  const cw721Transfer = { recipient: BOB, sender: ALICE };
+  const cw20Transfer = { _contract_address: CONTRACT, from: ALICE, to: BOB };
+  const cw721Mint = { _contract_address: CONTRACT, owner: BOB };
+  const cw721Transfer = {
+    _contract_address: CONTRACT,
+    recipient: BOB,
+    sender: ALICE
+  };
   const bankTransfer = { recipient: BOB, sender: ALICE };
 
   it.each(
@@ -80,7 +85,6 @@ describe("wasm processors with prototype keys", () => {
     const changes = await cw20TransferProcessor.process(
       wasmEvent("wasm", {
         ...cw20Transfer,
-        _contract_address: CONTRACT,
         action: "transfer",
         amount: "1000",
         [field]: key
@@ -92,12 +96,16 @@ describe("wasm processors with prototype keys", () => {
     expect(changes).toEqual(EMPTY_WASM_CHANGES);
   });
 
-  it.each(PROTOTYPE_KEYS)("CW-721 mint ignores owner=%s", async (key) => {
+  it.each(
+    Object.keys(cw721Mint).flatMap((field) =>
+      PROTOTYPE_KEYS.map((key) => [field, key])
+    )
+  )("CW-721 mint ignores %s=%s", async (field, key) => {
     const changes = await cw721MintProcessor.process(
       wasmEvent("wasm", {
-        _contract_address: CONTRACT,
+        ...cw721Mint,
         action: "mint",
-        owner: key,
+        [field]: key,
         token_id: "1"
       }),
       [],
@@ -115,7 +123,6 @@ describe("wasm processors with prototype keys", () => {
     const changes = await cw721TransferProcessor.process(
       wasmEvent("wasm", {
         ...cw721Transfer,
-        _contract_address: CONTRACT,
         action: "transfer_nft",
         [field]: key,
         token_id: "1"
@@ -224,6 +231,22 @@ describe("mergeBalanceChanges", () => {
     );
   });
 
+  // An own "__proto__" leaf is assigned through the inherited setter, which
+  // ignores strings. The entry is dropped and nothing is polluted.
+  it("drops an own __proto__ denom or token id", () => {
+    const source = wasmChanges({
+      ft: JSON.parse(`{"${BOB}":{"__proto__":"1","uinit":"1"}}`),
+      nft: JSON.parse(`{"${BOB}":{"${CONTRACT}":{"__proto__":"1","1":"1"}}}`)
+    });
+
+    expect(mergeBalanceChanges(wasmChanges({}), source)).toEqual(
+      wasmChanges({
+        ft: { [BOB]: { uinit: "1" } },
+        nft: { [BOB]: { [CONTRACT]: { "1": "1" } } }
+      })
+    );
+  });
+
   it("keeps a subtotal above uint256 across both merge levels", () => {
     const event = (amount: string) =>
       wasmChanges({ ft: { [BOB]: { uinit: amount } } });
@@ -289,12 +312,24 @@ describe("convertToEvmAmount", () => {
     ).toEqual({ amount: `${UINT256_MAX}000000000000`, denom: "evm/TOKEN" });
   });
 
-  it.each(["1e1001", "1e999999999", "-1e999999999", "1e-999999999"])(
-    "returns %s unconverted",
-    async (amount) => {
-      expect(
-        await apiClient.convertToEvmAmount({ amount, denom: "uinit" })
-      ).toEqual({ amount, denom: "uinit" });
-    }
-  );
+  // The bound applies to the converted amount: 1e988 becomes 1e1000 (allowed)
+  // and 1e989 becomes 1e1001 (returned unconverted).
+  it("converts an amount whose converted exponent is exactly 1000", async () => {
+    expect(
+      await apiClient.convertToEvmAmount({ amount: "1e988", denom: "uinit" })
+    ).toEqual({ amount: `1${"0".repeat(1000)}`, denom: "evm/TOKEN" });
+  });
+
+  it.each([
+    "1e989",
+    "1e995",
+    "1e1001",
+    "1e999999999",
+    "-1e999999999",
+    "1e-999999999"
+  ])("returns %s unconverted", async (amount) => {
+    expect(
+      await apiClient.convertToEvmAmount({ amount, denom: "uinit" })
+    ).toEqual({ amount, denom: "uinit" });
+  });
 });

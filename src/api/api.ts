@@ -7,7 +7,7 @@ import type {
 } from "@/schema";
 
 import { DecoderConfig } from "@/interfaces";
-import { getEvmDenom, isAmountOutOfRange } from "@/utils";
+import { getEvmDenom, hasExtremeExponent } from "@/utils";
 
 import { CacheService } from "./services/cache";
 import { CosmosClient } from "./services/cosmos";
@@ -77,12 +77,14 @@ export class ApiClient {
     amount: string;
     denom: string;
   }): Promise<{ amount: string; denom: string }> {
-    const value = big(amount);
-    if (isAmountOutOfRange(value)) {
+    // Checked after the multiply so the converted amount is never one that
+    // mergeBalanceChanges would skip.
+    const converted = big(amount).mul(EVM_AMOUNT_MULTIPLIER);
+    if (hasExtremeExponent(converted)) {
       return { amount, denom };
     }
 
-    const convertedAmount = value.mul(EVM_AMOUNT_MULTIPLIER).toFixed(0);
+    const convertedAmount = converted.toFixed(0);
     try {
       const evmDenom = await this.cacheService.getOrFetch(
         `evm-denom:${denom}`,

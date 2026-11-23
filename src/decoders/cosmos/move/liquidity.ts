@@ -21,7 +21,7 @@ import {
   zProvideEvent,
   zWithdrawDelegationEvent
 } from "@/schema";
-import { findAllMoveEvents, findMoveEvent } from "@/utils";
+import { findAllMoveEvents, findMoveEvent, hasExtremeExponent } from "@/utils";
 
 export const depositLiquidityDecoder: MessageDecoder = {
   check: (message: Message, _log: Log) =>
@@ -563,6 +563,14 @@ export const mergeLiquidityDecoder: MessageDecoder = {
       amount: event.locked_share,
       initialReleaseTimestamp: event.release_time
     }));
+
+    if (
+      withdrawDelegationEvents.some((event) =>
+        hasExtremeExponent(big(event.locked_share))
+      )
+    ) {
+      throw new Error("WithdrawDelegationEvent locked_share is out of range");
+    }
 
     const mergedLiquidity = withdrawDelegationEvents.reduce(
       (acc, event) => big(acc).plus(event.locked_share).toFixed(0),

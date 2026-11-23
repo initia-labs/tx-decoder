@@ -7,5 +7,5 @@ import { Big } from "big.js";
 // balances are never skipped.
 const MAX_EXPONENT = 1000;
 
-export const isAmountOutOfRange = (value: Big): boolean =>
+export const hasExtremeExponent = (value: Big): boolean =>
   Math.abs(value.e) > MAX_EXPONENT;
