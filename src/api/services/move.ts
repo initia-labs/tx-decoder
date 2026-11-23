@@ -37,7 +37,7 @@ export class MoveClient extends BaseClient {
   ): Promise<string | null> {
     try {
       const result = await this.fetchWithCache(
-        `/initia/move/v1/denom?metadata=${metadataAddr}`,
+        `/initia/move/v1/denom?metadata=${encodeURIComponent(metadataAddr)}`,
         zDenomResponse
       );
 

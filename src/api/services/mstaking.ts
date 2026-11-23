@@ -6,7 +6,7 @@ export class MstakingClient extends BaseClient {
   public async findValidator(validatorAddress: string) {
     try {
       const result = await this.fetchWithCache(
-        `/initia/mstaking/v1/validators/${validatorAddress}`,
+        `/initia/mstaking/v1/validators/${encodeURIComponent(validatorAddress)}`,
         schema.zValidatorResponse
       );
       return result.validator;

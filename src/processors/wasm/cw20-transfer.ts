@@ -45,6 +45,13 @@ export const cw20TransferProcessor: WasmEventProcessor = {
         return createDefaultWasmBalanceChanges();
       }
 
+      // check() matches any wasm event with action="transfer". A non-CW-20
+      // contract can emit an amount like "100uinit", which would make the
+      // balance merge throw and fail the whole tx.
+      if (!/^\d+$/.test(amount)) {
+        return createDefaultWasmBalanceChanges();
+      }
+
       return produce(createDefaultWasmBalanceChanges(), (draft) => {
         const isSelfTransfer = from === to;
 

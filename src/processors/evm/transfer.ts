@@ -21,6 +21,13 @@ function processNftTransfer(
   const { from, to, tokenId } = validated;
   const tokenIdStr = tokenId.toString();
 
+  if (from === to) {
+    draft.nft[from] ??= {};
+    draft.nft[from][contractAddress] ??= {};
+    draft.nft[from][contractAddress][tokenIdStr] = "0";
+    return;
+  }
+
   if (from) {
     draft.nft[from] ??= {};
     draft.nft[from][contractAddress] ??= {};
