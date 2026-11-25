@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.14.2](https://github.com/initia-labs/tx-decoder/compare/v0.14.1...v0.14.2) (2026-11-25)
+
+
+### Bug Fixes
+
+* guard balance maps against inherited keys and unbounded amounts ([#121](https://github.com/initia-labs/tx-decoder/issues/121)) ([47fca1d](https://github.com/initia-labs/tx-decoder/commit/47fca1defbe56a7f4bf94aeb6797f24c9f34a0e3))
+
 ## [0.14.1](https://github.com/initia-labs/tx-decoder/compare/v0.14.0...v0.14.1) (2026-11-02)
 
 
