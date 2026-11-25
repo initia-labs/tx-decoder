@@ -60,12 +60,14 @@ export const zVoteEvent = zJsonString.pipe(
   z.object({
     account: z.string(),
     cycle: z.string(),
-    max_voting_power: z.string(),
+    // The decoder multiplies weight by max_voting_power, and big.js mul time grows
+    // with the square of the digit count. Real values are well under 100 characters.
+    max_voting_power: z.string().max(100),
     voting_power: z.string(),
     weights: z.array(
       z.object({
         bridge_id: z.string(),
-        weight: z.string()
+        weight: z.string().max(100)
       })
     )
   })

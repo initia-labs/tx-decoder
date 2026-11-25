@@ -10,7 +10,7 @@ import {
 import { createDefaultEvmBalanceChanges } from "@/constants";
 import { EvmBalanceChanges, EvmEventProcessor } from "@/interfaces";
 import { zEvmNftTransferEventLog, zEvmTransferEventLog } from "@/schema";
-import { getEvmDenom } from "@/utils";
+import { getEvmDenom, isPrototypeKey } from "@/utils";
 
 function processNftTransfer(
   draft: EvmBalanceChanges,
@@ -20,6 +20,13 @@ function processNftTransfer(
   const validated = zEvmNftTransferEventLog.parse(decodedArgs);
   const { from, to, tokenId } = validated;
   const tokenIdStr = tokenId.toString();
+
+  if (from === to) {
+    draft.nft[from] ??= {};
+    draft.nft[from][contractAddress] ??= {};
+    draft.nft[from][contractAddress][tokenIdStr] = "0";
+    return;
+  }
 
   if (from) {
     draft.nft[from] ??= {};
@@ -62,6 +69,12 @@ export const evmTransferEventProcessor: EvmEventProcessor = {
   async process(evmLog, _apiClient) {
     try {
       const contractAddress = evmLog.address;
+
+      // Ethereum RPC logs validate address only as a string (unlike zEvmLog's hex
+      // check), so it can be a prototype key once used as a balance map key.
+      if (isPrototypeKey(contractAddress)) {
+        return createDefaultEvmBalanceChanges();
+      }
 
       // Detect ERC-721 vs ERC-20 by checking Transfer event log data field
       // ERC-20: Transfer(address indexed from, address indexed to, uint256 value) - has data

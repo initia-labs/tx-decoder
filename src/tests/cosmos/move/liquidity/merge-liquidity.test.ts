@@ -71,6 +71,35 @@ describe("Merge Liquidity Message", () => {
     });
   });
 
+  it("should not decode a merge with an out-of-range locked share", async () => {
+    setupMockApi(mockedAxios, mockApiResponsesForMergeLiquidity);
+    // The withdraw event is the only one with this release time.
+    const withdrawShare =
+      '"release_time":"1754822099","validator":"initvaloper1qx6ghyv83caecuxgl77lvlnha9d9y6fntryc8a","locked_share":"10000"';
+    const tx = JSON.parse(
+      JSON.stringify(mockMsgMergeLiquidity)
+        .split(JSON.stringify(withdrawShare).slice(1, -1))
+        .join(
+          JSON.stringify(
+            withdrawShare.replace('"10000"', '"1e999999999"')
+          ).slice(1, -1)
+        )
+    );
+
+    const consoleError = jest
+      .spyOn(console, "error")
+      .mockImplementation(() => {});
+
+    const decoded = await decoder.decodeCosmosTransaction(tx);
+
+    expect(decoded.messages[0].decodedMessage.action).toBe("not_supported");
+    // Without the guard, big.js fails too, but only after allocating the digits.
+    expect(consoleError).toHaveBeenCalledWith(
+      new Error("WithdrawDelegationEvent locked_share is out of range")
+    );
+    consoleError.mockRestore();
+  });
+
   it("should decode a merge liquidity move message with multiple positions correctly", async () => {
     setupMockApi(
       mockedAxios,

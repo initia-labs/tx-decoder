@@ -22,6 +22,14 @@ export const objectTransferEventProcessor: MoveEventProcessor = {
       const toAddress = InitiaAddress(transferEvent.to).bech32;
       const objectAddress = InitiaAddress(transferEvent.object).bech32;
 
+      if (fromAddress === toAddress) {
+        return {
+          ft: {},
+          object: { [fromAddress]: { [objectAddress]: "0" } },
+          vm: "move"
+        };
+      }
+
       return {
         ft: {},
         object: {

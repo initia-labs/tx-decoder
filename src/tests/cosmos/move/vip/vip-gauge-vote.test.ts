@@ -15,6 +15,39 @@ import {
 jest.mock("axios");
 const decoder = initialize();
 
+const LONG_DIGITS = "9".repeat(30_000);
+
+type VoteEventData = {
+  max_voting_power: string;
+  weights: { bridge_id: string; weight: string }[];
+};
+
+function withVoteEvent(
+  tx: typeof mockMsgVipGaugeVote,
+  edit: (data: VoteEventData) => VoteEventData
+) {
+  const events = tx.events.map((event) => ({
+    ...event,
+    attributes: event.attributes.map((attr) => {
+      if (attr.key !== "data" || !attr.value.includes("max_voting_power"))
+        return attr;
+      return { ...attr, value: JSON.stringify(edit(JSON.parse(attr.value))) };
+    })
+  }));
+  return { ...tx, events };
+}
+
+const oversizedCases: [string, (data: VoteEventData) => VoteEventData][] = [
+  ["max_voting_power", (data) => ({ ...data, max_voting_power: LONG_DIGITS })],
+  [
+    "weight",
+    (data) => ({
+      ...data,
+      weights: data.weights.map((w) => ({ ...w, weight: `0.${LONG_DIGITS}` }))
+    })
+  ]
+];
+
 describe("VIP Gauge Vote Message", () => {
   beforeEach(() => {
     resetMockApi(mockedAxios);
@@ -123,4 +156,21 @@ describe("VIP Gauge Vote Message", () => {
       vm: "move"
     });
   });
+
+  it.each(oversizedCases)(
+    "should not decode a vote event with an oversized %s",
+    async (_field, edit) => {
+      setupMockApi(mockedAxios, mockApiResponsesForVipGaugeVote);
+      const decoded = await decoder.decodeCosmosTransaction(
+        withVoteEvent(mockMsgVipGaugeVote, edit)
+      );
+
+      expect(decoded.messages[0].decodedMessage).toEqual({
+        action: "not_supported",
+        data: { msgType: "/initia.move.v1.MsgExecute" },
+        isIbc: false,
+        isOp: false
+      });
+    }
+  );
 });
